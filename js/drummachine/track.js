@@ -1,4 +1,4 @@
-define([], function() {
+define(['json2'], function() {
   
 	var Track = function( obj )
 	{   
@@ -41,7 +41,7 @@ define([], function() {
 
 	    var load = function( jsonString )
 	    {
-	    	var json = jsonString.toJSON();
+	    	var json = JSON.parse(jsonString);
 	    };
 	    
 	    return {

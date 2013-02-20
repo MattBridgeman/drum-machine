@@ -1,7 +1,8 @@
 require.config({
     paths : {
         jquery : 'libs/jquery/jquery-min',
-        text : 'libs/require/text'
+        text : 'libs/require/text',
+        json2 : 'libs/json2/json2'
     }
 });
 
