@@ -1,4 +1,4 @@
-require([], function() {
+define([], function() {
     //pattern constructor
     var Pattern = function()
     {

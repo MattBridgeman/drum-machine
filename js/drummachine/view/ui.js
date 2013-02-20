@@ -1,4 +1,4 @@
-require([], function() {
+define([], function() {
     var UI = function()
     {
         var ctx,

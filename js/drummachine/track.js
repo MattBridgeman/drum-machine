@@ -1,4 +1,4 @@
-require([], function() {
+define([], function() {
   
 	var Track = function( obj )
 	{   
@@ -38,9 +38,14 @@ require([], function() {
 	        //array of available patterns
 	        patterns = [];
 	    };
+
+	    var load = function( jsonString )
+	    {
+	    	var json = jsonString.toJSON();
+	    };
 	    
 	    return {
-	        
+	        load: load
 	    }
 	};
 

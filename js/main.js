@@ -5,11 +5,11 @@ require.config({
     }
 });
 
-require([ 'require', 'drumachine/track' ], function( require, Track ) {
+require([ 'require', 'js/drummachine/track.js' ], function( require, Track ) {
     //init app here
     (function()
     {
-        var __trackDir    = 'tracks/';
+        var __trackDir    = 'drummachine/tracks/';
         var defaultTrack  = 'default.json';
         var track;
         var init;

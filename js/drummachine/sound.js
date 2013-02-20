@@ -1,4 +1,4 @@
-require([], function() {
+define([], function() {
   	var Sound = function( obj )
     {
        var name = obj.name,
