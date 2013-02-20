@@ -19,4 +19,6 @@ require([], function() {
           getUrl: getUrl
        }
     };
+
+    return Sound;
 });

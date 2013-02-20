@@ -21,4 +21,6 @@ require([], function() {
             render: render   
         }
     };
+
+    return UI;
 });

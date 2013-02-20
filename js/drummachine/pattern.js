@@ -22,4 +22,6 @@ require([], function() {
           getSequence: getSequence
        }
     };
+
+    return Pattern;
 });

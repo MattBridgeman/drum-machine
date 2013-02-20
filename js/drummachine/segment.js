@@ -23,4 +23,6 @@ require([], function()
           getBeatTypes: getBeatTypes
        };
     };
+
+    return Segment;
 });
