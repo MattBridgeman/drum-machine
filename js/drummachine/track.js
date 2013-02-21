@@ -1,11 +1,12 @@
-define(['json2'], function() {
+define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
   
-	var Track = function( obj )
+	var Track = function()
 	{   
-	    var config,
-	        sequenceModel,
+	    var meta,
+	        sequences,
 	        selectedSequence,
-	        patterns;
+	        patterns,
+	        selectedPattern;
 	    
 	    //object of available beats
 	    var beats =
@@ -16,36 +17,68 @@ define(['json2'], function() {
 	       }
 	    };
 	    
-	    var createPattern = function()
+	    var createPattern = function( pattern )
 	    {
-	         patterns.push( new Pattern() );  
+	        patterns.push( new Pattern( pattern ) ); 
+	    };
+
+	    var setPatterns = function( newPatterns )
+	    {
+	    	for( var i = 0; i < newPatterns.length; i++ )
+	    	{
+	    		var pattern = newPatterns[i];
+	    		createPattern( pattern ); 
+	    	}
+	    };
+
+	    var getPatterns = function()
+	    {
+	    	return patterns;
+	    };
+
+	    var setSequences = function( newSequences )
+	    {
+	    	sequences = newSequences;
+	    };
+
+	    var setMeta = function( newMeta )
+	    {
+	    	meta = newMeta;
+	    };
+	    
+	    var getMeta = function()
+	    {
+	    	return meta;
 	    };
 	    
 	    var init = function()
 	    {
-	         //global app settings
-	        config = obj.config || 
-	        {
-	           tempo: 120,
-	           beatsPerBar: 4,
-	           segments: 16
-	        };
-	        
+	    	meta = {};
 	        //array of pattern indexes
-	        sequenceModel = [];
+	        sequences = [];
 	        selectedSequence = 0;
 	        
 	        //array of available patterns
 	        patterns = [];
+	        selectedPattern = 0;
 	    };
 
 	    var load = function( jsonString )
 	    {
 	    	var json = JSON.parse(jsonString);
+
+	    	setMeta( json.meta );
+	    	setPatterns( json.patterns );
+	    	setSequences( json.sequences );
+
+	    	debugger;
 	    };
+
+	    init();
 	    
 	    return {
-	        load: load
+	        load: load,
+	        getMeta: getMeta
 	    }
 	};
 

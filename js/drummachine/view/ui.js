@@ -2,15 +2,18 @@ define([], function() {
     var UI = function()
     {
         var ctx,
-            data;
+            track;
+
         var setCtx = function( newCtx )
         {
-              ctx = newCtx;
+            ctx = document.querySelectorAll(newCtx);
         };
-        var setData = function( newData )
+
+        var setTrack = function( newTrack )
         {
-              data = newData;
+            track = newTrack;
         };
+
         var render = function( ctx, data )
         {
             setCtx( ctx );
@@ -18,7 +21,9 @@ define([], function() {
         };
         
         return {
-            render: render   
+            render: render,
+            setCtx: setCtx,
+            setTrack: setTrack  
         }
     };
 

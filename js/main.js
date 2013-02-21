@@ -6,14 +6,16 @@ require.config({
     }
 });
 
-require([ 'require', 'js/drummachine/track.js' ], function( require, Track ) {
+require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js' ], function( require, Track, UI ) {
     //init app here
     (function()
     {
         var __trackDir    = 'drummachine/tracks/';
         var defaultTrack  = 'default.json';
+        var ctx           = '#canvas';
         var track;
         var init;
+        var ui;
 
         var loadTrack = function( trackName )
         {
@@ -25,9 +27,17 @@ require([ 'require', 'js/drummachine/track.js' ], function( require, Track ) {
             });
         };
 
+        var initUI = function()
+        {
+            ui = new UI();
+            ui.setTrack( track );
+            ui.setCtx( ctx )
+        };
+
         var init = function()
         {
             loadTrack( defaultTrack );
+            initUI();
         };
 
         init();

@@ -1,25 +1,29 @@
-define([], function() {
+define([ 'drummachine/beattype' ], function( BeatType ) {
     //pattern constructor
-    var Pattern = function()
+    var Pattern = function( newBeatTypes )
     {
        //contains objects of 
-       var sequence = [];
+       var beatTypes = [];
     
-       var setSequence = function()
+       var getBeatTypes = function()
        {
-         	for( var i = 0; i < config.segments; i++ )
+          return beatTypes;
+       };
+
+       var setBeatTypes = function( newBeatTypes )
+       {
+         	for( var i = 0; i < newBeatTypes.length; i++ )
         	{
-	            var segment = new Segment();
-	            sequence.push( segment );
+              var bt = newBeatTypes[i];
+	            var beatType = new BeatType( bt );
+	            beatTypes.push( beatType );
         	};
        };
-       var getSequence = function()
-       {
-          return sequence;
-       };
-       setSequence();
+
+       setBeatTypes( newBeatTypes );
+       
        return {
-          getSequence: getSequence
+          getBeatTypes: getBeatTypes
        }
     };
 
