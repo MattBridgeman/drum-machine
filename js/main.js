@@ -6,7 +6,7 @@ require.config({
     }
 });
 
-require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js' ], function( require, Track, UI ) {
+require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js/drummachine/controller/track.js' ], function( require, Track, UI, Controller ) {
     //init app here
     (function()
     {
@@ -16,6 +16,7 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js' ], f
         var track;
         var init;
         var ui;
+        var controller;
 
         var loadTrack = function( trackName )
         {
@@ -34,10 +35,16 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js' ], f
             ui.setCtx( ctx )
         };
 
+        var initController = function()
+        {
+            controller = new Controller( track, ui );
+        };
+
         var init = function()
         {
             loadTrack( defaultTrack );
             initUI();
+            initController();
         };
 
         init();

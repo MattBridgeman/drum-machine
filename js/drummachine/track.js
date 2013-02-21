@@ -8,15 +8,6 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	        patterns,
 	        selectedPattern;
 	    
-	    //object of available beats
-	    var beats =
-	    {
-	       kd:
-	       {
-	          url: 'kd.wav'
-	       }
-	    };
-	    
 	    var createPattern = function( pattern )
 	    {
 	        patterns.push( new Pattern( pattern ) ); 
@@ -70,15 +61,14 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	    	setMeta( json.meta );
 	    	setPatterns( json.patterns );
 	    	setSequences( json.sequences );
-
-	    	debugger;
 	    };
 
 	    init();
 	    
 	    return {
 	        load: load,
-	        getMeta: getMeta
+	        getMeta: getMeta,
+	        getPatterns: getPatterns
 	    }
 	};
 

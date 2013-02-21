@@ -1,12 +1,17 @@
-define([], function() {
+define(['jquery'], function( $ ) {
     var UI = function()
     {
         var ctx,
             track;
 
+        var getCtx = function()
+        {
+            return ctx;
+        };
+
         var setCtx = function( newCtx )
         {
-            ctx = document.querySelectorAll(newCtx);
+            ctx = $(newCtx);
         };
 
         var setTrack = function( newTrack )
@@ -23,6 +28,7 @@ define([], function() {
         return {
             render: render,
             setCtx: setCtx,
+            getCtx: getCtx,
             setTrack: setTrack  
         }
     };
