@@ -1,0 +1,33 @@
+.segments {
+    padding: 10px;
+    .beat {
+        float:left;
+        .currentBeat {
+            width: 4px;
+            height: 4px;
+            margin: 3px 7px;
+            background: darkred;
+            &.on {
+                background: red;
+            }
+        }
+        .button{
+            padding: 3px;
+            border: 1px solid black;
+            margin: 3px;
+            .light {
+                width: 4px;
+                height: 4px;
+                background: grey;
+                margin: 2px auto;
+                display:block;
+                &.hard {
+                    background: red;
+                }
+                &.soft {
+                    background: orange;
+                }
+            }
+        }
+    }
+}
