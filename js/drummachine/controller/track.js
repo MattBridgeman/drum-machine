@@ -1,16 +1,10 @@
 define([], function() {
   	
-	var Controller = function( newTrack, newUI )
+	var Controller = function( newUI )
 	{ 
 		var setUpEvents,
             handleSegment,
-            track,
             ui;
-
-        var setTrack = function( newTrack )
-        {
-            track = newTrack;
-        };
 
         var setUI = function( newUI )
         {
@@ -28,14 +22,13 @@ define([], function() {
             $(window).trigger('ui:button:segment', { index: index } );
         };
 
-        var init = function( newTrack, newUI )
+        var init = function( newUI )
         {
-        	setTrack( newTrack );
         	setUI( newUI );
         	setUpEvents();
         };
 
-        init( newTrack, newUI );
+        init( newUI );
 	};
 
 	return Controller;

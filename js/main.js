@@ -37,7 +37,7 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
 
         var initController = function()
         {
-            controller = new Controller( track, ui );
+            controller = new Controller( ui );
         };
 
         var init = function()
