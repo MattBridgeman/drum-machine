@@ -6,7 +6,7 @@ require.config({
     }
 });
 
-require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js/drummachine/controller/track.js' ], function( require, Track, UI, Controller ) {
+require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js/drummachine/controller/controller.js' ], function( require, Track, UI, Controller ) {
     //init app here
     (function()
     {
