@@ -6,7 +6,8 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	        sequences,
 	        selectedSequence,
 	        patterns,
-	        selectedPattern;
+	        selectedPattern,
+	        setUpEvents;
 	    
 	    var createPattern = function( pattern )
 	    {
@@ -41,6 +42,26 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	    {
 	    	return meta;
 	    };
+
+	    var getSelectedSequence = function()
+	    {
+	    	return sequences[selectedSequence];
+	    };
+
+	    var getSelectedPattern = function()
+	    {
+	    	return patterns[selectedPattern];
+	    };
+
+	    var handleSegment = function( e, data )
+	    {
+	    	
+	    };
+
+	    var setUpEvents = function()
+	    {
+	    	$(window).on( 'ui:button:segment', handleSegment );
+	    };
 	    
 	    var init = function()
 	    {
@@ -61,6 +82,7 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	    	setMeta( json.meta );
 	    	setPatterns( json.patterns );
 	    	setSequences( json.sequences );
+	    	setUpEvents();
 	    };
 
 	    init();
