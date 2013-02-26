@@ -1,0 +1,12 @@
+{
+	"root": "sounds/",
+	"beatTypes": [
+		{
+			"name": "kd",
+			"urls": {
+				"hard": "kd.hard.wav",
+				"soft": "kd.soft.wav"
+			}
+		}
+	]
+}
