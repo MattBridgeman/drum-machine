@@ -1,6 +1,6 @@
 var connect 	= require('connect'),
-	__dirname 	= '/Users/katemoore/Documents/matt/bitbucket/drum-machine/',
-	// __dirname 	= '/Users/Matt/website/matt-bridgeman-site/',
+	// __dirname 	= '/Users/katemoore/Documents/matt/bitbucket/drum-machine/',
+	__dirname 	= '/Users/Matt/website/drum-machine/',
 	port 		= 8080;
 
 connect.createServer(
