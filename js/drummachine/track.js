@@ -67,6 +67,8 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	    	var btIdx = getSelectedBeatType();
 
 	    	pattern.getBeatTypes()[btIdx].incrementSegment(segmentIdx);
+
+	    	$(window).trigger( 'model:segment:update' );
 	    };
 
 	    var setUpEvents = function()

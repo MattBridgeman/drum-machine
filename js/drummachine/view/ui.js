@@ -2,7 +2,9 @@ define(['jquery'], function( $ ) {
     var UI = function()
     {
         var ctx,
-            track;
+            track,
+            setUpEvents,
+            renderSegment;
 
         var getCtx = function()
         {
@@ -19,6 +21,18 @@ define(['jquery'], function( $ ) {
             track = newTrack;
         };
 
+        var setUpEvents = function()
+        {
+            $(window).on( 'model:segment:update', renderSegment );
+        };
+
+        var renderSegment = function( e, data )
+        {
+            var pattern = getSelectedPattern();
+            var btIdx = getSelectedBeatType();
+            var segements = pattern.getBeatTypes()[btIdx].setSegments();
+        };
+
         var render = function( ctx, data )
         {
             setCtx( ctx );
@@ -26,7 +40,6 @@ define(['jquery'], function( $ ) {
         };
         
         return {
-            render: render,
             setCtx: setCtx,
             getCtx: getCtx,
             setTrack: setTrack  
