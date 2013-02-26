@@ -25,6 +25,16 @@ define([], function() {
 			segments = newSegements;
 		};
 
+		var incrementSegment = function( segmentIdx )
+		{
+			var segment = ++getSegements()[segmentIdx];
+
+			if( segment > 2 )
+			{
+				getSegements()[segmentIdx] = 0;
+			}
+		};
+
 		var init = function()
 		{
 			name = "";
@@ -43,7 +53,8 @@ define([], function() {
 
 		return {
 			getName: getName,
-			getSegements: getSegements
+			getSegements: getSegements,
+			incrementSegment: incrementSegment
 		}
 	};
 

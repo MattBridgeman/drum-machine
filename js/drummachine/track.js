@@ -1,4 +1,4 @@
-define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
+define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], function( JSON2, Pattern, BeatTypes ) {
   
 	var Track = function()
 	{   
@@ -7,6 +7,8 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	        selectedSequence,
 	        patterns,
 	        selectedPattern,
+	        beatTypes,
+	        selectedBeatType,
 	        setUpEvents;
 	    
 	    var createPattern = function( pattern )
@@ -53,9 +55,18 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	    	return patterns[selectedPattern];
 	    };
 
+	    var getSelectedBeatType = function()
+	    {
+	    	return selectedBeatType;
+	    };
+
 	    var handleSegment = function( e, data )
 	    {
-	    	
+	    	var segmentIdx = data.index;
+	    	var pattern = getSelectedPattern();
+	    	var btIdx = getSelectedBeatType();
+
+	    	pattern.getBeatTypes()[btIdx].incrementSegment(segmentIdx);
 	    };
 
 	    var setUpEvents = function()
@@ -73,6 +84,10 @@ define([ 'json2', 'js/drummachine/pattern.js' ], function( JSON2, Pattern ) {
 	        //array of available patterns
 	        patterns = [];
 	        selectedPattern = 0;
+
+	        //beat types e.g. KD
+	        beatTypes = new BeatTypes();
+	        selectedBeatType = 0;
 	    };
 
 	    var load = function( jsonString )

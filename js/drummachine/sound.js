@@ -1,24 +1,32 @@
 define([], function() {
-  	var Sound = function( obj )
-    {
-       var name = obj.name,
-           settings = obj.settings;
-    
-       var getName = function()
-       {
-          return name;
-       };
-    
-       var getUrl = function()
-       {
-          return settings.url;
-       };
-    
-       return {
-          getName: getName,
-          getUrl: getUrl
-       }
-    };
+	var Sound = function( obj )
+	{
+		var name = obj.name,
+			urls = obj.urls;
 
-    return Sound;
+		var getName = function()
+		{
+			return name;
+		};
+
+		var getUrl = function( index )
+		{
+			switch( index )
+			{
+				case 0:
+					return;
+				case 1:
+					return urls.hard;
+				case 2:
+					return urls.soft;
+			}
+		};
+
+		return {
+			getName: getName,
+			getUrl: getUrl
+		}
+	};
+
+	return Sound;
 });
