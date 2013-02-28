@@ -20,6 +20,7 @@ define([], function() {
             {
                 var index = $(this).index();
                 $(window).trigger('ui:button:segment', { index: index } );
+                $(window).trigger('audio', { index: index } );
             };
 
             var init = function( newUI )
