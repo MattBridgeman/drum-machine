@@ -28,9 +28,19 @@ define(['jquery'], function( $ ) {
 
         var renderSegment = function( e, data )
         {
-            var pattern = getSelectedPattern();
-            var btIdx = getSelectedBeatType();
-            var segements = pattern.getBeatTypes()[btIdx].setSegments();
+            var pattern = track.getSelectedPattern();
+            var btIdx = track.getSelectedBeatType();
+            var segments = pattern.getBeatTypes()[btIdx].getSegements();
+
+            segments.forEach( function( segment, i )
+            {
+               var segmentUI = ctx.find('.beat').eq( i );
+               var className = segment === 1 ? 'hard' : segment === 2 ? 'soft' : '';
+               
+                segmentUI.removeClass( 'soft' ).removeClass( 'hard' );
+
+                segmentUI.addClass( className );
+            } );
         };
 
         var render = function( ctx, data )
@@ -38,6 +48,8 @@ define(['jquery'], function( $ ) {
             setCtx( ctx );
             setData( data );
         };
+
+        setUpEvents();
         
         return {
             setCtx: setCtx,

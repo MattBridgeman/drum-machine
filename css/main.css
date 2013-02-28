@@ -25,9 +25,9 @@
   margin: 2px auto;
   display: block;
 }
-.segments .beat .button .light.hard {
+.segments .beat.hard .light {
   background: red;
 }
-.segments .beat .button .light.soft {
+.segments .beat.soft .light {
   background: orange;
 }

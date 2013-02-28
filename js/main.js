@@ -17,6 +17,7 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
         var init;
         var ui;
         var controller;
+        var setUpEvents;
 
         var loadTrack = function( trackName )
         {
@@ -27,6 +28,14 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
                 track.load( trackJson );
             });
         };
+
+        var setUpEvents = function(){
+            $(window).on('track:loaded', function()
+            {
+                initUI();
+                initController();
+            });
+        }
 
         var initUI = function()
         {
@@ -43,10 +52,9 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
         var init = function()
         {
             loadTrack( defaultTrack );
-            initUI();
-            initController();
         };
 
         init();
+        setUpEvents();
     })();
 });

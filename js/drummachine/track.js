@@ -100,6 +100,7 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	    	setPatterns( json.patterns );
 	    	setSequences( json.sequences );
 	    	setUpEvents();
+	    	$(window).trigger('track:loaded');
 	    };
 
 	    init();
@@ -107,7 +108,10 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	    return {
 	        load: load,
 	        getMeta: getMeta,
-	        getPatterns: getPatterns
+	        getPatterns: getPatterns,
+	        getSelectedSequence: getSelectedSequence,
+	        getSelectedPattern: getSelectedPattern,
+	        getSelectedBeatType: getSelectedBeatType
 	    }
 	};
 

@@ -6,29 +6,29 @@ define([], function() {
                 handleSegment,
                 ui;
 
-        var setUI = function( newUI )
-        {
-            ui = newUI;
-        };
+            var setUI = function( newUI )
+            {
+                ui = newUI;
+            };
 
-        var setUpEvents = function()
-        {
-            ui.getCtx().on( 'click', '.beat', handleSegment );
-        };
+            var setUpEvents = function()
+            {
+                ui.getCtx().on( 'click', '.beat', handleSegment );
+            };
 
-        var handleSegment = function( e )
-        {
-            var index = $(this).index();
-            $(window).trigger('ui:button:segment', { index: index } );
-        };
+            var handleSegment = function( e )
+            {
+                var index = $(this).index();
+                $(window).trigger('ui:button:segment', { index: index } );
+            };
 
-        var init = function( newUI )
-        {
-                setUI( newUI );
-                setUpEvents();
-        };
+            var init = function( newUI )
+            {
+                    setUI( newUI );
+                    setUpEvents();
+            };
 
-        init( newUI );
+            init( newUI );
         };
 
         return Controller;
