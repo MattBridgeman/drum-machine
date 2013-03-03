@@ -6,7 +6,19 @@ require.config({
     }
 });
 
-require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js/drummachine/controller/controller.js', 'js/drummachine/audio/audioloader.js' ], function( require, Track, UI, Controller, AudioLoader ) {
+require([ 
+    'require', 
+    'js/drummachine/track.js', 
+    'js/drummachine/view/ui.js', 
+    'js/drummachine/controller/controller.js', 
+    'js/drummachine/audio/audioloader.js',
+    'js/drummachine/controller/rhythm.js' ], function( 
+        require, 
+        Track, 
+        UI, 
+        Controller, 
+        AudioLoader,
+        Rhythm ) {
     //init app here
     (function()
     {
@@ -17,6 +29,7 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
         var init;
         var ui;
         var controller;
+        var rhythm;
         var audioloader;
         var setUpEvents;
 
@@ -36,14 +49,13 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
                 initUI();
                 initController();
                 initLoader();
+                initRhythm();
             });
         }
 
         var initUI = function()
         {
-            ui = new UI();
-            ui.setTrack( track );
-            ui.setCtx( ctx )
+            ui = new UI( ctx, track );
         };
 
         var initController = function()
@@ -53,7 +65,12 @@ require([ 'require', 'js/drummachine/track.js', 'js/drummachine/view/ui.js', 'js
 
         var initLoader = function()
         {
-            audioLoader = new AudioLoader();
+            audioLoader = new AudioLoader( track );
+        };
+
+        var initRhythm = function()
+        {
+            rhythm = new Rhythm( track );
         };
 
         var init = function()

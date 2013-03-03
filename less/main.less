@@ -1,3 +1,20 @@
+@import 'variables.less';
+@import 'mixins.less';
+
+.playPause {
+    width: 40px;
+    border: 1px solid black;
+    margin: 3px 7px;
+    .light {
+        .light;
+    }
+    &.on {
+        .light {
+            background: red;
+        }
+    }
+}
+
 .segments {
     padding: 10px;
     .beat {
@@ -16,12 +33,7 @@
             border: 1px solid black;
             margin: 3px;
             .light {
-                width: 4px;
-                height: 4px;
-                background: grey;
-                margin: 2px auto;
-                display:block;
-                
+                .light;
             }
         }
         &.hard {

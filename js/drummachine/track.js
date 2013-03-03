@@ -6,10 +6,13 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	        sequences,
 	        selectedSequence,
 	        patterns,
-	        selectedPattern,
 	        beatTypes,
 	        selectedBeatType,
-	        setUpEvents;
+	        segementIndex,
+			songMode,
+			isPlaying,
+	        setUpEvents,
+	        publish;
 	    
 	    var createPattern = function( pattern )
 	    {
@@ -35,6 +38,11 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	    	sequences = newSequences;
 	    };
 
+	    var getSequences = function()
+	    {
+	    	return sequences;
+	    };
+
 	    var setMeta = function( newMeta )
 	    {
 	    	meta = newMeta;
@@ -45,6 +53,26 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	    	return meta;
 	    };
 
+	    var setSegement = function( newSegment )
+	    {
+	    	segementIndex = newSegment;
+	    };
+
+	    var getSegment = function()
+	    {
+	    	return segementIndex;
+	    };
+
+	    var setSelectedSequenceIdx = function( index )
+	    {
+	    	selectedSequence = index;
+	    };
+
+	    var getSelectedSequenceIdx = function()
+	    {
+	    	return selectedSequence;
+	    };
+
 	    var getSelectedSequence = function()
 	    {
 	    	return sequences[selectedSequence];
@@ -52,7 +80,7 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 
 	    var getSelectedPattern = function()
 	    {
-	    	return patterns[selectedPattern];
+	    	return patterns[getSelectedSequence()];
 	    };
 
 	    var getSelectedBeatType = function()
@@ -68,14 +96,94 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 
 	    	pattern.getBeatTypes()[btIdx].incrementSegment(segmentIdx);
 
-	    	$(window).trigger( 'model:segment:update' );
+	    	publish( 'model:segment:update' );
+	    };
+
+	    var handlePlayPause = function( e, data )
+	    {
+	    	setPlaying( !getPlaying() );
+	    };
+
+	    var handleSegmentChange = function( e, data )
+	    {
+	    	var currentSegment = getSegment();
+
+	    	if( ( currentSegment + 1 ) > ( getMeta().segments - 1 ) )
+	    	{
+	    		//increment sequence or loop
+	    		setSegement( 0 );
+
+	    		if( getSongMode().indexOf( 'song' === 0 ) )
+	    		{
+	    			var index = getSelectedSequenceIdx();
+	    			var nextIndex = index + 1;
+
+	    			if( !data || ( data && data.increment === true ) )
+	    			{
+						if( nextIndex > ( getSequences().length - 1 ) )
+						{
+							setSelectedSequenceIdx( 0 );
+
+							if( getSongMode() === 'song:loop' )
+							{
+
+							}
+							else if( getSongMode() === 'song:noloop' )
+							{
+								setPlaying( false );
+							}
+						}
+						else
+						{
+							setSelectedSequenceIdx( nextIndex );
+						}
+	    			}
+	    		}
+	    	}
+	    	else
+	    	{
+	    		if( !data || ( data && data.increment === true ) )
+	    		{
+	    			setSegement( getSegment() + 1 );
+	    		}
+	    	}
+
+	    	publish( 'model:segment:change' );
+	    };
+
+		var setSongMode = function( mode )
+		{
+			songMode = mode;
+		};
+
+		var getSongMode = function( mode )
+		{
+			return songMode;
+		};
+
+		var setPlaying = function( bool )
+		{
+			isPlaying = bool;
+			publish( 'track:' + ( isPlaying ? 'start' : 'stop' ) )
+		};
+
+		var getPlaying = function()
+		{
+			return isPlaying;
+		};
+
+	    var publish = function( string )
+	    {
+	    	$( window ).trigger( string );
 	    };
 
 	    var setUpEvents = function()
 	    {
-	    	$(window).on( 'ui:button:segment', handleSegment );
+	    	$( window ).on( 'ui:button:segment', handleSegment );
+	    	$( window ).on( 'ui:button:playPause', handlePlayPause );
+	    	$( window ).on( 'rhythm:segment:change', handleSegmentChange );
 	    };
-	    
+
 	    var init = function()
 	    {
 	    	meta = {};
@@ -85,11 +193,15 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	        
 	        //array of available patterns
 	        patterns = [];
-	        selectedPattern = 0;
 
 	        //beat types e.g. KD
 	        beatTypes = new BeatTypes();
 	        selectedBeatType = 0;
+
+	        setSegement( 0 );
+
+	        setSongMode( 'loop' );
+	        setPlaying( false );
 	    };
 
 	    var load = function( jsonString )
@@ -109,6 +221,8 @@ define([ 'json2', 'js/drummachine/pattern.js', "js/drummachine/beattypes.js" ], 
 	        load: load,
 	        getMeta: getMeta,
 	        getPatterns: getPatterns,
+	        getPlaying: getPlaying,
+	        getSegment: getSegment,
 	        getSelectedSequence: getSelectedSequence,
 	        getSelectedPattern: getSelectedPattern,
 	        getSelectedBeatType: getSelectedBeatType

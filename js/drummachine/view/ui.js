@@ -1,5 +1,5 @@
 define(['jquery'], function( $ ) {
-    var UI = function()
+    var UI = function( newCtx, newTrack )
     {
         var ctx,
             track,
@@ -45,11 +45,18 @@ define(['jquery'], function( $ ) {
 
         var render = function( ctx, data )
         {
-            setCtx( ctx );
-            setData( data );
+            renderSegment();
         };
 
-        setUpEvents();
+        var init = function()
+        {
+            setUpEvents();
+            setTrack( newTrack );
+            setCtx( newCtx );
+            render();
+        };
+
+        init();
         
         return {
             setCtx: setCtx,

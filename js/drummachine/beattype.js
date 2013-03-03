@@ -25,6 +25,11 @@ define([], function() {
 			segments = newSegements;
 		};
 
+		var getSegment = function( index )
+		{
+			return segments[index];
+		};
+
 		var incrementSegment = function( segmentIdx )
 		{
 			var segment = ++getSegements()[segmentIdx];
@@ -54,6 +59,7 @@ define([], function() {
 		return {
 			getName: getName,
 			getSegements: getSegements,
+			getSegment: getSegment,
 			incrementSegment: incrementSegment
 		}
 	};

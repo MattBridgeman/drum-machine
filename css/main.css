@@ -1,3 +1,18 @@
+.playPause {
+  width: 40px;
+  border: 1px solid black;
+  margin: 3px 7px;
+}
+.playPause .light {
+  width: 4px;
+  height: 4px;
+  background: grey;
+  margin: 2px auto;
+  display: block;
+}
+.playPause.on .light {
+  background: red;
+}
 .segments {
   padding: 10px;
 }
