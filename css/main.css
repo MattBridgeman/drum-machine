@@ -25,9 +25,6 @@
   margin: 3px 7px;
   background: darkred;
 }
-.segments .beat .currentBeat.on {
-  background: red;
-}
 .segments .beat .button {
   padding: 3px;
   border: 1px solid black;
@@ -45,4 +42,7 @@
 }
 .segments .beat.soft .light {
   background: orange;
+}
+.segments .beat.on .currentBeat {
+  background: red;
 }

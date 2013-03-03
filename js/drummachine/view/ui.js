@@ -24,6 +24,7 @@ define(['jquery'], function( $ ) {
         var setUpEvents = function()
         {
             $(window).on( 'model:segment:update', renderSegment );
+            $(window).on( 'model:segment:change', renderSegment );
         };
 
         var renderSegment = function( e, data )
@@ -31,15 +32,24 @@ define(['jquery'], function( $ ) {
             var pattern = track.getSelectedPattern();
             var btIdx = track.getSelectedBeatType();
             var segments = pattern.getBeatTypes()[btIdx].getSegements();
-
+            var segmentIdx = track.getSegment();
             segments.forEach( function( segment, i )
             {
-               var segmentUI = ctx.find('.beat').eq( i );
-               var className = segment === 1 ? 'hard' : segment === 2 ? 'soft' : '';
-               
+                var segmentUI = ctx.find('.beat').eq( i );
+                var className = segment === 1 ? 'hard' : segment === 2 ? 'soft' : '';
+                var selectedClass = 'on';
                 segmentUI.removeClass( 'soft' ).removeClass( 'hard' );
 
                 segmentUI.addClass( className );
+
+                if( segmentIdx === i )
+                {
+                    segmentUI.addClass( selectedClass );
+                }
+                else
+                {
+                    segmentUI.removeClass( selectedClass );
+                }
             } );
         };
 
