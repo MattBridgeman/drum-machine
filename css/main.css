@@ -29,6 +29,11 @@
 .drummachine {
   background: url(../images/bg/noise-f1.gif);
 }
+.drummachine:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
 .playPause {
   float: left;
   width: 24.775000000000002%;
@@ -101,4 +106,9 @@
 .beattype {
   float: left;
   width: 33.13333333333333%;
+}
+.beattype:after {
+  display: table;
+  content: " ";
+  clear: both;
 }
