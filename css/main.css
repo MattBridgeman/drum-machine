@@ -31,7 +31,7 @@
 }
 .playPause {
   float: left;
-  width: 24.175%;
+  width: 24.775000000000002%;
   margin-right: 0.3%;
   height: 60px;
   border: 1px solid black;
@@ -48,13 +48,13 @@
 }
 .meta {
   float: left;
-  width: 48.35%;
+  width: 49.85%;
   margin-right: 0.3%;
   height: 60px;
 }
 .tempo {
   float: left;
-  width: 24.175%;
+  width: 24.775000000000002%;
   height: 60px;
 }
 .tempo:after {
@@ -65,7 +65,7 @@
 .segments {
   padding: 10px;
   float: left;
-  width: 64.46666666666667%;
+  width: 66.56666666666666%;
   margin-right: 0.3%;
 }
 .segments .beat {
@@ -100,5 +100,5 @@
 }
 .beattype {
   float: left;
-  width: 32.233333333333334%;
+  width: 33.13333333333333%;
 }

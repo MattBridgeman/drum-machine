@@ -9,7 +9,7 @@
 
 .width( @number ) {
 	float: left;
-	width: percentage( ( ( ( 100 - ( @gutters * @margin ) ) / @columns ) * @number ) / 100 );
+	width: percentage( ( ( ( ( 100 - ( @gutters * @margin ) ) / @columns ) * @number ) + ( @number - 1 ) * @margin ) / 100 );
 }
 .margin() {
 	margin-right: percentage( @margin / 100 );
