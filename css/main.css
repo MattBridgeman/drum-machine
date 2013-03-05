@@ -1,8 +1,7 @@
 /*.width( @number ) {
 	width: ( percentage( @columns, @number ) - percentage( @columns, ( ( @number - 1 ) * @margin ) ) );
 }
-*/
-body {
+*/body {
   margin: 0;
   padding: 0;
 }
@@ -11,15 +10,31 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.dummyGrid {
+  float: left;
+  width: 8.058333333333334%;
+  margin-right: 0.3%;
+  display: block;
+  height: 30px;
+  background: blue;
+}
+.dummyGrid.last {
+  margin-right: 0;
+}
+.dummyGrid.last:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
 .drummachine {
   background: url(../images/bg/noise-f1.gif);
-  padding: 30px;
 }
 .playPause {
   float: left;
-  width: 19%;
+  width: 24.175%;
+  margin-right: 0.3%;
+  height: 60px;
   border: 1px solid black;
-  margin: 3px 7px;
 }
 .playPause .light {
   width: 4px;
@@ -31,8 +46,27 @@ body {
 .playPause.on .light {
   background: red;
 }
+.meta {
+  float: left;
+  width: 48.35%;
+  margin-right: 0.3%;
+  height: 60px;
+}
+.tempo {
+  float: left;
+  width: 24.175%;
+  height: 60px;
+}
+.tempo:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
 .segments {
   padding: 10px;
+  float: left;
+  width: 64.46666666666667%;
+  margin-right: 0.3%;
 }
 .segments .beat {
   float: left;
@@ -63,4 +97,8 @@ body {
 }
 .segments .beat.on .currentBeat {
   background: red;
+}
+.beattype {
+  float: left;
+  width: 32.233333333333334%;
 }

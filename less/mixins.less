@@ -5,6 +5,22 @@
 	clear: both;
 }
 
+//grid
+
+.width( @number ) {
+	float: left;
+	width: percentage( ( ( ( 100 - ( @gutters * @margin ) ) / @columns ) * @number ) / 100 );
+}
+.margin() {
+	margin-right: percentage( @margin / 100 );
+}
+
+//style
+
+.topRowHeight() {
+	height: @baseline * 6;
+}
+
 .light() {
 	width: 4px;
 	height: 4px;

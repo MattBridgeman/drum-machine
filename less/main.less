@@ -14,15 +14,29 @@ body {
     box-sizing: border-box;
 }
 
+.dummyGrid {
+    .width( 1 );
+    .margin();
+    display: block;
+    height: 30px;
+    background: blue;
+    &.last {
+        margin-right: 0;
+        &:after {
+            .clear-float;
+        }
+    }
+}
+
 .drummachine {
     background: url(../images/bg/noise-f1.gif);
-    padding: (@baseline * 3);
 }
 
 .playPause {
     .width( 3 );
+    .margin();
+    .topRowHeight;
     border: 1px solid black;
-    margin: 3px 7px;
     .light {
         .light;
     }
@@ -33,8 +47,24 @@ body {
     }
 }
 
+.meta {
+    .width( 6 );
+    .margin();
+    .topRowHeight;
+}
+
+.tempo {
+    .width( 3 );
+    .topRowHeight;
+    &:after {
+        .clear-float;
+    }
+}
+
 .segments {
     padding: 10px;
+    .width( 8 );
+    .margin();
     .beat {
         float:left;
         .currentBeat {
@@ -68,4 +98,8 @@ body {
             }
         }
     }
+}
+
+.beattype {
+    .width( 4 );
 }

@@ -1,4 +1,5 @@
 @columns: 12;
+@gutters: @columns - 1;
 @margin: 0.3;
 
 @baseline: 10px;
@@ -7,7 +8,3 @@
 	width: ( percentage( @columns, @number ) - percentage( @columns, ( ( @number - 1 ) * @margin ) ) );
 }
 */
-.width( @number ) {
-	float: left;
-	width: percentage( ( ( ( 1 /  @columns ) * @number ) ) - ( ( @number - 1 ) * ( @margin / 10 ) ) );
-}
