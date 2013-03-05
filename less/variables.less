@@ -1,0 +1,13 @@
+@columns: 12;
+@margin: 0.3;
+
+@baseline: 10px;
+
+/*.width( @number ) {
+	width: ( percentage( @columns, @number ) - percentage( @columns, ( ( @number - 1 ) * @margin ) ) );
+}
+*/
+.width( @number ) {
+	float: left;
+	width: percentage( ( ( ( 1 /  @columns ) * @number ) ) - ( ( @number - 1 ) * ( @margin / 10 ) ) );
+}

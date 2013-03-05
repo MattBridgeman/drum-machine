@@ -1,5 +1,23 @@
+/*.width( @number ) {
+	width: ( percentage( @columns, @number ) - percentage( @columns, ( ( @number - 1 ) * @margin ) ) );
+}
+*/
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.drummachine {
+  background: url(../images/bg/noise-f1.gif);
+  padding: 30px;
+}
 .playPause {
-  width: 40px;
+  float: left;
+  width: 19%;
   border: 1px solid black;
   margin: 3px 7px;
 }
