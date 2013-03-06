@@ -31,8 +31,7 @@
   height: 60px;
 }
 .playPause .button {
-  border: 1px solid #3b3a43;
-  background: #232228;
+  border: 1px solid #7d7f84;
   color: #ffffff;
 }
 .playPause .button .light {
@@ -78,7 +77,7 @@
 }
 .segments .beat .button {
   padding: 3px;
-  border: 1px solid black;
+  border: 1px solid #7d7f84;
   margin: 3px;
 }
 .segments .beat .button .light {
