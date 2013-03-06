@@ -22,7 +22,7 @@ body {
 
 .drummachine {
     padding: ( @baseline * 2 );
-    background: @colourLight2;
+    background: @colourLight3;
     &:after {
         .clear-float;
     }
@@ -32,9 +32,13 @@ body {
     .width( 3 );
     .margin();
     .button {
-        border: 1px solid @colourDark3;
         color: @colourLight1;
+        background: @colourLight2;
+        padding: @baseline;
+        border: 1px solid @colourMid2;
+        .drop-shadow( 0, 2px, 1px, 0.3 );
         .topRowHeight;
+        text-align: center;
         .light {
             .light;
         }
