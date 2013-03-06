@@ -32,11 +32,12 @@ body {
     .width( 3 );
     .margin();
     .button {
-        color: @colourLight1;
+        color: @colourDark4;
         background: @colourLight2;
         padding: @baseline;
         border: 1px solid @colourMid2;
-        .drop-shadow( 0, 2px, 1px, 0.3 );
+        .drop-shadow( 0, 2px, 1px, 0.1 );
+        .box-shadow( inset 0px 1px 0 0px @colourLight1 );
         .topRowHeight;
         text-align: center;
         .light {
