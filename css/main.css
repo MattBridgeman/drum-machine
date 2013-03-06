@@ -28,11 +28,11 @@
   float: left;
   width: 24.775000000000002%;
   margin-right: 0.3%;
-  height: 60px;
 }
 .playPause .button {
   border: 1px solid #3b3a43;
   color: #ffffff;
+  height: 60px;
 }
 .playPause .button .light {
   width: 4px;
@@ -50,6 +50,11 @@
   margin-right: 0.3%;
   height: 60px;
   background: #232228;
+  padding: 10px;
+}
+.meta .display {
+  background: #838B7C;
+  color: #3b3a43;
 }
 .tempo {
   float: left;
