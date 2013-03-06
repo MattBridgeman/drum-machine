@@ -6,6 +6,7 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: helvetica, arial, sans-serif;
 }
 
 * {
@@ -14,8 +15,14 @@ body {
     box-sizing: border-box;
 }
 
+.wrapper {
+    width: @width;
+    margin: ( @baseline * 3 ) auto;
+}
+
 .drummachine {
-    background: url(../images/bg/noise-f1.gif);
+    padding: ( @baseline * 3 );
+    background: @colourLight2;
     &:after {
         .clear-float;
     }
@@ -25,13 +32,17 @@ body {
     .width( 3 );
     .margin();
     .topRowHeight;
-    border: 1px solid black;
-    .light {
-        .light;
-    }
-    &.on {
+    .button {
+        border: 1px solid @colourDark1;
+        background: @colourDark2;
+        color: @colourLight1;
         .light {
-            background: red;
+            .light;
+        }
+        &.on {
+            .light {
+                background: red;
+            }
         }
     }
 }
