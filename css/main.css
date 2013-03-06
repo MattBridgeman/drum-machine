@@ -32,7 +32,7 @@
 .playPause .button {
   border: 1px solid #3b3a43;
   color: #ffffff;
-  height: 60px;
+  height: 80px;
 }
 .playPause .button .light {
   width: 4px;
@@ -48,7 +48,7 @@
   float: left;
   width: 49.85%;
   margin-right: 0.3%;
-  height: 60px;
+  height: 80px;
   background: #232228;
   padding: 10px;
 }
@@ -59,7 +59,7 @@
 .tempo {
   float: left;
   width: 24.775000000000002%;
-  height: 60px;
+  height: 80px;
 }
 .tempo:after {
   display: table;
