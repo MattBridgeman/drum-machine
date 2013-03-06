@@ -10,22 +10,6 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.dummyGrid {
-  float: left;
-  width: 8.058333333333334%;
-  margin-right: 0.3%;
-  display: block;
-  height: 30px;
-  background: blue;
-}
-.dummyGrid.last {
-  margin-right: 0;
-}
-.dummyGrid.last:after {
-  display: table;
-  content: " ";
-  clear: both;
-}
 .drummachine {
   background: url(../images/bg/noise-f1.gif);
 }
