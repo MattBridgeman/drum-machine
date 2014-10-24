@@ -1,15 +1,22 @@
 var connect 	= require('connect'),
-	// __dirname 	= '/Users/katemoore/Documents/matt/bitbucket/drum-machine/',
-	__dirname 	= '/Users/Matt/website/drum-machine/',
-	port 		= 8080;
+	fs			= require('fs'),
+	__args		= process.argv,
+	__dirname 	= ['/Users/mbridgeman/Documents/labs/'],
+	port 		= 8080,
+	name		= '';
+
+(function(){
+	__dirname.forEach(function(dir){
+		try {
+			if(fs.lstatSync(dir).isDirectory()) name = dir;
+		} catch(e){
+			
+		}
+	});
+})();
 
 connect.createServer(
-    connect.static(__dirname)
+	connect.static(name)
 ).listen(port);
 
-require("lesscompile").init({
-    pathToWatch: __dirname + "less",
-    fileToCompile: __dirname + "less/main.less",
-    destination: __dirname + "css/main.css",
-    watchForChanges: true
-});
+module.exports = connect;
