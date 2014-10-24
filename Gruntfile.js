@@ -88,9 +88,13 @@ module.exports = function(grunt) {
 
   // Load required tasks
   require('load-grunt-tasks')(grunt);
+  
+  grunt.registerTask('server', 'Start a custom web server', function() {
+    require('./node/server.js');
+  });
 
   // Development task(s)
-  grunt.registerTask('default', ['less', 'watch']);
+  grunt.registerTask('default', ['less', 'server', 'watch']);
 
   // Production task(s)
   // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
