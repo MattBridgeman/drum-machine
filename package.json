@@ -1,0 +1,23 @@
+{
+  "name": "drum-machine",
+  "version": "0.0.1",
+  "description": "drum machine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://matt_bridgeman@bitbucket.org/matt_bridgeman/drum-machine.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-less": "~0.11.4",
+    "grunt-contrib-watch": "~0.6.1",
+    "load-grunt-tasks": "~0.6.0",
+    "grunt-contrib-imagemin": "~0.8.0",
+    "grunt-favicons": "~0.6.4"
+  },
+  "author": "",
+  "license": "ISC"
+}
