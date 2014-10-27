@@ -15,15 +15,38 @@ module.exports = function(grunt) {
       // Dev task - run at `grunt`
       build: {
         expand: true,
-        cwd: 'less/',
+        cwd: 'src/less/',
         src: [
           'main.less'
           ],
-        dest: 'css/',
+        dest: 'build/css/',
         ext: '.css',
         extDot: 'last'
       },
     },
+
+    // Watch files
+    watch: {
+      less: {
+        files: ['src/less/*.less'],
+        tasks: ['less']
+      },
+      index: {
+        files: ['src/index.html'],
+        tasks: ['copy:index']
+      }
+    },
+
+    copy: {
+      index: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['src/index.html'],
+          dest: 'build/'
+        }]
+      }
+    }
 
     // Convert SVG to PNG
     // svg2png: {
@@ -66,23 +89,6 @@ module.exports = function(grunt) {
     //   }
     // },
 
-    // Watch files
-    watch: {
-      less: {
-        files: ['less/*.less'],
-        tasks: ['less']
-      },
-      // css: {
-      //   options: {
-      //     livereload: true
-      //   },
-      //   files: ['<%= settings.config.cssPath %>/**/*.css']
-      // },
-      // svg: {
-      //   files: '<%= settings.config.graphicsPath %>**/*.svg',
-      //   tasks: ['svg2png:build', 'imagemin:build']
-      // }
-    }
 
   });
 
@@ -94,7 +100,7 @@ module.exports = function(grunt) {
   });
 
   // Development task(s)
-  grunt.registerTask('default', ['less', 'server', 'watch']);
+  grunt.registerTask('default', ['less', 'copy', 'server', 'watch']);
 
   // Production task(s)
   // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
