@@ -31,9 +31,13 @@ module.exports = function(grunt) {
         files: ['src/less/*.less'],
         tasks: ['less']
       },
-      index: {
+      html: {
         files: ['src/index.html'],
         tasks: ['copy:index']
+      },
+      js: {
+        files: ['src/js/**/*.js'],
+        tasks: ['browserify']
       }
     },
 
@@ -45,6 +49,14 @@ module.exports = function(grunt) {
           src: ['src/index.html'],
           dest: 'build/'
         }]
+      }
+    },
+
+    browserify: {
+      main: {
+        files: {
+          'build/js/main.js': ['src/js/main.js'],
+        }
       }
     }
 
@@ -100,7 +112,7 @@ module.exports = function(grunt) {
   });
 
   // Development task(s)
-  grunt.registerTask('default', ['less', 'copy', 'server', 'watch']);
+  grunt.registerTask('default', ['less', 'copy', 'browserify', 'server', 'watch']);
 
   // Production task(s)
   // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
