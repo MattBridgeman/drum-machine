@@ -38,6 +38,10 @@ module.exports = function(grunt) {
       js: {
         files: ['src/js/**/*.js'],
         tasks: ['browserify']
+      },
+      fonts: {
+        files: ['src/fonts/**/*'],
+        tasks: ['copy:fonts']
       }
     },
 
@@ -49,7 +53,20 @@ module.exports = function(grunt) {
           src: ['src/index.html'],
           dest: 'build/'
         }]
+      },
+      fonts: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/fonts/',
+          src: ['**/*'],
+          dest: 'build/fonts/'
+        }]
       }
+    },
+
+    clean: {
+      build: ['build/**/*']
     },
 
     browserify: {
@@ -112,7 +129,7 @@ module.exports = function(grunt) {
   });
 
   // Development task(s)
-  grunt.registerTask('default', ['less', 'copy', 'browserify', 'server', 'watch']);
+  grunt.registerTask('default', ['clean', 'less', 'copy', 'browserify', 'server', 'watch']);
 
   // Production task(s)
   // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
