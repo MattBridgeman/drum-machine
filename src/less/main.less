@@ -14,3 +14,49 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+body {
+	background: @redOne;
+}
+
+.drummachine {
+	padding: @baseline;
+}
+
+//display
+.display {
+	float: right;
+	.label {
+		background: @blackOne;
+		color: @whiteOne;
+		padding: @baseline * 0.5;
+	}
+
+}
+
+//screen
+.screen {
+	padding: @baseline * 1 @baseline * 0.5;
+	background: @greyOne;
+	text-align: center;
+	.digit {
+		color: @redOne;
+		font-size: 2em;
+	}
+}
+
+//buttons
+.button {
+	text-decoration: none;
+	display: inline-block;
+	&.style1 {
+		height: @baseline * 4;
+		width: @baseline * 4;
+		background: @greyTwo;
+		border-bottom: @baseline * 0.5 solid @greyOne;
+		color: @whiteTwo;
+		font-size: 1.9em;
+		text-align: center;
+		margin-top: -@baseline * 0.5;
+	}
+}

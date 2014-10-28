@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Drum Machine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <script src="js/main.js"></script>
 </head>
@@ -11,18 +12,21 @@
 		<div class="drummachine">
 			<div id="canvas" class="master">
 				<div class="rotatorWrapper">
-					<div class="button rotator">
+					<a class="button rotator">
 				        <span class="dimple"></span>
-				    </div>
+				    </a>
 				</div>
 				<div class="display">
-					<span class="screen">
+					<div class="label">Tempo</div>
+					<div class="screen">
 						<span class="digit">1</span>
 						<span class="digit">2</span>
 						<span class="digit">0</span>
-					</span>
-					<a href="#">+</a>
-					<a href="#">-</a>
+					</div>
+					<div class="buttonTray">
+						<a class="button style1">+</a>
+						<a class="button style1">-</a>
+					</div>
 				</div>
 				<div class="segments">
 				    <div class="beat">
