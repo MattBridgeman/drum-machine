@@ -33,9 +33,9 @@ body {
 		color: @whiteOne;
 		padding: @baseline * 0.5;
 	}
-	&:after {
+	/*&:after {
 		.sheen();
-	}
+	}*/
 }
 
 //screen
@@ -131,6 +131,7 @@ body {
 		margin: 0 @baseline @baseline;
 		max-width: @baseline * 10;
 		overflow: hidden;
+		position: relative;
 	}
 }
 
@@ -140,7 +141,7 @@ body {
 	.circle(@baseline);
 	position: relative;
 	display: block;
-	&:after {
+	&:before {
 		background: @redTwo;
 		.circle(@baseline);
 		opacity: 0.5;
@@ -149,7 +150,14 @@ body {
 		top: 0;
 		left: 0;
 	}
+	&:after {
+		.circle(@baseline);
+		opacity: 1;
+	}
 	&.on {
+		&:before {
+			opacity: 1;
+		}
 		&:after {
 			opacity: 1;
 		}

@@ -23,9 +23,35 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: -moz-linear-gradient(-45deg, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0) 50%); /* FF3.6+ */
-	background: -webkit-linear-gradient(-45deg, rgba(255,255,255,0.2) 40%,rgba(255,255,255,0.08) 40%,rgba(255,255,255,0) 50%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(-45deg, rgba(255,255,255,0.2) 40%,rgba(255,255,255,0.08) 40%,rgba(255,255,255,0) 50%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(-45deg, rgba(255,255,255,0.2) 40%,rgba(255,255,255,0.08) 40%,rgba(255,255,255,0) 50%); /* IE10+ */
-	background: linear-gradient(135deg, rgba(255,255,255,0.2) 40%,rgba(255,255,255,0.08) 40%,rgba(255,255,255,0) 50%); /* W3C */
+	background: linear-gradient(135deg, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0) 50%);
+}
+
+.shadow(){
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(-45deg, rgba(0,0,0,0.2) 27%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0) 50%);
+}
+
+.sheen-radial(){
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 100%); ;
+}
+
+.shadow-radial(){
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 20%,rgba(0,0,0,0.3) 100%); ;
 }
