@@ -80,6 +80,14 @@ body {
 	float: left;
 }
 
+.sequenceButtons {
+	clear: both;
+	.beat {
+		float: left;
+		width: 25%;
+	}
+}
+
 //buttons
 .button {
 	text-decoration: none;
@@ -112,5 +120,13 @@ body {
 			left: @baseline;
 			position: absolute;
 		}
+	}
+	&.step {
+		background: @greyTwo;
+		border-bottom: @baseline * 0.5 solid @greyOne;
+		padding-bottom: 100%;
+		display: block;
+		margin: 0 @baseline @baseline;
+		max-width: @baseline * 10;
 	}
 }
