@@ -82,9 +82,17 @@ body {
 
 .sequenceButtons {
 	clear: both;
+	padding: @baseline * 2 0;
+	&:after {
+		.clear-float;
+	}
 	.beat {
 		float: left;
 		width: 25%;
+		max-width: @baseline * 10;
+		.light {
+			margin: @baseline auto;
+		}
 	}
 }
 
@@ -102,31 +110,48 @@ body {
 		text-align: center;
 	}
 	&.rotator {
-		background: @greyOne;
-		border: 3px solid @blackOne;
-		@size: @baseline * 10;
-		border-radius: @size * 0.5;
-		height: @size;
-		width: @size;
+		background: @greyTwo;
+		border: 3px solid @greyOne;
+		.circle(@baseline * 10);
 		position: relative;
 		&:before {
-			background: @greyTwo;
-			@size: @baseline * 3;
-			border-radius: @size * 0.5;
-			height: @size;
-			width: @size;
+			background: @greyOne;
+			.circle(@baseline * 2);
 			content: '';
-			top: @baseline;
-			left: @baseline;
+			top: @baseline * 2;
+			left: @baseline * 2;
 			position: absolute;
 		}
 	}
 	&.step {
 		background: @greyTwo;
 		border-bottom: @baseline * 0.5 solid @greyOne;
-		padding-bottom: 100%;
+		padding-bottom: 60%;
 		display: block;
 		margin: 0 @baseline @baseline;
 		max-width: @baseline * 10;
+		overflow: hidden;
+	}
+}
+
+//lights
+.light {
+	background: @blackOne;
+	.circle(@baseline);
+	position: relative;
+	display: block;
+	&:after {
+		background: @redTwo;
+		.circle(@baseline);
+		opacity: 0.5;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	&.on {
+		&:after {
+			opacity: 1;
+		}
 	}
 }
