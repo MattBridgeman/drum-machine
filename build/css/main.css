@@ -120,12 +120,17 @@ body {
 }
 /* line 89, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000389}}
+.mainRotator {
+  float: left;
+}
+/* line 94, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000394}}
 .button {
   text-decoration: none;
   display: inline-block;
 }
-/* line 92, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000392}}
+/* line 97, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000397}}
 .button.style1 {
   height: 40px;
   width: 44px;
@@ -134,4 +139,26 @@ body {
   color: #fefefe;
   font-size: 1.9em;
   text-align: center;
+}
+/* line 106, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003106}}
+.button.rotator {
+  background: #3a3132;
+  border: 3px solid #5c5758;
+  border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+/* line 114, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003114}}
+.button.rotator:before {
+  background: #5c5758;
+  border-radius: 5px;
+  height: 10px;
+  width: 10px;
+  content: '';
+  top: 10px;
+  left: 50px;
+  position: absolute;
 }

@@ -85,6 +85,11 @@ body {
 	}
 }
 
+//
+.mainRotator {
+	float: left;
+}
+
 //buttons
 .button {
 	text-decoration: none;
@@ -97,5 +102,25 @@ body {
 		color: @whiteTwo;
 		font-size: 1.9em;
 		text-align: center;
+	}
+	&.rotator {
+		background: @greyOne;
+		border: 3px solid @greyTwo;
+		@size: @baseline * 10;
+		border-radius: @size * 0.5;
+		height: @size;
+		width: @size;
+		position: relative;
+		&:before {
+			background: @greyTwo;
+			@size: @baseline;
+			border-radius: @size * 0.5;
+			height: @size;
+			width: @size;
+			content: '';
+			top: @baseline;
+			left: @baseline * 5;
+			position: absolute;
+		}
 	}
 }
