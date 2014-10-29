@@ -255,27 +255,6 @@ body {
 }
 /* line 138, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003138}}
-.button.step.active {
-  background: #cd253e;
-  background-image: -webkit-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -moz-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -ms-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -o-linear-gradient(top, #fb434f, #cd253e);
-  background-image: linear-gradient(to bottom, #fb434f, #cd253e);
-  border: solid #fb434f 1px;
-  box-shadow: 0px 2px 2px #cd253e;
-}
-/* line 90, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/mixins.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/mixins\.less}line{font-family:\0000390}}
-.button.step.active:active {
-  background-image: -webkit-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -moz-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -ms-linear-gradient(top, #fb434f, #cd253e);
-  background-image: -o-linear-gradient(top, #fb434f, #cd253e);
-  background-image: linear-gradient(to bottom, #fb434f, #cd253e);
-}
-/* line 141, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003141}}
 .button.step.selected {
   background: #cd253e;
   background-image: -webkit-linear-gradient(top, #f9ca6b, #ff9900);
@@ -294,4 +273,25 @@ body {
   background-image: -ms-linear-gradient(top, #f9ca6b, #ff9900);
   background-image: -o-linear-gradient(top, #f9ca6b, #ff9900);
   background-image: linear-gradient(to bottom, #f9ca6b, #ff9900);
+}
+/* line 141, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003141}}
+.button.step.active {
+  background: #cd253e;
+  background-image: -webkit-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -moz-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -ms-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -o-linear-gradient(top, #fb434f, #cd253e);
+  background-image: linear-gradient(to bottom, #fb434f, #cd253e);
+  border: solid #fb434f 1px;
+  box-shadow: 0px 2px 2px #cd253e;
+}
+/* line 90, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/mixins.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/mixins\.less}line{font-family:\0000390}}
+.button.step.active:active {
+  background-image: -webkit-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -moz-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -ms-linear-gradient(top, #fb434f, #cd253e);
+  background-image: -o-linear-gradient(top, #fb434f, #cd253e);
+  background-image: linear-gradient(to bottom, #fb434f, #cd253e);
 }
