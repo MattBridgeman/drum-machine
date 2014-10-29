@@ -36,7 +36,7 @@ body {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000323}}
 .drummachine {
   padding: 10px;
-  background: #fefefe;
+  background: #010010;
 }
 /* line 29, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000329}}
@@ -50,10 +50,9 @@ body {
   background: #010010;
   color: #ffffff;
   padding: 5px;
-  border-radius: 5px 5px 0 0;
 }
-/* line 38, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000338}}
+/* line 37, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000337}}
 .display:after {
   content: '';
   position: absolute;
@@ -63,22 +62,21 @@ body {
   bottom: 0;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0) 50%);
 }
-/* line 44, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000344}}
+/* line 43, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000343}}
 .screen {
   padding: 5px 10px;
   background: #010010;
-  border-radius: 0 0 5px 5px;
   margin-bottom: 5px;
 }
-/* line 49, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000349}}
+/* line 47, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000347}}
 .screen .digitsPanel {
   font-size: 3em;
   width: 1.5em;
 }
-/* line 56, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000356}}
+/* line 54, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000354}}
 .digitsPanel {
   font-family: 'ds-digitalbold_italic';
   text-transform: uppercase;
@@ -88,8 +86,8 @@ body {
   overflow: hidden;
   text-align: left;
 }
-/* line 63, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000363}}
+/* line 61, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000361}}
 .digitsPanel:before {
   content: '88888888888888';
   position: absolute;
@@ -98,59 +96,59 @@ body {
   color: #cd253e;
   opacity: 0.3;
 }
-/* line 71, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000371}}
+/* line 69, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000369}}
 .digitsPanel .digits {
   position: relative;
 }
-/* line 74, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000374}}
+/* line 72, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000372}}
 .digitsPanel.right {
   text-align: right;
 }
-/* line 76, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000376}}
+/* line 74, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000374}}
 .digitsPanel.right:before {
   right: 0;
 }
-/* line 83, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000383}}
+/* line 81, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000381}}
 .mainRotator {
   float: left;
 }
-/* line 87, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000387}}
+/* line 85, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000385}}
 .sequenceButtons {
   clear: both;
   padding: 20px 0;
 }
-/* line 90, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000390}}
+/* line 88, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000388}}
 .sequenceButtons:after {
   display: table;
   content: " ";
   clear: both;
 }
-/* line 93, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000393}}
+/* line 91, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000391}}
 .sequenceButtons .beat {
   float: left;
   width: 25%;
   max-width: 100px;
 }
-/* line 97, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000397}}
+/* line 95, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000395}}
 .sequenceButtons .beat .light {
   margin: 10px auto;
 }
-/* line 104, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003104}}
+/* line 102, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003102}}
 .button {
   text-decoration: none;
   display: inline-block;
 }
-/* line 107, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003107}}
+/* line 105, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003105}}
 .button.style1 {
   height: 40px;
   width: 44px;
@@ -179,8 +177,8 @@ body {
   background-image: linear-gradient(to bottom, #e4e9ef, #f3f5fb);
   text-decoration: none;
 }
-/* line 115, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003115}}
+/* line 113, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003113}}
 .button.rotator {
   background: #f3f5fb;
   background-image: -webkit-linear-gradient(top, #f3f5fb, #e4e9ef);
@@ -208,8 +206,8 @@ body {
   background-image: linear-gradient(to bottom, #e4e9ef, #f3f5fb);
   text-decoration: none;
 }
-/* line 119, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003119}}
+/* line 117, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003117}}
 .button.rotator:before {
   background: #666666;
   border-radius: 5px;
@@ -221,8 +219,8 @@ body {
   position: absolute;
   opacity: 0.2;
 }
-/* line 129, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003129}}
+/* line 127, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003127}}
 .button.step {
   background: #e4e9ef;
   background: #f3f5fb;
@@ -253,8 +251,19 @@ body {
   background-image: linear-gradient(to bottom, #e4e9ef, #f3f5fb);
   text-decoration: none;
 }
-/* line 138, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003138}}
+/* line 136, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003136}}
+.button.step:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0) 50%);
+}
+/* line 139, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003139}}
 .button.step.selected {
   background: #cd253e;
   background-image: -webkit-linear-gradient(top, #f9ca6b, #ff9900);
@@ -274,8 +283,8 @@ body {
   background-image: -o-linear-gradient(top, #f9ca6b, #ff9900);
   background-image: linear-gradient(to bottom, #f9ca6b, #ff9900);
 }
-/* line 141, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003141}}
+/* line 142, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\00003142}}
 .button.step.active {
   background: #cd253e;
   background-image: -webkit-linear-gradient(top, #fb434f, #cd253e);
