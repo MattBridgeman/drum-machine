@@ -32,16 +32,19 @@ body {
 		background: @blackOne;
 		color: @whiteOne;
 		padding: @baseline * 0.5;
+		border-radius: @baseline * 0.5 @baseline * 0.5 0 0;
 	}
-	/*&:after {
+	&:after {
 		.sheen();
-	}*/
+	}
 }
 
 //screen
 .screen {
 	padding: @baseline * 0.5 @baseline * 1;
 	background: @blackOne;
+	border-radius: 0 0 @baseline * 0.5 @baseline * 0.5;
+	margin-bottom: @baseline * 0.5;
 	.digitsPanel {
 		font-size: 3em;
 		width: 1.5em;
@@ -109,16 +112,17 @@ body {
 		text-align: center;
 	}
 	&.rotator {
-		background: @greyTwo;
+		.btn();
 		.circle(@baseline * 10);
 		position: relative;
 		&:before {
-			background: @greyOne;
-			.circle(@baseline * 2);
+			background: @greyThree;
+			.circle(@baseline);
 			content: '';
 			top: @baseline * 2;
 			left: @baseline * 2;
 			position: absolute;
+			opacity: 0.2;
 		}
 	}
 	&.step {
@@ -138,8 +142,10 @@ body {
 	.circle(@baseline);
 	position: relative;
 	display: block;
-	background: @greyTwo;
+	background: @greyThree;
+	opacity: 0.2;
 	&.on {
 		background: @redOne;
+		opacity: 1;
 	}
 }
