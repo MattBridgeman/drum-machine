@@ -63,11 +63,7 @@
 	background-image: -ms-linear-gradient(top, rgb(243,245,251), rgb(228,233,239));
 	background-image: -o-linear-gradient(top, rgb(243,245,251), rgb(228,233,239));
 	background-image: linear-gradient(to bottom, rgb(243,245,251), rgb(228,233,239));
-	-webkit-border-radius: 6;
-	-moz-border-radius: 6;
 	border-radius: 6px;
-	-webkit-box-shadow: 0px 2px 2px @greyThree;
-	-moz-box-shadow: 0px 2px 2px @greyThree;
 	box-shadow: 0px 2px 2px @greyThree;
 	border: solid rgb(243,245,251) 1px;
 	text-decoration: none;
@@ -90,11 +86,30 @@
 	background-image: -o-linear-gradient(top, @redTwo, @redOne);
 	background-image: linear-gradient(to bottom, @redTwo, @redOne);
 	border: solid @redTwo 1px;
+	box-shadow: 0px 2px 2px @redOne;
 	&:active {
 		background-image: -webkit-linear-gradient(top, @redTwo, @redOne);
 		background-image: -moz-linear-gradient(top, @redTwo, @redOne);
 		background-image: -ms-linear-gradient(top, @redTwo, @redOne);
 		background-image: -o-linear-gradient(top, @redTwo, @redOne);
 		background-image: linear-gradient(to bottom, @redTwo, @redOne);
+	}
+}
+
+.btn-selected() {
+	background: @redOne;
+	background-image: -webkit-linear-gradient(top, @orangeOne, @orangeTwo);
+	background-image: -moz-linear-gradient(top, @orangeOne, @orangeTwo);
+	background-image: -ms-linear-gradient(top, @orangeOne, @orangeTwo);
+	background-image: -o-linear-gradient(top, @orangeOne, @orangeTwo);
+	background-image: linear-gradient(to bottom, @orangeOne, @orangeTwo);
+	border: solid @orangeOne 1px;
+	box-shadow: 0px 2px 2px @orangeTwo;
+	&:active {
+		background-image: -webkit-linear-gradient(top, @orangeOne, @orangeTwo);
+		background-image: -moz-linear-gradient(top, @orangeOne, @orangeTwo);
+		background-image: -ms-linear-gradient(top, @orangeOne, @orangeTwo);
+		background-image: -o-linear-gradient(top, @orangeOne, @orangeTwo);
+		background-image: linear-gradient(to bottom, @orangeOne, @orangeTwo);
 	}
 }
