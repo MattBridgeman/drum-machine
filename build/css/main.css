@@ -52,44 +52,59 @@ body {
 /* line 39, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000339}}
 .screen {
-  padding: 10px 5px;
-  background: #3a3132;
+  padding: 5px 10px;
+  background: #010010;
 }
 /* line 42, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000342}}
 .screen .digitsPanel {
-  font-size: 2em;
+  font-size: 3em;
+  width: 1.5em;
+}
+/* line 49, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000349}}
+.digitsPanel {
   font-family: 'ds-digitalbold_italic';
   text-transform: uppercase;
   position: relative;
-  width: 1.5em;
   margin: 0 auto;
-  text-align: right;
-  color: #cd253e;
+  color: #fb434f;
+  overflow: hidden;
+  text-align: left;
 }
-/* line 50, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000350}}
-.screen .digitsPanel:before {
-  content: '888';
+/* line 56, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000356}}
+.digitsPanel:before {
+  content: '88888888';
   position: absolute;
   top: 0;
   left: 0;
-  color: #010010;
+  color: #cd253e;
   opacity: 0.3;
 }
-/* line 58, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000358}}
-.screen .digitsPanel .digits {
+/* line 64, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000364}}
+.digitsPanel .digits {
   position: relative;
 }
-/* line 65, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000365}}
+/* line 67, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000367}}
+.digitsPanel.right {
+  text-align: right;
+}
+/* line 69, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000369}}
+.digitsPanel.right:before {
+  right: 0;
+}
+/* line 76, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000376}}
 .button {
   text-decoration: none;
   display: inline-block;
 }
-/* line 68, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000368}}
+/* line 79, /Users/matthewbridgeman/Documents/repo/labs/drum-machine/src/less/main.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/matthewbridgeman\/Documents\/repo\/labs\/drum-machine\/src\/less\/main\.less}line{font-family:\0000379}}
 .button.style1 {
   height: 40px;
   width: 40px;
