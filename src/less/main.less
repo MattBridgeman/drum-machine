@@ -17,7 +17,7 @@ body {
 }
 
 body {
-	background: @redOne;
+	background: @whiteOne;
 }
 
 .drummachine {
@@ -39,26 +39,24 @@ body {
 .screen {
 	padding: @baseline * 1 @baseline * 0.5;
 	background: @greyOne;
-	text-align: center;
-	.digit {
-		color: @redOne;
+	.digitsPanel {
 		font-size: 2em;
-		.digit;
+		.font-digit();
 		position: relative;
-		display: inline-block;
-		width: 0.5em;
+		width: 1.5em;
+		margin: 0 auto;
 		text-align: right;
-		.char {
-			text-align: left;
-			position: relative;
-		}
+		color: @redOne;
 		&:before {
-			content: '8';
+			content: '888';
 			position: absolute;
 			top: 0;
 			left: 0;
 			color: @blackOne;
 			opacity: 0.3;
+		}
+		.digits {
+			position: relative;
 		}
 	}
 }
