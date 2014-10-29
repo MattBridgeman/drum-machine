@@ -95,7 +95,7 @@ body {
 	}
 	&.rotator {
 		background: @greyOne;
-		border: 3px solid @greyTwo;
+		border: 3px solid @blackOne;
 		@size: @baseline * 10;
 		border-radius: @size * 0.5;
 		height: @size;
@@ -103,13 +103,13 @@ body {
 		position: relative;
 		&:before {
 			background: @greyTwo;
-			@size: @baseline;
+			@size: @baseline * 3;
 			border-radius: @size * 0.5;
 			height: @size;
 			width: @size;
 			content: '';
 			top: @baseline;
-			left: @baseline * 5;
+			left: @baseline;
 			position: absolute;
 		}
 	}
