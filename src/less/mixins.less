@@ -81,3 +81,20 @@
 		text-decoration: none;
 	}
 }
+
+.btn-active() {
+	background: @redOne;
+	background-image: -webkit-linear-gradient(top, @redTwo, @redOne);
+	background-image: -moz-linear-gradient(top, @redTwo, @redOne);
+	background-image: -ms-linear-gradient(top, @redTwo, @redOne);
+	background-image: -o-linear-gradient(top, @redTwo, @redOne);
+	background-image: linear-gradient(to bottom, @redTwo, @redOne);
+	border: solid @redTwo 1px;
+	&:active {
+		background-image: -webkit-linear-gradient(top, @redTwo, @redOne);
+		background-image: -moz-linear-gradient(top, @redTwo, @redOne);
+		background-image: -ms-linear-gradient(top, @redTwo, @redOne);
+		background-image: -o-linear-gradient(top, @redTwo, @redOne);
+		background-image: linear-gradient(to bottom, @redTwo, @redOne);
+	}
+}
