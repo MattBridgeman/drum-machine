@@ -1,7 +1,20 @@
-var context = require('./AudioAPI/context');
+var onContext = require('./AudioAPI/context'),
+	getBuffer = require('./Request/request').getBuffer;
 
-context.then(function(result) {
-  console.log(result); // "Stuff worked!"
+onContext.then(function(context) {
+  
 }, function(err) {
   console.log(err); // Error: "It broke"
 });
+
+var onKick = getBuffer('samples/808/01_KCK1.WAV');
+
+Promise.all([onContext, onKick).then(function(context, kick){
+
+})
+
+onContext
+.then(onKick)
+.then(function(data){
+	console.log(arguments);
+})

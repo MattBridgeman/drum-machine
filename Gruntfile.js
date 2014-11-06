@@ -62,6 +62,15 @@ module.exports = function(grunt) {
           src: ['**/*'],
           dest: 'build/fonts/'
         }]
+      },
+      samples: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/samples/',
+          src: ['**/*'],
+          dest: 'build/samples/'
+        }]
       }
     },
 

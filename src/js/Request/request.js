@@ -19,7 +19,7 @@ var request = function(url, requestType, responseType) {
 };
 
 var getBuffer = function(url) {
-	return get('GET', url, 'arraybuffer');
+	return request('GET', url, 'arraybuffer');
 };
 
 module.exports = {
