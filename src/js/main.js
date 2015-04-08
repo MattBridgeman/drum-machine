@@ -9,7 +9,7 @@ onContext.then(function(context) {
 
 var onKick = getBuffer('samples/808/01_KCK1.WAV');
 
-Promise.all([onContext, onKick).then(function(context, kick){
+Promise.all([onContext, onKick]).then(function(context, kick){
 
 })
 
