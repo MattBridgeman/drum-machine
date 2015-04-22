@@ -13,4 +13,15 @@ var context = new Promise(function(resolve, reject) {
 	}, false);
 });
 
-module.exports = context;
+var helper = {
+	decodeAudioData: function(buffer, context){
+		return new Promise(function(resolve, reject) {
+			context.decodeAudioData(buffer, resolve, reject);
+		});
+	}
+};
+
+module.exports = {
+	context: context,
+	helper: helper
+}
