@@ -42,4 +42,13 @@ Promise.all([onContext, onKick, onClap]).then(function(promises){
 		if(!clap) return;
 		playSound(clapBuffer, context, (i + 1) * segmentTime);
 	});
-});;
+});
+
+var React = require('react');
+
+var TodoApp = require('./components/HelloWorld.react');
+
+React.render(
+  <TodoApp />,
+  document.getElementById('drum-machine')
+);
