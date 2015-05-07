@@ -96,10 +96,8 @@ module.exports = function(grunt) {
     require('./node/server.js');
   });
 
-  // Development task(s)
-  grunt.registerTask('default', ['clean', 'less', 'copy', 'browserify', 'server', 'watch']);
-
-  // Production task(s)
-  // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
+  //tasks
+  grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify'])
+  grunt.registerTask('default', ['build', 'server', 'watch']);
 
 };
