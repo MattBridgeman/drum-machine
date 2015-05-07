@@ -35,6 +35,10 @@ module.exports = function(grunt) {
         files: ['src/index.html'],
         tasks: ['copy:index']
       },
+      js: {
+        files: ['src/js/**/*.js'],
+        tasks: ['browserify']
+      },
       fonts: {
         files: ['src/fonts/**/*'],
         tasks: ['copy:fonts']
@@ -82,6 +86,7 @@ module.exports = function(grunt) {
       }
     }
 
+
   });
 
   // Load required tasks
@@ -92,7 +97,7 @@ module.exports = function(grunt) {
   });
 
   // Development task(s)
-  grunt.registerTask('default', ['clean', 'less', 'copy', 'server', 'watch']);
+  grunt.registerTask('default', ['clean', 'less', 'copy', 'browserify', 'server', 'watch']);
 
   // Production task(s)
   // grunt.registerTask('production', ['less:production', 'svg2png:build', 'favicons', 'imagemin:build']);
