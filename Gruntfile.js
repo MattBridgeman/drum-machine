@@ -82,48 +82,6 @@ module.exports = function(grunt) {
       }
     }
 
-    // Convert SVG to PNG
-    // svg2png: {
-    //   build: {
-    //     files: [
-    //       {
-    //         cwd: '<%= settings.config.graphicsPath %>',
-    //         src: ['**/*.svg'],
-    //         dest: '<%= settings.config.graphicsPath %>',
-    //       }
-    //     ]
-    //   }
-    // },
-
-    // Optimise images
-    // imagemin: {
-    //   build: {
-    //     files: [{
-    //       expand: true,
-    //       src: ['<%= settings.config.graphicsPath %>*.{png,svg}'],
-    //       dest: ''
-    //     }]
-    //   }
-    // },
-
-    // Build favicons
-    // favicons: {
-    //   options: {
-    //     trueColor: true,
-    //     precomposed: true,
-    //     appleTouchBackgroundColor: "none",
-    //     coast: false,
-    //     windowsTile: true,
-    //     tileBlackWhite: false,
-    //     tileColor: "#ffffff"
-    //   },
-    //   icons: {
-    //     src: '<%= settings.config.graphicsPath %>favicons/favicon-source.png',
-    //     dest: '<%= settings.config.graphicsPath %>favicons'
-    //   }
-    // },
-
-
   });
 
   // Load required tasks
