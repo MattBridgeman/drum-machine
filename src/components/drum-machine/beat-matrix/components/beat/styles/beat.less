@@ -1,0 +1,49 @@
+.button {
+	&.beat {
+		background: @greyTwo;
+		padding-bottom: 90%;
+		display: block;
+		margin: 0 @baseline @baseline * 1.5;
+		max-width: @baseline * 10;
+		overflow: hidden;
+		position: relative;
+		width: 80px;
+		cursor: pointer;
+		&.selected {
+			background: @redOne;
+			background-image: -webkit-linear-gradient(top, @orangeOne, @orangeTwo);
+			background-image: -moz-linear-gradient(top, @orangeOne, @orangeTwo);
+			background-image: -ms-linear-gradient(top, @orangeOne, @orangeTwo);
+			background-image: -o-linear-gradient(top, @orangeOne, @orangeTwo);
+			background-image: linear-gradient(to bottom, @orangeOne, @orangeTwo);
+			border: solid @orangeOne 1px;
+			border-bottom-width: 3px;
+			box-shadow: 0px 3px 7px @orangeTwo;
+			&:active {
+				background-image: -webkit-linear-gradient(top, @orangeOne, @orangeTwo);
+				background-image: -moz-linear-gradient(top, @orangeOne, @orangeTwo);
+				background-image: -ms-linear-gradient(top, @orangeOne, @orangeTwo);
+				background-image: -o-linear-gradient(top, @orangeOne, @orangeTwo);
+				background-image: linear-gradient(to bottom, @orangeOne, @orangeTwo);
+			}
+		}
+		&.active {
+			background: @redOne;
+			background-image: -webkit-linear-gradient(top, @redTwo, @redOne);
+			background-image: -moz-linear-gradient(top, @redTwo, @redOne);
+			background-image: -ms-linear-gradient(top, @redTwo, @redOne);
+			background-image: -o-linear-gradient(top, @redTwo, @redOne);
+			background-image: linear-gradient(to bottom, @redTwo, @redOne);
+			border: solid @redTwo 1px;
+			border-bottom-width: 3px;
+			box-shadow: 0px 3px 7px @redOne;
+			&:active {
+				background-image: -webkit-linear-gradient(top, @redTwo, @redOne);
+				background-image: -moz-linear-gradient(top, @redTwo, @redOne);
+				background-image: -ms-linear-gradient(top, @redTwo, @redOne);
+				background-image: -o-linear-gradient(top, @redTwo, @redOne);
+				background-image: linear-gradient(to bottom, @redTwo, @redOne);
+			}
+		}
+	}
+}
