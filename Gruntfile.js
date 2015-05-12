@@ -9,15 +9,14 @@ module.exports = function(grunt) {
     less: {
       // Global options for LESS
       options: {
-        strictMath: false,
-        dumpLineNumbers: 'all'
+        strictMath: false
       },
       // Dev task - run at `grunt`
       build: {
         expand: true,
-        cwd: 'src/less/',
+        cwd: 'src/components/',
         src: [
-          'main.less'
+          'all.less'
           ],
         dest: 'build/css/',
         ext: '.css',
@@ -28,7 +27,7 @@ module.exports = function(grunt) {
     // Watch files
     watch: {
       less: {
-        files: ['src/less/*.less'],
+        files: ['src/**/*.less'],
         tasks: ['less']
       },
       html: {
@@ -36,7 +35,7 @@ module.exports = function(grunt) {
         tasks: ['copy:index']
       },
       js: {
-        files: ['src/js/**/*.js'],
+        files: ['src/**/*.js'],
         tasks: ['browserify']
       },
       fonts: {
