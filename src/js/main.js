@@ -1,6 +1,6 @@
 import { context as onContext } from './AudioAPI/context';
-var contextHelper = require('./AudioAPI/context').helper,
-	getBuffer = require('./Request/request').getBuffer;
+import { helper as contextHelper } from './AudioAPI/context';
+import { getBuffer } from './Request/request';
 
 var context = null;
 var onKick = getBuffer('samples/808/01_KCK1.WAV');
