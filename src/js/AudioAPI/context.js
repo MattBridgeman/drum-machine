@@ -1,4 +1,4 @@
-var Promise = require('es6-promise').Promise;
+import { Promise } from 'es6-promise';
 
 var context = new Promise(function(resolve, reject) {
 	window.addEventListener('load', function(){
@@ -21,7 +21,4 @@ var helper = {
 	}
 };
 
-module.exports = {
-	context: context,
-	helper: helper
-}
+export { context, helper };
