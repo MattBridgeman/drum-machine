@@ -1,5 +1,5 @@
-var onContext = require('./AudioAPI/context').context,
-	contextHelper = require('./AudioAPI/context').helper,
+import { context as onContext } from './AudioAPI/context';
+var contextHelper = require('./AudioAPI/context').helper,
 	getBuffer = require('./Request/request').getBuffer;
 
 var context = null;

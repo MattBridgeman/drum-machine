@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         cwd: 'src/components/',
         src: [
           'all.less'
-          ],
+        ],
         dest: 'build/css/',
         ext: '.css',
         extDot: 'last'
