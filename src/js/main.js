@@ -22,11 +22,13 @@ var playSound = function(buffer, context, time) {
 	source.connect(context.destination);       // connect the source to the context's destination (the speakers)
 	source.start(time || context.currentTime);                           // play the source now
 };
-
-Promise.all([onContext, onKick, onClap]).then(function(promises){
-	context = promises[0];
-	var kick = promises[1];
-	var clap = promises[2];
+onContext.then(function(newContext) {
+	context = newContext;
+	return Promise.all([onKick, onClap]);
+})
+.then(function(promises){
+	var kick = promises[0];
+	var clap = promises[1];
 	var kickDecode = contextHelper.decodeAudioData(kick, context);
 	var clapDecode = contextHelper.decodeAudioData(clap, context);
 	return Promise.all([kickDecode, clapDecode]);
