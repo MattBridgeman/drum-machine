@@ -53,15 +53,6 @@ module.exports = function(grunt) {
           dest: 'build/'
         }]
       },
-      fonts: {
-        files: [{
-          expand: true,
-          flatten: false,
-          cwd: 'src/fonts/',
-          src: ['**/*'],
-          dest: 'build/fonts/'
-        }]
-      },
       samples: {
         files: [{
           expand: true,
@@ -79,13 +70,18 @@ module.exports = function(grunt) {
 
     browserify: {
       main: {
+        options: {
+          transform: [
+              ["babelify", {
+                 loose: "all"
+              }]
+           ]
+        },
         files: {
           'build/js/main.js': ['src/js/main.js'],
         }
       }
     }
-
-
   });
 
   // Load required tasks
