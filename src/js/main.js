@@ -1,10 +1,8 @@
-import { context as onContext } from './AudioAPI/context';
-import { helper as contextHelper } from './AudioAPI/context';
+import { WebAudioContext } from './AudioAPI/context';
 import { getBuffer } from './Request/request';
 
-var context = null;
-var onKick = getBuffer('samples/808/01_KCK1.WAV');
-var onClap = getBuffer('samples/808/15_CLP2.WAV');
+var context = new WebAudioContext();
+var sounds = ['samples/808/01_KCK1.WAV', 'samples/808/15_CLP2.WAV'];
 var kickBuffer = null;
 var clapBuffer = null;
 var kicks = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0];
@@ -16,34 +14,25 @@ var segmentsPerBeat = 4;
 var beatsPerSecond = secondsInMinute / bpm;
 var segmentTime = beatsPerSecond / segmentsPerBeat;
 
-var playSound = function(buffer, context, time) {
-	var source = context.createBufferSource(); // creates a sound source
-	source.buffer = buffer;                    // tell the source which sound to play
-	source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-	source.start(time || context.currentTime);                           // play the source now
-};
-
-onContext.then(function(newContext) {
-	context = newContext;
-	return Promise.all([onKick, onClap]);
-})
+Promise.all(sounds.map(getBuffer))
 .then(function(promises){
-	return promises.map(function(sound){
-		contextHelper.decodeAudioData(sound, context);
-	});
+	return Promise.all(promises.map(function(sound){
+		return context.decodeAudioData(sound);
+	}));
 })
 .then(function(promises){
 	var kickBuffer = promises[0];
 	var clapBuffer = promises[1];
 	kicks.forEach(function(kick, i){
 		if(!kick) return;
-		playSound(kickBuffer, context, (i + 1) * segmentTime);
+		context.playSound(kickBuffer, (i + 1) * segmentTime);
 	});
 	claps.forEach(function(clap, i){
 		if(!clap) return;
-		playSound(clapBuffer, context, (i + 1) * segmentTime);
+		context.playSound(clapBuffer, (i + 1) * segmentTime);
 	});
-});
+})
+.catch(console.log.bind(console));;
 
 var React = require('react');
 

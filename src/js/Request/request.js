@@ -1,5 +1,3 @@
-var Promise = require('es6-promise').Promise;
-
 var request = function(url, requestType, responseType) {
 	// Return a new promise.
 	return new Promise(function(resolve, reject) {
