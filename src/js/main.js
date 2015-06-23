@@ -2,14 +2,13 @@ import { WebAudioContext } from './AudioAPI/WebAudioContext';
 import { Tempo } from './AudioAPI/Tempo';
 import { getBuffer } from './Request/request';
 
-var tempoData = {
-	beatsPerMinute: 120,
-	beatsPerBar: 4,
-	segmentsPerBeat: 4
-};
-var tempo = new Tempo(tempoData);
-var context = new WebAudioContext();
-var soundsData = [{
+var data = {
+	tempo: {
+		beatsPerMinute: 120,
+		beatsPerBar: 4,
+		segmentsPerBeat: 4
+	},
+	sounds: [{
 		name: 'kick',
 		path: 'samples/808/01_KCK1.WAV',
 		patterns: [
@@ -21,9 +20,12 @@ var soundsData = [{
 		patterns: [
 			[0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1]
 		]
-	}];
+	}]
+};
+var tempo = new Tempo(data.tempo);
+var context = new WebAudioContext();
 
-Promise.all(soundsData.map(function(item){
+Promise.all(data.sounds.map(function(item){
 	return item.path;
 })
 .map(getBuffer))
@@ -34,7 +36,7 @@ Promise.all(soundsData.map(function(item){
 })
 .then(function(promises){
 	promises.map(function(buffer, index){
-		var pattern = soundsData[index].patterns[0];
+		var pattern = data.sounds[index].patterns[0];
 		pattern.forEach(function(segment, i){
 			if(!segment) return;
 			context.playSound(buffer, (i + 5) * tempo.getSegmentTimeInSeconds());
