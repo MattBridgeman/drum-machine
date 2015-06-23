@@ -5,8 +5,6 @@ import { getBuffer } from './Request/request';
 var tempo = new Tempo();
 var context = new WebAudioContext();
 var sounds = ['samples/808/01_KCK1.WAV', 'samples/808/15_CLP2.WAV'];
-var kickBuffer = null;
-var clapBuffer = null;
 var kicks = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0];
 var claps = [0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1];
 
