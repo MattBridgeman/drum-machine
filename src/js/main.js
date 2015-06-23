@@ -1,4 +1,4 @@
-import { WebAudioContext } from './AudioAPI/context';
+import { WebAudioContext } from './AudioAPI/WebAudioContext';
 import { getBuffer } from './Request/request';
 
 var context = new WebAudioContext();
