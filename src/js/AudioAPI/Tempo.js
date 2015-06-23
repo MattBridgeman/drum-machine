@@ -2,9 +2,9 @@ var secondsInMinute = 60;
 
 class Tempo {
 	constructor(data) {
-		this.beatsPerMinute = data.beatsPerMinute || 120;
-		this.beatsPerBar = 4;
-		this.segmentsPerBeat = 4;
+		this.beatsPerMinute = data.beatsPerMinute;
+		this.beatsPerBar = data.beatsPerBar;
+		this.segmentsPerBeat = data.segmentsPerBeat;
 	}
 	getBeatsPerSecond() {
 		return secondsInMinute / this.beatsPerMinute;
