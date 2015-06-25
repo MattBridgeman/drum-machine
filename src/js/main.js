@@ -1,6 +1,8 @@
 import { WebAudioContext } from "./AudioAPI/WebAudioContext";
 import { Tempo } from "./AudioAPI/Tempo";
 import { getBuffer } from "./Request/request";
+import * as React from "react";
+import { HelloWorld } from "./components/HelloWorld.react";
 
 var data = {
 	tempo: {
@@ -47,11 +49,7 @@ Promise.all(data.sounds.map(function(item){
 })
 .catch(console.log.bind(console));
 
-var React = require("react");
-
-var TodoApp = require("./components/HelloWorld.react");
-
 React.render(
-  <TodoApp />,
+  <HelloWorld />,
   document.getElementById("drum-machine")
 );

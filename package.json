@@ -2,7 +2,7 @@
   "name": "drum-machine",
   "version": "0.0.1",
   "description": "drum machine",
-  "main": "src/js/app.js",
+  "main": "src/js/main.js",
   "scripts": {
     "test": "jest"
   },
@@ -14,7 +14,6 @@
     "babelify": "~6.1.2",
     "browserify": "^6.2.0",
     "connect": "~2.12.0",
-    "envify": "^3.0.0",
     "es6-promise": "^2.0.0",
     "flux": "^2.0.1",
     "grunt": "~0.4.5",
@@ -25,18 +24,10 @@
     "grunt-contrib-less": "~0.11.4",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-eslint": "^15.0.0",
-    "grunt-favicons": "~0.6.4",
     "jest-cli": "~0.1.17",
     "load-grunt-tasks": "~0.6.0",
-    "react": "^0.12.0",
-    "reactify": "^0.15.2",
+    "react": "^0.13.0",
     "uglify-js": "~2.4.15"
-  },
-  "browserify": {
-    "transform": [
-      "reactify",
-      "envify"
-    ]
   },
   "jest": {
     "rootDir": "./src/js"

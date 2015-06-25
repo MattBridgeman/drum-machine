@@ -1,14 +1,15 @@
-var React = require("react");
+import * as React from "react";
 
-var HelloWorld = React.createClass({
+class HelloWorld extends React.Component {
 
-	getInitialState: function() {
-		return {
+	constructor(props) {
+    	super(props);
+		this.state = {
 			text: "hello world!!"
 		};
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div>
 			{this.state.text}
@@ -16,6 +17,6 @@ var HelloWorld = React.createClass({
 		);
 	}
 
-});
+}
 
-module.exports = HelloWorld;
+export { HelloWorld };
