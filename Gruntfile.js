@@ -85,6 +85,12 @@ module.exports = function(grunt) {
 
     eslint: {
       target: ['src/js/']
+    },
+
+    jest: {
+      options: {
+        coverage: false
+      }
     }
   });
 
@@ -93,6 +99,10 @@ module.exports = function(grunt) {
   
   grunt.registerTask('server', 'Start a custom web server', function() {
     require('./node/server.js');
+  });
+
+  grunt.registerTask('jest', 'Run jest', function() {
+    require('jest-cli').runCLI(this.options(), process.cwd(), this.async());
   });
 
   //tasks
