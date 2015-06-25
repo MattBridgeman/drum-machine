@@ -1,8 +1,8 @@
-import { WebAudioContext } from "./AudioAPI/WebAudioContext";
-import { Tempo } from "./AudioAPI/Tempo";
-import { getBuffer } from "./Request/request";
+import { WebAudioContext } from "./audio-api/context";
+import { Tempo } from "./audio-api/tempo";
+import { arrayBuffer } from "./request/arraybuffer";
 import * as React from "react";
-import { HelloWorld } from "./components/HelloWorld.react";
+import { HelloWorld } from "./components/helloworld.react";
 
 var data = {
 	tempo: {
@@ -30,7 +30,7 @@ var context = new WebAudioContext();
 Promise.all(data.sounds.map(function(item){
 	return item.path;
 })
-.map(getBuffer))
+.map(arrayBuffer))
 .then(function(promises){
 	return context.decodeAudioDataArray(promises);
 })

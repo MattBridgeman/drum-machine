@@ -1,4 +1,4 @@
-import { WebAudioContext } from "../AudioAPI/WebAudioContext";
+import { WebAudioContext } from "../audio-api/context";
 
 function browserSupportsWebAudio() {
 	try {

@@ -16,8 +16,4 @@ var request = function(url, requestType, responseType) {
 	});
 };
 
-var getBuffer = function(url) {
-	return request(url, "GET", "arraybuffer");
-};
-
-export { request, getBuffer };
+export { request };
