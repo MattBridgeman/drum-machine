@@ -12,7 +12,7 @@ var request = function(url, requestType, responseType) {
 			reject(Error(xhrRequest.statusText));
 		};
 
-		request.send();
+		xhrRequest.send();
 	});
 };
 
