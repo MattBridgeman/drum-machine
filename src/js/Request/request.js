@@ -1,15 +1,15 @@
 var request = function(url, requestType, responseType) {
 	// Return a new promise.
 	return new Promise(function(resolve, reject) {
-		var request = new XMLHttpRequest();
-		request.open(requestType, url, true);
-		request.responseType = responseType;
+		var xhrRequest = new XMLHttpRequest();
+		xhrRequest.open(requestType, url, true);
+		xhrRequest.responseType = responseType;
 
-		request.onload = function() {
-			resolve(request.response);
+		xhrRequest.onload = function() {
+			resolve(xhrRequest.response);
 		};
-		request.onerror = function() {
-			reject(Error(request.statusText));
+		xhrRequest.onerror = function() {
+			reject(Error(xhrRequest.statusText));
 		};
 
 		request.send();
@@ -17,10 +17,7 @@ var request = function(url, requestType, responseType) {
 };
 
 var getBuffer = function(url) {
-	return request(url, 'GET', 'arraybuffer');
+	return request(url, "GET", "arraybuffer");
 };
 
-module.exports = {
-	request: request,
-	getBuffer: getBuffer
-};
+export { request, getBuffer };

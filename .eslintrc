@@ -1,0 +1,28 @@
+{
+	"rules": {
+		"no-underscore-dangle": 0,
+		"no-unused-vars": 1,
+		"no-trailing-spaces": 1,
+		"curly": 1,
+		"eol-last": 0,
+		"quotes": [2, "double"],
+		"semi": [2, "always"],
+		"new-cap": 1,
+		"space-infix-ops": 1,
+		"no-mixed-spaces-and-tabs": 2,
+		"semi-spacing": [2, {"before": false, "after": true}],
+		"space-unary-ops": [1, { "words": true, "nonwords": false }],
+		"no-return-assign": 1
+	},
+	"ecmaFeatures": {
+		"modules": true,
+		"jsx": true
+	},
+	"globals": {
+    },
+	"env": {
+		"es6": true,
+		"browser": true,
+		"node": true
+	}
+}

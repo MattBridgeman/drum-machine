@@ -1,6 +1,6 @@
-import { WebAudioContext } from './AudioAPI/WebAudioContext';
-import { Tempo } from './AudioAPI/Tempo';
-import { getBuffer } from './Request/request';
+import { WebAudioContext } from "./AudioAPI/WebAudioContext";
+import { Tempo } from "./AudioAPI/Tempo";
+import { getBuffer } from "./Request/request";
 
 var data = {
 	tempo: {
@@ -9,16 +9,16 @@ var data = {
 		segmentsPerBeat: 4
 	},
 	sounds: [{
-		name: 'kick',
-		path: 'samples/808/01_KCK1.WAV',
+		name: "kick",
+		path: "samples/808/01_KCK1.WAV",
 		patterns: [
-			[1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0]
+			[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0]
 		]
-	},{
-		name: 'clap',
-		path: 'samples/808/15_CLP2.WAV',
+	}, {
+		name: "clap",
+		path: "samples/808/15_CLP2.WAV",
 		patterns: [
-			[0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1]
+			[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1]
 		]
 	}]
 };
@@ -38,18 +38,20 @@ Promise.all(data.sounds.map(function(item){
 	promises.map(function(buffer, index){
 		var pattern = data.sounds[index].patterns[0];
 		pattern.forEach(function(segment, i){
-			if(!segment) return;
+			if(!segment) {
+				return;
+			}
 			context.playSound(buffer, (i + 5) * tempo.getSegmentTimeInSeconds());
 		});
 	});
 })
 .catch(console.log.bind(console));
 
-var React = require('react');
+var React = require("react");
 
-var TodoApp = require('./components/HelloWorld.react');
+var TodoApp = require("./components/HelloWorld.react");
 
 React.render(
   <TodoApp />,
-  document.getElementById('drum-machine')
+  document.getElementById("drum-machine")
 );

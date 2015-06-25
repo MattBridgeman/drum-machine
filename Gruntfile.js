@@ -81,6 +81,10 @@ module.exports = function(grunt) {
           'build/js/main.js': ['src/js/main.js'],
         }
       }
+    },
+
+    eslint: {
+      target: ['src/js/']
     }
   });
 
