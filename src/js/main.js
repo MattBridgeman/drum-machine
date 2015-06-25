@@ -32,9 +32,7 @@ Promise.all(data.sounds.map(function(item){
 })
 .map(getBuffer))
 .then(function(promises){
-	return Promise.all(promises.map(function(sound){
-		return context.decodeAudioData(sound);
-	}));
+	return context.decodeAudioDataArray(promises);
 })
 .then(function(promises){
 	promises.map(function(buffer, index){
