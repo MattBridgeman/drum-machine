@@ -7,16 +7,14 @@ class WebAudioContext {
 		return new AudioContext();
 	}
 	decodeAudioData(buffer) {
-		var self = this;
-		return new Promise(function(resolve, reject) {
-			self.context.decodeAudioData(buffer, resolve, reject);
-		});
+		return new Promise((resolve, reject) =>
+			this.context.decodeAudioData(buffer, resolve, reject)
+		);
 	}
 	decodeAudioDataArray(arrayOfBuffers) {
-		var self = this;
-		return Promise.all(arrayOfBuffers.map(function(sound){
-			return self.decodeAudioData(sound);
-		}));
+		return Promise.all(arrayOfBuffers.map((sound) => 
+			this.decodeAudioData(sound)
+		));
 	}
 	playSound(buffer, time) {
 		var source = this.context.createBufferSource();
