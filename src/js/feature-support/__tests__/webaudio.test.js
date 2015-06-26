@@ -9,9 +9,7 @@ describe('browserSupportsWebAudio', function() {
 	it("web audio should be supported", function() {
 		window.AudioContext = jest.genMockFunction();
 		var supported = featureTest.browserSupportsWebAudio();
-
-		expect(window.AudioContext).toBeCalled();
-		expect(window.AudioContext.mock.instances.length).toBe(1);
+		
 		expect(supported).toBe(true);
 	});
 	it("web audio should be unsupported", function() {
