@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['src/**/*.js'],
-        tasks: ['browserify']
+        tasks: ['browserify','jest']
       },
       fonts: {
         files: ['src/fonts/**/*'],
