@@ -10,6 +10,7 @@ var data = {
 		beatsPerBar: 4,
 		segmentsPerBeat: 4
 	},
+	selectedSoundIndex: 0,
 	sounds: [{
 		name: "kick",
 		path: "samples/808/01_KCK1.WAV",
