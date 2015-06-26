@@ -3,7 +3,7 @@ import * as React from "react";
 class HelloWorld extends React.Component {
 
 	constructor(props) {
-    	super(props);
+		super(props);
 		this.state = {
 			text: "hello world!!"
 		};
