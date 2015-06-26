@@ -108,5 +108,6 @@ module.exports = function(grunt) {
   //tasks
   grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify'])
   grunt.registerTask('default', ['build', 'server', 'watch']);
+  grunt.registerTask('test', ['jest']);
 
 };

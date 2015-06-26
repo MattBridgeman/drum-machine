@@ -7,10 +7,13 @@ class Tempo {
 		this.segmentsPerBeat = data.segmentsPerBeat;
 	}
 	getBeatsPerSecond() {
-		return secondsInMinute / this.beatsPerMinute;
+		return this.beatsPerMinute / secondsInMinute;
+	}
+	getSecondsPerBeat(){
+		return 1 / this.getBeatsPerSecond();
 	}
 	getSegmentTimeInSeconds(){
-		return this.getBeatsPerSecond() / this.segmentsPerBeat;
+		return this.getSecondsPerBeat() / this.segmentsPerBeat;
 	}
 }
 
