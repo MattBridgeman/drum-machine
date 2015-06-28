@@ -1,13 +1,14 @@
 .heading {
 	.inner {
-		padding: @baseline * 2;
+		padding: @baseline * 3 @baseline * 6 @baseline * 3 @baseline * 2;
 		border-bottom: 1px solid @white;
+		display: flex;
+		align-items: center;
 	}
 	.name {
-		display: inline-block;
+		flex-grow: 1;
 	}
-	.value {
-		padding: @baseline * 2;
-		float: right;
+	.button {
+		display: inline-block;
 	}
 }

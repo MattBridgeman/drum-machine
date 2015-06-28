@@ -1,10 +1,11 @@
 .button.dark {
-	padding: @baseline * 2;
+	padding: @baseline * 2 @baseline * 4;
 	border-radius: @baseline;
-	background: rgba(0,0,0,0);
+	background: @black-transparency;
 	color: @white;
 	&:hover,
 	&:focus {
-		background: @black-transparency;
+		background: @white;
+		color: @dark-grey;
 	}
 }
