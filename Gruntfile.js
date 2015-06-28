@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       // Dev task - run at `grunt`
       build: {
         expand: true,
-        cwd: 'src/components/',
+        cwd: 'src/less/',
         src: [
           'all.less'
         ],
