@@ -31,25 +31,21 @@ module.exports = function(grunt) {
         tasks: ['less']
       },
       html: {
-        files: ['src/index.html'],
-        tasks: ['copy:index']
+        files: ['src/*.html'],
+        tasks: ['copy:html']
       },
       js: {
         files: ['src/**/*.js'],
         tasks: ['browserify','jest']
-      },
-      fonts: {
-        files: ['src/fonts/**/*'],
-        tasks: ['copy:fonts']
       }
     },
 
     copy: {
-      index: {
+      html: {
         files: [{
           expand: true,
           flatten: true,
-          src: ['src/index.html'],
+          src: ['src/*.html'],
           dest: 'build/'
         }]
       },
