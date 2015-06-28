@@ -1,0 +1,26 @@
+.display {
+	.inner {
+		padding: @baseline * 2;
+		display: flex;
+		align-items: center;
+		&:after {
+			.clear-float;
+		}
+	}
+	.value {
+		font-size: 2.5em;
+		padding: @baseline * 2;
+		display: inline-block;
+	}
+	&.red {
+		background: @red;
+	}
+	&.green {
+		color: @green;
+		background: @green-transparency;
+		.expandable {
+			color: @dark-green;
+			background: @green;
+		}
+	}
+}
