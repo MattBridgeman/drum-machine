@@ -1,7 +1,9 @@
+import { Promise } from "es6-promise";
+
 var request = function(url, requestType, responseType) {
 	// Return a new promise.
 	return new Promise(function(resolve, reject) {
-		var xhrRequest = new XMLHttpRequest();
+		var xhrRequest = new window.XMLHttpRequest();
 		xhrRequest.open(requestType, url, true);
 		xhrRequest.responseType = responseType;
 
