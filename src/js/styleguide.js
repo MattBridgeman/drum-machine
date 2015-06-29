@@ -1,11 +1,9 @@
-import { WebAudioContext } from "./audio-api/context";
-import { Tempo } from "./audio-api/tempo";
-import { arrayBuffer } from "./request/arraybuffer";
 import * as React from "react";
-import { HelloWorld } from "./components/helloworld.react";
-
+import { Display } from "./components/display/display.react";
 
 React.render(
-  <HelloWorld />,
-  document.getElementById("drum-machine")
+	(<div className="drum-machine">
+		<Display name="Tempo" value="120" />
+	</div>),
+	document.getElementById("drum-machine")
 );
