@@ -14,7 +14,12 @@
 		font-size: 2.5em;
 	}
 	&.red {
-		background: @red;
+		color: @red;
+		background: @red-transparency;
+		.expandable {
+			color: @dark-red;
+			background: @red;
+		}
 	}
 	&.green {
 		color: @green;
