@@ -35,7 +35,7 @@ class Beat extends React.Component {
 	getBeats(){
 		return this.state.beats.map((beat, index) => 
 			(
-				<button class="button">1/16</button>
+				<button className="button on">1/16</button>
 			)
 		)
 	}
