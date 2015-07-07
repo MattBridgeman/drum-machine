@@ -1,0 +1,22 @@
+.display.beat {
+	.beat-map {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		button {
+			background: @dark-red;
+			border: 0;
+			margin: 7px;
+			color: @red;
+			border-bottom: 2px solid @red;
+			width: 20%;
+			&.on {
+				background: @red;
+				color: @dark-red;
+			}
+			&.current {
+				border-bottom-color: @white;
+			}
+		}
+	}
+}
