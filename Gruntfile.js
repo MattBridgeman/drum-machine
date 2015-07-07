@@ -33,10 +33,6 @@ module.exports = function(grunt) {
       html: {
         files: ['src/*.html'],
         tasks: ['copy:html']
-      },
-      js: {
-        files: ['src/**/*.js'],
-        tasks: ['browserify']
       }
     },
 
@@ -67,6 +63,7 @@ module.exports = function(grunt) {
     browserify: {
       main: {
         options: {
+          watch: true,
           transform: [
               ["babelify", {
                  loose: "all"
