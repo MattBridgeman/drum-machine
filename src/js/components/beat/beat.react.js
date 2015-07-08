@@ -7,7 +7,8 @@ class Beat extends React.Component {
 		this.state = {
 			name: props.name,
 			value: props.value,
-			beats: props.beats
+			beats: props.beats,
+			current: props.current
 		};
 	}
 
@@ -24,7 +25,6 @@ class Beat extends React.Component {
 					<p className="value">{this.state.value}</p>
 				</div>
 				<div className="inner beat-map">
-				hello
 					{beats}
 				</div>
 				<button className={expandableButtonClass}>{expandedName} display</button>
@@ -33,11 +33,16 @@ class Beat extends React.Component {
 	}
 
 	getBeats(){
-		return this.state.beats.map((beat, index) => 
-			(
-				<button className="button on">1/16</button>
-			)
-		)
+		var current = this.state.current;
+		return this.state.beats.map(function(beat, index){
+			var buttonClass = "button",
+				number = index + 1;
+
+			buttonClass += beat ? " on" : "";
+			buttonClass += current == index ? " current" : "";
+
+			return <button className={buttonClass}>{number}/16</button>
+		});
 	}
 
 };
@@ -45,9 +50,8 @@ class Beat extends React.Component {
 Beat.propTypes = {
 	name: React.PropTypes.string.isRequired,
 	value: React.PropTypes.any.isRequired,
-	beats: React.PropTypes.array.isRequired
+	beats: React.PropTypes.array.isRequired,
+	current: React.PropTypes.number.isRequired
 };
-
-Beat.defaultProps = { colour: "green" };
 
 export { Beat };

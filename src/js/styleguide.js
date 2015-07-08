@@ -9,7 +9,7 @@ React.render(
 			<PlayHeading isPlaying={true} value="00:01" />
 			<Display name="Tempo" value="120" />
 			<Display name="Signature" value="4/4" />
-			<Beat name="Kick" value="1/16" beats={[1,0,0,0]} />
+			<Beat name="Kick" value="1/16" beats={[1,0,0,0]} current={2} />
 		</div>
 	),
 	document.getElementById("drum-machine")
