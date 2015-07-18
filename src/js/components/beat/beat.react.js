@@ -4,25 +4,19 @@ class Beat extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			name: props.name,
-			value: props.value,
-			beats: props.beats,
-			current: props.current
-		};
 	}
 
 	render() {
-		var expandedClass = this.state.expanded ? "open" : "closed";
-		var expandedName = this.state.expanded ? "close" : "expand";
+		var expandedClass = this.props.expanded ? "open" : "closed";
+		var expandedName = this.props.expanded ? "close" : "expand";
 		var displayClass = "display beat unit red";
 		var expandableButtonClass = "button expandable " + expandedClass;
 		var beats = this.getBeats();
 		return (
 			<div className={displayClass}>
 				<div className="inner">
-					<p className="name">{this.state.name}</p>
-					<p className="value">{this.state.value}</p>
+					<p className="name">{this.props.name}</p>
+					<p className="value">{this.props.value}</p>
 				</div>
 				<div className="inner beat-map">
 					{beats}
@@ -33,8 +27,8 @@ class Beat extends React.Component {
 	}
 
 	getBeats(){
-		var current = this.state.current;
-		return this.state.beats.map(function(beat, index){
+		var current = this.props.current;
+		return this.props.beats.map(function(beat, index){
 			var buttonClass = "button",
 				number = index + 1;
 
