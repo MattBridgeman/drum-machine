@@ -63,12 +63,16 @@ module.exports = function(grunt) {
     browserify: {
       main: {
         options: {
-          transform: ["tsify"]
+          watch: true,
+          transform: [
+              ["babelify", {
+                 loose: "all"
+              }]
+           ]
         },
         files: {
-          // 'build/js/main.js': ['src/js/main.js'],
-          // 'build/js/styleguide.js': ['src/js/styleguide.js'],
-          'build/js/demo.js': 'src/js/demo.ts'
+          'build/js/main.js': ['src/js/main.js'],
+          'build/js/styleguide.js': ['src/js/styleguide.js'],
         }
       }
     },

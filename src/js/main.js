@@ -47,8 +47,3 @@ Promise.all(data.sounds.map(function(item){
 	});
 })
 .catch(console.log.bind(console));
-
-React.render(
-  <HelloWorld />,
-  document.getElementById("drum-machine")
-);

@@ -13,4 +13,4 @@ React.render(
 		</div>
 	),
 	document.getElementById("drum-machine")
-);
+)
