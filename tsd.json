@@ -7,6 +7,12 @@
   "installed": {
     "react/react.d.ts": {
       "commit": "8c9ede30fca2a095018e70940806cc9c8aa122f6"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "8c9ede30fca2a095018e70940806cc9c8aa122f6"
+    },
+    "es6-promises/es6-promises.d.ts": {
+      "commit": "8c9ede30fca2a095018e70940806cc9c8aa122f6"
     }
   }
 }
