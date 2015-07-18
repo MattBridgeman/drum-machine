@@ -1,4 +1,4 @@
-var data = {
+var DrumMachineStore = {
 	tempo: {
 		beatsPerMinute: 120,
 		beatsPerBar: 4,
@@ -25,4 +25,4 @@ var data = {
 	}]
 };
 
-export { data };
+export { DrumMachineStore };

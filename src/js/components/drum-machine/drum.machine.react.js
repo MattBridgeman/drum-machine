@@ -3,12 +3,12 @@ import { Tempo } from "../../audio-api/tempo";
 import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
 import { PlayHeading } from "../play-heading/play.heading.react";
-import { data } from './stores/data.store';
+import { DrumMachineStore } from './stores/drum.machine.store';
 
-var tempo = new Tempo(data.tempo);
+var tempo = new Tempo(DrumMachineStore.tempo);
 var context = new WebAudioContext();
 
-var sounds = Promise.all(data.sounds.map(function(item){
+var sounds = Promise.all(DrumMachineStore.sounds.map(function(item){
 	return item.path;
 })
 .map(arrayBuffer))
@@ -21,7 +21,7 @@ var isPlaying = false;
 function play() {
 	sounds.then(function(promises){
 		promises.map(function(buffer, index){
-			var pattern = data.patterns[index].patterns[0];
+			var pattern = DrumMachineStore.patterns[index].patterns[0];
 			pattern.forEach(function(segment, i){
 				if(!segment) {
 					return;
