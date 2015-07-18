@@ -32,25 +32,28 @@ var data = {
 var tempo = new Tempo(data.tempo);
 var context = new WebAudioContext();
 
-Promise.all(data.sounds.map(function(item){
+var sounds = Promise.all(data.sounds.map(function(item){
 	return item.path;
 })
 .map(arrayBuffer))
 .then(function(promises){
 	return context.decodeAudioDataArray(promises);
-})
-.then(function(promises){
-	promises.map(function(buffer, index){
-		var pattern = data.patterns[index].patterns[0];
-		pattern.forEach(function(segment, i){
-			if(!segment) {
-				return;
-			}
-			context.playSound(buffer, (i + 5) * tempo.getSegmentTimeInSeconds());
+});
+
+function play() {
+	sounds.then(function(promises){
+		promises.map(function(buffer, index){
+			var pattern = data.patterns[index].patterns[0];
+			pattern.forEach(function(segment, i){
+				if(!segment) {
+					return;
+				}
+				context.playSound(buffer, (i + 5) * tempo.getSegmentTimeInSeconds());
+			});
 		});
-	});
-})
-.catch(console.log.bind(console));
+	})
+	.catch(console.log.bind(console));
+};
 
 class DrumMachine extends React.Component {
 
