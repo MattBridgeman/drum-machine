@@ -13,13 +13,18 @@ var data = {
 	selectedSoundIndex: 0,
 	sounds: [{
 		name: "kick",
-		path: "samples/808/01_KCK1.WAV",
+		path: "samples/808/01_KCK1.WAV"
+	}, {
+		name: "clap",
+		path: "samples/808/15_CLP2.WAV"
+	}],
+	patterns: [{
+		name: "kick",
 		patterns: [
 			[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0]
 		]
 	}, {
-		name: "clap",
-		path: "samples/808/15_CLP2.WAV",
+		name: "kick",
 		patterns: [
 			[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1]
 		]
@@ -37,7 +42,7 @@ Promise.all(data.sounds.map(function(item){
 })
 .then(function(promises){
 	promises.map(function(buffer, index){
-		var pattern = data.sounds[index].patterns[0];
+		var pattern = data.patterns[index].patterns[0];
 		pattern.forEach(function(segment, i){
 			if(!segment) {
 				return;
