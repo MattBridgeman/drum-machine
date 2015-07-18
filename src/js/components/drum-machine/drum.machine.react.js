@@ -69,6 +69,30 @@ function playPause(){
 	} else {
 		pause();
 	}
+	notify();
+}
+
+function getState(){
+	return {
+		isPlaying: isPlaying,
+		time: "00:00"
+	}
+}
+
+var listeners = [];
+
+function notify(){
+	listeners.forEach((listener) => {
+		listener();
+	});
+};
+
+function addListener(listener){
+	return listeners.push(listener) - 1;
+}
+
+function removeListener(listenerIndex){
+	listeners.splice(listenerIndex, 1);
 }
 
 class DrumMachine extends React.Component {
@@ -86,6 +110,18 @@ class DrumMachine extends React.Component {
 				<PlayHeading isPlaying={isPlaying} value="00:00" onPlayPause={playPause} />
 			</div>
 		);
+	}
+
+	componentDidMount() {
+		this.listenerIndex = addListener(this.onChange.bind(this));
+	}
+	
+	componentWillUnmount() {
+		removeListener(this.listenerIndex);
+	}
+	
+	onChange(){
+		this.setState(getState());
 	}
 
 }
