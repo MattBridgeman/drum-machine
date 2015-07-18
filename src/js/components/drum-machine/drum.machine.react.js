@@ -99,15 +99,13 @@ class DrumMachine extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			text: "hello world!!"
-		};
+		this.state = getState();
 	}
 
 	render() {
 		return (
 			<div className="drum-machine">
-				<PlayHeading isPlaying={isPlaying} value="00:00" onPlayPause={playPause} />
+				<PlayHeading isPlaying={this.state.isPlaying} value={this.state.time} onPlayPause={playPause} />
 			</div>
 		);
 	}

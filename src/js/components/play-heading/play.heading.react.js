@@ -4,10 +4,6 @@ class PlayHeading extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			isPlaying: props.isPlaying,
-			value: props.value
-		};
 	}
 	
 	onClick(){
@@ -15,14 +11,14 @@ class PlayHeading extends React.Component {
 	}
 
 	render() {
-		var buttonText = this.state.isPlaying ? "Pause" : "Play";
+		var buttonText = this.props.isPlaying ? "Pause" : "Play";
 		return (
 			<div className="heading unit">
 				<div className="inner">
 					<div className="name">
 						<button className="button dark" onClick={this.onClick.bind(this)}>{buttonText}</button>
 					</div>
-					<p className="value">{this.state.value}</p>
+					<p className="value">{this.props.value}</p>
 				</div>
 			</div>
 		);
