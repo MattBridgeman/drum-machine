@@ -9,6 +9,10 @@ class PlayHeading extends React.Component {
 			value: props.value
 		};
 	}
+	
+	onClick(){
+		this.props.onPlayPause();
+	}
 
 	render() {
 		var buttonText = this.state.isPlaying ? "Pause" : "Play";
@@ -16,7 +20,7 @@ class PlayHeading extends React.Component {
 			<div className="heading unit">
 				<div className="inner">
 					<div className="name">
-						<button className="button dark">{buttonText}</button>
+						<button className="button dark" onClick={this.onClick.bind(this)}>{buttonText}</button>
 					</div>
 					<p className="value">{this.state.value}</p>
 				</div>
@@ -28,7 +32,8 @@ class PlayHeading extends React.Component {
 
 PlayHeading.propTypes = {
 	isPlaying: React.PropTypes.bool.isRequired,
-	value: React.PropTypes.string.isRequired
+	value: React.PropTypes.string.isRequired,
+	onPlayPause: React.PropTypes.func
 };
 
 export { PlayHeading };

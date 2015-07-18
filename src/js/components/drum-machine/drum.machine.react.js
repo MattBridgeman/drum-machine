@@ -2,6 +2,7 @@ import { WebAudioContext } from "../../audio-api/context";
 import { Tempo } from "../../audio-api/tempo";
 import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
+import { PlayHeading } from "../play-heading/play.heading.react";
 
 var data = {
 	tempo: {
@@ -40,6 +41,8 @@ var sounds = Promise.all(data.sounds.map(function(item){
 	return context.decodeAudioDataArray(promises);
 });
 
+var isPlaying = false;
+
 function play() {
 	sounds.then(function(promises){
 		promises.map(function(buffer, index){
@@ -48,12 +51,25 @@ function play() {
 				if(!segment) {
 					return;
 				}
-				context.playSound(buffer, (i + 5) * tempo.getSegmentTimeInSeconds());
+				context.playSound(buffer, (i * tempo.getSegmentTimeInSeconds()) + context.context.currentTime);
 			});
 		});
 	})
 	.catch(console.log.bind(console));
 };
+
+function pause() {
+	//place holder for pause
+};
+
+function playPause(){
+	isPlaying = !isPlaying;
+	if(isPlaying) {
+		play();
+	} else {
+		pause();
+	}
+}
 
 class DrumMachine extends React.Component {
 
@@ -66,8 +82,8 @@ class DrumMachine extends React.Component {
 
 	render() {
 		return (
-			<div>
-			{this.state.text}
+			<div className="drum-machine">
+				<PlayHeading isPlaying={isPlaying} value="00:00" onPlayPause={playPause} />
 			</div>
 		);
 	}
