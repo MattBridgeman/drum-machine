@@ -4,6 +4,7 @@ import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
 import { PlayHeading } from "../play-heading/play.heading.react";
 import { DrumMachineStore } from './stores/drum.machine.store';
+import { DrumMachineConstants } from './constants/drum.machine.constants';
 
 var tempo = new Tempo(DrumMachineStore.tempo);
 var context = new WebAudioContext();
@@ -86,7 +87,7 @@ class DrumMachine extends React.Component {
 	}
 
 	componentDidMount() {
-		this.listenerIndex = addListener(this.onChange.bind(this));
+		this.listenerIndex = DrumMachineStore.on(DrumMachineConstants.CHANGE_EVENT, this.onChange.bind(this));
 	}
 	
 	componentWillUnmount() {

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DrumMachineActions } from "../drum-machine/actions/drum.machine.actions";
 
 class PlayHeading extends React.Component {
 
@@ -7,7 +8,7 @@ class PlayHeading extends React.Component {
 	}
 	
 	onClick(){
-		this.props.onPlayPause();
+		DrumMachineActions.togglePlayPause();
 	}
 
 	render() {
@@ -16,7 +17,7 @@ class PlayHeading extends React.Component {
 			<div className="heading unit">
 				<div className="inner">
 					<div className="name">
-						<button className="button dark" onClick={this.onClick.bind(this)}>{buttonText}</button>
+						<button className="button dark" onClick={this.onClick}>{buttonText}</button>
 					</div>
 					<p className="value">{this.props.value}</p>
 				</div>
