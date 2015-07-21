@@ -3,7 +3,7 @@ import { DrumMachineConstants } from "../constants/drum.machine.constants";
 import { EventEmitter } from "events";
 import * as assign from "object-assign";
 
-var DrumMachineStore = assign({}, EventEmitter.prototype, {
+var DrumMachineStore = assign.default({}, EventEmitter.prototype, {
 	data: {
 		tempo: {
 			beatsPerMinute: 120,

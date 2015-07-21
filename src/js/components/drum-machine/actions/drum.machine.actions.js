@@ -3,17 +3,17 @@ import { DrumMachineConstants } from "../constants/drum.machine.constants";
 
 var DrumMachineActions = {
 	play(){
-		dispatcher.emit({
+		dispatcher.dispatch({
 			actionType: DrumMachineConstants.PLAY
 		});
 	},
 	pause(){
-		dispatcher.emit({
+		dispatcher.dispatch({
 			actionType: DrumMachineConstants.PAUSE
 		});
 	},
 	togglePlayPause(){
-		dispatcher.emit({
+		dispatcher.dispatch({
 			actionType: DrumMachineConstants.TOGGLE_PLAY_PAUSE
 		});
 	}

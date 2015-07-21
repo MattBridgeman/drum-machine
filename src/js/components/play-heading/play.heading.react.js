@@ -9,6 +9,7 @@ class PlayHeading extends React.Component {
 	
 	onClick(){
 		DrumMachineActions.togglePlayPause();
+		this.props.onPlayPause();
 	}
 
 	render() {
@@ -17,7 +18,7 @@ class PlayHeading extends React.Component {
 			<div className="heading unit">
 				<div className="inner">
 					<div className="name">
-						<button className="button dark" onClick={this.onClick}>{buttonText}</button>
+						<button className="button dark" onClick={this.onClick.bind(this)}>{buttonText}</button>
 					</div>
 					<p className="value">{this.props.value}</p>
 				</div>

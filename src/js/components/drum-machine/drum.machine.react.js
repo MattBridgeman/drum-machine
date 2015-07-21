@@ -6,10 +6,10 @@ import { PlayHeading } from "../play-heading/play.heading.react";
 import { DrumMachineStore } from './stores/drum.machine.store';
 import { DrumMachineConstants } from './constants/drum.machine.constants';
 
-var tempo = new Tempo(DrumMachineStore.tempo);
+var tempo = new Tempo(DrumMachineStore.data.tempo);
 var context = new WebAudioContext();
 
-var sounds = Promise.all(DrumMachineStore.sounds.map(function(item){
+var sounds = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 	return item.path;
 })
 .map(arrayBuffer))
@@ -22,7 +22,7 @@ var isPlaying = false;
 function play() {
 	sounds.then(function(promises){
 		promises.map(function(buffer, index){
-			var pattern = DrumMachineStore.patterns[index].patterns[0];
+			var pattern = DrumMachineStore.data.patterns[index].patterns[0];
 			pattern.forEach(function(segment, i){
 				if(!segment) {
 					return;
@@ -50,7 +50,7 @@ function playPause(){
 
 function getState(){
 	return {
-		isPlaying: isPlaying,
+		isPlaying: DrumMachineStore.data.state.isPlaying,
 		time: "00:00"
 	}
 }
