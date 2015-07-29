@@ -1,5 +1,6 @@
 import { WebAudioContext } from "../../audio-api/context";
 import { Tempo } from "../../audio-api/tempo";
+import { Scheduler } from "../../audio-api/scheduler";
 import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
 import { PlayHeading } from "../play-heading/play.heading.react";
@@ -8,8 +9,9 @@ import { DrumMachineConstants } from './constants/drum.machine.constants';
 
 var tempo = new Tempo(DrumMachineStore.data.tempo);
 var context = new WebAudioContext();
+var scheduler = new Scheduler(context, tempo);
 
-var sounds = Promise.all(DrumMachineStore.data.sounds.map(function(item){
+var soundPromises = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 	return item.path;
 })
 .map(arrayBuffer))
@@ -20,15 +22,10 @@ var sounds = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 var isPlaying = false;
 
 function play() {
-	sounds.then(function(promises){
-		promises.map(function(buffer, index){
+	soundPromises.then(function(soundBuffers){
+		soundBuffers.map(function(buffer, index){
 			var pattern = DrumMachineStore.data.patterns[index].patterns[0];
-			pattern.forEach(function(segment, i){
-				if(!segment) {
-					return;
-				}
-				context.playSound(buffer, (i * tempo.getSegmentTimeInSeconds()) + context.context.currentTime);
-			});
+			scheduler.schedule(buffer, pattern);
 		});
 	})
 	.catch(console.log.bind(console));

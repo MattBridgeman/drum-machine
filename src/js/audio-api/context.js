@@ -22,6 +22,9 @@ class WebAudioContext {
 		source.connect(this.context.destination);
 		source.start(time || this.context.currentTime);
 	}
+	getCurrentTime(){
+		return this.context.currentTime;
+	}
 }
 
 export { WebAudioContext };
