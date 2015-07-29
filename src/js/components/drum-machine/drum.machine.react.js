@@ -27,6 +27,7 @@ function play() {
 			var pattern = DrumMachineStore.data.patterns[index].patterns[0];
 			scheduler.schedule(buffer, pattern);
 		});
+		scheduler.start();
 	})
 	.catch(console.log.bind(console));
 };
@@ -52,22 +53,6 @@ function getState(){
 	}
 }
 
-var listeners = [];
-
-function notify(){
-	listeners.forEach((listener) => {
-		listener();
-	});
-};
-
-function addListener(listener){
-	return listeners.push(listener) - 1;
-}
-
-function removeListener(listenerIndex){
-	listeners.splice(listenerIndex, 1);
-}
-
 class DrumMachine extends React.Component {
 
 	constructor(props) {
@@ -88,7 +73,7 @@ class DrumMachine extends React.Component {
 	}
 	
 	componentWillUnmount() {
-		removeListener(this.listenerIndex);
+		DrumMachineStore.off(DrumMachineConstants.CHANGE_EVENT, this.onChange);
 	}
 	
 	onChange(){
