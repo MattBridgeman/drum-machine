@@ -2,12 +2,12 @@ class Scheduler {
 	constructor(context, tempo) {
 		this.context = context;
 		this.tempo = tempo;
-		this.patterns = [];
+		this.sounds = [];
 		this.isPlaying = false;
 		this.interval = 100;
 	}
-	schedule(buffer, pattern){
-		var id = this.patterns.push({buffer, pattern});
+	schedule(buffer, patterns){
+		var id = this.sounds.push({buffer, patterns});
 		return id;
 	}
 	start(){
@@ -18,8 +18,8 @@ class Scheduler {
 		this.isPlaying = false;
 	}
 	tick(){
-		this.patterns.forEach(({buffer, pattern}) => {
-			pattern.forEach((segment, i) => {
+		this.sounds.forEach(({buffer, patterns}) => {
+			patterns[0].forEach((segment, i) => {
 				if(!segment) {
 					return;
 				}

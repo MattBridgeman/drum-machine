@@ -24,8 +24,8 @@ var isPlaying = false;
 function play() {
 	soundPromises.then(function(soundBuffers){
 		soundBuffers.map(function(buffer, index){
-			var pattern = DrumMachineStore.data.patterns[index].patterns[0];
-			scheduler.schedule(buffer, pattern);
+			var patterns = DrumMachineStore.data.patterns[index].patterns;
+			scheduler.schedule(buffer, patterns);
 		});
 		scheduler.start();
 	})
