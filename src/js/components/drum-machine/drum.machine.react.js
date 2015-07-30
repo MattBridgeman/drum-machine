@@ -43,7 +43,6 @@ function playPause(){
 	} else {
 		pause();
 	}
-	notify();
 }
 
 function getState(){

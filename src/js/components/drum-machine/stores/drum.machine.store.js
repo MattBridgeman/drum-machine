@@ -21,12 +21,12 @@ var DrumMachineStore = assign.default({}, EventEmitter.prototype, {
 		patterns: [{
 			name: "kick",
 			patterns: [
-				[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0]
+				[0, 4, 8, 12, 14]
 			]
 		}, {
 			name: "kick",
 			patterns: [
-				[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1]
+				[4, 12, 13, 15]
 			]
 		}],
 		state: {
