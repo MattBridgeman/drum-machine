@@ -8,7 +8,7 @@ class Scheduler {
 		this.interval = 100;
 		this.bufferInSeconds = 1;
 		this.startTime = -1;
-		this.previousBufferSegmentIndex = 0;
+		this.previousBufferSegmentIndex = -1;
 		this.timer = null;
 	}
 	schedule(buffer, patterns){
@@ -47,18 +47,20 @@ class Scheduler {
 		var currentTime = this.context.getCurrentTime();
 		return currentTime - this.startTime;
 	}
+	segmentTimeByIndex(index){
+		return index * this.tempo.getSegmentTimeInSeconds() + this.startTime;
+	}
 	scheduleSegmentsInBuffer(){
 		if(!this.withinNewBufferRange()) return;
 		var nextSegmentIndex = this.previousBufferSegmentIndex + 1;
-		var bufferEndSegmentIndex = this.getBufferEndSegmentIndex();
-		var currentTime = this.context.getCurrentTime();
+		var bufferEndSegmentIndex = nextSegmentIndex + this.getSegmentsPerBuffer();
 		this.sounds.forEach(({buffer, patterns}) => {
 			var segments = patterns[0]
 			.filter((segment) => segment >= nextSegmentIndex)
 			.filter((segment) => segment <= bufferEndSegmentIndex);
 			
 			segments.forEach((segment) => {
-				this.context.playSound(buffer, (segment * this.tempo.getSegmentTimeInSeconds()) + currentTime);
+				this.context.playSound(buffer, this.segmentTimeByIndex(segment));
 			});
 		});
 		this.previousBufferSegmentIndex = bufferEndSegmentIndex;
