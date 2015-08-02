@@ -3,13 +3,12 @@ class Scheduler {
 		this.context = context;
 		this.tempo = tempo;
 		this.sounds = [];
-		this.segmentsScheduled = [];
 		this.currentPatternIndex = 0;
 		this.isPlaying = false;
 		this.interval = 100;
 		this.bufferInSeconds = 1;
 		this.startTime = -1;
-		this.currentBufferTime = -1;
+		this.previousBufferSegmentIndex = 0;
 		this.timer = null;
 	}
 	schedule(buffer, patterns){
@@ -19,7 +18,6 @@ class Scheduler {
 	start(){
 		this.isPlaying = true;
 		this.startTime = this.context.getCurrentTime();
-		this.currentBufferTime = this.startTime;
 		this.tick();
 	}
 	stop(){
@@ -32,36 +30,41 @@ class Scheduler {
 			this.tick();
 		}, this.interval);
 	}
-	segmentsInBuffer(){
+	getSegmentsPerBuffer(){
 		var segmentTimeInSeconds = this.tempo.getSegmentTimeInSeconds();
-		var segmentsInBuffer = this.bufferInSeconds / segmentTimeInSeconds;
-		return Math.ceil(segmentsInBuffer);
+		var segmentsPerBuffer = this.bufferInSeconds / segmentTimeInSeconds;
+		return Math.floor(segmentsPerBuffer);
 	}
-	getCurrentSegment(){
+	getCurrentSegmentIndex(){
 		var segmentTimeInSeconds = this.tempo.getSegmentTimeInSeconds();
 		var elapsedTime = this.getElapsedTime();
 		return Math.floor(elapsedTime / segmentTimeInSeconds);
 	}
-	segmentsInCurrentBuffer(){
-		return this.getCurrentSegment() + this.segmentsInBuffer();
+	getBufferEndSegmentIndex(){
+		return this.getCurrentSegmentIndex() + this.getSegmentsPerBuffer() - 1;
 	}
 	getElapsedTime(){
 		var currentTime = this.context.getCurrentTime();
 		return currentTime - this.startTime;
 	}
 	scheduleSegmentsInBuffer(){
-		var segmentsInBuffer = this.segmentsInBuffer();
+		if(!this.withinNewBufferRange()) return;
+		var nextSegmentIndex = this.previousBufferSegmentIndex + 1;
+		var bufferEndSegmentIndex = this.getBufferEndSegmentIndex();
 		var currentTime = this.context.getCurrentTime();
 		this.sounds.forEach(({buffer, patterns}) => {
-			var segmentsToSchedule = patterns[0]
-			.filter((segment) => this.segmentsInCurrentBuffer)
-			.filter((segment) => segment <= segmentsInBuffer);
+			var segments = patterns[0]
+			.filter((segment) => segment >= nextSegmentIndex)
+			.filter((segment) => segment <= bufferEndSegmentIndex);
 			
-			segmentsToSchedule.forEach((segment) => {
+			segments.forEach((segment) => {
 				this.context.playSound(buffer, (segment * this.tempo.getSegmentTimeInSeconds()) + currentTime);
 			});
 		});
-		this.currentBufferTime = currentTime + this.bufferInSeconds;
+		this.previousBufferSegmentIndex = bufferEndSegmentIndex;
+	}
+	withinNewBufferRange(){
+		return this.previousBufferSegmentIndex - this.getCurrentSegmentIndex() <= 0;
 	}
 }
 
