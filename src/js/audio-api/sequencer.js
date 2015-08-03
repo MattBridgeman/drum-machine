@@ -1,4 +1,4 @@
-class Scheduler {
+class Sequencer {
 	constructor(context, tempo) {
 		this.context = context;
 		this.tempo = tempo;
@@ -81,4 +81,4 @@ class Scheduler {
 	}
 }
 
-export { Scheduler };
+export { Sequencer };

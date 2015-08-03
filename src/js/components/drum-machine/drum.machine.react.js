@@ -1,6 +1,6 @@
 import { WebAudioContext } from "../../audio-api/context";
 import { Tempo } from "../../audio-api/tempo";
-import { Scheduler } from "../../audio-api/scheduler";
+import { Sequencer } from "../../audio-api/sequencer";
 import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
 import { PlayHeading } from "../play-heading/play.heading.react";
@@ -9,7 +9,7 @@ import { DrumMachineConstants } from './constants/drum.machine.constants';
 
 var tempo = new Tempo(DrumMachineStore.data.tempo);
 var context = new WebAudioContext();
-var scheduler = new Scheduler(context, tempo);
+var sequencer = new Sequencer(context, tempo);
 
 var soundPromises = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 	return item.path;
@@ -22,7 +22,7 @@ var soundPromises = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 soundPromises.then(function(soundBuffers){
 	soundBuffers.map(function(buffer, index){
 		var patterns = DrumMachineStore.data.patterns[index].patterns;
-		scheduler.schedule(buffer, patterns);
+		sequencer.schedule(buffer, patterns);
 	});
 })
 .catch(console.log.bind(console));
@@ -44,7 +44,7 @@ class DrumMachine extends React.Component {
 	render() {
 		return (
 			<div className="drum-machine">
-				<PlayHeading isPlaying={this.state.isPlaying} value={this.state.time} onPlayPause={scheduler.toggleStart.bind(scheduler)} />
+				<PlayHeading isPlaying={this.state.isPlaying} value={this.state.time} onPlayPause={sequencer.toggleStart.bind(sequencer)} />
 			</div>
 		);
 	}
