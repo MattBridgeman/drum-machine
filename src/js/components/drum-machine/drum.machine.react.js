@@ -34,6 +34,7 @@ function play() {
 
 function pause() {
 	//place holder for pause
+	scheduler.stop();
 };
 
 function playPause(){

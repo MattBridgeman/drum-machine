@@ -3,13 +3,7 @@ class Scheduler {
 		this.context = context;
 		this.tempo = tempo;
 		this.sounds = [];
-		this.currentPatternIndex = 0;
-		this.isPlaying = false;
-		this.interval = 100;
-		this.bufferInSeconds = 1;
-		this.startTime = -1;
-		this.previousBufferSegmentIndex = -1;
-		this.timer = null;
+		this.reset();
 	}
 	schedule(buffer, patterns){
 		var id = this.sounds.push({buffer, patterns});
@@ -23,6 +17,16 @@ class Scheduler {
 	stop(){
 		this.isPlaying = false;
 		if(this.timer) clearTimeout(this.timer);
+		this.reset();
+	}
+	reset(){
+		this.currentPatternIndex = 0;
+		this.isPlaying = false;
+		this.interval = 100;
+		this.bufferInSeconds = 1;
+		this.startTime = -1;
+		this.previousBufferSegmentIndex = -1;
+		this.timer = null;
 	}
 	tick(){
 		this.scheduleSegmentsInBuffer();
