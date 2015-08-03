@@ -19,6 +19,13 @@ class Scheduler {
 		if(this.timer) clearTimeout(this.timer);
 		this.reset();
 	}
+	toggleStart(){
+		if(!this.isPlaying) {
+			this.start();
+		} else {
+			this.stop();
+		}
+	}
 	reset(){
 		this.currentPatternIndex = 0;
 		this.isPlaying = false;

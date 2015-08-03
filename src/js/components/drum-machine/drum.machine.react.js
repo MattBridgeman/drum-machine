@@ -19,32 +19,13 @@ var soundPromises = Promise.all(DrumMachineStore.data.sounds.map(function(item){
 	return context.decodeAudioDataArray(promises);
 });
 
-var isPlaying = false;
-
-function play() {
-	soundPromises.then(function(soundBuffers){
-		soundBuffers.map(function(buffer, index){
-			var patterns = DrumMachineStore.data.patterns[index].patterns;
-			scheduler.schedule(buffer, patterns);
-		});
-		scheduler.start();
-	})
-	.catch(console.log.bind(console));
-};
-
-function pause() {
-	//place holder for pause
-	scheduler.stop();
-};
-
-function playPause(){
-	isPlaying = !isPlaying;
-	if(isPlaying) {
-		play();
-	} else {
-		pause();
-	}
-}
+soundPromises.then(function(soundBuffers){
+	soundBuffers.map(function(buffer, index){
+		var patterns = DrumMachineStore.data.patterns[index].patterns;
+		scheduler.schedule(buffer, patterns);
+	});
+})
+.catch(console.log.bind(console));
 
 function getState(){
 	return {
@@ -63,7 +44,7 @@ class DrumMachine extends React.Component {
 	render() {
 		return (
 			<div className="drum-machine">
-				<PlayHeading isPlaying={this.state.isPlaying} value={this.state.time} onPlayPause={playPause} />
+				<PlayHeading isPlaying={this.state.isPlaying} value={this.state.time} onPlayPause={scheduler.toggleStart.bind(scheduler)} />
 			</div>
 		);
 	}
