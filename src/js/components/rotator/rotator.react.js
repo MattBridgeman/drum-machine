@@ -55,7 +55,7 @@ class Rotator extends React.Component {
 					});
 
 		knobMouseDrags.forEach(function(dragPoint) {
-			// dragPoint.pageX + "px";
+			console.log(dragPoint.pageX);
 			// dragPoint.pageY + "px";
 		});
 	}
