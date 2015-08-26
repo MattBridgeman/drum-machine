@@ -1,3 +1,9 @@
+.channels {
+	border: 1px solid @white;
+	padding: @baseline * 2;
+	display: flex;
+}
+
 .channel {
 	width: 100px;
 	border-right: 1px solid @white;
@@ -5,7 +11,10 @@
 	text-align: center;
 	.channel-item {
 		.item-title {
-			margin: 0;
+			margin: 0 0 @baseline;
+		}
+		.item-value {
+			margin: 0 0 @baseline;
 		}
 	}
 }
