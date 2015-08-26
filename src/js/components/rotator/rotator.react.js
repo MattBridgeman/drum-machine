@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as Rx from "react";
 
 function rotationFromValue(value, min, max){
 	var range = max - min;
@@ -23,11 +24,15 @@ class Rotator extends React.Component {
 			<div className="channel-item rotator">
 				<h3 className="item-title">{this.props.name}</h3>
 				<p className="item-value">{value}</p>
-				<div className="knob" style={knobStyle}></div>
+				<div ref="knob" className="knob" style={knobStyle}></div>
 				<button className="increase">Increase volume</button>
 				<button className="decrease">Decrease volume</button>
 			</div>
 		);
+	}
+	
+	componentDidMount() {
+		this.refs.knob.getDOMNode();
 	}
 };
 
