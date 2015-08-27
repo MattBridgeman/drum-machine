@@ -6,14 +6,23 @@ function rotationFromValue(value, min, max){
 	return ((range / 100) * value) - max;
 }
 
+function normaliseValue(value){
+	if(value < 0) return 0;
+	if(value > 100) return 100;
+	return value;
+}
+
 class Rotator extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			value: 50
+		};
 	}
-
+	
 	render() {
-		var value = 50;
+		var value = this.state.value;
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
 		var rotation = rotationFromValue(value, minRotation, maxRotation);
@@ -33,7 +42,7 @@ class Rotator extends React.Component {
 	
 	componentDidMount() {
 		var $knob = this.refs.knob.getDOMNode();
-		var $knobContainer = this.refs.knob.getDOMNode();
+		var $knobContainer = document;
 		
 		var knobMouseDowns = Rx.Observable.fromEvent($knob, "mousedown"),
 			knobContainerMouseMoves = Rx.Observable.fromEvent($knobContainer, "mousemove"),
@@ -47,16 +56,19 @@ class Rotator extends React.Component {
 							// ...until a mouse up event occurs.
 							takeUntil(knobContainerMouseUps).
 							map(function(movePoint) {
-								return {
-									pageX: movePoint.pageX - contactPoint.pageX,
-									pageY: movePoint.pageY - contactPoint.pageY
-								};
-							});;
+								return movePoint.pageY - contactPoint.pageY;
+							});
 					});
 
-		knobMouseDrags.forEach(function(dragPoint) {
-			console.log(dragPoint.pageX);
-			// dragPoint.pageY + "px";
+		knobMouseDrags
+			.scan(0, (acc, curr) => acc - curr)
+			.forEach((valueChange) => this.updateValue(valueChange));
+	}
+	
+	updateValue(valueChange){
+		var value = normaliseValue(this.state.value + valueChange);
+		this.setState({
+			value
 		});
 	}
 };
