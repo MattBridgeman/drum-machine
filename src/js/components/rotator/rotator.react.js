@@ -48,20 +48,15 @@ class Rotator extends React.Component {
 			knobContainerMouseMoves = Rx.Observable.fromEvent($knobContainer, "mousemove"),
 			knobContainerMouseUps = Rx.Observable.fromEvent($knobContainer, "mouseup"),
 			knobMouseDrags =
-				// For every mouse down event on the knob...
-				knobMouseDowns.
-					concatMap(function(contactPoint) {
-						// ...retrieve all the mouse move events on the knob container...
-						return knobContainerMouseMoves.
-							// ...until a mouse up event occurs.
-							takeUntil(knobContainerMouseUps).
-							map(function(movePoint) {
-								return movePoint.pageY - contactPoint.pageY;
-							});
-					});
+				knobMouseDowns
+					.concatMap((contactPoint) =>
+						knobContainerMouseMoves
+							.takeUntil(knobContainerMouseUps)
+							.map((movePoint) => movePoint.pageY - contactPoint.pageY)
+				);
 
 		knobMouseDrags
-			.scan(0, (acc, curr) => acc - curr)
+			.scan(0, (acc, curr) => (acc - curr) - acc)
 			.forEach((valueChange) => this.updateValue(valueChange));
 	}
 	
