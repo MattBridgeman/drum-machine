@@ -56,8 +56,14 @@ class Rotator extends React.Component {
 				);
 
 		knobMouseDrags
-			.scan(0, (acc, curr) => (acc - curr) - acc)
-			.forEach((valueChange) => this.updateValue(valueChange));
+			.scan({
+				value: 0
+			},
+			(acc, curr) => ({
+				diff: (acc.value - curr),
+				value: curr
+			}))
+			.forEach((obj) => this.updateValue(obj.diff));
 	}
 	
 	updateValue(valueChange){
