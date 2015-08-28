@@ -38,17 +38,17 @@ var DrumMachineStore = assign.default({}, EventEmitter.prototype, {
 dispatcher.register(function(action) {
 	switch(action.actionType) {
 		case DrumMachineConstants.PLAY:
-		  DrumMachineStore.data.state.isPlaying = true;
-		  DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
-		  break;
+			DrumMachineStore.data.state.isPlaying = true;
+			DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
+			break;
 		case DrumMachineConstants.PAUSE:
-		  DrumMachineStore.data.state.isPlaying = false;
-		  DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
-		  break;
+			DrumMachineStore.data.state.isPlaying = false;
+			DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
+			break;
 		case DrumMachineConstants.TOGGLE_PLAY_PAUSE:
-		  DrumMachineStore.data.state.isPlaying = !DrumMachineStore.data.state.isPlaying;
-		  DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
-		  break;
+			DrumMachineStore.data.state.isPlaying = !DrumMachineStore.data.state.isPlaying;
+			DrumMachineStore.emit(DrumMachineConstants.CHANGE_EVENT);
+			break;
 	}
 });
 

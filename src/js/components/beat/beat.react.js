@@ -33,13 +33,13 @@ class Beat extends React.Component {
 				number = index + 1;
 
 			buttonClass += beat ? " on" : "";
-			buttonClass += current == index ? " current" : "";
+			buttonClass += current === index ? " current" : "";
 
-			return <button className={buttonClass}>{number}/16</button>
+			return (<button className={buttonClass}>{number}/16</button>);
 		});
 	}
 
-};
+}
 
 Beat.propTypes = {
 	name: React.PropTypes.string.isRequired,

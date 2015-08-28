@@ -22,7 +22,7 @@ class Display extends React.Component {
 		);
 	}
 
-};
+}
 
 Display.propTypes = {
 	name: React.PropTypes.string.isRequired,

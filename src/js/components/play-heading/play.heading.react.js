@@ -26,7 +26,7 @@ class PlayHeading extends React.Component {
 		);
 	}
 
-};
+}
 
 PlayHeading.propTypes = {
 	isPlaying: React.PropTypes.bool.isRequired,

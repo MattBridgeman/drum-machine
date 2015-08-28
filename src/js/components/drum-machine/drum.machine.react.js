@@ -4,8 +4,8 @@ import { Sequencer } from "../../audio-api/sequencer";
 import { arrayBuffer } from "../../request/arraybuffer";
 import * as React from "react";
 import { PlayHeading } from "../play-heading/play.heading.react";
-import { DrumMachineStore } from './stores/drum.machine.store';
-import { DrumMachineConstants } from './constants/drum.machine.constants';
+import { DrumMachineStore } from "./stores/drum.machine.store";
+import { DrumMachineConstants } from "./constants/drum.machine.constants";
 
 var tempo = new Tempo(DrumMachineStore.data.tempo);
 var context = new WebAudioContext();
@@ -31,7 +31,7 @@ function getState(){
 	return {
 		isPlaying: DrumMachineStore.data.state.isPlaying,
 		time: "00:00"
-	}
+	};
 }
 
 class DrumMachine extends React.Component {

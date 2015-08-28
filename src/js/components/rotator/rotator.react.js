@@ -73,7 +73,7 @@ class Rotator extends React.Component {
 			value
 		});
 	}
-};
+}
 
 Rotator.propTypes = {
 };

@@ -1,7 +1,7 @@
-jest.dontMock('../tempo');
-var Tempo = require('../tempo').Tempo;
+jest.dontMock("../tempo");
+var Tempo = require("../tempo").Tempo;
 
-describe('Tempo', function() {
+describe("Tempo", function() {
 	var tempo,
 		data;
 

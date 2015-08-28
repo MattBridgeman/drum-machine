@@ -14,7 +14,7 @@ class Channel extends React.Component {
 		);
 	}
 
-};
+}
 
 Channel.propTypes = {
 };

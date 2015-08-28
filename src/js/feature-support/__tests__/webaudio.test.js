@@ -1,11 +1,11 @@
-jest.dontMock('../webaudio');
-jest.dontMock('../../audio-api/context');
-var featureTest = require('../webaudio');
+jest.dontMock("../webaudio");
+jest.dontMock("../../audio-api/context");
+var featureTest = require("../webaudio");
 
-describe('browserSupportsWebAudio', function() {
+describe("browserSupportsWebAudio", function() {
 	beforeEach(function(){
 		window.AudioContext = undefined;
-	})
+	});
 	it("web audio should be supported", function() {
 		window.AudioContext = jest.genMockFunction();
 		var supported = featureTest.browserSupportsWebAudio();

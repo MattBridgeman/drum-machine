@@ -1,10 +1,10 @@
-jest.dontMock('../context');
-var WebAudioContext = require('../context').WebAudioContext;
+jest.dontMock("../context");
+var WebAudioContext = require("../context").WebAudioContext;
 
-describe('WebAudioContext', function() {
+describe("WebAudioContext", function() {
 	beforeEach(function(){
 		window.AudioContext = jest.genMockFunction();
-	})
+	});
 	it("AudioContext is called", function() {
 		var context = new WebAudioContext();
 
