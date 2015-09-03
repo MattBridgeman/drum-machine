@@ -4,6 +4,7 @@ import { Beat } from "./components/beat/beat.react";
 import { PlayHeading } from "./components/play-heading/play.heading.react";
 import { Channel } from "./components/channel/channel.react";
 import { Rotator } from "./components/rotator/rotator.react";
+import { SourceSelector } from "./components/source-selector/source.selector.react";
 
 React.render(
 	(
@@ -14,6 +15,7 @@ React.render(
 			<Beat name="Kick" value="1/16" beats={[1, 0, 0, 0]} current={2} />
 			<div className="channels">
 				<Channel>
+					<SourceSelector selected={0} options={["kick", "clap"]} />
 					<Rotator name="Volume" />
 					<Rotator name="Attack" />
 					<Rotator name="Decay" />
