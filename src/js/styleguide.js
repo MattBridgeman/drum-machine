@@ -15,6 +15,9 @@ React.render(
 			<div className="channels">
 				<Channel>
 					<Rotator name="Volume" />
+					<Rotator name="Attack" />
+					<Rotator name="Decay" />
+					<Rotator name="Tuning" />
 				</Channel>
 			</div>
 		</div>
