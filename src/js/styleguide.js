@@ -15,7 +15,7 @@ React.render(
 			<Beat name="Kick" value="1/16" beats={[1, 0, 0, 0]} current={2} />
 			<div className="channels">
 				<Channel>
-					<SourceSelector selectedIndex={0} options={["kick", "clap"]} />
+					<SourceSelector selectedIndex={0} options={["Kick", "Clap"]} />
 					<Rotator name="Volume" />
 					<Rotator name="Attack" />
 					<Rotator name="Decay" />
