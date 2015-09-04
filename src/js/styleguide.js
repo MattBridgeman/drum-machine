@@ -5,6 +5,8 @@ import { PlayHeading } from "./components/play-heading/play.heading.react";
 import { Channel } from "./components/channel/channel.react";
 import { Rotator } from "./components/rotator/rotator.react";
 import { SourceSelector } from "./components/source-selector/source.selector.react";
+import { Pattern } from "./components/pattern/pattern.react";
+import { PatternBeat } from "./components/pattern/pattern.beat.react";
 
 React.render(
 	(
@@ -20,6 +22,11 @@ React.render(
 					<Rotator name="Attack" />
 					<Rotator name="Decay" />
 					<Rotator name="Tuning" />
+					<Pattern>
+						<PatternBeat index={0} current={true} selected={true} />
+						<PatternBeat index={1} current={false} selected={false} />
+						<PatternBeat index={2} current={false} selected={true} />
+					</Pattern>
 				</Channel>
 			</div>
 		</div>
