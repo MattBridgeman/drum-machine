@@ -14,7 +14,6 @@ React.render(
 			<PlayHeading isPlaying={true} value="00:01" />
 			<Display name="Tempo" value="120" />
 			<Display name="Signature" value="4/4" />
-			<Beat name="Kick" value="1/16" beats={[1, 0, 0, 0]} current={2} />
 			<div className="channels">
 				<Channel>
 					<SourceSelector selectedIndex={0} options={["Kick", "Clap"]} />
@@ -22,8 +21,22 @@ React.render(
 					<Rotator name="Attack" />
 					<Rotator name="Decay" />
 					<Rotator name="Tuning" />
+					<Rotator name="Send" />
 					<Pattern>
 						<PatternBeat index={0} current={true} selected={true} />
+						<PatternBeat index={1} current={false} selected={false} />
+						<PatternBeat index={2} current={false} selected={true} />
+					</Pattern>
+				</Channel>
+				<Channel>
+					<SourceSelector selectedIndex={1} options={["Kick", "Clap"]} />
+					<Rotator name="Volume" />
+					<Rotator name="Attack" />
+					<Rotator name="Decay" />
+					<Rotator name="Tuning" />
+					<Rotator name="Send" />
+					<Pattern>
+						<PatternBeat index={0} current={true} selected={false} />
 						<PatternBeat index={1} current={false} selected={false} />
 						<PatternBeat index={2} current={false} selected={true} />
 					</Pattern>
