@@ -1,22 +1,20 @@
 import { dispatcher } from "../dispatcher/drum.machine.dispatcher";
-import { DrumMachineConstants } from "../constants/drum.machine.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../constants/drum.machine.constants";
 
-var DrumMachineActions = {
-	play(){
-		dispatcher.dispatch({
-			actionType: DrumMachineConstants.PLAY
-		});
-	},
-	pause(){
-		dispatcher.dispatch({
-			actionType: DrumMachineConstants.PAUSE
-		});
-	},
-	togglePlayPause(){
-		dispatcher.dispatch({
-			actionType: DrumMachineConstants.TOGGLE_PLAY_PAUSE
-		});
-	}
-};
+export function play() {
+  return {
+    type: PLAY
+  };
+}
 
-export { DrumMachineActions };
+export function pause() {
+  return {
+    type: PAUSE
+  };
+}
+
+export function togglePlayPause() {
+  return {
+    type: TOGGLE_PLAY_PAUSE
+  };
+}
