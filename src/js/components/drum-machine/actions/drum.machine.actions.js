@@ -1,4 +1,3 @@
-import { dispatcher } from "../dispatcher/drum.machine.dispatcher";
 import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../constants/drum.machine.constants";
 
 export function play() {

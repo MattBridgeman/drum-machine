@@ -1,4 +1,3 @@
-import { dispatcher } from "../dispatcher/drum.machine.dispatcher";
 import { createStore } from 'redux';
 import rootReducer from '../reducers/drum.machine.root.reducer';
 

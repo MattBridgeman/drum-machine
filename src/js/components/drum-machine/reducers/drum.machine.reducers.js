@@ -28,7 +28,7 @@ const initialState = {
 	isPlaying: false
 };
 
-export default function playPauseReducers(state = initialState, action) {
+export default function drumMachine(state = initialState, action) {
 	switch (action.type) {
 		case PLAY:
 		//TODO: use immutable library

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import playPauseReducers from './drum.machine.reducers';
+import drumMachine from './drum.machine.reducers';
 
 const rootReducer = combineReducers({
-  playPauseReducers
+  drumMachine
 });
 
 export default rootReducer;
