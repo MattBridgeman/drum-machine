@@ -3,7 +3,7 @@ import { Tempo } from "../../audio-api/tempo";
 import { Sequencer } from "../../audio-api/sequencer";
 import { arrayBuffer } from "../../request/arraybuffer";
 import React, { Component } from "react";
-import { PlayHeading } from "../play-heading/play.heading.react";
+import { PlayHeading } from "../play-heading/play.heading.react.jsx";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as DrumMachineActions from './actions/drum.machine.actions';
