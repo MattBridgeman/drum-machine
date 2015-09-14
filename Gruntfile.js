@@ -63,16 +63,19 @@ module.exports = function(grunt) {
     browserify: {
       main: {
         options: {
-          watch: true,
-          transform: [
-              ["babelify", {
-                 loose: "all"
-              }]
-           ]
+          browserifyOptions: {
+            watch: true,
+            extension: ".jsx",
+            transform: [
+                ["babelify", {
+                  loose: "all"
+                }]
+            ]
+          }
         },
         files: {
-          'build/js/main.js': ['src/js/main.js'],
-          'build/js/styleguide.js': ['src/js/styleguide.js'],
+          'build/js/main.js': ['src/js/main.jsx'],
+          'build/js/styleguide.js': ['src/js/styleguide.jsx'],
         }
       }
     },
