@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Display } from "./components/display/display.react.jsx";
-import { Beat } from "./components/beat/beat.react.jsx";
 import { PlayHeading } from "./components/play-heading/play.heading.react.jsx";
 import { Channel } from "./components/channel/channel.react.jsx";
 import { Rotator } from "./components/rotator/rotator.react.jsx";

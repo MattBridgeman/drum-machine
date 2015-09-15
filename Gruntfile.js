@@ -63,8 +63,11 @@ module.exports = function(grunt) {
     browserify: {
       main: {
         options: {
+          watch: true,
+          watchifyOptions: {
+            
+          },
           browserifyOptions: {
-            watch: true,
             extension: ".jsx",
             transform: [
                 ["babelify", {

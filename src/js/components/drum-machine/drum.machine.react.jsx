@@ -1,12 +1,19 @@
-import { WebAudioContext } from "../../audio-api/context";
-import { Tempo } from "../../audio-api/tempo";
-import { Sequencer } from "../../audio-api/sequencer";
-import { arrayBuffer } from "../../request/arraybuffer";
+// import { WebAudioContext } from "../../audio-api/context";
+// import { Tempo } from "../../audio-api/tempo";
+// import { Sequencer } from "../../audio-api/sequencer";
+// import { arrayBuffer } from "../../request/arraybuffer";
 import React, { Component } from "react";
-import { PlayHeading } from "../play-heading/play.heading.react.jsx";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as DrumMachineActions from './actions/drum.machine.actions';
+
+import { Display } from "../display/display.react.jsx";
+import { PlayHeading } from "../play-heading/play.heading.react.jsx";
+import { Channel } from "../channel/channel.react.jsx";
+import { Rotator } from "../rotator/rotator.react.jsx";
+import { SourceSelector } from "../source-selector/source.selector.react.jsx";
+import { Pattern } from "../pattern/pattern.react.jsx";
+import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 
 // var tempo = new Tempo(DrumMachineStore.data.tempo);
 // var context = new WebAudioContext();
@@ -38,8 +45,38 @@ class DrumMachine extends Component {
 	render() {		
 		return (
 			<div className="drum-machine">
-				hello world
+			<PlayHeading isPlaying={true} value="00:01" />
+			<Display name="Tempo" value="120" />
+			<Display name="Signature" value="4/4" />
+			<div className="channels">
+				<Channel>
+					<SourceSelector selectedIndex={0} options={["Kick", "Clap"]} />
+					<Rotator name="Volume" />
+					<Rotator name="Attack" />
+					<Rotator name="Decay" />
+					<Rotator name="Tuning" />
+					<Rotator name="Send" />
+					<Pattern>
+						<PatternBeat index={0} current={true} selected={true} />
+						<PatternBeat index={1} current={false} selected={false} />
+						<PatternBeat index={2} current={false} selected={true} />
+					</Pattern>
+				</Channel>
+				<Channel>
+					<SourceSelector selectedIndex={1} options={["Kick", "Clap"]} />
+					<Rotator name="Volume" />
+					<Rotator name="Attack" />
+					<Rotator name="Decay" />
+					<Rotator name="Tuning" />
+					<Rotator name="Send" />
+					<Pattern>
+						<PatternBeat index={0} current={true} selected={false} />
+						<PatternBeat index={1} current={false} selected={false} />
+						<PatternBeat index={2} current={false} selected={true} />
+					</Pattern>
+				</Channel>
 			</div>
+		</div>
 		);
 	}
 
