@@ -20,76 +20,22 @@ const initialState = {
 		0: {
 			sound: 0,
 			patterns: [0],
-			effects: [0,1,2,3,4]
+			effects: [0]
 		},
 		1: {
 			sound: 1,
 			patterns: [1],
-			effects: [5,6,7,8,9]
-		}
-	},
-	effects: {
-		0: {
-			type: 0,
-			value: 50
-		},
-		1: {
-			type: 1,
-			value: 50
-		},
-		2: {
-			type: 2,
-			value: 50
-		},
-		3: {
-			type: 3,
-			value: 50
-		},
-		4: {
-			type: 4,
-			value: 50
-		},
-		5: {
-			type: 0,
-			value: 50
-		},
-		6: {
-			type: 1,
-			value: 50
-		},
-		7: {
-			type: 2,
-			value: 50
-		},
-		8: {
-			type: 3,
-			value: 50
-		},
-		9: {
-			type: 4,
-			value: 50
+			effects: [1]
 		}
 	},
 	effect: {
 		0: {
-			name: "Volume",
-			type: "volume"
+			type: "volume",
+			value: 50
 		},
 		1: {
-			name: "Attack",
-			type: "attack"
-		},
-		2: {
-			name: "Decay",
-			type: "decay"
-		},
-		3: {
-			name: "Tuning",
-			type: "tuning"
-		},
-		4: {
-			name: "Send",
-			type: "send"
+			type: "volume",
+			value: 50
 		}
 	},
 	patterns: {
