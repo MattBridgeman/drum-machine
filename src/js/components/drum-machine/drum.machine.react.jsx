@@ -42,7 +42,11 @@ class DrumMachine extends Component {
 		super(props);
 	}
 
-	render() {		
+	render() {
+		const { channels } = this.props;
+		// {filteredTodos.map(todo =>
+		// 	<TodoItem key={todo.id} todo={todo} {...actions} />
+		// )}
 		return (
 			<div className="drum-machine">
 			<PlayHeading isPlaying={true} value="00:01" />
