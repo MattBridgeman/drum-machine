@@ -64,14 +64,7 @@ class Rotator extends React.Component {
 				diff: curr ? (acc.value - curr) : 0,
 				value: curr
 			}))
-			.forEach((obj) => this.updateValue(obj.diff));
-	}
-	
-	updateValue(valueChange){
-		var value = normaliseValue(this.state.value + valueChange);
-		this.setState({
-			value
-		});
+			.forEach((obj) => this.props.onKnobRotate(obj.diff));
 	}
 }
 

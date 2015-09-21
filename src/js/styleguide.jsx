@@ -16,11 +16,11 @@ React.render(
 			<div className="channels">
 				<Channel>
 					<SourceSelector selectedIndex={0} options={["Kick", "Clap"]} />
-					<Rotator name="Volume" />
-					<Rotator name="Attack" />
-					<Rotator name="Decay" />
-					<Rotator name="Tuning" />
-					<Rotator name="Send" />
+					<Rotator name="Volume" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Attack" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Decay" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Tuning" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Send" value={50} onKnobRotate={function(){}} />
 					<Pattern>
 						<PatternBeat index={0} current={true} selected={true} />
 						<PatternBeat index={1} current={false} selected={false} />
@@ -29,11 +29,11 @@ React.render(
 				</Channel>
 				<Channel>
 					<SourceSelector selectedIndex={1} options={["Kick", "Clap"]} />
-					<Rotator name="Volume" />
-					<Rotator name="Attack" />
-					<Rotator name="Decay" />
-					<Rotator name="Tuning" />
-					<Rotator name="Send" />
+					<Rotator name="Volume" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Attack" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Decay" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Tuning" value={50} onKnobRotate={function(){}} />
+					<Rotator name="Send" value={50} onKnobRotate={function(){}} />
 					<Pattern>
 						<PatternBeat index={0} current={true} selected={false} />
 						<PatternBeat index={1} current={false} selected={false} />

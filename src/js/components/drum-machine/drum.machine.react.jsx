@@ -43,42 +43,27 @@ class DrumMachine extends Component {
 	}
 
 	render() {
-		const { channels } = this.props;
-		// {filteredTodos.map(todo =>
-		// 	<TodoItem key={todo.id} todo={todo} {...actions} />
-		// )}
+		const { channels, tempo, dispatch } = this.props;
+		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
 			<PlayHeading isPlaying={true} value="00:01" />
-			<Display name="Tempo" value="120" />
-			<Display name="Signature" value="4/4" />
+			<Display name="Tempo" value={tempo.beatsPerMinute} />
+			<Display name="Signature" value={tempo.segmentsPerBeat + '/' + tempo.beatsPerBar} />
 			<div className="channels">
-				<Channel>
-					<SourceSelector selectedIndex={0} options={["Kick", "Clap"]} />
-					<Rotator name="Volume" />
-					<Rotator name="Attack" />
-					<Rotator name="Decay" />
-					<Rotator name="Tuning" />
-					<Rotator name="Send" />
-					<Pattern>
-						<PatternBeat index={0} current={true} selected={true} />
-						<PatternBeat index={1} current={false} selected={false} />
-						<PatternBeat index={2} current={false} selected={true} />
-					</Pattern>
-				</Channel>
-				<Channel>
-					<SourceSelector selectedIndex={1} options={["Kick", "Clap"]} />
-					<Rotator name="Volume" />
-					<Rotator name="Attack" />
-					<Rotator name="Decay" />
-					<Rotator name="Tuning" />
-					<Rotator name="Send" />
-					<Pattern>
-						<PatternBeat index={0} current={true} selected={false} />
-						<PatternBeat index={1} current={false} selected={false} />
-						<PatternBeat index={2} current={false} selected={true} />
-					</Pattern>
-				</Channel>
+				{channels.map((channel, index) =>
+					<Channel>
+						<SourceSelector selectedIndex={channel.sound.index} options={channels.map(channel => channel.sound.name)} />
+						{channel.transformers.map((transformer, index) =>
+							<Rotator name={transformer.name} value={transformer.value} onKnobRotate={function(){}} />
+						)}
+						<Pattern>
+							{channel.pattern.value.map((beat, index) =>
+								<PatternBeat id={beat.id} index={index} current={false} selected={!!beat.value} onToggle={actions.toggleBeat} />
+							)}
+						</Pattern>
+					</Channel>
+				)}
 			</div>
 		</div>
 		);
@@ -87,11 +72,84 @@ class DrumMachine extends Component {
 }
 
 function mapStateToProps(state) {
-	return state.drumMachine;
+	//return state.drumMachine;
+	return {
+		tempo: {
+			beatsPerMinute: 120,
+			beatsPerBar: 4,
+			segmentsPerBeat: 4
+		},
+		channels: [
+			{
+				sound: {
+					id: 0,
+					index: 0,
+					name: "kick"
+				},
+				transformers: [
+					{
+						name: "volume",
+						value: 50
+					}
+				],
+				pattern: {
+					value: [{
+						id: 0,
+						value: 1
+					}, {
+						id: 1,
+						value: 0
+					},{
+						id: 2,
+						value: 0
+					},{
+						id: 3,
+						value: 0
+					},{
+						id: 4,
+						value: 1
+					},{
+						id: 5,
+						value: 0
+					},{
+						id: 6,
+						value: 0
+					},{
+						id: 7,
+						value: 0
+					},{
+						id: 8,
+						value: 1
+					},{
+						id: 9,
+						value: 0
+					},{
+						id: 10,
+						value: 0
+					},{
+						id: 11,
+						value: 0
+					},{
+						id: 12,
+						value: 1
+					},{
+						id: 13,
+						value: 0
+					},{
+						id: 14,
+						value: 0
+					},{
+						id: 15,
+						value: 0
+					}]
+				}
+			}
+		]
+	};
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(DrumMachineActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrumMachine);
+export default connect(mapStateToProps)(DrumMachine);
