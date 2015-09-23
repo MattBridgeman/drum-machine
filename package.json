@@ -33,19 +33,6 @@
     "rx": "~2.5.3",
     "uglify-js": "~2.4.15"
   },
-  "jest": {
-    "rootDir": "./src/js",
-    "scriptPreprocessor": "../../node_modules/babel-jest",
-    "testFileExtensions": [
-      "es6",
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "es6"
-    ]
-  },
   "author": "",
   "license": "ISC"
 }
