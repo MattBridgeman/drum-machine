@@ -5,7 +5,9 @@
   "main": "src/js/main.js",
   "scripts": {
     "test": "mocha src --compilers js:babel/register --recursive",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "build": "grunt build",
+    "serve": "grunt"
   },
   "repository": {
     "type": "git",
