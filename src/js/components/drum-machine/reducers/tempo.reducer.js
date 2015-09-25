@@ -16,6 +16,12 @@ export default function tempo(state = initialState, action) {
 					beatsPerMinute: state.tempo.beatsPerMinute + 1
 				}
 			});
+		case DECREMENT_BPM:
+			return Object.assign({}, state, {
+				tempo: {
+					beatsPerMinute: state.tempo.beatsPerMinute - 1
+				}
+			});
 		default:
 			return state;
 	}
