@@ -1,4 +1,4 @@
-import { INCREMENT_BPM, DECREMENT_BPM } from '../constants/drum.machine.constants';
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from '../constants/drum.machine.constants';
 
 const initialState = {
 	tempo: {
@@ -20,6 +20,18 @@ export default function tempo(state = initialState, action) {
 			return Object.assign({}, state, {
 				tempo: {
 					beatsPerMinute: state.tempo.beatsPerMinute - 1
+				}
+			});
+		case CHANGE_BPM_BY_AMOUNT:
+			return Object.assign({}, state, {
+				tempo: {
+					beatsPerMinute: state.tempo.beatsPerMinute + action.amount
+				}
+			});
+		case CHANGE_BPM:
+			return Object.assign({}, state, {
+				tempo: {
+					beatsPerMinute: action.value
 				}
 			});
 		default:
