@@ -74,11 +74,7 @@ class DrumMachine extends Component {
 function mapStateToProps(state) {
 	//return state.drumMachine;
 	return {
-		tempo: {
-			beatsPerMinute: 120,
-			beatsPerBar: 4,
-			segmentsPerBeat: 4
-		},
+		tempo: state.tempo,
 		channels: [
 			{
 				sound: {

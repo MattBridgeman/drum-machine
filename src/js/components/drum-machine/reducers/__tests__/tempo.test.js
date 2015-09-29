@@ -26,7 +26,7 @@ describe("Tempo reducer", function() {
 		expect(nextState.tempo.beatsPerMinute).to.equal(121);
 	});
 	
-	it("Expect tempo to increase to 121", function() {
+	it("Expect tempo to decrease to 119", function() {
 		const initialState = getInitialState();
 		
 		const action = {
