@@ -4,8 +4,8 @@
   "description": "drum machine",
   "main": "src/js/main.js",
   "scripts": {
-    "test": "mocha src --compilers js:babel/register --recursive --require src/js/test-helpers/mock.browser.js",
-    "test:watch": "mocha src --compilers js:babel/register --recursive --require src/js/test-helpers/mock.browser.js --watch",
+    "test": "mocha src --compilers js:babel/register --require src/js/test-helpers/mock.browser.js 'src/**/__tests__/*.@(js|jsx)'",
+    "test:watch": "mocha src --compilers js:babel/register --require src/js/test-helpers/mock.browser.js 'src/**/__tests__/*.@(js|jsx)' --watch",
     "build": "grunt build",
     "serve": "grunt"
   },

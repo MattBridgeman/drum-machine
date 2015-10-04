@@ -19,4 +19,4 @@ class ValueSelector extends React.Component {
 ValueSelector.propTypes = {
 };
 
-export { SourceSelector };
+export { ValueSelector };

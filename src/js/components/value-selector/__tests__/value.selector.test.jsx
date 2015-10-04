@@ -1,5 +1,5 @@
-import React from "react";
-import ValueSelector from "../value.selector.react";
+import React from "react/addons";
+import ValueSelector from "../value.selector.react.jsx";
 
 const {renderIntoDocument} = React.addons.TestUtils;
 
@@ -16,6 +16,7 @@ describe("Value Selector", () => {
     const component = renderIntoDocument(
       <ValueSelector onIncrement={() => incremented = true} />
     );
+  });
   
   it("triggers 'on decrement' callback when button is pressed", () => {
   	var decremented = false;
