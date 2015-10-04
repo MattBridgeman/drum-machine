@@ -4,8 +4,8 @@
   "description": "drum machine",
   "main": "src/js/main.js",
   "scripts": {
-    "test": "mocha src --compilers js:babel/register --recursive",
-    "test:watch": "mocha src --compilers js:babel/register --recursive --watch",
+    "test": "mocha src --compilers js:babel/register --recursive --require src/js/test-helpers/mock.browser.js",
+    "test:watch": "mocha src --compilers js:babel/register --recursive --require src/js/test-helpers/mock.browser.js --watch",
     "build": "grunt build",
     "serve": "grunt"
   },
@@ -33,7 +33,8 @@
     "react-redux": "^2.1.1",
     "redux": "^2.0.0",
     "rx": "~2.5.3",
-    "uglify-js": "~2.4.15"
+    "uglify-js": "~2.4.15",
+    "jsdom": "~6.5.1"
   },
   "author": "",
   "license": "ISC"
