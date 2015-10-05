@@ -12,6 +12,7 @@ import { PlayHeading } from "../play-heading/play.heading.react.jsx";
 import { Channel } from "../channel/channel.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { SourceSelector } from "../source-selector/source.selector.react.jsx";
+import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 import { Pattern } from "../pattern/pattern.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 
@@ -47,6 +48,7 @@ class DrumMachine extends Component {
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
+			<ValueSelector value="120" onIncrement={() => alert("increment")} onDecrement={() => alert("decrement")} />
 			<PlayHeading isPlaying={true} value="00:01" />
 			<Display name="Tempo" value={tempo.beatsPerMinute} />
 			<Display name="Signature" value={tempo.segmentsPerBeat + '/' + tempo.beatsPerBar} />
