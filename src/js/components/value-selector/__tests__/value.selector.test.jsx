@@ -1,5 +1,5 @@
 import React from "react/addons";
-import ValueSelector from "../value.selector.react.jsx";
+import { ValueSelector } from "../value.selector.react.jsx";
 
 const {renderIntoDocument} = React.addons.TestUtils;
 
