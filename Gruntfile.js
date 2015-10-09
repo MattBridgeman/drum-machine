@@ -36,7 +36,17 @@ module.exports = function(grunt) {
       },
       tests: {
         files: ['src/**/__tests__/*.@(js|jsx)'],
-        tasks: ['test']
+        tasks: ['mochaTest'],
+        options: {
+          spawn: false 
+        }
+      },
+      lint: {
+        files: ['src/**/*.@(js|jsx)'],
+        tasks: ['eslint'],
+        options: {
+          spawn: false 
+        }
       }
     },
 
@@ -95,6 +105,7 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporter: 'spec',
+          clearRequireCache: true,
           require: [
             'babel/register',
             'src/js/test-helpers/mock.browser.js'
@@ -111,6 +122,15 @@ module.exports = function(grunt) {
     grunt.config('mochaTest.test.src', defaultTestSrc);
     if (grunt.file.isMatch('src/**/__tests__/*.@(js|jsx)', filepath)) {
       grunt.config('mochaTest.test.src', filepath);
+    }
+  });
+  
+  //only lint the path that's been saved
+  var defaultLintSrc = grunt.config('eslint.target');
+  grunt.event.on('watch', function(action, filepath) {
+    grunt.config('eslint.target', defaultLintSrc);
+    if (grunt.file.isMatch('src/js/**/*.@(js|jsx)', filepath)) {
+      grunt.config('eslint.target', filepath);
     }
   });
 
