@@ -33,6 +33,10 @@ module.exports = function(grunt) {
       html: {
         files: ['src/*.html'],
         tasks: ['copy:html']
+      },
+      tests: {
+        files: ['src/**/__tests__/*.@(js|jsx)'],
+        tasks: ['test']
       }
     },
 
@@ -85,6 +89,28 @@ module.exports = function(grunt) {
 
     eslint: {
       target: ['src/js/']
+    },
+    
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          require: [
+            'babel/register',
+            'src/js/test-helpers/mock.browser.js'
+          ]
+        },
+        src: ['src/**/__tests__/*.@(js|jsx)']
+      }
+    }
+  });
+  
+  //only test the path that's been saved
+  var defaultTestSrc = grunt.config('mochaTest.test.src');
+  grunt.event.on('watch', function(action, filepath) {
+    grunt.config('mochaTest.test.src', defaultTestSrc);
+    if (grunt.file.isMatch('src/**/__tests__/*.@(js|jsx)', filepath)) {
+      grunt.config('mochaTest.test.src', filepath);
     }
   });
 
@@ -96,7 +122,8 @@ module.exports = function(grunt) {
   });
 
   //tasks
-  grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify'])
+  grunt.registerTask('test', ['mochaTest', 'eslint']);
+  grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify']);
   grunt.registerTask('default', ['build', 'server', 'watch']);
 
 };

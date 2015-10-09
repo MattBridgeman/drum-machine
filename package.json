@@ -26,6 +26,8 @@
     "grunt-contrib-less": "~0.11.4",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-eslint": "^15.0.0",
+    "grunt-mocha-test": "^0.12.7",
+    "jsdom": "~6.5.1",
     "load-grunt-tasks": "~0.6.0",
     "mocha": "^2.3.3",
     "object-assign": "~3.0.0",
@@ -33,8 +35,7 @@
     "react-redux": "^2.1.1",
     "redux": "^2.0.0",
     "rx": "~2.5.3",
-    "uglify-js": "~2.4.15",
-    "jsdom": "~6.5.1"
+    "uglify-js": "~2.4.15"
   },
   "author": "",
   "license": "ISC"
