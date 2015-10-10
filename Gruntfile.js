@@ -26,6 +26,9 @@ module.exports = function(grunt) {
 
     // Watch files
     watch: {
+      options: {
+        spawn: false 
+      },
       less: {
         files: ['src/**/*.less'],
         tasks: ['less']
@@ -36,17 +39,11 @@ module.exports = function(grunt) {
       },
       tests: {
         files: ['src/**/__tests__/*.@(js|jsx)'],
-        tasks: ['mochaTest'],
-        options: {
-          spawn: false 
-        }
+        tasks: ['mochaTest']
       },
       lint: {
         files: ['src/**/*.@(js|jsx)'],
-        tasks: ['eslint'],
-        options: {
-          spawn: false 
-        }
+        tasks: ['eslint']
       }
     },
 

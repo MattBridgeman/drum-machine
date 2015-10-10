@@ -7,10 +7,12 @@ class ValueSelector extends React.Component {
 	}
 
 	render() {
-		var { value, onIncrement, onDecrement } = this.props;
+		var { value, onIncrement, onDecrement, title } = this.props;
 		return (
 			<div className="source-selector channel-item">
-				<h3 ref="value" className="selected">{value}</h3><button ref="incrementButton" onClick={onIncrement} className="button">+</button><button ref="decrementButton" onClick={onDecrement} className="button">-</button>
+				<h4 ref="title">{title}</h4>
+				<h3 ref="value" className="selected">{value}</h3>
+				<button ref="incrementButton" onClick={onIncrement} className="button">+</button><button ref="decrementButton" onClick={onDecrement} className="button">-</button>
 			</div>
 		);
 	}

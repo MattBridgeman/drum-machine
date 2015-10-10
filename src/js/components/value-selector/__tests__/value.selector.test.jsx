@@ -44,5 +44,13 @@ describe("Value Selector", () => {
     expect($value.getDOMNode().textContent).to.equal(value.toString());
   });
 
+  it("displays the correct title recieved via props", () => {
+		var title = "Tempo";
+    const $component = renderIntoDocument(
+      <ValueSelector title={title} />
+    );
+    var $title = $component.refs.title;
+    expect($title.getDOMNode().textContent).to.equal(title);
+  });
 
 });
