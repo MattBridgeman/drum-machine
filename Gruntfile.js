@@ -107,7 +107,7 @@ module.exports = function(grunt) {
           reporter: 'spec',
           clearRequireCache: true,
           require: [
-            'babel/register',
+            'src/js/test-helpers/babel.include.js',
             'src/js/test-helpers/mock.browser.js'
           ]
         },
