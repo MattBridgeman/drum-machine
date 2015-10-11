@@ -35,7 +35,7 @@ describe("Drum Machine", () => {
 
 });
 
-describe("Drum Machine - Tempo", () => {
+describe("Drum Machine - tempo value selector", () => {
 
 	it("displays the initial beats per minute", () => {
 		const store = configureStore();
@@ -49,4 +49,18 @@ describe("Drum Machine - Tempo", () => {
 		expect($value.textContent).to.equal(tempo.toString());
 	});
 
+	it("increments beats per minute and updates UI", () => {
+		const store = configureStore();
+		var $component = renderIntoDocument(
+			<DrumMachineMock store={store} />
+		);
+		const originalTempo = store.getState().tempo.tempo.beatsPerMinute;
+		var $drumMachine = $component.refs.drumMachine.refs.wrappedInstance;
+		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
+		var $incrementButton = $tempoValueSelector.refs.incrementButton;
+		var $value = $tempoValueSelector.refs.value;
+		Simulate.click($incrementButton);
+		const newTempo = store.getState().tempo.tempo.beatsPerMinute;
+		expect($value.textContent).to.equal(newTempo.toString());
+	});
 });
