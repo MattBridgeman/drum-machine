@@ -41,7 +41,7 @@ class Rotator extends React.Component {
 	}
 	
 	componentDidMount() {
-		var $knob = this.refs.knob.getDOMNode();
+		var $knob = this.refs.knob;
 		var $knobContainer = document;
 		
 		var knobMouseDowns = Rx.Observable.fromEvent($knob, "mousedown"),

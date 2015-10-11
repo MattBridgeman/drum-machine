@@ -1,8 +1,9 @@
-import React from "react/addons";
+import React from "react";
+import TestUtils from "react-addons-test-utils";
 import { ValueSelector } from "../value.selector.react.jsx";
 import { expect } from "chai";
 
-const { renderIntoDocument, Simulate } = React.addons.TestUtils;
+const { renderIntoDocument, Simulate } = TestUtils;
 
 describe("Value Selector", () => {
 
@@ -41,7 +42,7 @@ describe("Value Selector", () => {
       <ValueSelector value={value} />
     );
     var $value = $component.refs.value;
-    expect($value.getDOMNode().textContent).to.equal(value.toString());
+    expect($value.textContent).to.equal(value.toString());
   });
 
   it("displays the correct title recieved via props", () => {
@@ -50,7 +51,7 @@ describe("Value Selector", () => {
       <ValueSelector title={title} />
     );
     var $title = $component.refs.title;
-    expect($title.getDOMNode().textContent).to.equal(title);
+    expect($title.textContent).to.equal(title);
   });
 
 });

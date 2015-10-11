@@ -1,19 +1,34 @@
-import React from "react/addons";
+import TestUtils from "react-addons-test-utils";
+import React, { Component } from "react";
 import DrumMachine from "../drum.machine.react.jsx";
 import { expect } from "chai";
-import { Provider } from 'react-redux';
-import configureStore from '../store/drum.machine.store';
+import { Provider } from "react-redux";
+import configureStore from "../store/drum.machine.store";
 
-const store = configureStore();
-const { renderIntoDocument, Simulate } = React.addons.TestUtils;
+const { renderIntoDocument, Simulate } = TestUtils;
+
+class DrumMachineMock extends Component {
+
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const { store } = this.props;
+		return (
+			<Provider store={store}>
+				<DrumMachine ref="drumMachine" />
+			</Provider>
+		);
+	}
+}
 
 describe("Drum Machine", () => {
 
 	it("renders a drum machine", () => {
-		const $component = renderIntoDocument(
-			<Provider store={store}>
-				{() => <DrumMachine />}
-			</Provider>
+		const store = configureStore();
+		var $component = renderIntoDocument(
+			<DrumMachineMock store={store} />
 		);
 		expect($component).to.be.a("object");
 	});
@@ -23,17 +38,15 @@ describe("Drum Machine", () => {
 describe("Drum Machine - Tempo", () => {
 
 	it("displays the initial beats per minute", () => {
-		const $component = renderIntoDocument(
-			<Provider store={store}>
-				{() => <DrumMachine />}
-			</Provider>
+		const store = configureStore();
+		var $component = renderIntoDocument(
+			<DrumMachineMock store={store} />
 		);
-		console.log($component);
-		const tempo = store.getState().tempo.beatsPerMinute;
-		var $tempoValueSelector = $component.refs.tempoValueSelector;
-		console.log($tempoValueSelector);
+		const tempo = store.getState().tempo.tempo.beatsPerMinute;
+		var $drumMachine = $component.refs.drumMachine.refs.wrappedInstance;
+		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
 		var $value = $tempoValueSelector.refs.value;
-		expect($value.getDOMNode().textContent).to.equal(tempo);
+		expect($value.textContent).to.equal(tempo.toString());
 	});
 
 });

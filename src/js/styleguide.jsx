@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactDOM from "react-dom";
 import { Display } from "./components/display/display.react.jsx";
 import { PlayHeading } from "./components/play-heading/play.heading.react.jsx";
 import { Channel } from "./components/channel/channel.react.jsx";
@@ -7,7 +8,7 @@ import { SourceSelector } from "./components/source-selector/source.selector.rea
 import { Pattern } from "./components/pattern/pattern.react.jsx";
 import { PatternBeat } from "./components/pattern/pattern.beat.react.jsx";
 
-React.render(
+ReactDOM.render(
 	(
 		<div className="drum-machine">
 			<PlayHeading isPlaying={true} value="00:01" />
