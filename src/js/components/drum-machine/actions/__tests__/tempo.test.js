@@ -1,0 +1,14 @@
+import { expect } from "chai";
+import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPM } from "../drum.machine.actions";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/drum.machine.constants";
+
+describe("Tempo actions", function() {
+	
+	it("Expect incrementBPM to return an increment BPM action", function() {
+		var action = incrementBPM(INCREMENT_BPM);
+		
+		expect(action).to.deep.equal({
+			type: INCREMENT_BPM
+		});
+	});
+});

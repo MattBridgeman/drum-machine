@@ -1,4 +1,4 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE } from "../constants/drum.machine.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM } from "../constants/drum.machine.constants";
 
 export function play() {
   return {
@@ -22,5 +22,11 @@ export function toggleBeat(beatId) {
   return {
     type: TOGGLE_BEAT_STATE,
     id: beatId
+  };
+}
+
+export function incrementBPM() {
+  return {
+    type: INCREMENT_BPM
   };
 }
