@@ -1,4 +1,4 @@
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from '../constants/drum.machine.constants';
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../constants/drum.machine.constants";
 
 const initialState = {
 	tempo: {

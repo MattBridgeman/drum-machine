@@ -3,9 +3,9 @@
 // import { Sequencer } from "../../audio-api/sequencer";
 // import { arrayBuffer } from "../../request/arraybuffer";
 import React, { Component } from "react";
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as DrumMachineActions from './actions/drum.machine.actions';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as DrumMachineActions from "./actions/drum.machine.actions";
 
 import { Display } from "../display/display.react.jsx";
 import { PlayHeading } from "../play-heading/play.heading.react.jsx";
@@ -48,14 +48,16 @@ class DrumMachine extends Component {
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
-			<ValueSelector value="120" onIncrement={() => alert("increment")} onDecrement={() => alert("decrement")} />
 			<PlayHeading isPlaying={true} value="00:01" />
 			<Display name="Tempo" value={tempo.beatsPerMinute} />
-			<Display name="Signature" value={tempo.segmentsPerBeat + '/' + tempo.beatsPerBar} />
+			<Display name="Signature" value={tempo.segmentsPerBeat + "/" + tempo.beatsPerBar} />
+			<div className="track-settings">
+				<ValueSelector ref="tempoValueSelector" value="120" onIncrement={actions.incrementBPM} onDecrement={() => alert("decrement")} />
+			</div>
 			<div className="channels">
-				{channels.map((channel, index) =>
+				{channels.map((channel) =>
 					<Channel>
-						<SourceSelector selectedIndex={channel.sound.index} options={channels.map(channel => channel.sound.name)} />
+						<SourceSelector selectedIndex={channel.sound.index} options={channels.map(c => c.sound.name)} />
 						{channel.transformers.map((transformer, index) =>
 							<Rotator name={transformer.name} value={transformer.value} onKnobRotate={function(){}} />
 						)}
@@ -97,46 +99,46 @@ function mapStateToProps(state) {
 					}, {
 						id: 1,
 						value: 0
-					},{
+					}, {
 						id: 2,
 						value: 0
-					},{
+					}, {
 						id: 3,
 						value: 0
-					},{
+					}, {
 						id: 4,
 						value: 1
-					},{
+					}, {
 						id: 5,
 						value: 0
-					},{
+					}, {
 						id: 6,
 						value: 0
-					},{
+					}, {
 						id: 7,
 						value: 0
-					},{
+					}, {
 						id: 8,
 						value: 1
-					},{
+					}, {
 						id: 9,
 						value: 0
-					},{
+					}, {
 						id: 10,
 						value: 0
-					},{
+					}, {
 						id: 11,
 						value: 0
-					},{
+					}, {
 						id: 12,
 						value: 1
-					},{
+					}, {
 						id: 13,
 						value: 0
-					},{
+					}, {
 						id: 14,
 						value: 0
-					},{
+					}, {
 						id: 15,
 						value: 0
 					}]
