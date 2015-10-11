@@ -52,7 +52,7 @@ class DrumMachine extends Component {
 			<Display name="Tempo" value={tempo.beatsPerMinute} />
 			<Display name="Signature" value={tempo.segmentsPerBeat + "/" + tempo.beatsPerBar} />
 			<div className="track-settings">
-				<ValueSelector ref="tempoValueSelector" value="120" onIncrement={actions.incrementBPM} onDecrement={() => alert("decrement")} />
+				<ValueSelector ref="tempoValueSelector" value={tempo.beatsPerMinute} onIncrement={actions.incrementBPM} onDecrement={() => alert("decrement")} />
 			</div>
 			<div className="channels">
 				{channels.map((channel) =>
