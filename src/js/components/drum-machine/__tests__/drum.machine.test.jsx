@@ -59,8 +59,35 @@ describe("Drum Machine - tempo value selector", () => {
 		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
 		var $incrementButton = $tempoValueSelector.refs.incrementButton;
 		var $value = $tempoValueSelector.refs.value;
+
+		expect($value.textContent).to.equal(originalTempo.toString());
+
 		Simulate.click($incrementButton);
+
 		const newTempo = store.getState().tempo.beatsPerMinute;
+
+		expect(newTempo).to.not.equal(originalTempo);
+		expect($value.textContent).to.equal(newTempo.toString());
+	});
+
+	it("decrements beats per minute and updates UI", () => {
+		const store = configureStore();
+		var $component = renderIntoDocument(
+			<DrumMachineMock store={store} />
+		);
+		const originalTempo = store.getState().tempo.beatsPerMinute;
+		var $drumMachine = $component.refs.drumMachine.refs.wrappedInstance;
+		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
+		var $decrementButton = $tempoValueSelector.refs.decrementButton;
+		var $value = $tempoValueSelector.refs.value;
+
+		expect($value.textContent).to.equal(originalTempo.toString());
+
+		Simulate.click($decrementButton);
+
+		const newTempo = store.getState().tempo.beatsPerMinute;
+
+		expect(newTempo).to.not.equal(originalTempo);
 		expect($value.textContent).to.equal(newTempo.toString());
 	});
 });
