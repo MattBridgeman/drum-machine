@@ -42,7 +42,7 @@ describe("Drum Machine - tempo value selector", () => {
 		var $component = renderIntoDocument(
 			<DrumMachineMock store={store} />
 		);
-		const tempo = store.getState().tempo.tempo.beatsPerMinute;
+		const tempo = store.getState().tempo.beatsPerMinute;
 		var $drumMachine = $component.refs.drumMachine.refs.wrappedInstance;
 		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
 		var $value = $tempoValueSelector.refs.value;
@@ -54,13 +54,13 @@ describe("Drum Machine - tempo value selector", () => {
 		var $component = renderIntoDocument(
 			<DrumMachineMock store={store} />
 		);
-		const originalTempo = store.getState().tempo.tempo.beatsPerMinute;
+		const originalTempo = store.getState().tempo.beatsPerMinute;
 		var $drumMachine = $component.refs.drumMachine.refs.wrappedInstance;
 		var $tempoValueSelector = $drumMachine.refs.tempoValueSelector;
 		var $incrementButton = $tempoValueSelector.refs.incrementButton;
 		var $value = $tempoValueSelector.refs.value;
 		Simulate.click($incrementButton);
-		const newTempo = store.getState().tempo.tempo.beatsPerMinute;
+		const newTempo = store.getState().tempo.beatsPerMinute;
 		expect($value.textContent).to.equal(newTempo.toString());
 	});
 });

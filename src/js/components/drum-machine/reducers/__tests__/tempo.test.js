@@ -5,11 +5,9 @@ import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from '
 describe("Tempo reducer", function() {
 	function getInitialState(){
 		return {
-			tempo: {
-				beatsPerMinute: 120,
-				beatsPerBar: 4,
-				segmentsPerBeat: 4
-			}
+			beatsPerMinute: 120,
+			beatsPerBar: 4,
+			segmentsPerBeat: 4
 		};
 	}
 	
@@ -22,8 +20,8 @@ describe("Tempo reducer", function() {
 		
 		const nextState = tempo(initialState, action);
 		
-		expect(initialState.tempo.beatsPerMinute).to.equal(120);
-		expect(nextState.tempo.beatsPerMinute).to.equal(121);
+		expect(initialState.beatsPerMinute).to.equal(120);
+		expect(nextState.beatsPerMinute).to.equal(121);
 	});
 	
 	it("Expect tempo to decrease to 119", function() {
@@ -35,8 +33,8 @@ describe("Tempo reducer", function() {
 		
 		const nextState = tempo(initialState, action);
 		
-		expect(initialState.tempo.beatsPerMinute).to.equal(120);
-		expect(nextState.tempo.beatsPerMinute).to.equal(119);
+		expect(initialState.beatsPerMinute).to.equal(120);
+		expect(nextState.beatsPerMinute).to.equal(119);
 	});
 	
 	it("Expect tempo to change by set amount", function() {
@@ -49,8 +47,8 @@ describe("Tempo reducer", function() {
 		
 		const nextState = tempo(initialState, action);
 		
-		expect(initialState.tempo.beatsPerMinute).to.equal(120);
-		expect(nextState.tempo.beatsPerMinute).to.equal(124);
+		expect(initialState.beatsPerMinute).to.equal(120);
+		expect(nextState.beatsPerMinute).to.equal(124);
 	});
 	
 	it("Expect tempo to change to a set amount", function() {
@@ -63,8 +61,8 @@ describe("Tempo reducer", function() {
 		
 		const nextState = tempo(initialState, action);
 		
-		expect(initialState.tempo.beatsPerMinute).to.equal(120);
-		expect(nextState.tempo.beatsPerMinute).to.equal(100);
+		expect(initialState.beatsPerMinute).to.equal(120);
+		expect(nextState.beatsPerMinute).to.equal(100);
 	});
 	
 });
