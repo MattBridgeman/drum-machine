@@ -12,7 +12,7 @@ class WebAudioContext {
 		);
 	}
 	decodeAudioDataArray(arrayOfBuffers) {
-		return Promise.all(arrayOfBuffers.map((sound) => 
+		return Promise.all(arrayOfBuffers.map((sound) =>
 			this.decodeAudioData(sound)
 		));
 	}
