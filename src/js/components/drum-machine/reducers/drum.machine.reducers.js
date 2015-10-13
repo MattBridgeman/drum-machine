@@ -1,11 +1,6 @@
 import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE } from "../constants/drum.machine.constants";
 
 const initialState = {
-	tempo: {
-		beatsPerMinute: 120,
-		beatsPerBar: 4,
-		segmentsPerBeat: 4
-	},
 	sounds: {
 		0: {
 			name: "kick",
