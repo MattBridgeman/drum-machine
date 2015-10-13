@@ -1,10 +1,11 @@
 import * as React from "react";
+import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 
 function getSelectedNumber(index){
 	var num = index + 1;
 	var numStr = "" + num;
-	if(numStr.length == 1) {
-		return "0" + numStr
+	if(numStr.length === 1) {
+		return "0" + numStr;
 	} else {
 		return numStr;
 	}
@@ -21,9 +22,7 @@ class SourceSelector extends React.Component {
 		var selectedName = options[selectedIndex];
 		var selectedNumber = getSelectedNumber(selectedIndex);
 		return (
-			<div className="source-selector channel-item">
-				<h3 className="selected"><span>{selectedNumber}</span> - {selectedName}</h3><button className="button">+</button><button className="button">-</button>
-			</div>
+			<ValueSelector value={ selectedNumber + " - " + selectedName } title="Source" />
 		);
 	}
 }

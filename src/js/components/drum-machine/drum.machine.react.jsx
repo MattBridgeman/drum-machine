@@ -51,8 +51,10 @@ class DrumMachine extends Component {
 			<PlayHeading isPlaying={true} value="00:01" />
 			<Display name="Tempo" value={tempo.beatsPerMinute} />
 			<Display name="Signature" value={tempo.segmentsPerBeat + "/" + tempo.beatsPerBar} />
-			<div className="track-settings">
-				<ValueSelector ref="tempoValueSelector" value={tempo.beatsPerMinute} onIncrement={actions.incrementBPM} onDecrement={actions.decrementBPM} />
+			<div className="channels">
+				<Channel>
+					<ValueSelector ref="tempoValueSelector" title="Tempo" value={tempo.beatsPerMinute} onIncrement={actions.incrementBPM} onDecrement={actions.decrementBPM} />
+				</Channel>
 			</div>
 			<div className="channels">
 				{channels.map((channel) =>
