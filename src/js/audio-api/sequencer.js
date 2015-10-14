@@ -1,13 +1,11 @@
-export function getSegmentsToBuffer({
-	segmentOffset,
-	segmentsToBuffer
-}) {
-	let i = segmentOffset;
-	let segmentLimit = segmentOffset + segmentsToBuffer;
-	let segments = [];
-	while(i <= segmentLimit){
-		segments.push(i);
-		i++;
-	}
-	return segments;
+export function sequencer(store){
+	// let unsubscribe = store.subscribe(() =>
+	// 	console.log(store.getState())
+	// );
 }
+
+// function update(state){
+// 	if(state.isPlaying && !state.playState){
+		
+// 	}
+// };

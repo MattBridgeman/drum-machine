@@ -44,7 +44,7 @@ class DrumMachine extends Component {
 	}
 
 	render() {
-		const { channels, tempo, dispatch } = this.props;
+		const { channels, tempo, playState, dispatch } = this.props;
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
@@ -65,7 +65,7 @@ class DrumMachine extends Component {
 						)}
 						<Pattern>
 							{channel.pattern.value.map((beat, index) =>
-								<PatternBeat id={beat.id} index={index} current={false} selected={!!beat.value} onToggle={actions.toggleBeat} />
+								<PatternBeat id={beat.id} index={index} current={playState.loopingIndex === index} selected={!!beat.value} onToggle={actions.toggleBeat} />
 							)}
 						</Pattern>
 					</Channel>
@@ -81,6 +81,10 @@ function mapStateToProps(state) {
 	//return state.drumMachine;
 	return {
 		tempo: state.tempo,
+		playState: {
+			currentSegmentIndex: 0,
+			loopingIndex: 0
+		},
 		channels: [
 			{
 				sound: {

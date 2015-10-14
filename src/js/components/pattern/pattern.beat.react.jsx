@@ -10,10 +10,13 @@ class PatternBeat extends React.Component {
 		var { index, current, selected, onToggle, id } = this.props;
 		var num = index + 1;
 		var currentClass = current ? " current" : "";
+		var indicatorClass = current ? " on" : "";
 		var selectedClass = selected ? " selected" : "";
+		var onOff = selected ? "on" : "off";
 		return (
 			<div className={"pattern-beat" + currentClass + selectedClass}>
-				<button onClick={()=>onToggle(id)} className="button"><span>Beat 01 - is on</span></button>
+				<span className={"indicator" + indicatorClass}></span>
+				<button onClick={()=>onToggle(id)} className="button"><span>Beat { num } - is { onOff }</span></button>
 			</div>
 		);
 	}

@@ -1,4 +1,15 @@
 .pattern-beat {
+	.indicator {
+		width: 5px;
+		height: 5px;
+		display: block;
+		background: @red-transparency;
+		border-radius: 50%;
+		margin: 0 auto @baseline * 2;
+		&.on {
+			background: @red;
+		}
+	}
 	.button {
 		width: 100%;
 		padding-bottom: 100%;
@@ -6,13 +17,13 @@
 		display: block;
 		margin-bottom: @baseline * 4;
 		background: @red-transparency;
+		span {
+			.hide-text;
+		}
 	}
 	&.selected {
 		.button {
 			background: @red;
 		}
-	}
-	span {
-		.hide-text;
 	}
 }
