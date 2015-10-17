@@ -88,25 +88,21 @@ function mapStateToProps(state) {
 		},
 		channels: [
 			{
-				sound: {
-					id: 0,
-					index: 0,
-					name: "kick"
-				},
-				transformers: [
-					{
-						name: "volume",
-						value: 50
-					}
-				],
-				patterns: [[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]]
+				sound: 0,
+				patterns: [0],
+				transformers: [0]
+			},
+			{
+				sound: 1,
+				patterns: [1],
+				transformers: [1]
 			}
 		]
 	};
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(DrumMachineActions, dispatch);
+	return bindActionCreators(DrumMachineActions, dispatch);
 }
 
 export default connect(mapStateToProps)(DrumMachine);
