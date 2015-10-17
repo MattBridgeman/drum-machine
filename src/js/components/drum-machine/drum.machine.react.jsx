@@ -57,15 +57,15 @@ class DrumMachine extends Component {
 				</Channel>
 			</div>
 			<div className="channels">
-				{channels.map((channel) =>
+				{channels.map((channel, i) =>
 					<Channel>
-						<SourceSelector selectedIndex={channel.sound.index} options={channels.map(c => c.sound.name)} />
+						<SourceSelector selectedIndex={i} options={channels.map(c => c.sound.name)} />
 						{channel.transformers.map((transformer, index) =>
 							<Rotator name={transformer.name} value={transformer.value} onKnobRotate={function(){}} />
 						)}
 						<Pattern>
-							{channel.pattern.value.map((beat, index) =>
-								<PatternBeat id={beat.id} index={index} current={playState.loopingIndex === index} selected={!!beat.value} onToggle={actions.toggleBeat} />
+							{channel.patterns[playState.currentBarIndex].map((beat, index) =>
+								<PatternBeat index={index} current={playState.loopingIndex === index} selected={!!beat} onToggle={actions.toggleBeat} />
 							)}
 						</Pattern>
 					</Channel>
@@ -83,6 +83,7 @@ function mapStateToProps(state) {
 		tempo: state.tempo,
 		playState: {
 			currentSegmentIndex: 0,
+			currentBarIndex: 0,
 			loopingIndex: 0
 		},
 		channels: [
@@ -98,57 +99,7 @@ function mapStateToProps(state) {
 						value: 50
 					}
 				],
-				pattern: {
-					value: [{
-						id: 0,
-						value: 1
-					}, {
-						id: 1,
-						value: 0
-					}, {
-						id: 2,
-						value: 0
-					}, {
-						id: 3,
-						value: 0
-					}, {
-						id: 4,
-						value: 1
-					}, {
-						id: 5,
-						value: 0
-					}, {
-						id: 6,
-						value: 0
-					}, {
-						id: 7,
-						value: 0
-					}, {
-						id: 8,
-						value: 1
-					}, {
-						id: 9,
-						value: 0
-					}, {
-						id: 10,
-						value: 0
-					}, {
-						id: 11,
-						value: 0
-					}, {
-						id: 12,
-						value: 1
-					}, {
-						id: 13,
-						value: 0
-					}, {
-						id: 14,
-						value: 0
-					}, {
-						id: 15,
-						value: 0
-					}]
-				}
+				patterns: [[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]]
 			}
 		]
 	};
