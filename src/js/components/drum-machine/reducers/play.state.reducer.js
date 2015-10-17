@@ -10,7 +10,10 @@ const initialState = {
 export default function playState(state = initialState, action) {
 	switch (action.type) {
 		case TOGGLE_PLAY_PAUSE:
-			return Object.assign({}, state, { isPlaying: !state.isPlaying });
+			return Object.assign({}, state, {
+				isPlaying: !state.isPlaying,
+				currentSegmentIndex: 0
+			});
 		case NEW_SEGMENT_INDEX:
 			return Object.assign({}, state, { currentSegmentIndex: action.value });
 		case INCREMENT_SEGMENT_INDEX:

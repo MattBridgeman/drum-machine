@@ -49,7 +49,7 @@ describe("Play state reducer", function() {
 			looping: true
 		});
 	});
-	
+
 	it("increments the current segment index", function() {
 		const initialState = getInitialState();
 
@@ -67,7 +67,7 @@ describe("Play state reducer", function() {
 			looping: true
 		});
 	});
-	
+
 	it("returns to 0 if the next segment index is greater than a bar and looping is true", function() {
 
 		function getLoopingState(){
@@ -95,4 +95,33 @@ describe("Play state reducer", function() {
 			looping: true
 		});
 	});
+
+	it("returns to 0 if play / pause action is triggered", function() {
+
+		function getPlayingState(){
+			return {
+				currentSegmentIndex: 1,
+				currentBarIndex: 0,
+				isPlaying: false,
+				looping: true
+			};
+		}
+
+		const initialState = getPlayingState();
+
+		const action = {
+			type: TOGGLE_PLAY_PAUSE
+		};
+
+		const nextState = playState(initialState, action);
+
+		expect(initialState).to.deep.equal(getPlayingState());
+		expect(nextState).to.deep.equal({
+			currentSegmentIndex: 0,
+			currentBarIndex: 0,
+			isPlaying: true,
+			looping: true
+		});
+	});
+
 });
