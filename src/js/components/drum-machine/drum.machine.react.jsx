@@ -44,7 +44,7 @@ class DrumMachine extends Component {
 	}
 
 	render() {
-		const { channels, tempo, playState, patterns, transformers, dispatch } = this.props;
+		const { channels, tempo, playState, sounds, patterns, transformers, dispatch } = this.props;
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
@@ -59,7 +59,7 @@ class DrumMachine extends Component {
 			<div className="channels">
 				{channels.map((channel, i) =>
 					<Channel>
-						<SourceSelector selectedIndex={i} options={channels.map(c => c.sound.name)} />
+						<SourceSelector selectedIndex={i} options={channels.map(c => sounds[c.sound].name)} />
 						{ channel.transformers
 							.map((transformerId) => transformers[transformerId])
 							.map((transformer) =>
