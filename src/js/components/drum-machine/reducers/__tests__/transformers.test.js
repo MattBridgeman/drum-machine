@@ -29,5 +29,6 @@ describe("Transformer reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState["0"].value).to.equal(70);
+		expect(nextState["0"].name).to.equal(initialState["0"].name);
 	});
 });
