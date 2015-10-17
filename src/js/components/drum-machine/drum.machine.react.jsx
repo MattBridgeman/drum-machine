@@ -68,7 +68,7 @@ class DrumMachine extends Component {
 						}
 						<Pattern>
 							{ patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) =>
-								<PatternBeat index={index} current={playState.loopingIndex === index} selected={!!beat} onToggle={actions.toggleBeat} />
+								<PatternBeat index={index} current={playState.loopingIndex === index} selected={!!beat} onToggle={() => actions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
 							)}
 						</Pattern>
 					</Channel>

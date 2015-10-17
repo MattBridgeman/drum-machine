@@ -18,10 +18,10 @@ export function togglePlayPause() {
   };
 }
 
-export function toggleBeat(beatId) {
+export function toggleBeat(patternId, value, index) {
   return {
     type: TOGGLE_BEAT_STATE,
-    id: beatId
+    value: { patternId, value, index }
   };
 }
 
