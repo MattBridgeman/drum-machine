@@ -1,0 +1,20 @@
+import { expect } from "chai";
+import { changeTransformByAmount } from "../drum.machine.actions";
+import { CHANGE_TRANSFORM_BY_AMOUNT } from "../../constants/drum.machine.constants";
+
+describe("Transform actions", function() {
+
+	it("Expect changeTransformByAmount to return a change transform value by amount action", function() {
+		let transformId = 0;
+		let amount = 10;
+		let action = changeTransformByAmount(transformId, amount);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_TRANSFORM_BY_AMOUNT,
+			value: {
+				transformId,
+				amount
+			}
+		});
+	});
+});

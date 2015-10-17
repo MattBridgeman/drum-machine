@@ -1,4 +1,4 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../constants/drum.machine.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_TRANSFORM_BY_AMOUNT } from "../constants/drum.machine.constants";
 
 export function play() {
   return {
@@ -47,4 +47,14 @@ export function changeBPM() {
   return {
     type: CHANGE_BPM
   };
+}
+
+export function changeTransformByAmount(transformId, amount){
+  return {
+    type: CHANGE_TRANSFORM_BY_AMOUNT,
+    value: {
+      transformId,
+      amount
+    }
+  }
 }

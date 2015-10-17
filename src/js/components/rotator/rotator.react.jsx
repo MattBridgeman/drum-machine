@@ -16,13 +16,10 @@ class Rotator extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			value: 50
-		};
 	}
 	
 	render() {
-		var value = this.state.value;
+		var { value, name } = this.props;
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
 		var rotation = rotationFromValue(value, minRotation, maxRotation);
@@ -31,7 +28,7 @@ class Rotator extends React.Component {
 		};
 		return (
 			<div ref="knobContainer" className="channel-item rotator">
-				<h3 className="item-title">{this.props.name}</h3>
+				<h3 className="item-title">{name}</h3>
 				<p className="item-value">{value}</p>
 				<div ref="knob" className="knob" style={knobStyle}></div>
 				<button className="increase">Increase volume</button>
@@ -41,10 +38,11 @@ class Rotator extends React.Component {
 	}
 	
 	componentDidMount() {
-		var $knob = this.refs.knob;
-		var $knobContainer = document;
+		let { knob: $knob } = this.refs;
+		let { onKnobRotate } = this.props;
+		let $knobContainer = document;
 		
-		var knobMouseDowns = Rx.Observable.fromEvent($knob, "mousedown"),
+		let knobMouseDowns = Rx.Observable.fromEvent($knob, "mousedown"),
 			knobContainerMouseMoves = Rx.Observable.fromEvent($knobContainer, "mousemove"),
 			knobContainerMouseUps = Rx.Observable.fromEvent($knobContainer, "mouseup"),
 			knobMouseDrags =
@@ -64,7 +62,7 @@ class Rotator extends React.Component {
 				diff: curr ? (acc.value - curr) : 0,
 				value: curr
 			}))
-			.forEach((obj) => this.props.onKnobRotate(obj.diff));
+			.forEach((obj) => onKnobRotate(obj.diff));
 	}
 }
 
