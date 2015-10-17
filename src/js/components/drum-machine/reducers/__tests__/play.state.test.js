@@ -96,9 +96,9 @@ describe("Play state reducer", function() {
 		});
 	});
 
-	it("returns to 0 if play / pause action is triggered", function() {
+	it("returns to 0 if play action is triggered from pause state", function() {
 
-		function getPlayingState(){
+		function getState(){
 			return {
 				currentSegmentIndex: 1,
 				currentBarIndex: 0,
@@ -107,7 +107,7 @@ describe("Play state reducer", function() {
 			};
 		}
 
-		const initialState = getPlayingState();
+		const initialState = getState();
 
 		const action = {
 			type: TOGGLE_PLAY_PAUSE
@@ -115,7 +115,7 @@ describe("Play state reducer", function() {
 
 		const nextState = playState(initialState, action);
 
-		expect(initialState).to.deep.equal(getPlayingState());
+		expect(initialState).to.deep.equal(getState());
 		expect(nextState).to.deep.equal({
 			currentSegmentIndex: 0,
 			currentBarIndex: 0,
@@ -124,4 +124,31 @@ describe("Play state reducer", function() {
 		});
 	});
 
+	it("stays at current segment index if pause action is triggered from play state", function() {
+
+		function getState(){
+			return {
+				currentSegmentIndex: 1,
+				currentBarIndex: 0,
+				isPlaying: true,
+				looping: true
+			};
+		}
+
+		const initialState = getState();
+
+		const action = {
+			type: TOGGLE_PLAY_PAUSE
+		};
+
+		const nextState = playState(initialState, action);
+
+		expect(initialState).to.deep.equal(getState());
+		expect(nextState).to.deep.equal({
+			currentSegmentIndex: 1,
+			currentBarIndex: 0,
+			isPlaying: false,
+			looping: true
+		});
+	});
 });

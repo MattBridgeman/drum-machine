@@ -12,7 +12,7 @@ export default function playState(state = initialState, action) {
 		case TOGGLE_PLAY_PAUSE:
 			return Object.assign({}, state, {
 				isPlaying: !state.isPlaying,
-				currentSegmentIndex: 0
+				currentSegmentIndex: state.isPlaying ? state.currentSegmentIndex : 0
 			});
 		case NEW_SEGMENT_INDEX:
 			return Object.assign({}, state, { currentSegmentIndex: action.value });
