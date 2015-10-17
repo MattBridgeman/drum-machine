@@ -1,4 +1,4 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_TRANSFORM_BY_AMOUNT, NEW_SEGMENT_INDEX } from "../constants/drum.machine.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_TRANSFORM_BY_AMOUNT, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../constants/drum.machine.constants";
 
 export function play() {
   return {
@@ -62,6 +62,13 @@ export function changeTransformByAmount(transformId, amount){
 export function newSegmentIndex(value){
   return {
     type: NEW_SEGMENT_INDEX,
+    value
+  }
+}
+
+export function incrementSegmentIndex(value){
+  return {
+    type: INCREMENT_SEGMENT_INDEX,
     value
   }
 }

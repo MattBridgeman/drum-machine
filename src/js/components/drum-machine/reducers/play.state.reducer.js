@@ -1,9 +1,10 @@
-import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX } from "../constants/drum.machine.constants";
+import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../constants/drum.machine.constants";
 
 const initialState = {
 	currentSegmentIndex: 0,
 	currentBarIndex: 0,
-	isPlaying: false
+	isPlaying: false,
+	looping: true
 };
 
 export default function playState(state = initialState, action) {
@@ -12,6 +13,9 @@ export default function playState(state = initialState, action) {
 			return Object.assign({}, state, { isPlaying: !state.isPlaying });
 		case NEW_SEGMENT_INDEX:
 			return Object.assign({}, state, { currentSegmentIndex: action.value });
+		case INCREMENT_SEGMENT_INDEX:
+			let currentSegmentIndex = state.looping && state.currentSegmentIndex >= 15 ? 0 : state.currentSegmentIndex + 1;
+			return Object.assign({}, state, { currentSegmentIndex });
 		default:
 			return state;
 	}
