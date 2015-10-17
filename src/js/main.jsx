@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import DrumMachine from "./components/drum-machine/drum.machine.react.jsx";
 import { Provider } from "react-redux";
 import configureStore from "./components/drum-machine/store/drum.machine.store";
-import { sequencer } from "./audio-api/sequencer";
+import { sequencer } from "./components/sequencer/sequencer";
 
 const store = configureStore();
 

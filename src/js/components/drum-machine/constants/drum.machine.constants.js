@@ -10,3 +10,4 @@ export const CHANGE_BPM = "change_bpm";
 export const ADD_PATTERN = "add_pattern";
 export const CHANGE_BEAT = "change_beat";
 export const CHANGE_TRANSFORM_BY_AMOUNT = "change_transform_by_amount";
+export const NEW_SEGMENT_INDEX = "new_segment_index";

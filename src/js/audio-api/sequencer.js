@@ -1,37 +1,32 @@
-export const sequencer = store => next => action => {
-	console.log("dispatching", action);
-	let result = next(action);
-	console.log("next state", store.getState());
-	return result;
-};
+import * as Rx from "Rx";
 
-// export function sequencer(store){
-// 	// let unsubscribe = store.subscribe(() =>
-// 	// 	console.log(store.getState())
-// 	// );
+export var segments = Rx.Observable.create(function (observer) {
+	let startTime = new Date().getTime(),
+		segmentTime = 250,
+		deltaTime,
+		now,
+		frameId;
 	
-// 	function update(){
-// 		var state = store.getState();
-// 		if(!state.isPlaying) return;
-// 		setTimeout(update, 30);
-// 	}
-// }
+	function loop() {
+		if(!deltaTime){
+			observer.onNext(1);
+		}
+		now = new Date().getTime()
+		deltaTime = now - startTime;
+		if(deltaTime >= segmentTime) {
+			observer.onNext(1);
+			startTime = now;
+		}
+		tick();
+	}
+	
+	function tick() {
+		frameId = requestAnimationFrame(loop);
+	}
+	
+	loop();
 
-// class Sequencer {
-// 	constructor(store) {
-// 		this.store = store;
-// 		this.setUpEvents();
-// 	}
-// 	setUpEvents(){
-// 		this.store.subscribe(() => this.tick());
-// 	}
-// 	tick() {
-// 		let state = this.store.getState();
-// 		setTimeout(() => this.tick(), 30);
-// 		if(!state.isPlaying) return;
-// 		this.update();
-// 	}
-// 	update(){
-		
-// 	}
-// }
+    return function () {
+        cancelAnimationFrame(frameId);
+    };
+});
