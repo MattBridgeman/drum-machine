@@ -44,7 +44,7 @@ class DrumMachine extends Component {
 	}
 
 	render() {
-		const { channels, tempo, playState, patterns, dispatch } = this.props;
+		const { channels, tempo, playState, patterns, transformers, dispatch } = this.props;
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
@@ -60,9 +60,12 @@ class DrumMachine extends Component {
 				{channels.map((channel, i) =>
 					<Channel>
 						<SourceSelector selectedIndex={i} options={channels.map(c => c.sound.name)} />
-						{channel.transformers.map((transformer, index) =>
-							<Rotator name={transformer.name} value={transformer.value} onKnobRotate={function(){}} />
-						)}
+						{ channel.transformers
+							.map((transformerId) => transformers[transformerId])
+							.map((transformer) =>
+								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={function(){}} />
+							)
+						}
 						<Pattern>
 							{ patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) =>
 								<PatternBeat index={index} current={playState.loopingIndex === index} selected={!!beat} onToggle={actions.toggleBeat} />

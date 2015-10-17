@@ -5,7 +5,10 @@ export function getInitialPattern(){
 }
 
 export function getInitialState(){
-	return { 0: getInitialPattern() };
+	return {
+		0: getInitialPattern(),
+		1: getInitialPattern()
+	};
 }
 
 const initialState = getInitialState();

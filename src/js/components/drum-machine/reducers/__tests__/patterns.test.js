@@ -1,6 +1,17 @@
 import {expect} from "chai";
-import patterns, { getInitialPattern, getInitialState } from "../patterns.reducer";
+import patterns from "../patterns.reducer";
 import { ADD_PATTERN, CHANGE_BEAT } from "../../constants/drum.machine.constants";
+
+function getInitialPattern(){
+	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+}
+
+function getInitialState(){
+	return {
+		0: getInitialPattern()
+	};
+}
+
 
 describe("Patterns reducer", function() {
 
