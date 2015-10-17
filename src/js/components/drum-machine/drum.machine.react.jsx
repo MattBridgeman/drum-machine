@@ -15,6 +15,7 @@ import { SourceSelector } from "../source-selector/source.selector.react.jsx";
 import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 import { Pattern } from "../pattern/pattern.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
+import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 
 // var tempo = new Tempo(DrumMachineStore.data.tempo);
 // var context = new WebAudioContext();
@@ -48,10 +49,10 @@ class DrumMachine extends Component {
 		const actions = bindActionCreators(DrumMachineActions, dispatch);
 		return (
 			<div className="drum-machine">
-			<PlayHeading isPlaying={true} value="00:01" />
-			<Display name="Tempo" value={tempo.beatsPerMinute} />
-			<Display name="Signature" value={tempo.segmentsPerBeat + "/" + tempo.beatsPerBar} />
 			<div className="channels">
+				<Channel>
+					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ actions.togglePlayPause } />
+				</Channel>
 				<Channel>
 					<ValueSelector ref="tempoValueSelector" title="Tempo" value={tempo.beatsPerMinute} onIncrement={actions.incrementBPM} onDecrement={actions.decrementBPM} />
 				</Channel>
