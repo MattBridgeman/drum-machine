@@ -4,7 +4,7 @@ import { ADD_PATTERN } from "../../constants/drum.machine.constants";
 
 describe("Patterns reducer", function() {
 	function getInitialState(){
-		return [[1, 0, 0, 0]];
+		return { 1: [1, 0, 0, 0] };
 	}
 
 	it("adds a pattern given an add pattern action", function() {
@@ -17,8 +17,8 @@ describe("Patterns reducer", function() {
 
 		const nextState = patterns(initialState, action);
 
-		expect(initialState).to.deep.equal([[1, 0, 0, 0]]);
-		expect(nextState).to.deep.equal([[1, 0, 0, 0], [1, 0, 1, 0]]);
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState).to.deep.equal({ 1: [1, 0, 0, 0], 2: [1, 0, 1, 0] });
 	});
 
 });
