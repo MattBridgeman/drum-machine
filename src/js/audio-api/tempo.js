@@ -1,7 +1,8 @@
-const secondsInMinute = 60;
+const SECONDS_IN_MINUTE = 60;
+const MILLISECONDS_IN_SECOND = 1000;
 
 export function getBeatsPerSecond(beatsPerMinute) {
-	return beatsPerMinute / secondsInMinute;
+	return beatsPerMinute / SECONDS_IN_MINUTE;
 }
 
 export function getBeatTimeInSeconds(beatsPerMinute){
@@ -10,6 +11,10 @@ export function getBeatTimeInSeconds(beatsPerMinute){
 
 export function getSegmentTimeInSeconds(beatsPerMinute, segmentsPerBeat){
 	return getBeatTimeInSeconds(beatsPerMinute) / segmentsPerBeat;
+}
+
+export function getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat){
+	return getSegmentTimeInSeconds(beatsPerMinute, segmentsPerBeat) * 1000;
 }
 
 export function getSegmentsInTimespan(timespan, segmentTime){
