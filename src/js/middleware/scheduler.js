@@ -1,6 +1,6 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../drum-machine/constants/drum.machine.constants";
-import { incrementSegmentIndex } from "../drum-machine/actions/drum.machine.actions";
-import { createSegmentStream } from "../../audio-api/sequencer";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../constants/drum.machine.constants";
+import { incrementSegmentIndex } from "../actions/drum.machine.actions";
+import { createSegmentStream } from "../library/audio-api/sequencer";
 
 var segmentStream;
 

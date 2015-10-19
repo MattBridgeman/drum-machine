@@ -104,8 +104,8 @@ module.exports = function(grunt) {
           reporter: 'spec',
           clearRequireCache: true,
           require: [
-            'src/js/test-helpers/babel.include.js',
-            'src/js/test-helpers/mock.browser.js'
+            'src/js/library/test-helpers/babel.include.js',
+            'src/js/library/test-helpers/mock.browser.js'
           ]
         },
         src: ['src/**/__tests__/*.@(js|jsx)']

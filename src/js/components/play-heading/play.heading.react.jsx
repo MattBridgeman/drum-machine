@@ -1,5 +1,4 @@
 import * as React from "react";
-import { DrumMachineActions } from "../drum-machine/actions/drum.machine.actions";
 
 class PlayHeading extends React.Component {
 
@@ -8,7 +7,6 @@ class PlayHeading extends React.Component {
 	}
 	
 	onClick(){
-		DrumMachineActions.togglePlayPause();
 		this.props.onPlayPause();
 	}
 

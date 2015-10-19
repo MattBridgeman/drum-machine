@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import patterns from "../patterns.reducer";
-import { ADD_PATTERN, CHANGE_BEAT } from "../../constants/drum.machine.constants";
+import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../../constants/drum.machine.constants";
 
 function getInitialPattern(){
 	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -33,7 +33,7 @@ describe("Patterns reducer", function() {
 		const initialState = getInitialState();
 
 		const action = {
-			type: CHANGE_BEAT,
+			type: TOGGLE_BEAT_STATE,
 			value: { patternId: 0, index: 2, value: 1 }
 		};
 

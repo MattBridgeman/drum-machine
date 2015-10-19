@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import DrumMachine from "../drum.machine.react.jsx";
 import { expect } from "chai";
 import { Provider } from "react-redux";
-import configureStore from "../store/drum.machine.store";
+import configureStore from "../../../store/drum.machine.store";
 
 const { renderIntoDocument, Simulate } = TestUtils;
 

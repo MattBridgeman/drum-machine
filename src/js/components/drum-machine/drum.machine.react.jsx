@@ -5,7 +5,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as DrumMachineActions from "./actions/drum.machine.actions";
+import * as DrumMachineActions from "../../actions/drum.machine.actions";
 
 import { Display } from "../display/display.react.jsx";
 import { PlayHeading } from "../play-heading/play.heading.react.jsx";
