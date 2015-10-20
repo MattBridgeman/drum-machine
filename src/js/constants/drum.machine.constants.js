@@ -12,3 +12,4 @@ export const CHANGE_BEAT = "change_beat";
 export const CHANGE_TRANSFORM_BY_AMOUNT = "change_transform_by_amount";
 export const NEW_SEGMENT_INDEX = "new_segment_index";
 export const INCREMENT_SEGMENT_INDEX = "increment_segment_index";
+export const NEW_BUFFER_SEGMENT = "new_buffer_segment";
