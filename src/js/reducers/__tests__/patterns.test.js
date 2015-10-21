@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import patterns from "../patterns.reducer";
-import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../../constants/drum.machine.constants";
+import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../../constants/patterns.constants";
 
 function getInitialPattern(){
 	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

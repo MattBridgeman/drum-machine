@@ -1,4 +1,4 @@
-import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../constants/drum.machine.constants";
+import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
 
 const initialState = {
 	currentSegmentIndex: 0,

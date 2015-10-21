@@ -1,4 +1,4 @@
-import { PLAY, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX } from "../constants/drum.machine.constants";
+import { PLAY, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX } from "../constants/play.state.constants";
 import { getSegmentsToBuffer } from "../library/audio-api/tempo";
 
 export let createBufferStream = (getSegmentTime) => Rx.Observable.create(function (observer) {

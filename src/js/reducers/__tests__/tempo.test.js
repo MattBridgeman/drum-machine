@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import tempo from "../tempo.reducer";
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/drum.machine.constants";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/tempo.constants";
 
 describe("Tempo reducer", function() {
 	function getInitialState(){

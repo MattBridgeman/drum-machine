@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import playState from "../play.state.reducer";
-import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../../constants/drum.machine.constants";
+import { TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../../constants/play.state.constants";
 
 function getInitialState(){
 	return {

@@ -5,7 +5,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/drum.machine.actions";
 
 import { Display } from "../display/display.react.jsx";
 import { PlayHeading } from "../play-heading/play.heading.react.jsx";
@@ -46,15 +46,19 @@ class DrumMachine extends Component {
 
 	render() {
 		const { channels, tempo, playState, sounds, patterns, transformers, dispatch } = this.props;
-		const actions = bindActionCreators(DrumMachineActions, dispatch);
+		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
+		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
+		const transformersActions = bindActionCreators(DrumMachineActions.transformers, dispatch);
+		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
+		
 		return (
 			<div className="drum-machine">
 			<div className="channels">
 				<Channel>
-					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ actions.togglePlayPause } />
+					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
 				</Channel>
 				<Channel>
-					<ValueSelector ref="tempoValueSelector" title="Tempo" value={tempo.beatsPerMinute} onIncrement={actions.incrementBPM} onDecrement={actions.decrementBPM} />
+					<ValueSelector ref="tempoValueSelector" title="Tempo" value={tempo.beatsPerMinute} onIncrement={tempoActions.incrementBPM} onDecrement={tempoActions.decrementBPM} />
 				</Channel>
 			</div>
 			<div className="channels">
@@ -64,12 +68,12 @@ class DrumMachine extends Component {
 						{ channel.transformers
 							.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
 							.map(({ transformerId, transformer }) =>
-								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => actions.changeTransformByAmount(transformerId, amount) } />
+								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } />
 							)
 						}
 						<Pattern>
 							{ patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) =>
-								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => actions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
+								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
 							)}
 						</Pattern>
 					</Channel>
@@ -84,10 +88,6 @@ class DrumMachine extends Component {
 function mapStateToProps(state) {
 	//return state.drumMachine;
 	return state;
-}
-
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(DrumMachineActions, dispatch);
 }
 
 export default connect(mapStateToProps)(DrumMachine);

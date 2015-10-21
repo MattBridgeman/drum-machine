@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPM } from "../drum.machine.actions";
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/drum.machine.constants";
+import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPM } from "../tempo.actions";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/tempo.constants";
 
 describe("Tempo actions", function() {
 

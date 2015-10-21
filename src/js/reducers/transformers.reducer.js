@@ -1,4 +1,4 @@
-import { CHANGE_TRANSFORM_BY_AMOUNT } from "../constants/drum.machine.constants";
+import { CHANGE_TRANSFORM_BY_AMOUNT } from "../constants/transformers.constants";
 
 const initialState = {
 	0: {

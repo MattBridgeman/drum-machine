@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import transformers from "../transformers.reducer";
-import { CHANGE_TRANSFORM_BY_AMOUNT } from "../../constants/drum.machine.constants";
+import { CHANGE_TRANSFORM_BY_AMOUNT } from "../../constants/transformers.constants";
 
 describe("Transformer reducer", function() {
 	function getInitialState(){

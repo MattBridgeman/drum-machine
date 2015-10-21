@@ -1,5 +1,3 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE } from "../constants/drum.machine.constants";
-
 const initialState = [
 	{
 		sound: 0,

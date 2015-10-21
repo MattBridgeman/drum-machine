@@ -1,81 +1,11 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, TOGGLE_BEAT_STATE, INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_TRANSFORM_BY_AMOUNT, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BUFFER_SEGMENT } from "../constants/drum.machine.constants";
+import * as playState from "./play.state.actions";
+import * as tempo from "./tempo.actions";
+import * as patterns from "./patterns.actions";
+import * as transformers from "./transformers.actions";
 
-export function play() {
-  return {
-    type: PLAY
-  };
-}
-
-export function pause() {
-  return {
-    type: PAUSE
-  };
-}
-
-export function togglePlayPause() {
-  return {
-    type: TOGGLE_PLAY_PAUSE
-  };
-}
-
-export function toggleBeat(patternId, value, index) {
-  return {
-    type: TOGGLE_BEAT_STATE,
-    value: { patternId, value, index }
-  };
-}
-
-export function incrementBPM() {
-  return {
-    type: INCREMENT_BPM
-  };
-}
-
-export function decrementBPM() {
-  return {
-    type: DECREMENT_BPM
-  };
-}
-
-export function changeBPMByAmount() {
-  return {
-    type: CHANGE_BPM_BY_AMOUNT
-  };
-}
-
-export function changeBPM() {
-  return {
-    type: CHANGE_BPM
-  };
-}
-
-export function changeTransformByAmount(transformId, amount){
-  return {
-    type: CHANGE_TRANSFORM_BY_AMOUNT,
-    value: {
-      transformId,
-      amount
-    }
-  };
-}
-
-export function newSegmentIndex(value){
-  return {
-    type: NEW_SEGMENT_INDEX,
-    value
-  };
-}
-
-export function incrementSegmentIndex(value){
-  return {
-    type: INCREMENT_SEGMENT_INDEX,
-    value
-  };
-}
-
-export function newBufferSegment(value){
-  return {
-    type: NEW_BUFFER_SEGMENT,
-    value
-  };
+export default {
+  playState,
+  tempo,
+  patterns,
+  transformers
 }

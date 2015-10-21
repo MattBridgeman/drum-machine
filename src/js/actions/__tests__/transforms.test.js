@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { changeTransformByAmount } from "../drum.machine.actions";
-import { CHANGE_TRANSFORM_BY_AMOUNT } from "../../constants/drum.machine.constants";
+import { changeTransformByAmount } from "../transformers.actions";
+import { CHANGE_TRANSFORM_BY_AMOUNT } from "../../constants/transformers.constants";
 
 describe("Transform actions", function() {
 

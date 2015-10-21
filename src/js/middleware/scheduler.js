@@ -1,5 +1,5 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../constants/drum.machine.constants";
-import { incrementSegmentIndex } from "../actions/drum.machine.actions";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
+import { incrementSegmentIndex } from "../actions/play.state.actions";
 import { createIntervalStream } from "../library/audio-api/interval";
 import { getSegmentTimeInMilliseconds } from "../library/audio-api/tempo";
 

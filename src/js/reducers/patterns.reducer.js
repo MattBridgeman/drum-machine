@@ -1,4 +1,4 @@
-import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../constants/drum.machine.constants";
+import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../constants/patterns.constants";
 
 export function getInitialPattern(){
 	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
