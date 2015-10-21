@@ -1,6 +1,6 @@
 import * as Rx from "Rx";
 
-export var createSegmentStream = (startTime, getNow, getSegmentTime, callback) => Rx.Observable.create(function (observer) {
+export var createIntervalStream = (startTime, getNow, getIntervalTime, callback) => Rx.Observable.create(function (observer) {
 	let frameId,
 		loop,
 		tick;
@@ -8,9 +8,9 @@ export var createSegmentStream = (startTime, getNow, getSegmentTime, callback) =
 	loop = function() {
 		let now = getNow();
 		let deltaTime = now - startTime;
-		let segmentTime = getSegmentTime();
-		
-		if(deltaTime >= segmentTime) {
+		let interval = getIntervalTime();
+
+		if(deltaTime >= interval) {
 			observer.onNext(1);
 			startTime = now;
 		}
