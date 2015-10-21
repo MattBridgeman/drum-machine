@@ -1,22 +1,14 @@
 import * as Rx from "Rx";
-import { getSegmentTimeInMilliseconds } from "./tempo";
 
-export var createSegmentStream = store => Rx.Observable.create(function (observer) {
-	let startTime = new Date().getTime(),
-		frameId,
+export var createSegmentStream = (startTime, getNow, getSegmentTime, callback) => Rx.Observable.create(function (observer) {
+	let frameId,
 		loop,
 		tick;
 
 	loop = function() {
-		if(!frameId){
-			observer.onNext(1);
-		}
-		let now = new Date().getTime();
+		let now = getNow();
 		let deltaTime = now - startTime;
-		
-		let state = store.getState();
-		let { beatsPerMinute, segmentsPerBeat } = state.tempo;
-		let segmentTime = getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat);
+		let segmentTime = getSegmentTime();
 		
 		if(deltaTime >= segmentTime) {
 			observer.onNext(1);
@@ -26,7 +18,7 @@ export var createSegmentStream = store => Rx.Observable.create(function (observe
 	};
 
 	tick = function() {
-		frameId = requestAnimationFrame(loop);
+		frameId = callback(loop);
 	};
 
 	loop();
