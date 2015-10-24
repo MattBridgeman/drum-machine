@@ -38,19 +38,14 @@ export function getSegmentsToBuffer({
 	currentSegmentTime,
 	currentSegmentIndex
 }, {
-	beatsPerMinute,
-	beatsPerBar,
-	segmentsPerBeat,
+	segmentInterval,
 	segmentsToBuffer
 }, currentTime) {
 	let i = 0;
 	let segmentLimit = currentSegmentIndex + segmentsToBuffer;
 	let segments = [];
 	while(i <= segmentLimit){
-		segments.push({
-			segmentTime: 1000,
-			segmentIndex: i
-		});
+		segments.push(i);
 		i++;
 	}
 	return segments;
