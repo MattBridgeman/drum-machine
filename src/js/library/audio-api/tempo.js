@@ -35,14 +35,22 @@ export function getCurrentSegmentIndex({
 }
 
 export function getSegmentsToBuffer({
-	segmentOffset,
+	currentSegmentTime,
+	currentSegmentIndex
+}, {
+	beatsPerMinute,
+	beatsPerBar,
+	segmentsPerBeat,
 	segmentsToBuffer
-}) {
-	let i = segmentOffset;
-	let segmentLimit = segmentOffset + segmentsToBuffer;
+}, currentTime) {
+	let i = 0;
+	let segmentLimit = currentSegmentIndex + segmentsToBuffer;
 	let segments = [];
 	while(i <= segmentLimit){
-		segments.push(i);
+		segments.push({
+			segmentTime: 1000,
+			segmentIndex: i
+		});
 		i++;
 	}
 	return segments;
