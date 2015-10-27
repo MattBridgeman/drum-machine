@@ -15,6 +15,16 @@ export const createBuffer = store => {
 			return next(action);
 		}
 		let state = store.getState();
-		let { channels } = state;
+		let { channelsObj } = state;
+		let channelKeys = Object.keys(channelsObj);
+		let channelsArray =  channelKeys
+			.map((key) => channelsObj[key]);
+			
+		let soundIds = channelsArray
+			.map(channel => channel.sound);
+		
+		soundIds
+			.map(id => sounds[id])
+			.forEach(buffer => context.playSound(buffer, context.getCurrentTime()));
 	};
 };
