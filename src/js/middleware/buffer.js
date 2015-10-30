@@ -23,7 +23,7 @@ export const createBuffer = store => {
 		}
 		
 		//playing of sounds
-		let { channels, patterns } = state;
+		let { channels, patterns, transformers } = state;
 		let { currentSegmentIndex, currentBarIndex } = state.playState;
 		let channelKeys = Object.keys(channels);
 		let channelsArray = channelKeys
@@ -36,9 +36,20 @@ export const createBuffer = store => {
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
-		zip([patternsArray, soundIds])
+		let transformersIds = channelsArray
+			.map(channel => channel.transformers);
+		
+		let transformersArray = transformersIds
+			.map(transformerIds => transformerIds.map(id => transformers.id));
+		
+		let transformerNodes = transformersArray
+			.map(transformer => context.createGain());
+		
+		transformerNodes.forEach(node => node.gain.value);
+		
+		zip([patternsArray, soundIds, transformerNodes])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.map(([pattern, soundId]) => sounds[soundId])
+			.map(([pattern, soundId, nodes]) => [sounds[soundId], nodes])
 			.forEach(buffer => playSound(context, buffer, context.destination, context.currentTime));
 
 		return next(action);
