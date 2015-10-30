@@ -1,16 +1,16 @@
 import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
 import { loadSounds } from "../library/audio-api/buffer";
-import { WebAudioContext } from "../library/audio-api/context";
+import { createAudioContext, playSound, decodeAudioDataArray } from "../library/audio-api/context";
 import { zip } from "../library/natives/array";
 
 export const createBuffer = store => {
 	// creation of context
-	let context = new WebAudioContext();
+	let context = createAudioContext();
 	
 	//loading of sounds
 	let buffers = loadSounds(store);
 	let soundPromises = Promise.all(buffers)
-		.then((promises) => context.decodeAudioDataArray(promises));
+		.then((promises) => decodeAudioDataArray(context, promises));
 	let sounds = [];
 
 	soundPromises.then(soundBuffers => soundBuffers.map(soundBuffer => sounds.push(soundBuffer)));
@@ -35,11 +35,11 @@ export const createBuffer = store => {
 		let patternsArray = channelsArray
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
-
+		
 		zip([patternsArray, soundIds])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
 			.map(([pattern, soundId]) => sounds[soundId])
-			.forEach(buffer => context.playSound(buffer, context.getCurrentTime()));
+			.forEach(buffer => playSound(context, buffer, context.destination, context.currentTime));
 
 		return next(action);
 	};

@@ -1,30 +1,28 @@
-class WebAudioContext {
-	constructor() {
-		this.context = this.createAudioContext();
-	}
-	createAudioContext() {
-		var AudioContext = window.AudioContext || window.webkitAudioContext;
-		return new AudioContext();
-	}
-	decodeAudioData(buffer) {
-		return new Promise((resolve, reject) =>
-			this.context.decodeAudioData(buffer, resolve, reject)
-		);
-	}
-	decodeAudioDataArray(arrayOfBuffers) {
-		return Promise.all(arrayOfBuffers.map((sound) =>
-			this.decodeAudioData(sound)
-		));
-	}
-	playSound(buffer, time) {
-		var source = this.context.createBufferSource();
-		source.buffer = buffer;
-		source.connect(this.context.destination);
-		source.start(time || this.context.currentTime);
-	}
-	getCurrentTime(){
-		return this.context.currentTime;
-	}
+export function createAudioContext() {
+	var AudioContext = window.AudioContext || window.webkitAudioContext;
+	return new AudioContext();
 }
 
-export { WebAudioContext };
+export function decodeAudioData(context, buffer) {
+	return new Promise((resolve, reject) =>
+		context.decodeAudioData(buffer, resolve, reject)
+	);
+}
+
+export function decodeAudioDataArray(context, arrayOfBuffers) {
+	return Promise.all(arrayOfBuffers.map((sound) =>
+		decodeAudioData(context, sound)
+	));
+}
+
+export function createBufferSource(context, buffer) {
+	var source = context.createBufferSource();
+	source.buffer = buffer;
+	return source;
+}
+
+export function playSound(context, source, destination, time) {
+	let bufferSource = createBufferSource(context, source);
+	bufferSource.connect(destination);
+	bufferSource.start(time);
+}
