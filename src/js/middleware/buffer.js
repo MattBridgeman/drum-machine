@@ -40,17 +40,24 @@ export const createBuffer = store => {
 			.map(channel => channel.transformers);
 		
 		let transformersArray = transformersIds
-			.map(transformerIds => transformerIds.map(id => transformers.id));
+			.map(transformerIds => transformers[transformerIds[0]]);
 		
 		let transformerNodes = transformersArray
 			.map(transformer => context.createGain());
 		
-		transformerNodes.forEach(node => node.gain.value);
+		//set volume and
+		//connect gain to context
+		zip([transformersArray, transformerNodes])
+			.forEach(([transformer, node]) => {
+				node.gain.value = transformer.value * 0.01;
+				node.connect(context.destination);
+			});
 		
+		//play sound
 		zip([patternsArray, soundIds, transformerNodes])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.map(([pattern, soundId, nodes]) => [sounds[soundId], nodes])
-			.forEach(buffer => playSound(context, buffer, context.destination, context.currentTime));
+			.map(([pattern, soundId, node]) => [sounds[soundId], node])
+			.forEach(([buffer, node]) => playSound(context, buffer, node, context.currentTime));
 
 		return next(action);
 	};
