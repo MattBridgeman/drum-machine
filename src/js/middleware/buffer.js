@@ -1,4 +1,6 @@
 import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
+import { incrementSegmentIndex } from "../actions/play.state.actions";
+import rootReducer from "../reducers/drum.machine.root.reducer";
 import { loadSounds } from "../library/audio-api/buffer";
 import { createAudioContext, playSound, decodeAudioDataArray } from "../library/audio-api/context";
 import { zip } from "../library/natives/array";
@@ -16,9 +18,10 @@ export const createBuffer = store => {
 	soundPromises.then(soundBuffers => soundBuffers.map(soundBuffer => sounds.push(soundBuffer)));
 
 	return next => action => {
-		let state = store.getState();
+		let prevState = store.getState();
+		let state = rootReducer(prevState, action);
 		
-		if (!(action.type === TOGGLE_PLAY_PAUSE && state.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
+		if (!(action.type === TOGGLE_PLAY_PAUSE && prevState.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
 			return next(action);
 		}
 		
