@@ -7,31 +7,3 @@ export function loadSounds(store){
 	let soundPaths = soundKeys.map(key => state.sounds[key].path);
 	return soundPaths.map(arrayBuffer);
 }
-
-export var segmentsBufferStream = (getPreviousBuffer, getNow, getIntervalTime, callback) => Rx.Observable.create(function (observer) {
-	let frameId,
-		loop,
-		tick;
-
-	loop = function() {
-		let now = getNow();
-		let deltaTime = now - startTime;
-		let interval = getIntervalTime();
-
-		if(deltaTime >= interval) {
-			observer.onNext(1);
-			startTime = now;
-		}
-		tick();
-	};
-
-	tick = function() {
-		frameId = callback(loop);
-	};
-
-	loop();
-
-    return function () {
-        cancelAnimationFrame(frameId);
-    };
-});
