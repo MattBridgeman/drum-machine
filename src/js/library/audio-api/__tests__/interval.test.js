@@ -14,7 +14,7 @@ describe("Interval", () => {
 			startTime,
 			() => currentTime,
 			() => intervalTime,
-			(callback) => subject.subscribe(callback)
+			(callback) => subject.take(1).subscribe(callback)
 		);
 		
 		segmentStream
