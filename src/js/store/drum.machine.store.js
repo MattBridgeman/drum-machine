@@ -4,7 +4,7 @@ import { sequencer } from "../middleware/scheduler";
 import { createBuffer } from "../middleware/buffer";
 
 export default function configureStore(initialState) {
-	let createStoreWithMiddleware = applyMiddleware(sequencer, createBuffer)(createStore);
+	let createStoreWithMiddleware = applyMiddleware(sequencer(), createBuffer)(createStore);
 	const store = createStoreWithMiddleware(rootReducer, initialState);
 	return store;
 }
