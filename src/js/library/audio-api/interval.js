@@ -1,6 +1,6 @@
 import * as Rx from "Rx";
 
-export var createIntervalStream = (startTime, getNow, getIntervalTime, callback) => Rx.Observable.create(function (observer) {
+export var createIntervalStream = (startTime, getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
 		loop,
 		tick;
@@ -24,6 +24,7 @@ export var createIntervalStream = (startTime, getNow, getIntervalTime, callback)
 	loop();
 
     return function () {
-        cancelAnimationFrame(frameId);
+		if(!cancelCallback) return;
+        cancelCallback(frameId);
     };
 });

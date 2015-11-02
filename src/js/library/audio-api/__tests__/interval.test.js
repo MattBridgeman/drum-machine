@@ -17,9 +17,12 @@ describe("Interval", () => {
 			(callback) => subject.subscribe(callback)
 		);
 		
-		segmentStream.subscribe(value => {
-			expect(value).to.equal(1);
-		});
+		segmentStream
+			.take(1)
+			.toArray()
+			.subscribe(value => {
+				expect(value.length).to.equal(1);
+			});
 		
 		subject.onNext(1);
 	});

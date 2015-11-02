@@ -12,7 +12,8 @@ let createSegmentStream = (store) => {
 			let { beatsPerMinute, segmentsPerBeat } = state.tempo;
 			return getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat);
 		},
-		requestAnimationFrame
+		requestAnimationFrame,
+		cancelAnimationFrame
 	);
 };
 
