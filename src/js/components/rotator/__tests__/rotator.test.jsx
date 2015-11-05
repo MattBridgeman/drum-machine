@@ -22,7 +22,7 @@ describe("Rotator", () => {
 		);
 		let { name, value } = $component.refs;
 		expect(name.textContent).to.equal(_name);
-		expect(+(value.textContent)).to.equal(_value);
+		expect(+(value.value)).to.equal(_value);
 	});
 	
 	it("updates the value when changed via the value input field", () => {
