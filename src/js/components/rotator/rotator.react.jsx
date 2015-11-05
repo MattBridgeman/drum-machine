@@ -19,7 +19,7 @@ class Rotator extends React.Component {
 	}
 	
 	render() {
-		var { value, name } = this.props;
+		var { value, name, onValueChange } = this.props;
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
 		var rotation = rotationFromValue(value, minRotation, maxRotation);
@@ -28,8 +28,8 @@ class Rotator extends React.Component {
 		};
 		return (
 			<div ref="knobContainer" className="channel-item rotator">
-				<h3 className="item-title">{name}</h3>
-				<p className="item-value">{value}</p>
+				<h3 ref="name" className="item-title">{name}</h3>
+				<input type="text" ref="value" className="item-value" onBlur={(e) => onValueChange(e.target.value)}>{value}</input>
 				<div ref="knob" className="knob" style={knobStyle}></div>
 				<button className="increase">Increase volume</button>
 				<button className="decrease">Decrease volume</button>
@@ -50,8 +50,7 @@ class Rotator extends React.Component {
 					.concatMap((contactPoint) =>
 						knobContainerMouseMoves
 							.takeUntil(knobContainerMouseUps)
-							.map((movePoint) => movePoint.pageY - contactPoint.pageY)
-				);
+							.map((movePoint) => movePoint.pageY - contactPoint.pageY));
 
 		knobMouseDrags
 			.scan({
