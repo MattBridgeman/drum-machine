@@ -68,7 +68,7 @@ class DrumMachine extends Component {
 						{ channel.transformers
 							.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
 							.map(({ transformerId, transformer }) =>
-								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } />
+								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } onValueChange={ (value) => transformersActions.changeTransformToAmount(transformerId, value) } />
 							)
 						}
 						<Pattern>

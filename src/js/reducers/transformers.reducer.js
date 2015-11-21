@@ -1,4 +1,4 @@
-import { CHANGE_TRANSFORM_BY_AMOUNT } from "../constants/transformers.constants";
+import { CHANGE_TRANSFORM_BY_AMOUNT, CHANGE_TRANSFORM_TO_AMOUNT } from "../constants/transformers.constants";
 
 const initialState = {
 	0: {
@@ -12,10 +12,14 @@ const initialState = {
 };
 
 export default function transformers(state = initialState, action) {
+	let transform;
+	let { transformId, amount, value } = action.value;
 	switch (action.type) {
 		case CHANGE_TRANSFORM_BY_AMOUNT:
-			let { transformId, amount } = action.value;
-			let transform = Object.assign({}, state[transformId], { value: state[transformId].value + amount });
+			transform = Object.assign({}, state[transformId], { value: state[transformId].value + amount });
+			return Object.assign({}, state, { [transformId]: transform });
+		case CHANGE_TRANSFORM_TO_AMOUNT:
+			transform = Object.assign({}, state[transformId], { value: value });
 			return Object.assign({}, state, { [transformId]: transform });
 		default:
 		return state;

@@ -15,30 +15,30 @@ describe("Rotator", () => {
 	});
 
 	it("displays the initial name and value", () => {
-		let _name = "rotator name";
-		let _value = 125;
+		let expectedName = "rotator name";
+		let expectedValue = 125;
 		let $component = renderIntoDocument(
-			<Rotator name={_name} value={_value} />
+			<Rotator name={expectedName} value={expectedValue} />
 		);
 		let { name, value } = $component.refs;
-		expect(name.textContent).to.equal(_name);
-		expect(+(value.value)).to.equal(_value);
+		expect(name.textContent).to.equal(expectedName);
+		expect(+(value.value)).to.equal(expectedValue);
 	});
 	
 	it("updates the value when changed via the value input field", () => {
-		let _name = "rotator name";
-		let _value = 125;
+		let expectedName = "rotator name";
+		let expectedValue = 125;
 		let expectedNewValue = 126;
 		let actualNewValue;
 		let $component = renderIntoDocument(
-			<Rotator name={_name} value={_value} onValueChange={(value) => actualNewValue = value} />
+			<Rotator name={expectedName} value={expectedValue} onValueChange={(value) => actualNewValue = value} />
 		);
-		let { value, input } = $component.refs;
+		let { value } = $component.refs;
 		
-		Simulate.change(input, { target: { value: "" + expectedNewValue } });
-    	Simulate.blur(input);
+		Simulate.change(value, { target: { value: "" + expectedNewValue } });
+    	Simulate.blur(value, { target: { value: "" + expectedNewValue } });
 		
-		expect(actualNewValue).to.equal(expectedNewValue);
+		expect(+(actualNewValue)).to.equal(expectedNewValue);
 	});
 	
 
