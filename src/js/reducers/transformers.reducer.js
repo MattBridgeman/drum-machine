@@ -13,7 +13,7 @@ const initialState = {
 
 export default function transformers(state = initialState, action) {
 	let transform;
-	let { transformId, amount, value } = action.value;
+	let { transformId, amount, value } = action.value || {};
 	switch (action.type) {
 		case CHANGE_TRANSFORM_BY_AMOUNT:
 			transform = Object.assign({}, state[transformId], { value: state[transformId].value + amount });
