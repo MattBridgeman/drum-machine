@@ -71,14 +71,19 @@ class DrumMachine extends Component {
 								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } onValueChange={ (value) => transformersActions.changeTransformToAmount(transformerId, value) } />
 							)
 						}
-						<Pattern>
-							{ patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) =>
-								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
-							)}
-						</Pattern>
 					</Channel>
 				)}
 			</div>
+				<Pattern>
+					{ channels
+						.filter((channel, i) => i === 0)
+						.map((channel, i) => 
+							patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) => 
+								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
+							)
+						)
+					}
+				</Pattern>
 		</div>
 		);
 	}
