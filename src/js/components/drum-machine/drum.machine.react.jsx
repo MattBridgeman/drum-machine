@@ -58,7 +58,7 @@ class DrumMachine extends Component {
 					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
 				</Channel>
 				<Channel>
-					<ValueSelector ref="tempoValueSelector" title="Tempo" value={tempo.beatsPerMinute} onIncrement={tempoActions.incrementBPM} onDecrement={tempoActions.decrementBPM} />
+					<Rotator name="Tempo" value={tempo.beatsPerMinute} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
 				</Channel>
 			</div>
 			<div className="channels">

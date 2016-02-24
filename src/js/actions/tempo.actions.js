@@ -13,14 +13,16 @@ export function decrementBPM() {
   };
 }
 
-export function changeBPMByAmount() {
+export function changeBPMByAmount(amount) {
   return {
-    type: CHANGE_BPM_BY_AMOUNT
+    type: CHANGE_BPM_BY_AMOUNT,
+    amount: amount
   };
 }
 
-export function changeBPM() {
+export function changeBPM(value) {
   return {
-    type: CHANGE_BPM
+    type: CHANGE_BPM,
+    value: value
   };
 }
