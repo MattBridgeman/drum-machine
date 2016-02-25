@@ -6,12 +6,6 @@ function rotationFromValue(value, min, max){
 	return ((range / 100) * value) - max;
 }
 
-function normaliseValue(value){
-	if(value < 0) return 0;
-	if(value > 100) return 100;
-	return value;
-}
-
 class Rotator extends React.Component {
 
 	constructor(props) {
