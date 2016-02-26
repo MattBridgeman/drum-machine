@@ -6,6 +6,12 @@ function rotationFromValue(value, min, max){
 	return ((range / 100) * value) - max;
 }
 
+function valueAsPercentage(value, min, max){
+	var range = max - min;
+	var halfRange = range / 2;
+	return ((range / 100) * value) - halfRange;
+}
+
 class Rotator extends React.Component {
 
 	constructor(props) {
@@ -13,10 +19,11 @@ class Rotator extends React.Component {
 	}
 	
 	render() {
-		var { value, name, onValueChange } = this.props;
+		var { value, min = 0, max = 100, name, onValueChange } = this.props;
+		var valuePercentage = valueAsPercentage(value, min, max);
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
-		var rotation = rotationFromValue(value, minRotation, maxRotation);
+		var rotation = rotationFromValue(valuePercentage, minRotation, maxRotation);
 		var knobStyle = {
 			transform: "rotate(" + rotation + "deg)"
 		};
