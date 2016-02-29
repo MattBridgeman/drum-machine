@@ -8,8 +8,8 @@ function rotationFromValue(value, min, max){
 
 function valueAsPercentage(value, min, max){
 	var range = max - min;
-	var halfRange = range / 2;
-	return ((range / 100) * value) - halfRange;
+	var valueMinueMin = value - min;
+	return (valueMinueMin / range) * 100;
 }
 
 class Rotator extends React.Component {
