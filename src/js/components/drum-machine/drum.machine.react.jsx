@@ -57,14 +57,13 @@ class DrumMachine extends Component {
 				<Channel>
 					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
 				</Channel>
-				<Channel>
-					<Rotator name="Tempo" value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
+				<Channel name="Tempo">
+					<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
 				</Channel>
 			</div>
 			<div className="channels">
 				{channels.map((channel, i) =>
-					<Channel>
-						<SourceSelector selectedIndex={i} options={channels.map(c => sounds[c.sound].name)} />
+					<Channel name={sounds[channel.sound].name}>
 						{ channel.transformers
 							.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
 							.map(({ transformerId, transformer }) =>

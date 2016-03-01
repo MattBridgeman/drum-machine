@@ -1,19 +1,24 @@
 .channels {
-	border: 1px solid @white;
 	padding: @baseline * 2;
 	display: flex;
 }
 
 .channel {
 	width: 100px;
-	border-right: 1px solid @white;
-	padding: @baseline * 2;
+	border-right: 1px solid @dark-grey;
 	text-align: center;
 	.channel-item {
 		margin: 0 0 @baseline * 4;
 		
 		.item-title {
-			margin: 0 0 @baseline;
+			background: @dark-grey;
+			color: @orange;
+			text-transform: uppercase;
+			font-weight: bold;
+			padding: 2px;
+			margin: 0 -1px @baseline;
+			border-left: 1px solid @grey;
+			border-right: 1px solid @grey;
 		}
 		.item-value {
 			margin: 0 0 @baseline;
