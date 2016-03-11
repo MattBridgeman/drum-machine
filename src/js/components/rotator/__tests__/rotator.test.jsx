@@ -14,15 +14,14 @@ describe("Rotator", () => {
 		expect($component).to.be.a("object");
 	});
 
-	it("displays the initial name and value", () => {
+	it("displays the initial name", () => {
 		let expectedName = "rotator name";
 		let expectedValue = 125;
 		let $component = renderIntoDocument(
 			<Rotator name={expectedName} value={expectedValue} />
 		);
-		let { name, value } = $component.refs;
+		let { name } = $component.refs;
 		expect(name.textContent).to.equal(expectedName);
-		expect(+(value.value)).to.equal(expectedValue);
 	});
 	
 	it("updates the value when changed via the value input field", () => {
@@ -36,10 +35,31 @@ describe("Rotator", () => {
 		let { value } = $component.refs;
 		
 		Simulate.change(value, { target: { value: "" + expectedNewValue } });
-    	Simulate.blur(value, { target: { value: "" + expectedNewValue } });
+		Simulate.blur(value, { target: { value: "" + expectedNewValue } });
 		
 		expect(+(actualNewValue)).to.equal(expectedNewValue);
 	});
 	
+	it("rotates the rotator to the minimum when min value is applied", () => {
+		let value = 0;
+		let expectedRotation = "rotate(-155deg)";
+		let $component = renderIntoDocument(
+			<Rotator value={value} />
+		);
+		let { knob } = $component.refs;
+
+		expect(knob._style.transform).to.equal(expectedRotation);
+	});
+	
+	it("rotates the rotator to the maximum when max value is applied", () => {
+		let value = 100;
+		let expectedRotation = "rotate(155deg)";
+		let $component = renderIntoDocument(
+			<Rotator value={value} />
+		);
+		let { knob } = $component.refs;
+
+		expect(knob._style.transform).to.equal(expectedRotation);
+	});
 
 });
