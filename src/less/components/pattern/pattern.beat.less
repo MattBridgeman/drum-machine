@@ -1,19 +1,22 @@
 .pattern-beat {
+	flex-grow: 1;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
 	.indicator {
 		width: 5px;
 		height: 5px;
 		display: block;
 		background: @red-transparency;
 		border-radius: 50%;
-		margin: 0 auto @baseline * 2;
+		margin-bottom: @baseline * 2;
 		&.on {
 			background: @red;
 		}
 	}
 	.button {
-		width: 100%;
-		padding-bottom: 100%;
-		height: 0;
+		width: 50px;
+		height: 50px;
 		display: block;
 		margin-bottom: @baseline * 4;
 		background: @red-transparency;
