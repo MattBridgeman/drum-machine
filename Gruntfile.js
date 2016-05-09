@@ -135,7 +135,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   
   grunt.registerTask('server', 'Start a custom web server', function() {
-    var done = this.async();
     grunt.log.writeln('Starting server...');
     require('./node/server.js');
   });
@@ -143,6 +142,6 @@ module.exports = function(grunt) {
   //tasks
   grunt.registerTask('test', ['mochaTest', 'eslint']);
   grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify']);
-  grunt.registerTask('default', ['build', 'server']);
+  grunt.registerTask('default', ['build', 'server', 'watch']);
 
 };

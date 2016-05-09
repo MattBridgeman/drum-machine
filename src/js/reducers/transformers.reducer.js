@@ -8,6 +8,34 @@ const initialState = {
 	1: {
 		name: "volume",
 		value: 50
+	},
+	2: {
+		name: "volume",
+		value: 50
+	},
+	3: {
+		name: "volume",
+		value: 50
+	},
+	4: {
+		name: "volume",
+		value: 50
+	},
+	5: {
+		name: "volume",
+		value: 50
+	},
+	6: {
+		name: "volume",
+		value: 50
+	},
+	7: {
+		name: "volume",
+		value: 50
+	},
+	8: {
+		name: "volume",
+		value: 50
 	}
 };
 

@@ -7,7 +7,14 @@ export function getInitialPattern(){
 export function getInitialState(){
 	return {
 		0: getInitialPattern(),
-		1: getInitialPattern()
+		1: getInitialPattern(),
+		2: getInitialPattern(),
+		3: getInitialPattern(),
+		4: getInitialPattern(),
+		5: getInitialPattern(),
+		6: getInitialPattern(),
+		7: getInitialPattern(),
+		8: getInitialPattern()
 	};
 }
 
