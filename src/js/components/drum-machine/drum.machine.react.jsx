@@ -54,16 +54,19 @@ class DrumMachine extends Component {
 		return (
 			<div className="drum-machine">
 			<div className="channels">
-				<Channel>
+				<div className="channel">
 					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
-				</Channel>
-				<Channel name="Tempo">
+				</div>
+				<div className="channel">
+					<div className="channel-item">
+						<h3 ref="name" className="item-title">Tempo</h3>
+					</div>
 					<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
-				</Channel>
+				</div>
 			</div>
 			<div className="channels">
 				{channels.map((channel, i) =>
-					<Channel name={sounds[channel.sound].name}>
+					<Channel name={sounds[channel.sound].name} selected={channel.selected}>
 						{ channel.transformers
 							.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
 							.map(({ transformerId, transformer }) =>
@@ -75,7 +78,7 @@ class DrumMachine extends Component {
 			</div>
 				<Pattern>
 					{ channels
-						.filter((channel, i) => i === 0)
+						.filter((channel, i) => channel.selected)
 						.map((channel, i) => 
 							patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) => 
 								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />

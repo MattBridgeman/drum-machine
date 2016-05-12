@@ -42,4 +42,19 @@ describe("Channel", () => {
 		expect(toggleButton.classList.contains("selected")).to.equal(true);
 		expect(toggleButton.getAttribute('aria-pressed')).to.equal('true');
 	});
+
+	it("triggers onClick callback on click", () => {
+		let clicked = false,
+			onClick = function(){
+				clicked = true;
+			};
+		let $component = renderIntoDocument(
+			<Channel onClick={onClick} />
+		);
+		let { toggleButton } = $component.refs;
+
+		Simulate.click(toggleButton);
+
+		expect(clicked).to.equal(true);
+	});
 });

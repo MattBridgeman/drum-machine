@@ -1,8 +1,11 @@
+import { CHANGE_SELECTED_CHANNEL } from "../constants/patterns.constants";
+
 const initialState = [
 	{
 		sound: 0,
 		patterns: [0],
-		transformers: [0]
+		transformers: [0],
+		selected: true
 	},
 	{
 		sound: 1,
@@ -48,7 +51,12 @@ const initialState = [
 
 export default function channels(state = initialState, action) {
 	switch (action.type) {
+		case CHANGE_SELECTED_CHANNEL:
+			return state
+				.map((channel, i) =>
+					Object.assign({}, channel, { selected: action.value === i })
+				);
 		default:
-		return state;
+			return state;
 	}
 }
