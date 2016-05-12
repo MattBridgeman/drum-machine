@@ -1,4 +1,4 @@
-import { CHANGE_SELECTED_CHANNEL } from "../constants/patterns.constants";
+import { CHANGE_SELECTED_CHANNEL } from "../constants/channel.constants";
 
 const initialState = [
 	{
