@@ -34,8 +34,6 @@ class Rotator extends React.Component {
 					<input type="range" ref="value" min={min} max={max} step="1" className="item-value" onChange={(e) => onValueChange(+(e.target.value))} />
 				</div>
 				<div ref="knob" className="knob" style={knobStyle}></div>
-				<button className="increase">Increase volume</button>
-				<button className="decrease">Decrease volume</button>
 			</div>
 		);
 	}
