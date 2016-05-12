@@ -50,32 +50,33 @@ class DrumMachine extends Component {
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
 		const transformersActions = bindActionCreators(DrumMachineActions.transformers, dispatch);
 		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
+		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		
 		return (
 			<div className="drum-machine">
-			<div className="channels">
-				<div className="channel">
-					<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
-				</div>
-				<div className="channel">
-					<div className="channel-item">
-						<h3 ref="name" className="item-title">Tempo</h3>
+				<div className="channels">
+					<div className="channel">
+						<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
 					</div>
-					<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
+					<div className="channel">
+						<div className="channel-item">
+							<h3 ref="name" className="item-title">Tempo</h3>
+						</div>
+						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
+					</div>
 				</div>
-			</div>
-			<div className="channels">
-				{channels.map((channel, i) =>
-					<Channel name={sounds[channel.sound].name} selected={channel.selected}>
-						{ channel.transformers
-							.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
-							.map(({ transformerId, transformer }) =>
-								<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } onValueChange={ (value) => transformersActions.changeTransformToAmount(transformerId, value) } />
-							)
-						}
-					</Channel>
-				)}
-			</div>
+				<div className="channels">
+					{channels.map((channel, i) =>
+						<Channel name={sounds[channel.sound].name} selected={channel.selected} onClick={() => channelActions.changeSelectedChannel(i)}>
+							{ channel.transformers
+								.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
+								.map(({ transformerId, transformer }) =>
+									<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } onValueChange={ (value) => transformersActions.changeTransformToAmount(transformerId, value) } />
+								)
+							}
+						</Channel>
+					)}
+				</div>
 				<Pattern>
 					{ channels
 						.filter((channel, i) => channel.selected)
