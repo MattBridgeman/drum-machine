@@ -30,7 +30,9 @@ class Rotator extends React.Component {
 		return (
 			<div ref="knobContainer" className="channel-item rotator">
 				<h3 ref="name" className="rotator-title">{name}</h3>
-				<input type="text" ref="value" className="item-value" onChange={(e) => onValueChange(+(e.target.value))} />
+				<div className="assistive">
+					<input type="range" ref="value" min={min} max={max} step="1" className="item-value" onChange={(e) => onValueChange(+(e.target.value))} />
+				</div>
 				<div ref="knob" className="knob" style={knobStyle}></div>
 				<button className="increase">Increase volume</button>
 				<button className="decrease">Decrease volume</button>
