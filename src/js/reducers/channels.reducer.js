@@ -1,16 +1,20 @@
-import { CHANGE_SELECTED_CHANNEL } from "../constants/channel.constants";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL } from "../constants/channel.constants";
 
 const initialState = [
 	{
 		sound: 0,
 		patterns: [0],
 		transformers: [0],
-		selected: true
+		selected: true,
+		solo: false,
+		mute: true
 	},
 	{
 		sound: 1,
 		patterns: [1],
-		transformers: [1]
+		transformers: [1],
+		solo: true,
+		mute: false
 	},
 	{
 		sound: 2,
@@ -55,6 +59,11 @@ export default function channels(state = initialState, action) {
 			return state
 				.map((channel, i) =>
 					Object.assign({}, channel, { selected: action.value === i })
+				);
+		case TOGGLE_SOLO_CHANNEL:
+			return state
+				.map((channel, i) =>
+					action.value === i ? Object.assign({}, channel, { solo: !channel.solo }) : channel
 				);
 		default:
 			return state;
