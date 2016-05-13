@@ -43,17 +43,32 @@ describe("Channel", () => {
 		expect(toggleButton.getAttribute('aria-pressed')).to.equal('true');
 	});
 
-	it("triggers onClick callback on click", () => {
+	it("triggers onSelectClick callback on click", () => {
 		let clicked = false,
-			onClick = function(){
+			onSelectClick = function(){
 				clicked = true;
 			};
 		let $component = renderIntoDocument(
-			<Channel onClick={onClick} />
+			<Channel onSelectClick={onSelectClick} />
 		);
 		let { toggleButton } = $component.refs;
 
 		Simulate.click(toggleButton);
+
+		expect(clicked).to.equal(true);
+	});
+
+	it("triggers onSoloClick callback on click", () => {
+		let clicked = false,
+			onSoloClick = function(){
+				clicked = true;
+			};
+		let $component = renderIntoDocument(
+			<Channel onSoloClick={onSelectClick} />
+		);
+		let { soloButton } = $component.refs;
+
+		Simulate.click(soloButton);
 
 		expect(clicked).to.equal(true);
 	});

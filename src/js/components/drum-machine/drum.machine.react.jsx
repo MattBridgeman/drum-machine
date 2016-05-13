@@ -67,7 +67,7 @@ class DrumMachine extends Component {
 				</div>
 				<div className="channels">
 					{channels.map((channel, i) =>
-						<Channel name={sounds[channel.sound].name} selected={channel.selected} onClick={() => channelActions.changeSelectedChannel(i)}>
+						<Channel name={sounds[channel.sound].name} selected={channel.selected} solo={channel.solo} onSelectClick={() => channelActions.changeSelectedChannel(i)}  onSoloClick={() => channelActions.toggleSoloChannel(i)}>
 							{ channel.transformers
 								.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
 								.map(({ transformerId, transformer }) =>

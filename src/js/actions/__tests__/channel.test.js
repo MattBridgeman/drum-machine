@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { changeSelectedChannel } from "../channel.actions";
-import { CHANGE_SELECTED_CHANNEL } from "../../constants/channel.constants";
+import { changeSelectedChannel, toggleSoloChannel } from "../channel.actions";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL } from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
 
@@ -15,5 +15,18 @@ describe("Channel actions", function() {
 			action = changeSelectedChannel(newChannelId);
 
 		expect(action.value).to.equal(newChannelId);
+	});
+
+	it("Expect toggleSoloChannel to return a toggle solo channel action", function() {
+		var action = toggleSoloChannel();
+
+		expect(action.type).to.equal(TOGGLE_SOLO_CHANNEL);
+	});
+
+	it("Expect toggleSoloChannel to return the correct channel ID", function() {
+		var channelId = 999,
+			action = toggleSoloChannel(channelId);
+
+		expect(action.value).to.equal(channelId);
 	});
 });

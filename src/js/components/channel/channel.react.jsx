@@ -7,19 +7,26 @@ class Channel extends React.Component {
 	}
 
 	render() {
-		var { name, onClick, selected } = this.props;
+		var { name, onSelectClick, onSoloClick, selected, solo, muted } = this.props;
 		var title = name ? (
 			<div className="channel-item">
 				<h3 ref="name" className="item-title">{name}</h3>
 			</div>
 		) : null;
-		var toggleClass = selected ? "selected" : "";
-		var ariaPressed = selected ? "true" : "false";
-		var toggleButton = <button ref="toggleButton" className={"button toggle-button " + toggleClass} aria-pressed={ariaPressed} onClick={onClick}>Select</button>;
+
+		var selectToggleClass = selected ? "selected" : "";
+		var selectAriaPressed = selected ? "true" : "false";
+		var toggleButton = <button ref="toggleButton" className={"button toggle-button " + selectToggleClass} aria-pressed={selectAriaPressed} onClick={onSelectClick}>Select</button>;
+		
+
+		var soloToggleClass = solo ? "selected" : "";
+		var soloAriaPressed = solo ? "true" : "false";
+		var soloButton = <button ref="soloButton" className={"button toggle-button " + soloToggleClass} aria-pressed={soloAriaPressed} onClick={onSoloClick}>Solo</button>;
 		return (
 			<div className="channel">
 				{title}
 				{toggleButton}
+				{soloButton}
 				{this.props.children}
 			</div>
 		);
