@@ -1,25 +1,27 @@
 import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
-import { incrementSegmentIndex } from "../actions/play.state.actions";
+import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS } from "../constants/audio.context.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
-import { loadSounds } from "../library/audio-api/buffer";
-import { createAudioContext, playSound, decodeAudioDataArray } from "../library/audio-api/context";
+import { playSound } from "../library/audio-api/context";
 import { zip } from "../library/natives/array";
 
 export const createBuffer = store => {
-	// creation of context
-	let context = createAudioContext();
-	
-	//loading of sounds
-	let buffers = loadSounds(store);
-	let soundPromises = Promise.all(buffers)
-		.then((promises) => decodeAudioDataArray(context, promises));
-	let sounds = [];
 
-	soundPromises.then(soundBuffers => soundBuffers.map(soundBuffer => sounds.push(soundBuffer)));
+	let context;
+	let sounds;
 
 	return next => action => {
 		let prevState = store.getState();
 		let state = rootReducer(prevState, action);
+		
+		if(action.type === NEW_AUDIO_CONTEXT){
+			context = action.value;
+			return next(action);
+		}
+		
+		if(action.type === NEW_SOUND_BUFFERS){
+			sounds = action.value;
+			return next(action);
+		}
 		
 		if (!(action.type === TOGGLE_PLAY_PAUSE && prevState.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
 			return next(action);
