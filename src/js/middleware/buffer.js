@@ -28,18 +28,15 @@ export const createBuffer = store => {
 		//playing of sounds
 		let { channels, patterns, transformers } = state;
 		let { currentSegmentIndex, currentBarIndex } = state.playState;
-		let channelKeys = Object.keys(channels);
-		let channelsArray = channelKeys
-			.map((key) => channels[key]);
 
-		let soundIds = channelsArray
+		let soundIds = channels
 			.map(channel => channel.sound);
 
-		let patternsArray = channelsArray
+		let patternsArray = channels
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
-		let transformersIds = channelsArray
+		let transformersIds = channels
 			.map(channel => channel.transformers);
 		
 		let transformersArray = transformersIds
