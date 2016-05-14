@@ -1,4 +1,20 @@
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL } from "../constants/channel.constants";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../constants/channel.constants";
+
+export function changeVolumeByAmount(channelId, amount){
+  return {
+    type: CHANGE_VOLUME_BY_AMOUNT,
+	channelId,
+    value: amount
+  };
+}
+
+export function changeVolumeToAmount(channelId, value){
+  return {
+    type: CHANGE_VOLUME_TO_AMOUNT,
+	channelId,
+    value
+  };
+}
 
 export function changeSelectedChannel(newChannelId) {
 	return {

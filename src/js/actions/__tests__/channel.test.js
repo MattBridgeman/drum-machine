@@ -1,9 +1,32 @@
 import { expect } from "chai";
-import { changeSelectedChannel, toggleSoloChannel } from "../channel.actions";
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL } from "../../constants/channel.constants";
+import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount } from "../channel.actions";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
+	it("Expect changeVolumeByAmount to return a 'change transform value by amount' action", () => {
+		let channelId = 0;
+		let amount = 10;
+		let action = changeVolumeByAmount(channelId, amount);
 
+		expect(action).to.deep.equal({
+			type: CHANGE_VOLUME_BY_AMOUNT,
+			channelId,
+			value: amount
+		});
+	});
+	
+	it("Expect changeVolumeToAmount to return a 'change transform value to amount' action", () => {
+		let channelId = 0;
+		let value = 10;
+		let action = changeVolumeToAmount(channelId, value);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_VOLUME_TO_AMOUNT,
+			channelId,
+			value
+		});
+	});
+	
 	it("Expect changeSelectedChannel to return a change selected channel action", function() {
 		var action = changeSelectedChannel();
 

@@ -21,8 +21,8 @@ export function createBufferSource(context, buffer) {
 	return source;
 }
 
-export function playSound(context, source, destination, time) {
-	let bufferSource = createBufferSource(context, source);
+export function playSound(context, buffer, destination, time) {
+	let bufferSource = createBufferSource(context, buffer);
 	bufferSource.connect(destination);
 	bufferSource.start(time);
 }

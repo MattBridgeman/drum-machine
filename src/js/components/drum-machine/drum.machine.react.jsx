@@ -45,10 +45,9 @@ class DrumMachine extends Component {
 	}
 
 	render() {
-		const { channels, tempo, playState, sounds, patterns, transformers, dispatch } = this.props;
+		const { channels, tempo, playState, sounds, patterns, dispatch } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
-		const transformersActions = bindActionCreators(DrumMachineActions.transformers, dispatch);
 		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		
@@ -68,12 +67,7 @@ class DrumMachine extends Component {
 				<div className="channels">
 					{channels.map((channel, i) =>
 						<Channel name={sounds[channel.sound].name} selected={channel.selected} solo={channel.solo} onSelectClick={() => channelActions.changeSelectedChannel(i)}  onSoloClick={() => channelActions.toggleSoloChannel(i)}>
-							{ channel.transformers
-								.map((transformerId) => ({ transformerId, transformer: transformers[transformerId] }))
-								.map(({ transformerId, transformer }) =>
-									<Rotator name={transformer.name} value={transformer.value} onKnobRotate={ (amount) => transformersActions.changeTransformByAmount(transformerId, amount) } onValueChange={ (value) => transformersActions.changeTransformToAmount(transformerId, value) } />
-								)
-							}
+							<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeByAmount(i, amount) } onValueChange={ (value) => channelActions.changeTransformToAmount(i, value) } />
 						</Channel>
 					)}
 				</div>
