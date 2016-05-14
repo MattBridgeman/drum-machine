@@ -64,11 +64,26 @@ describe("Channel", () => {
 				clicked = true;
 			};
 		let $component = renderIntoDocument(
-			<Channel onSoloClick={onSelectClick} />
+			<Channel onSoloClick={onSoloClick} />
 		);
 		let { soloButton } = $component.refs;
 
 		Simulate.click(soloButton);
+
+		expect(clicked).to.equal(true);
+	});
+
+	it("triggers onMuteClick callback on click", () => {
+		let clicked = false,
+			onMuteClick = function(){
+				clicked = true;
+			};
+		let $component = renderIntoDocument(
+			<Channel onMuteClick={onMuteClick} />
+		);
+		let { muteButton } = $component.refs;
+
+		Simulate.click(muteButton);
 
 		expect(clicked).to.equal(true);
 	});
