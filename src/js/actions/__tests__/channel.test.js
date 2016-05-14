@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount } from "../channel.actions";
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../../constants/channel.constants";
+import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount, toggleMuteChannel } from "../channel.actions";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
 	it("Expect changeVolumeByAmount to return a 'change transform value by amount' action", () => {
@@ -49,6 +49,19 @@ describe("Channel actions", function() {
 	it("Expect toggleSoloChannel to return the correct channel ID", function() {
 		var channelId = 999,
 			action = toggleSoloChannel(channelId);
+
+		expect(action.value).to.equal(channelId);
+	});
+
+	it("Expect toggleMuteChannel to return a toggle Mute channel action", function() {
+		var action = toggleMuteChannel();
+
+		expect(action.type).to.equal(TOGGLE_MUTE_CHANNEL);
+	});
+
+	it("Expect toggleMuteChannel to return the correct channel ID", function() {
+		var channelId = 999,
+			action = toggleMuteChannel(channelId);
 
 		expect(action.value).to.equal(channelId);
 	});

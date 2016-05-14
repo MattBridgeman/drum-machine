@@ -1,4 +1,4 @@
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../constants/channel.constants";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../constants/channel.constants";
 
 const initialState = [
 	{
@@ -74,6 +74,11 @@ export default function channels(state = initialState, action) {
 			return state
 				.map((channel, i) =>
 					action.value === i ? Object.assign({}, channel, { solo: !channel.solo }) : channel
+				);
+		case TOGGLE_MUTE_CHANNEL:
+			return state
+				.map((channel, i) =>
+					action.value === i ? Object.assign({}, channel, { mute: !channel.mute }) : channel
 				);
 		default:
 			return state;
