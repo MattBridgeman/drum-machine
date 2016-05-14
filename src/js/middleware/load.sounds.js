@@ -4,21 +4,13 @@ import { decodeAudioDataArray } from "../library/audio-api/context";
 import { Promise } from "es6-promise";
 
 export const supplySounds = store => next => {
-	//loading of sounds
-	let buffers = loadSounds(store);
-	let context = new Promise(function(resolve, reject) {
-		
-	});
-	let soundPromises = Promise.all(buffers)
-		.then((promises) => decodeAudioDataArray(context, promises));
-	let sounds = [];
-
-	soundPromises.then(soundBuffers => soundBuffers.map(soundBuffer => sounds.push(soundBuffer)));
-
 	return action => {
 		switch (action.type) {
 			case NEW_AUDIO_CONTEXT:
-				break;
+				let context = action.value;
+				Promise.all(loadSounds(store))
+					.then((promises) => decodeAudioDataArray(context, promises))
+					.then(soundBuffers => next(newSoundBuffers(soundBuffers)));
 			default:
 				return next(action);
 		}
