@@ -32,7 +32,8 @@ export const supplyAudioNodes = store => next => {
             
             sourceNodes
                 .forEach(sourceNode => {
-                    sourceNode.master.connect(sourceNode.volume.connect(context.destination));
+                    sourceNode.master.connect(sourceNode.volume);
+                    sourceNode.volume.connect(context.destination);
                 });
             
             next(newSourceNodes(sourceNodes))
