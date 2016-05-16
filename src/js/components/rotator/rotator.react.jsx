@@ -1,16 +1,6 @@
 import * as React from "react";
 import * as Rx from "rx";
-
-function rotationFromValue(value, min, max){
-	var range = max - min;
-	return ((range / 100) * value) - max;
-}
-
-function valueAsPercentage(value, min, max){
-	var range = max - min;
-	var valueMinueMin = value - min;
-	return (valueMinueMin / range) * 100;
-}
+import { valueAsPercentage, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 
 class Rotator extends React.Component {
 
@@ -20,10 +10,10 @@ class Rotator extends React.Component {
 	
 	render() {
 		var { value, min = 0, max = 100, name, onValueChange } = this.props;
-		var valuePercentage = valueAsPercentage(value, min, max);
+		var valuePercentage = normaliseValue(valueAsPercentage(value, min, max), min, max);
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
-		var rotation = rotationFromValue(valuePercentage, minRotation, maxRotation);
+		var rotation = percentageToValueOfRange(valuePercentage, minRotation, maxRotation);
 		var knobStyle = {
 			transform: "rotate(" + rotation + "deg)"
 		};

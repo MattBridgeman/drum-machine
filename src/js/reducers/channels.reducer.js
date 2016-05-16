@@ -5,16 +5,13 @@ const initialState = [
 		sound: 0,
 		patterns: [0],
 		volume: 50,
-		selected: true,
-		solo: false,
-		mute: true
+		selected: true
 	},
 	{
 		sound: 1,
 		patterns: [1],
 		volume: 50,
-		solo: true,
-		mute: false
+		pitch: 100
 	},
 	{
 		sound: 2,

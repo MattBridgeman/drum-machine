@@ -40,16 +40,20 @@ export const createBuffer = store => {
 		let soundIds = channels
 			.map(channel => channel.sound);
 
+		let pitches = channels
+			.map(channel => channel.pitch)
+			.map(channel => channel.pitch);
+
 		let patternsArray = channels
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
 		
 		//play sound
-		zip([patternsArray, soundIds, sourceNodes])
+		zip([patternsArray, soundIds, sourceNodes, pitches])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.map(([pattern, soundId, node]) => [sounds[soundId], node])
-			.forEach(([buffer, node]) => playSound(context, buffer, node.master, context.currentTime));
+			.map(([pattern, soundId, node, pitch]) => [sounds[soundId], node, pitch])
+			.forEach(([buffer, node, pitch]) => playSound(context, buffer, node.master, context.currentTime, pitch));
 
 		return next(action);
 	};
