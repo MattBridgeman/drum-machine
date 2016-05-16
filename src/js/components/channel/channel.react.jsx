@@ -20,11 +20,11 @@ class Channel extends React.Component {
 		
 		var soloToggleClass = solo ? "selected" : "";
 		var soloAriaPressed = solo ? "true" : "false";
-		var soloButton = <button ref="soloButton" className={"channel-item button toggle-button " + soloToggleClass} aria-pressed={soloAriaPressed} onClick={onSoloClick}>Solo</button>;
+		var soloButton = <button ref="soloButton" className={"channel-item button toggle-button green " + soloToggleClass} aria-pressed={soloAriaPressed} onClick={onSoloClick}>Solo</button>;
 		
 		var muteToggleClass = muted ? "selected" : "";
 		var muteAriaPressed = muted ? "true" : "false";
-		var muteButton = <button ref="muteButton" className={"channel-item button toggle-button " + muteToggleClass} aria-pressed={muteAriaPressed} onClick={onMuteClick}>Mute</button>;
+		var muteButton = <button ref="muteButton" className={"channel-item button toggle-button red " + muteToggleClass} aria-pressed={muteAriaPressed} onClick={onMuteClick}>Mute</button>;
 		
 		return (
 			<div className="channel">
