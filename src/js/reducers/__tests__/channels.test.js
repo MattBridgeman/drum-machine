@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import channels from "../channels.reducer";
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT } from "../../constants/channel.constants";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT, CHANGE_PITCH_BY_AMOUNT, CHANGE_PITCH_TO_AMOUNT } from "../../constants/channel.constants";
 
 describe("Channel reducer", function() {
 	function getInitialState(){
@@ -9,6 +9,7 @@ describe("Channel reducer", function() {
 				sound: 0,
 				patterns: [0],
 				volume: 50,
+				pitch: 50,
 				selected: true,
 				solo: true,
 				mute: false
@@ -17,6 +18,7 @@ describe("Channel reducer", function() {
 				sound: 1,
 				patterns: [1],
 				volume: 50,
+				pitch: 50,
 				solo: false,
 				mute: false
 			}
@@ -55,6 +57,40 @@ describe("Channel reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[channelId].volume).to.equal(20);
+	});
+
+	it("Expect pitch value to increase by amount", function() {
+		const channelId = 0;
+		const amount = 20;
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_PITCH_BY_AMOUNT,
+			channelId,
+			value: amount
+		};
+
+		const nextState = channels(initialState, action);
+
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState[channelId].pitch).to.equal(70);
+	});
+
+	it("Expect pitch value to change to amount", function() {
+		const channelId = 0;
+		const value = 20;
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_PITCH_TO_AMOUNT,
+			channelId,
+			value
+		};
+
+		const nextState = channels(initialState, action);
+
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState[channelId].pitch).to.equal(20);
 	});
 
 	it("Expect selected channel to change", function() {

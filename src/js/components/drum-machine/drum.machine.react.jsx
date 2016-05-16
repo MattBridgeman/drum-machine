@@ -67,7 +67,8 @@ class DrumMachine extends Component {
 				<div className="channels">
 					{channels.map((channel, i) =>
 						<Channel name={sounds[channel.sound].name} selected={channel.selected} solo={channel.solo} onSelectClick={() => channelActions.changeSelectedChannel(i)}  onSoloClick={() => channelActions.toggleSoloChannel(i)}  onMuteClick={() => channelActions.toggleMuteChannel(i)} muted={channel.mute}>
-							<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeByAmount(i, amount) } onValueChange={ (value) => channelActions.changeTransformToAmount(i, value) } />
+							<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeByAmount(i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(i, value) } />
+							<Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchByAmount(i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(i, value) } />
 						</Channel>
 					)}
 				</div>
