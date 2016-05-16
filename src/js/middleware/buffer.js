@@ -2,6 +2,7 @@ import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.st
 import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS, NEW_SOURCE_NODES } from "../constants/audio.context.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { playSound } from "../library/audio-api/context";
+import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
 import { zip } from "../library/natives/array";
 
 export const createBuffer = store => {
@@ -42,7 +43,7 @@ export const createBuffer = store => {
 
 		let pitches = channels
 			.map(channel => channel.pitch)
-			.map(channel => channel.pitch);
+			.map(pitchToPlaybackRate);
 
 		let patternsArray = channels
 			.map(channel => channel.patterns[currentBarIndex])

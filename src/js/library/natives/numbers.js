@@ -12,5 +12,5 @@ export function valueAsPercentage(value, min, max){
 
 export function percentageToValueOfRange(value, min, max){
 	var range = max - min;
-	return ((range / 100) * value) - max;
+	return (((range / 100) * value) + min);
 }
