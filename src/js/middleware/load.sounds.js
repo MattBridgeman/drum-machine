@@ -2,7 +2,6 @@ import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { newSoundBuffers } from "../actions/audio.context.actions";
 import { loadSounds } from "../library/audio-api/buffer";
 import { decodeAudioDataArray } from "../library/audio-api/context";
-import { Promise } from "es6-promise";
 
 export const supplySoundBuffers = store => next => {
 	return action => {
