@@ -3,6 +3,7 @@ import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS, NEW_SOURCE_NODES } from "../const
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { playSound } from "../library/audio-api/context";
 import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
+import { decayPercentageToValue } from "../library/audio-api/decay";
 import { zip } from "../library/natives/array";
 
 export const createBuffer = store => {
@@ -45,6 +46,10 @@ export const createBuffer = store => {
 			.map(channel => channel.pitch)
 			.map(pitchToPlaybackRate);
 
+		let decays = channels
+			.map(channel => channel.decay)
+			.map(decayPercentageToValue);
+
 		let patternsArray = channels
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
@@ -57,8 +62,8 @@ export const createBuffer = store => {
 			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master))
 		
 		//apply decay to decay node
-		decayNodes
-			.forEach(decayNode => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + 0.03));
+		zip([decayNodes, decays])
+			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + decay));
 		
 		//play sound
 		zip([patternsArray, soundIds, decayNodes, pitches])
