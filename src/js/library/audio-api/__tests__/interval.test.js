@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { createIntervalStream } from "../interval";
-import * as Rx from "Rx";
+import * as Rx from "rx";
 
 describe("Interval", () => {
 	

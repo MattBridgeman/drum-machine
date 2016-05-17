@@ -49,12 +49,22 @@ export const createBuffer = store => {
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
+		let decayNodes = channels
+			.map(channel => context.createGain());
+		
+		//create gain nodes for decay
+		zip([decayNodes, sourceNodes])
+			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master))
+		
+		//apply decay to decay node
+		decayNodes
+			.forEach(decayNode => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + 0.03));
 		
 		//play sound
-		zip([patternsArray, soundIds, sourceNodes, pitches])
+		zip([patternsArray, soundIds, decayNodes, pitches])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
 			.map(([pattern, soundId, node, pitch]) => [sounds[soundId], node, pitch])
-			.forEach(([buffer, node, pitch]) => playSound(context, buffer, node.master, context.currentTime, pitch));
+			.forEach(([buffer, node, pitch]) => playSound(context, buffer, node, context.currentTime, pitch));
 
 		return next(action);
 	};

@@ -30,6 +30,7 @@
     "load-grunt-tasks": "~0.6.0",
     "mocha": "^2.3.3",
     "object-assign": "~3.0.0",
+    "ramda": "^0.21.0",
     "react": "~0.14.0",
     "react-addons-test-utils": "^0.14.0",
     "react-dom": "^0.14.0",
