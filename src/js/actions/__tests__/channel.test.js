@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount, changePitchByAmount, changePitchToAmount, toggleMuteChannel } from "../channel.actions";
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT, CHANGE_PITCH_BY_AMOUNT, CHANGE_PITCH_TO_AMOUNT } from "../../constants/channel.constants";
+import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount, changePitchByAmount, changeDecayToAmount, changeDecayByAmount, changePitchToAmount, toggleMuteChannel } from "../channel.actions";
+import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT, CHANGE_PITCH_BY_AMOUNT, CHANGE_PITCH_TO_AMOUNT, CHANGE_DECAY_BY_AMOUNT, CHANGE_DECAY_TO_AMOUNT } from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
 	it("Expect changeVolumeByAmount to return a 'change volume value by amount' action", () => {
@@ -46,6 +46,30 @@ describe("Channel actions", function() {
 
 		expect(action).to.deep.equal({
 			type: CHANGE_PITCH_TO_AMOUNT,
+			channelId,
+			value
+		});
+	});
+
+	it("Expect changeDecayByAmount to return a 'change decay value by amount' action", () => {
+		let channelId = 0;
+		let amount = 10;
+		let action = changeDecayByAmount(channelId, amount);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_DECAY_BY_AMOUNT,
+			channelId,
+			value: amount
+		});
+	});
+	
+	it("Expect changeDecayToAmount to return a 'change decay value to amount' action", () => {
+		let channelId = 0;
+		let value = 10;
+		let action = changeDecayToAmount(channelId, value);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_DECAY_TO_AMOUNT,
 			channelId,
 			value
 		});
