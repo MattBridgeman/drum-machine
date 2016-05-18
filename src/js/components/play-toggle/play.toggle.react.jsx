@@ -14,7 +14,7 @@ class PlayToggle extends React.Component {
 
 		return (
 			<div className="play-toggle channel-item">
-				<button className={"button dark " + toggleClass} aria-pressed={ariaPressed} onClick={ () => onPlayPause() }>{ text }</button>
+				<button className={"button " + toggleClass} aria-pressed={ariaPressed} onClick={ () => onPlayPause() }>{ text }</button>
 			</div>
 		);
 	}

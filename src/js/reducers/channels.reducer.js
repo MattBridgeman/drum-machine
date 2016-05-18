@@ -7,7 +7,7 @@ const initialState = [
 		volume: 50,
 		selected: true,
 		pitch: 50,
-		decay: 5,
+		decay: 100,
 		pan: -1
 	},
 	{
