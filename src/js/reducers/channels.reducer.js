@@ -7,7 +7,8 @@ const initialState = [
 		volume: 50,
 		selected: true,
 		pitch: 50,
-		decay: 5
+		decay: 5,
+		pan: -1
 	},
 	{
 		sound: 1,

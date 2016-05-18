@@ -27,13 +27,15 @@ export const supplyAudioNodes = store => next => {
 		    sourceNodes = channels
                 .map(channel => ({
                     volume: context.createGain(),
-                    master: context.createGain()
+                    master: context.createGain(),
+                    pan: context.createStereoPanner()
                 }))
             
             sourceNodes
                 .forEach(sourceNode => {
                     sourceNode.master.connect(sourceNode.volume);
-                    sourceNode.volume.connect(context.destination);
+                    sourceNode.volume.connect(sourceNode.pan);
+                    sourceNode.pan.connect(context.destination);
                 });
             
             next(newSourceNodes(sourceNodes))
@@ -47,6 +49,7 @@ export const supplyAudioNodes = store => next => {
             .forEach(([channel, sourceNode]) => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
+                sourceNode.pan.pan.value = channel.pan || 0;
             });
             
 		return next(action);
