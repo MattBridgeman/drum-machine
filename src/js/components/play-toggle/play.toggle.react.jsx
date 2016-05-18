@@ -9,9 +9,12 @@ class PlayToggle extends React.Component {
 	render() {
 		let { isPlaying, onPlayPause } = this.props;
 		let text = isPlaying ? "Pause" : "Play";
+		let toggleClass = isPlaying ? "selected" : "";
+		let ariaPressed = isPlaying ? "true" : "false";
+
 		return (
 			<div className="play-toggle channel-item">
-				<button className="button dark" onClick={ () => onPlayPause() }>{ text }</button>
+				<button className={"button dark " + toggleClass} aria-pressed={ariaPressed} onClick={ () => onPlayPause() }>{ text }</button>
 			</div>
 		);
 	}
