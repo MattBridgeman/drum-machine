@@ -50,6 +50,9 @@ class Rotator extends React.Component {
 						knobContainerMouseMoves
 							.takeUntil(knobContainerMouseUps)
 							.map((movePoint) => movePoint.pageY - contactPoint.pageY));
+		knobMouseDowns
+			.forEach(e => e.preventDefault && e.preventDefault());
+
 		knobMouseDrags
 			.forEach(e => e.preventDefault && e.preventDefault());
 			
