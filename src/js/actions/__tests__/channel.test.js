@@ -1,6 +1,29 @@
 import { expect } from "chai";
-import { changeSelectedChannel, toggleSoloChannel, changeVolumeByAmount, changeVolumeToAmount, changePitchByAmount, changeDecayToAmount, changeDecayByAmount, changePitchToAmount, toggleMuteChannel } from "../channel.actions";
-import { CHANGE_SELECTED_CHANNEL, TOGGLE_SOLO_CHANNEL, TOGGLE_MUTE_CHANNEL, CHANGE_VOLUME_BY_AMOUNT, CHANGE_VOLUME_TO_AMOUNT, CHANGE_PITCH_BY_AMOUNT, CHANGE_PITCH_TO_AMOUNT, CHANGE_DECAY_BY_AMOUNT, CHANGE_DECAY_TO_AMOUNT } from "../../constants/channel.constants";
+import { changeSelectedChannel,
+	toggleSoloChannel,
+	changeVolumeByAmount,
+	changeVolumeToAmount,
+	changePitchByAmount,
+	changeDecayToAmount,
+	changeDecayByAmount,
+	changePanToAmount,
+	changePanByAmount,
+	changePitchToAmount,
+	toggleMuteChannel
+} from "../channel.actions";
+
+import { CHANGE_SELECTED_CHANNEL,
+	TOGGLE_SOLO_CHANNEL,
+	TOGGLE_MUTE_CHANNEL,
+	CHANGE_VOLUME_BY_AMOUNT,
+	CHANGE_VOLUME_TO_AMOUNT,
+	CHANGE_PITCH_BY_AMOUNT,
+	CHANGE_PITCH_TO_AMOUNT,
+	CHANGE_DECAY_BY_AMOUNT,
+	CHANGE_DECAY_TO_AMOUNT,
+	CHANGE_PAN_BY_AMOUNT,
+	CHANGE_PAN_TO_AMOUNT
+} from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
 	it("Expect changeVolumeByAmount to return a 'change volume value by amount' action", () => {
@@ -70,6 +93,30 @@ describe("Channel actions", function() {
 
 		expect(action).to.deep.equal({
 			type: CHANGE_DECAY_TO_AMOUNT,
+			channelId,
+			value
+		});
+	});
+
+	it("Expect changePanByAmount to return a 'change pan value by amount' action", () => {
+		let channelId = 0;
+		let amount = 10;
+		let action = changePanByAmount(channelId, amount);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_PAN_BY_AMOUNT,
+			channelId,
+			value: amount
+		});
+	});
+	
+	it("Expect changePanToAmount to return a 'change pan value to amount' action", () => {
+		let channelId = 0;
+		let value = 10;
+		let action = changePanToAmount(channelId, value);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_PAN_TO_AMOUNT,
 			channelId,
 			value
 		});

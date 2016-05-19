@@ -17,27 +17,6 @@ import { Pattern } from "../pattern/pattern.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 
-// var tempo = new Tempo(DrumMachineStore.data.tempo);
-// var context = new WebAudioContext();
-// var sequencer = new Sequencer(context, tempo);
-
-// var soundPromises = Promise.all(DrumMachineStore.data.sounds.map(function(item){
-// 	return item.path;
-// })
-// .map(arrayBuffer))
-// .then(function(promises){
-// 	return context.decodeAudioDataArray(promises);
-// });
-
-// soundPromises.then(function(soundBuffers){
-// 	soundBuffers.map(function(buffer, index){
-// 		var patterns = DrumMachineStore.data.patterns[index].patterns;
-// 		sequencer.schedule(buffer, patterns);
-// 	});
-// })
-// .catch(console.log.bind(console));
-
-
 class DrumMachine extends Component {
 
 	constructor(props) {
@@ -69,6 +48,7 @@ class DrumMachine extends Component {
 								<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeByAmount(i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(i, value) } />
 								<Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchByAmount(i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(i, value) } />
 								<Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayByAmount(i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(i, value) } />
+								<Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanByAmount(i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(i, value) } />
 							</div>
 						</Channel>
 					)}
