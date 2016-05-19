@@ -2,6 +2,7 @@ import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { newSourceNodes } from "../actions/audio.context.actions";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { zip } from "../library/natives/array";
+import { panPercentageToValue } from "../library/audio-api/pan";
 
 export const supplyAudioNodes = store => next => {
     
@@ -49,7 +50,7 @@ export const supplyAudioNodes = store => next => {
             .forEach(([channel, sourceNode]) => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
-                sourceNode.pan.pan.value = channel.pan || 0;
+                sourceNode.pan.pan.value = panPercentageToValue(channel.pan);
             });
             
 		return next(action);
