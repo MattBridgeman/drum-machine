@@ -34,12 +34,35 @@
 		text-align: center;
 		color: @white;
 	}
-	.increase {
-		position: absolute;
-		clip: rect(0,0,0,0);
-	}
-	.decrease {
-		position: absolute;
-		clip: rect(0,0,0,0);
+	.knob-container {
+		position: relative;
+		.value-indicator {
+			width: 1px;
+			top: -4px;
+			bottom: -4px;
+			position: absolute;
+			left: 0;
+			right: 0;
+			background: @grey;
+			margin: auto;
+			&:first-child {
+				bottom: 3px;
+			}
+			+ .value-indicator {
+				transform: rotate(30deg);
+			}
+			+ .value-indicator + .value-indicator {
+				transform: rotate(60deg);
+			}
+			+ .value-indicator + .value-indicator + .value-indicator {
+				transform: rotate(90deg);
+			}
+			+ .value-indicator + .value-indicator + .value-indicator + .value-indicator {
+				transform: rotate(120deg);
+			}
+			+ .value-indicator + .value-indicator + .value-indicator + .value-indicator + .value-indicator {
+				transform: rotate(150deg);
+			}
+		}
 	}
 }

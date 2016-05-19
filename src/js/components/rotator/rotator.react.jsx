@@ -10,7 +10,7 @@ class Rotator extends React.Component {
 	
 	render() {
 		var { value, min = 0, max = 100, name, onValueChange } = this.props;
-		var valuePercentage = normaliseValue(valueAsPercentage(value, min, max), min, max);
+		var valuePercentage = normaliseValue(valueAsPercentage(value, min, max), 0, 100);
 		var minRotation = -180 + 25;
 		var maxRotation = 180 - 25;
 		var rotation = percentageToValueOfRange(valuePercentage, minRotation, maxRotation);
@@ -23,7 +23,15 @@ class Rotator extends React.Component {
 				<div className="assistive">
 					<input type="range" ref="value" min={min} max={max} step="1" className="item-value" onChange={(e) => onValueChange(+(e.target.value))} />
 				</div>
-				<div ref="knob" className="knob" style={knobStyle}></div>
+				<div className="knob-container">
+					<div className="value-indicator"></div>
+					<div className="value-indicator"></div>
+					<div className="value-indicator"></div>
+					<div className="value-indicator"></div>
+					<div className="value-indicator"></div>
+					<div className="value-indicator"></div>
+					<div ref="knob" className="knob" style={knobStyle}></div>
+				</div>
 			</div>
 		);
 	}
