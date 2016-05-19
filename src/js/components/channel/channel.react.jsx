@@ -30,8 +30,10 @@ class Channel extends React.Component {
 			<div className="channel">
 				{title}
 				{toggleButton}
-				{soloButton}
-				{muteButton}
+				<div className="channel-tray">
+					{soloButton}
+					{muteButton}
+				</div>
 				{this.props.children}
 			</div>
 		);
