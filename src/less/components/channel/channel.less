@@ -6,7 +6,7 @@
 .channel {
 	border-right: 1px solid @grey;
 	text-align: center;
-	padding: 0 @baseline * 5;
+	padding: 0 @baseline * 2;
 	&:first-child {
 		border-left: 1px solid @grey;
 	}
@@ -19,12 +19,19 @@
 			text-transform: uppercase;
 			font-weight: bold;
 			padding: 2px;
-			margin: 0 -(@baseline * 5 + 1) @baseline;
+			margin: 0 -(@baseline * 2 + 1) @baseline;
 			border-left: 1px solid @white;
 			border-right: 1px solid @white;
 		}
 		.item-value {
 			margin: 0 0 @baseline;
+		}
+	}
+	.channel-tray {
+		display: flex;
+	    flex-wrap: wrap;
+		> * {
+			width: 50%;
 		}
 	}
 }
