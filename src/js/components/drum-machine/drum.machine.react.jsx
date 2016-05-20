@@ -60,6 +60,12 @@ class DrumMachine extends Component {
 								<Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayByAmount(i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(i, value) } />
 								<Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanByAmount(i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(i, value) } />
 							</div>
+							<div className="channel-item">
+								<h3 ref="name" className="item-title light">FX</h3>
+							</div>
+							<div className="channel-tray">
+								<Rotator name="Delay" value={channel.delay} />
+							</div>
 						</Channel>
 					)}
 				</div>
