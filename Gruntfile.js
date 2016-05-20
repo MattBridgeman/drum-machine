@@ -140,7 +140,7 @@ module.exports = function(grunt) {
   });
 
   //tasks
-  grunt.registerTask('test', ['mochaTest', 'eslint']);
+  grunt.registerTask('test', ['mochaTest']);
   grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify']);
   grunt.registerTask('default', ['build', 'server', 'watch']);
 
