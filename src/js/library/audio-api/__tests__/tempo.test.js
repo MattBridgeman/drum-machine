@@ -36,36 +36,5 @@ describe("Tempo", () => {
 		
 		expect(segmentIndexAfterNoTime).to.equal(0);
 	});
-	
-	it("returns a list of segment objects to buffer given a current segment time and index", () => {
-		
-		const currentSegment = {
-			currentSegmentTime: 0,
-			currentSegmentIndex: 0
-		};
-		
-		const bpmInfo = {
-			segmentInterval: 125,
-			segmentsToBuffer: 2
-		}
-		
-		const currentTime = 0;
-		
-		const segmentsFromZero = getSegmentsToBuffer(currentSegment, bpmInfo, currentTime);
-		
-		expect(segmentsFromZero).to.deep.equal([
-		{
-			index: 0,
-			time: 0
-		},
-		{
-			index: 1,
-			time: 125	
-		},
-		{
-			index: 2,
-			time: 250
-		}]);
-	});
 
 });
