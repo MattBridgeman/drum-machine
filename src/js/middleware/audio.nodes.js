@@ -3,6 +3,7 @@ import { newSourceNodes } from "../actions/audio.context.actions";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { zip } from "../library/natives/array";
 import { panPercentageToValue } from "../library/audio-api/pan";
+import SimpleReverb from "../library/audio-api/simple.reverb";
 
 export const supplyAudioNodes = store => next => {
     
@@ -27,9 +28,6 @@ export const supplyAudioNodes = store => next => {
         if(!init) {
             init = true;
             master = context.createGain();
-            reverb = context.createConvolver();
-
-            reverb.connect(master);
             master.connect(context.destination);
             
 		    sourceNodes = channels
@@ -37,15 +35,21 @@ export const supplyAudioNodes = store => next => {
                     volume: context.createGain(),
                     master: context.createGain(),
                     pan: context.createStereoPanner(),
-                    reverb: context.createGain()
-                }))
+                    reverb: context.createGain(),
+                    reverbNode: new SimpleReverb(context, {
+                        seconds: 3,
+                        decay: 2,
+                        reverse: 0
+                    })
+                }));
             
             sourceNodes
                 .forEach(sourceNode => {
                     sourceNode.master.connect(sourceNode.volume);
                     sourceNode.volume.connect(sourceNode.pan);
                     sourceNode.pan.connect(master);
-                    sourceNode.reverb.connect(reverb);
+                    sourceNode.reverb.connect(master);
+                    sourceNode.reverbNode.connect(sourceNode.reverb);
                 });
             
             next(newSourceNodes(sourceNodes))

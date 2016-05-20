@@ -1,7 +1,7 @@
 import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
 import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS, NEW_SOURCE_NODES } from "../constants/audio.context.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
-import { playSound } from "../library/audio-api/context";
+import { createBufferSource } from "../library/audio-api/context";
 import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
 import { decayPercentageToValue } from "../library/audio-api/decay";
 import { zip } from "../library/natives/array";
@@ -57,6 +57,9 @@ export const createBuffer = store => {
 		let decayNodes = channels
 			.map(channel => context.createGain());
 		
+		let reverbNodes = sourceNodes
+			.map(sourceNode => sourceNode.reverbNode);
+			
 		//create gain nodes for decay
 		zip([decayNodes, sourceNodes])
 			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master))
@@ -66,10 +69,15 @@ export const createBuffer = store => {
 			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + decay));
 		
 		//play sound
-		zip([patternsArray, soundIds, decayNodes, pitches])
+		zip([patternsArray, sounds, decayNodes, reverbNodes, pitches])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.map(([pattern, soundId, node, pitch]) => [sounds[soundId], node, pitch])
-			.forEach(([buffer, node, pitch]) => playSound(context, buffer, node, context.currentTime, pitch));
+			.forEach(([pattern, buffer, decayNode, reverbNode, pitch]) => {
+				let bufferSource = createBufferSource(context, buffer);
+				bufferSource.playbackRate.value = pitch || 1;
+				bufferSource.connect(decayNode);
+				bufferSource.connect(reverbNode.input);
+				bufferSource.start(context.currentTime);
+			});
 
 		return next(action);
 	};
