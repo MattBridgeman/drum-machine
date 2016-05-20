@@ -64,7 +64,7 @@ class DrumMachine extends Component {
 								<h3 ref="name" className="item-title light">FX</h3>
 							</div>
 							<div className="channel-tray">
-								<Rotator name="Delay" value={channel.delay} />
+								<Rotator name="Reverb" value={channel.reverb} onKnobRotate={ (amount) => channelActions.changeReverbByAmount(i, amount) } onValueChange={ (value) => channelActions.changeReverbToAmount(i, value) } />
 							</div>
 						</Channel>
 					)}

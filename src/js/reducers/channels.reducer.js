@@ -9,7 +9,9 @@ import {
 	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	CHANGE_DECAY_BY_AMOUNT,
-	CHANGE_DECAY_TO_AMOUNT
+	CHANGE_DECAY_TO_AMOUNT,
+	CHANGE_REVERB_BY_AMOUNT,
+	CHANGE_REVERB_TO_AMOUNT
 } from "../constants/channel.constants";
 
 const initialState = [
@@ -138,6 +140,16 @@ export default function channels(state = initialState, action) {
 			return state
 				.map((channel, i) =>
 					action.channelId === i ? Object.assign({}, channel, { pan: action.value }) : channel
+				);
+		case CHANGE_REVERB_BY_AMOUNT:
+			return state
+				.map((channel, i) =>
+					action.channelId === i ? Object.assign({}, channel, { reverb: channel.reverb + action.value }) : channel
+				);
+		case CHANGE_REVERB_TO_AMOUNT:
+			return state
+				.map((channel, i) =>
+					action.channelId === i ? Object.assign({}, channel, { reverb: action.value }) : channel
 				);
 		case CHANGE_SELECTED_CHANNEL:
 			return state

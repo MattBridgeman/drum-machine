@@ -64,7 +64,7 @@ export const supplyAudioNodes = store => next => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
                 sourceNode.pan.pan.value = panPercentageToValue(channel.pan);
-                sourceNode.reverb.gain.value = channel.reverb;
+                sourceNode.reverb.gain.value = channel.reverb * 0.01;
             });
             
 		return next(action);
