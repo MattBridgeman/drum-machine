@@ -9,6 +9,8 @@ export const supplyAudioNodes = store => next => {
 	let context;
     let init;
     let sourceNodes;
+    let master;
+    let reverb;
 
 	return action => {
         let prevState = store.getState();
@@ -24,19 +26,26 @@ export const supplyAudioNodes = store => next => {
         
         if(!init) {
             init = true;
+            master = context.createGain();
+            reverb = context.createConvolver();
+
+            reverb.connect(master);
+            master.connect(context.destination);
             
 		    sourceNodes = channels
                 .map(channel => ({
                     volume: context.createGain(),
                     master: context.createGain(),
-                    pan: context.createStereoPanner()
+                    pan: context.createStereoPanner(),
+                    reverb: context.createGain()
                 }))
             
             sourceNodes
                 .forEach(sourceNode => {
                     sourceNode.master.connect(sourceNode.volume);
                     sourceNode.volume.connect(sourceNode.pan);
-                    sourceNode.pan.connect(context.destination);
+                    sourceNode.pan.connect(master);
+                    sourceNode.reverb.connect(reverb);
                 });
             
             next(newSourceNodes(sourceNodes))
@@ -51,6 +60,7 @@ export const supplyAudioNodes = store => next => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
                 sourceNode.pan.pan.value = panPercentageToValue(channel.pan);
+                sourceNode.reverb.gain.value = channel.reverb;
             });
             
 		return next(action);

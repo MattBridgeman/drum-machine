@@ -20,7 +20,8 @@ const initialState = [
 		selected: true,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 1
 	},
 	{
 		sound: 1,
@@ -28,7 +29,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 2,
@@ -36,7 +38,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 3,
@@ -44,7 +47,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 4,
@@ -52,7 +56,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 5,
@@ -60,7 +65,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 6,
@@ -68,7 +74,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 7,
@@ -76,7 +83,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	},
 	{
 		sound: 8,
@@ -84,7 +92,8 @@ const initialState = [
 		volume: 50,
 		pitch: 50,
 		decay: 100,
-		pan: 50
+		pan: 50,
+		reverb: 0
 	}
 ];
 
