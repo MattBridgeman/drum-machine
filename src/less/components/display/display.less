@@ -1,38 +1,29 @@
 .display {
 	text-align: center;
+	border: 1px solid @light-grey;
 	.inner {
-		padding: @baseline * 3 @baseline * 6;
-		display: flex;
-		align-items: center;
+		padding: @baseline * 6;
 		&:after {
 			.clear-float;
 		}
 	}
 	.name {
-		flex-grow: 1;
 		background: @dark-grey;
 		text-transform: uppercase;
 		padding: @baseline;
 		margin: 0;
 		color: @orange;
+		margin: -1px -1px 0;
 	}
 	.value {
 		font-size: 2.5em;
 	}
 	&.red {
-		color: @orange;
-		background: @red;
-		.expandable {
-			color: @dark-red;
-			background: @red;
+		.sleeve {
+			background: @red-transparency;
 		}
-	}
-	&.green {
-		color: @green;
-		background: @green-transparency;
-		.expandable {
-			color: @dark-green;
-			background: @green;
+		.value {
+			color: @red;
 		}
 	}
 }

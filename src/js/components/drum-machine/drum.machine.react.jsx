@@ -36,11 +36,13 @@ class DrumMachine extends Component {
 					<div className="toolbar-item play-pause">
 						<PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
 					</div>
-					<div className="toolbar-item tempo">
-						<div className="display red">
-							<h3 className="name">Tempo</h3>
-							<div className="inner">
-								<span className="value">{tempo.beatsPerMinute}</span>
+					<div className="toolbar-item tempo-display">
+						<div className="display">
+							<div className="sleeve">
+								<h3 className="name">Tempo</h3>
+								<div className="inner">
+									<span className="value">{tempo.beatsPerMinute}</span>
+								</div>
 							</div>
 						</div>
 					</div>
