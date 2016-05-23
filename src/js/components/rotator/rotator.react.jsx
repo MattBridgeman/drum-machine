@@ -49,7 +49,7 @@ class Rotator extends React.Component {
 					.concatMap((contactPoint) =>
 						knobContainerMouseMoves
 							.takeUntil(knobContainerMouseUps)
-							.map((movePoint) => movePoint.pageY - contactPoint.pageY));
+							.map((movePoint) => ({ movePoint, contactPoint})));
 		knobMouseDowns
 			.forEach(e => e.preventDefault && e.preventDefault());
 
@@ -57,15 +57,20 @@ class Rotator extends React.Component {
 			.forEach(e => e.preventDefault && e.preventDefault());
 			
 		knobMouseDrags
-			.scan({
-				value: 0,
-				diff: 0
-			},
-			(acc, curr) => ({
-				diff: curr ? (acc.value - curr) : 0,
-				value: curr
-			}))
-			.forEach((obj) => onKnobRotate(obj.diff));
+			.forEach(({contactPoint, movePoint}) => {
+				let dota = contactPoint.pageX * movePoint.pageX;
+				let dotb = contactPoint.pageY * movePoint.pageY;
+				let a1sqr = contactPoint.pageX * contactPoint.pageX;
+				let b1sqr = movePoint.pageX * movePoint.pageX;
+				let a2sqr = contactPoint.pageY * contactPoint.pageY;
+				let b2sqr = movePoint.pageY * movePoint.pageY;
+				let a1 = Math.sqrt(a1sqr + a2sqr);
+				let b1 = Math.sqrt(b1sqr + b2sqr);
+				
+				let cos = (dota + dotb) / (a1 * b1);
+				let angle = Math.cos(cos);
+				console.log(angle);
+			});
 	}
 }
 
