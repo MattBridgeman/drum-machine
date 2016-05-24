@@ -56,19 +56,35 @@ class Rotator extends React.Component {
 		knobMouseDrags
 			.forEach(e => e.preventDefault && e.preventDefault());
 			
+		// knobMouseDrags
+		// 	.forEach(({contactPoint, movePoint}) => {
+		// 		let dota = contactPoint.pageX * movePoint.pageX;
+		// 		let dotb = contactPoint.pageY * movePoint.pageY;
+		// 		let axsqr = contactPoint.pageX * contactPoint.pageX;
+		// 		let bxsqr = movePoint.pageX * movePoint.pageX;
+		// 		let aysqr = contactPoint.pageY * contactPoint.pageY;
+		// 		let bysqr = movePoint.pageY * movePoint.pageY;
+		// 		let a1 = Math.sqrt(axsqr + aysqr);
+		// 		let b1 = Math.sqrt(bxsqr + bysqr);
+				
+		// 		let cos = (dota + dotb) / (a1 * b1);
+		// 		let angle = Math.acos(cos) * 1000;
+		// 		console.log(angle);
+		// 	});
+		function lengthOfLine(pointa, pointb){
+			return Math.sqrt(Math.pow(pointa.x - pointb.x, 2), Math.pow(pointa.y - pointb.y, 2));
+		}
 		knobMouseDrags
 			.forEach(({contactPoint, movePoint}) => {
-				let dota = contactPoint.pageX * movePoint.pageX;
-				let dotb = contactPoint.pageY * movePoint.pageY;
-				let a1sqr = contactPoint.pageX * contactPoint.pageX;
-				let b1sqr = movePoint.pageX * movePoint.pageX;
-				let a2sqr = contactPoint.pageY * contactPoint.pageY;
-				let b2sqr = movePoint.pageY * movePoint.pageY;
-				let a1 = Math.sqrt(a1sqr + a2sqr);
-				let b1 = Math.sqrt(b1sqr + b2sqr);
-				
-				let cos = (dota + dotb) / (a1 * b1);
-				let angle = Math.cos(cos);
+				let originx = contactPoint.pageX;
+				let originy = contactPoint.pageY;
+				let ax = originx - movePoint.pageX;
+				let ay = originy - movePoint.pageY;
+				let bx = originx - movePoint.pageX;
+				let by = 0;
+				let aLength = lengthOfLine({x: ax, y: ay}, { x: 0, y: 0 });
+				let bLength = lengthOfLine({x: bx, y: by}, { x: 0, y: 0 });
+				let angle = Math.acos(bLength / aLength);
 				console.log(angle);
 			});
 	}
