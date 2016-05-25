@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as Rx from "rx";
 import { valueAsPercentage, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
+import { lengthOfLine } from "../../library/geometry/line";
+import { angleInRightTriangleInDegrees } from "../../library/geometry/triangle";
 
 class Rotator extends React.Component {
 
@@ -71,9 +73,6 @@ class Rotator extends React.Component {
 		// 		let angle = Math.acos(cos) * 1000;
 		// 		console.log(angle);
 		// 	});
-		function lengthOfLine(pointa, pointb){
-			return Math.sqrt(Math.pow(pointa.x - pointb.x, 2), Math.pow(pointa.y - pointb.y, 2));
-		}
 		knobMouseDrags
 			.forEach(({contactPoint, movePoint}) => {
 				let originx = contactPoint.pageX;
@@ -84,7 +83,7 @@ class Rotator extends React.Component {
 				let by = 0;
 				let aLength = lengthOfLine({x: ax, y: ay}, { x: 0, y: 0 });
 				let bLength = lengthOfLine({x: bx, y: by}, { x: 0, y: 0 });
-				let angle = Math.acos(bLength / aLength);
+				let angle = angleInRightTriangleInDegrees(bLength, aLength);
 				console.log(angle);
 			});
 	}
