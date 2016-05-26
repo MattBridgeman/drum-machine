@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPM } from "../tempo.actions";
+import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPMToAmount } from "../tempo.actions";
 import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/tempo.constants";
 
 describe("Tempo actions", function() {
@@ -29,8 +29,8 @@ describe("Tempo actions", function() {
 		});
 	});
 
-	it("Expect changeBPM to return change BPM action", function() {
-		var action = changeBPM(101);
+	it("Expect changeBPMToAmount to return change BPM action", function() {
+		var action = changeBPMToAmount(101);
 
 		expect(action).to.deep.equal({
 			type: CHANGE_BPM,

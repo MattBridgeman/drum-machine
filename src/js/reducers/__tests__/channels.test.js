@@ -26,7 +26,7 @@ describe("Channel reducer", function() {
 				pitch: 50,
 				decay: 100,
 				pan: 50,
-				reverb: 0,
+				reverb: 50,
 				selected: true,
 				solo: true,
 				mute: false
@@ -195,7 +195,7 @@ describe("Channel reducer", function() {
 		const nextState = channels(initialState, action);
 
 		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].reverb).to.equal(20);
+		expect(nextState[channelId].reverb).to.equal(70);
 	});
 
 	it("Expect reverb value to change to amount", function() {

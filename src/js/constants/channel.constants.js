@@ -9,3 +9,5 @@ export const CHANGE_PAN_TO_AMOUNT = "change_pan_to_amount";
 export const CHANGE_SELECTED_CHANNEL = "change_selected_channel";
 export const TOGGLE_SOLO_CHANNEL = "change_solo_channel";
 export const TOGGLE_MUTE_CHANNEL = "toggle_mute_channel";
+export const CHANGE_REVERB_BY_AMOUNT = "change_reverb_by_amount";
+export const CHANGE_REVERB_TO_AMOUNT = "change_reverb_to_amount";

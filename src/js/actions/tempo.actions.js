@@ -20,7 +20,7 @@ export function changeBPMByAmount(amount) {
   };
 }
 
-export function changeBPM(value) {
+export function changeBPMToAmount(value) {
   return {
     type: CHANGE_BPM,
     value: value

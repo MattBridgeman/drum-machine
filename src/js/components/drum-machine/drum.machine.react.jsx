@@ -48,7 +48,7 @@ class DrumMachine extends Component {
 					</div>
 					<div className="toolbar-item tempo">
 						<h3 ref="name" className="item-title">Tempo</h3>
-						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
+						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
 					</div>
 				</div>
 				<div className="channels">
