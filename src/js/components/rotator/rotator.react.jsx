@@ -67,7 +67,7 @@ class Rotator extends React.Component {
 								let realAngle = angleFromVerticalGivenXandY(angle, {x: ax, y: ay});
 								return { length: aLength, angle: realAngle };
 							})
-							.filter(({ length }) => length > 6);
+							.filter(({ length }) => length > 1);
 		knobMouseDowns
 			.forEach(e => e.preventDefault && e.preventDefault());
 
