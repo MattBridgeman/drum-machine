@@ -48,23 +48,23 @@ class DrumMachine extends Component {
 					</div>
 					<div className="toolbar-item tempo">
 						<h3 ref="name" className="item-title">Tempo</h3>
-						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMByAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
+						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPM(value) } />
 					</div>
 				</div>
 				<div className="channels">
 					{channels.map((channel, i) =>
 						<Channel name={sounds[channel.sound].name} selected={channel.selected} solo={channel.solo} onSelectClick={() => channelActions.changeSelectedChannel(i)}  onSoloClick={() => channelActions.toggleSoloChannel(i)}  onMuteClick={() => channelActions.toggleMuteChannel(i)} muted={channel.mute}>
 							<div className="channel-tray">
-								<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeByAmount(i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(i, value) } />
-								<Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchByAmount(i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(i, value) } />
-								<Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayByAmount(i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(i, value) } />
-								<Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanByAmount(i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(i, value) } />
+								<Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeToAmount(i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(i, value) } />
+								<Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchToAmount(i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(i, value) } />
+								<Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayToAmount(i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(i, value) } />
+								<Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanToAmount(i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(i, value) } />
 							</div>
 							<div className="channel-item">
 								<h3 ref="name" className="item-title light">FX</h3>
 							</div>
 							<div className="channel-tray">
-								<Rotator name="Reverb" value={channel.reverb} onKnobRotate={ (amount) => channelActions.changeReverbByAmount(i, amount) } onValueChange={ (value) => channelActions.changeReverbToAmount(i, value) } />
+								<Rotator name="Reverb" value={channel.reverb} onKnobRotate={ (amount) => channelActions.changeReverbToAmount(i, amount) } onValueChange={ (value) => channelActions.changeReverbToAmount(i, value) } />
 							</div>
 						</Channel>
 					)}
