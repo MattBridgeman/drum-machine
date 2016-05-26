@@ -13,12 +13,12 @@ export function radiansToDegrees(radians){
 
 export function angleFromHorizontalGivenXandY(angle, { x, y }){
 	if(x < 0 && y > 0){
-		return angle;
-	} else if (x > 0 && y > 0) {
 		return 180 - angle;
-	} else if (x > 0 && y < 0) {
+	} else if (x > 0 && y > 0) {
 		return 180 + angle;
-	} else if(x < 0 && y < 0) {
+	} else if (x > 0 && y < 0) {
 		return 360 - angle;
+	} else if(x < 0 && y < 0) {
+		return angle;
 	}
 }
