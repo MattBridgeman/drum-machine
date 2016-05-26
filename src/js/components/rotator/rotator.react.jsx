@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Rx from "rx";
 import { valueAsPercentage, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 import { lengthOfLine } from "../../library/geometry/line";
-import { angleInRightTriangleInDegrees } from "../../library/geometry/triangle";
+import { angleInRightTriangleInDegrees, angleFromHorizontalGivenXandY } from "../../library/geometry/triangle";
 
 class Rotator extends React.Component {
 
@@ -84,7 +84,8 @@ class Rotator extends React.Component {
 				let aLength = lengthOfLine({x: ax, y: ay}, { x: 0, y: 0 });
 				let bLength = lengthOfLine({x: bx, y: by}, { x: 0, y: 0 });
 				let angle = angleInRightTriangleInDegrees(bLength, aLength);
-				console.log(angle);
+				let realAngle = angleFromHorizontalGivenXandY(angle, {x: ax, y: ay});
+				console.log(realAngle);
 			});
 	}
 }
