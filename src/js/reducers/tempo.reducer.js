@@ -4,7 +4,8 @@ import { normaliseValue } from "../library/natives/numbers.js";
 const initialState = {
 	beatsPerMinute: 120,
 	beatsPerBar: 4,
-	segmentsPerBeat: 4
+	segmentsPerBeat: 4,
+	swing: 100
 };
 
 export default function tempo(state = initialState, action) {

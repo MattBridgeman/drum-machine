@@ -9,8 +9,9 @@ let createSegmentStream = (store) => {
 		() => Date.now(),
 		() => {
 			let state = store.getState();
-			let { beatsPerMinute, segmentsPerBeat } = state.tempo;
-			return getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat);
+			let { beatsPerMinute, segmentsPerBeat, swing } = state.tempo;
+			let { currentSegmentIndex } = state.playState;
+			return getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat, currentSegmentIndex, swing);
 		},
 		requestAnimationFrame,
 		cancelAnimationFrame
