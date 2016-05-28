@@ -14,25 +14,25 @@ export default function tempo(state = initialState, action) {
 			let incrementBPM = state.beatsPerMinute + 1;
 			let normalisedIncrementBPM = normaliseValue(incrementBPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE);
 			return Object.assign({}, state, {
-				beatsPerMinute: normalisedIncrementBPM
+				beatsPerMinute: Math.round(normalisedIncrementBPM)
 			});
 		case DECREMENT_BPM:
 			let decrementBPM = state.beatsPerMinute - 1;
 			let normalisedDecrementBPM = normaliseValue(decrementBPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE);
 			return Object.assign({}, state, {
-				beatsPerMinute: normalisedDecrementBPM
+				beatsPerMinute: Math.round(normalisedDecrementBPM)
 			});
 		case CHANGE_BPM_BY_AMOUNT:
 			let changeByBPM = state.beatsPerMinute + action.amount;
 			let normalisedChangeByBPM = normaliseValue(changeByBPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE);
 			return Object.assign({}, state, {
-				beatsPerMinute: normalisedChangeByBPM
+				beatsPerMinute: Math.round(normalisedChangeByBPM)
 			});
 		case CHANGE_BPM:
 			let changeBPM = action.value;
 			let normalisedChangeBPM = normaliseValue(changeBPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE);
 			return Object.assign({}, state, {
-				beatsPerMinute: normalisedChangeBPM
+				beatsPerMinute: Math.round(normalisedChangeBPM)
 			});
 		default:
 			return state;
