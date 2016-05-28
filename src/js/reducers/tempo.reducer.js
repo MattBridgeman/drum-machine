@@ -1,11 +1,11 @@
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../constants/tempo.constants";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE, CHANGE_SWING_TO_AMOUNT } from "../constants/tempo.constants";
 import { normaliseValue } from "../library/natives/numbers.js";
 
 const initialState = {
 	beatsPerMinute: 120,
 	beatsPerBar: 4,
 	segmentsPerBeat: 4,
-	swing: 100
+	swing: 0
 };
 
 export default function tempo(state = initialState, action) {
@@ -33,6 +33,11 @@ export default function tempo(state = initialState, action) {
 			let normalisedChangeBPM = normaliseValue(changeBPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE);
 			return Object.assign({}, state, {
 				beatsPerMinute: Math.round(normalisedChangeBPM)
+			});
+		case CHANGE_SWING_TO_AMOUNT:
+			let changedSwing = action.value;
+			return Object.assign({}, state, {
+				swing: changedSwing
 			});
 		default:
 			return state;

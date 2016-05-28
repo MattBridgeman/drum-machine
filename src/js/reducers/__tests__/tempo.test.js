@@ -1,13 +1,14 @@
 import {expect} from "chai";
 import tempo from "../tempo.reducer";
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE, CHANGE_SWING_TO_AMOUNT } from "../../constants/tempo.constants";
 
 describe("Tempo reducer", function() {
 	function getInitialState(){
 		return {
 			beatsPerMinute: 120,
 			beatsPerBar: 4,
-			segmentsPerBeat: 4
+			segmentsPerBeat: 4,
+			swing: 15
 		};
 	}
 
@@ -125,6 +126,20 @@ describe("Tempo reducer", function() {
 
 		expect(initialState.beatsPerMinute).to.equal(120);
 		expect(nextState.beatsPerMinute).to.equal(MIN_BEATS_PER_MINUTE);
+	});
+
+	it("Expect swing to change to set amount", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_SWING_TO_AMOUNT,
+			value: 55
+		};
+
+		const nextState = tempo(initialState, action);
+
+		expect(initialState.swing).to.equal(15);
+		expect(nextState.swing).to.equal(55);
 	});
 
 });
