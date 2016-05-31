@@ -1,4 +1,4 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BUFFER_SEGMENT } from "../constants/play.state.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BUFFER_SEGMENT, NEW_BAR_INDEX } from "../constants/play.state.constants";
 
 export function play() {
   return {
@@ -35,6 +35,13 @@ export function incrementSegmentIndex(value){
 export function newBufferSegment(value){
   return {
     type: NEW_BUFFER_SEGMENT,
+    value
+  };
+}
+
+export function newBarIndex(value){
+  return {
+    type: NEW_BAR_INDEX,
     value
   };
 }

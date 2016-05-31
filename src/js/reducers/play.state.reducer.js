@@ -1,4 +1,4 @@
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BAR_INDEX } from "../constants/play.state.constants";
 import { play, pause, newSegmentIndex } from "../actions/play.state.actions";
 
 const initialState = {
@@ -26,6 +26,8 @@ export default function playState(state = initialState, action) {
 			break;
 		case NEW_SEGMENT_INDEX:
 			return Object.assign({}, state, { currentSegmentIndex: action.value });
+		case NEW_BAR_INDEX:
+			return Object.assign({}, state, { currentBarIndex: action.value });
 		case INCREMENT_SEGMENT_INDEX:
 			let newIndex = state.looping && state.currentSegmentIndex >= 15 ? 0 : state.currentSegmentIndex + 1;
 			return playState(state, newSegmentIndex(newIndex));

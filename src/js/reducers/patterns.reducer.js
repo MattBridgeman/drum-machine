@@ -4,21 +4,15 @@ export function getInitialPattern(){
 	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 }
 
-export function getInitialState(){
-	return {
-		0: getInitialPattern(),
-		1: getInitialPattern(),
-		2: getInitialPattern(),
-		3: getInitialPattern(),
-		4: getInitialPattern(),
-		5: getInitialPattern(),
-		6: getInitialPattern(),
-		7: getInitialPattern(),
-		8: getInitialPattern()
-	};
+export function getInitialState(numberOfPatterns = 9){
+	let patterns = {};
+	for(let i = 0; i < numberOfPatterns; i++) {
+		patterns[i] = getInitialPattern();
+	}
+	return patterns;
 }
 
-const initialState = getInitialState();
+const initialState = getInitialState(64);
 
 export default function patterns(state = initialState, action) {
 	switch (action.type) {

@@ -17,7 +17,7 @@ import {
 const initialState = [
 	{
 		sound: 0,
-		patterns: [0],
+		patterns: [0, 1, 2, 3, 4, 5, 6, 7],
 		volume: 50,
 		selected: true,
 		pitch: 50,
@@ -27,7 +27,7 @@ const initialState = [
 	},
 	{
 		sound: 1,
-		patterns: [1],
+		patterns: [8, 9, 10, 11, 12, 13, 14, 15],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -36,7 +36,7 @@ const initialState = [
 	},
 	{
 		sound: 2,
-		patterns: [2],
+		patterns: [16, 17, 18, 19, 20, 21, 22, 23],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -45,7 +45,7 @@ const initialState = [
 	},
 	{
 		sound: 3,
-		patterns: [3],
+		patterns: [24, 25, 26, 27, 28, 29, 30, 31],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -54,7 +54,7 @@ const initialState = [
 	},
 	{
 		sound: 4,
-		patterns: [4],
+		patterns: [32, 33, 34, 35, 36, 37, 38, 39],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -63,7 +63,7 @@ const initialState = [
 	},
 	{
 		sound: 5,
-		patterns: [5],
+		patterns: [40, 41, 42, 43, 44, 45, 46, 47],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -72,7 +72,7 @@ const initialState = [
 	},
 	{
 		sound: 6,
-		patterns: [6],
+		patterns: [48, 49, 50, 51, 52, 53, 54, 55],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -81,7 +81,7 @@ const initialState = [
 	},
 	{
 		sound: 7,
-		patterns: [7],
+		patterns: [56, 57, 58, 59, 60, 61, 62, 63],
 		volume: 50,
 		pitch: 50,
 		decay: 100,
@@ -90,7 +90,7 @@ const initialState = [
 	},
 	{
 		sound: 8,
-		patterns: [8],
+		patterns: [64, 65, 66, 67, 68, 69, 70, 71],
 		volume: 50,
 		pitch: 50,
 		decay: 100,

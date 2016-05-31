@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import playState from "../play.state.reducer";
-import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../../constants/play.state.constants";
+import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BAR_INDEX } from "../../constants/play.state.constants";
 
 function getInitialState({ currentSegmentIndex = 0, currentBarIndex = 0, isPlaying = false, looping = true}){
 	return {
@@ -184,6 +184,35 @@ describe("Play state reducer", function() {
 			currentSegmentIndex: 1,
 			currentBarIndex: 0,
 			isPlaying: false,
+			looping: true
+		});
+	});
+
+	it("sets a new bar index if action is triggered", function() {
+
+		function getState(){
+			return {
+				currentSegmentIndex: 1,
+				currentBarIndex: 1,
+				isPlaying: true,
+				looping: true
+			};
+		}
+
+		const initialState = getState();
+
+		const action = {
+			type: NEW_BAR_INDEX,
+			value: 3
+		};
+
+		const nextState = playState(initialState, action);
+
+		expect(initialState).to.deep.equal(getState());
+		expect(nextState).to.deep.equal({
+			currentSegmentIndex: 1,
+			currentBarIndex: 3,
+			isPlaying: true,
 			looping: true
 		});
 	});
