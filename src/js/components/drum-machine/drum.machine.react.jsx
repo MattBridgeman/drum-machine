@@ -49,19 +49,20 @@ class DrumMachine extends Component {
 						</div>
 					</div>
 					<div className="toolbar-item tempo">
-						<h3 ref="name" className="item-title">Tempo</h3>
-						<Rotator value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
+						<Rotator name="Tempo" value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
 					</div>
-					<div className="toolbar-item tempo">
-						<h3 ref="name" className="item-title">Swing</h3>
-						<Rotator value={tempo.swing} onKnobRotate={ (amount) => tempoActions.changeSwingToAmount(amount) } onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
+					<div className="toolbar-item swing">
+						<Rotator name="Swing" value={tempo.swing} onKnobRotate={ (amount) => tempoActions.changeSwingToAmount(amount) } onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
 					</div>
-					<div className="toolbar-item">
-						{ getPatternBanksArray()
-							.map(i => 
-								<ToggleButton onClick={() => playStateActions.newBarIndex(i)} name={"A" + (i + 1)} selected={i === playState.currentBarIndex} classes="red" />
-							)
-						}
+					<div className="toolbar-item bank-selector">
+						<h3 className="item-title light">Pattern Bank</h3>
+						<div className="banks-available">
+							{ getPatternBanksArray()
+								.map(i => 
+									<ToggleButton onClick={() => playStateActions.newBarIndex(i)} name={"A" + (i + 1)} selected={i === playState.currentBarIndex} classes="red" />
+								)
+							}
+						</div>
 					</div>
 				</div>
 				<div className="channels">

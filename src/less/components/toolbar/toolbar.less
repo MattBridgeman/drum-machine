@@ -3,7 +3,8 @@
     margin-bottom: @baseline * 5;
     .toolbar-item {
         margin-right: 10px;
-        .item-title {
+        text-align: center;
+        .title {
             margin: 0 0 @baseline * 2;
         }
         &.play-pause {
@@ -15,7 +16,20 @@
         }
         &.tempo {
             width: 70px;
-            text-align: center;
+        }
+        &.swing {
+            width: 40px;
+        }
+        &.bank-selector {
+            width: 160px;
+            .banks-available {
+                display: flex;
+                flex-wrap: wrap;
+                .button {
+                    margin: @baseline;
+                    width: 36px;
+                }
+            }
         }
         &.tempo-display {
             width: 97px;
