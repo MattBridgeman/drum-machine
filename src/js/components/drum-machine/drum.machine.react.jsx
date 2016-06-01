@@ -16,6 +16,8 @@ import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 import { Pattern } from "../pattern/pattern.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
+import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
+import { getPatternBanksArray } from "../../reducers/patterns.reducer"
 
 class DrumMachine extends Component {
 
@@ -53,6 +55,13 @@ class DrumMachine extends Component {
 					<div className="toolbar-item tempo">
 						<h3 ref="name" className="item-title">Swing</h3>
 						<Rotator value={tempo.swing} onKnobRotate={ (amount) => tempoActions.changeSwingToAmount(amount) } onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
+					</div>
+					<div className="toolbar-item">
+						{ getPatternBanksArray()
+							.map(i => 
+								<ToggleButton onClick={() => playStateActions.newBarIndex(i)} name={"A" + (i + 1)} selected={i === playState.currentBarIndex} classes="red" />
+							)
+						}
 					</div>
 				</div>
 				<div className="channels">

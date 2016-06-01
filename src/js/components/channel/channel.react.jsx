@@ -15,9 +15,9 @@ class Channel extends React.Component {
 			</div>
 		) : null;
 
-		var toggleButton = <ToggleButton ref="toggleButton" classes="channel-item button toggle-button" selected={selected} name="Select" onClick={onSelectClick} />;
-		var soloButton = <ToggleButton ref="soloButton" classes="channel-item button toggle-button green" selected={solo} name="Solo" onClick={onSoloClick} />;
-		var muteButton = <ToggleButton ref="muteButton" classes="channel-item button toggle-button red" selected={muted} name="Mute" onClick={onMuteClick} />;
+		var toggleButton = <ToggleButton ref="toggleButton" classes="channel-item" selected={selected} name="Select" onClick={onSelectClick} />;
+		var soloButton = <ToggleButton ref="soloButton" classes="channel-item green" selected={solo} name="Solo" onClick={onSoloClick} />;
+		var muteButton = <ToggleButton ref="muteButton" classes="channel-item red" selected={muted} name="Mute" onClick={onMuteClick} />;
 		
 		return (
 			<div className="channel">

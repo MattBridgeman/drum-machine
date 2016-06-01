@@ -7,10 +7,10 @@ class ToggleButton extends React.Component {
 	}
 
 	render() {
-		var { name, onClick, selected, classes } = this.props;
+		var { name = "", onClick, selected = false, classes = "" } = this.props;
 		var selectToggleClass = selected ? "selected" : "";
 		var selectAriaPressed = selected ? "true" : "false";
-		var toggleButton = <button ref="toggleButton" className={classes + " " + selectToggleClass} aria-pressed={selectAriaPressed} onClick={onClick}>{name}</button>;
+		var toggleButton = <button ref="toggleButton" className={"button toggle-button " + classes + " " + selectToggleClass} aria-pressed={selectAriaPressed} onClick={onClick}>{name}</button>;
 		return (toggleButton);
 	}
 }

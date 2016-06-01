@@ -1,10 +1,21 @@
 import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../constants/patterns.constants";
 
+const NUMBER_OF_CHANNELS = 9;
+const NUMBER_OF_BANKS = 8;
+
+export function getPatternBanksArray(numberOfBanks = NUMBER_OF_BANKS){
+	let banks = [];
+	for(let i = 0; i < numberOfBanks; i++) {
+		banks[i] = i;
+	}
+	return banks;
+}
+
 export function getInitialPattern(){
 	return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 }
 
-export function getInitialState(numberOfPatterns = 9){
+export function getInitialState(numberOfPatterns = NUMBER_OF_CHANNELS){
 	let patterns = {};
 	for(let i = 0; i < numberOfPatterns; i++) {
 		patterns[i] = getInitialPattern();
@@ -12,7 +23,8 @@ export function getInitialState(numberOfPatterns = 9){
 	return patterns;
 }
 
-const initialState = getInitialState(72);
+const numberOfPatterns = NUMBER_OF_CHANNELS * NUMBER_OF_BANKS;
+const initialState = getInitialState(numberOfPatterns);
 
 export default function patterns(state = initialState, action) {
 	switch (action.type) {
