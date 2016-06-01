@@ -12,7 +12,7 @@ export function getInitialState(numberOfPatterns = 9){
 	return patterns;
 }
 
-const initialState = getInitialState(64);
+const initialState = getInitialState(72);
 
 export default function patterns(state = initialState, action) {
 	switch (action.type) {
