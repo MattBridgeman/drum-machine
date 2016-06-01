@@ -73,4 +73,17 @@ describe("ToggleButton", () => {
 		expect(toggleButton.className).to.include(classes);
 		expect(toggleButton.className).to.include("selected");
 	});
+
+	it("onClick to be fired on click", () => {
+		let foo = false;
+		let onClick = () => foo = true;
+		let $component = renderIntoDocument(
+			<ToggleButton onClick={onClick} />
+		);
+		let { toggleButton } = $component.refs;
+		
+		Simulate.click(toggleButton);
+
+		expect(foo).to.equal(true);
+	});
 });

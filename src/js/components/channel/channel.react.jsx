@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 
 class Channel extends React.Component {
 
@@ -14,17 +15,9 @@ class Channel extends React.Component {
 			</div>
 		) : null;
 
-		var selectToggleClass = selected ? "selected" : "";
-		var selectAriaPressed = selected ? "true" : "false";
-		var toggleButton = <button ref="toggleButton" className={"channel-item button toggle-button " + selectToggleClass} aria-pressed={selectAriaPressed} onClick={onSelectClick}>Select</button>;
-		
-		var soloToggleClass = solo ? "selected" : "";
-		var soloAriaPressed = solo ? "true" : "false";
-		var soloButton = <button ref="soloButton" className={"channel-item button toggle-button green " + soloToggleClass} aria-pressed={soloAriaPressed} onClick={onSoloClick}>Solo</button>;
-		
-		var muteToggleClass = muted ? "selected" : "";
-		var muteAriaPressed = muted ? "true" : "false";
-		var muteButton = <button ref="muteButton" className={"channel-item button toggle-button red " + muteToggleClass} aria-pressed={muteAriaPressed} onClick={onMuteClick}>Mute</button>;
+		var toggleButton = <ToggleButton ref="toggleButton" classes="channel-item button toggle-button" selected={selected} name="Select" onClick={onSelectClick} />;
+		var soloButton = <ToggleButton ref="soloButton" classes="channel-item button toggle-button green" selected={solo} name="Solo" onClick={onSoloClick} />;
+		var muteButton = <ToggleButton ref="muteButton" classes="channel-item button toggle-button red" selected={muted} name="Mute" onClick={onMuteClick} />;
 		
 		return (
 			<div className="channel">
