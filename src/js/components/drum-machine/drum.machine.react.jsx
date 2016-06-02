@@ -41,7 +41,7 @@ class DrumMachine extends Component {
 					<div className="toolbar-item tempo-display">
 						<div className="display">
 							<div className="sleeve">
-								<h3 className="name">Tempo</h3>
+								<h3 className="item-title light">Tempo</h3>
 								<div className="inner">
 									<span className="value">{tempo.beatsPerMinute}</span>
 								</div>

@@ -23,7 +23,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0.1
+		reverb: 0
 	},
 	{
 		sound: 1,
