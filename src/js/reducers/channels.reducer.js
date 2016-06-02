@@ -10,8 +10,7 @@ import {
 	CHANGE_PAN_TO_AMOUNT,
 	CHANGE_DECAY_BY_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
-	CHANGE_REVERB_BY_AMOUNT,
-	CHANGE_REVERB_TO_AMOUNT
+	TOGGLE_REVERB
 } from "../constants/channel.constants";
 
 const initialState = [
@@ -23,7 +22,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 1,
@@ -32,7 +31,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 2,
@@ -41,7 +40,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 3,
@@ -50,7 +49,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 4,
@@ -59,7 +58,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 5,
@@ -68,7 +67,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 6,
@@ -77,7 +76,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 7,
@@ -86,7 +85,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	},
 	{
 		sound: 8,
@@ -95,7 +94,7 @@ const initialState = [
 		pitch: 50,
 		decay: 100,
 		pan: 50,
-		reverb: 0
+		reverb: false
 	}
 ];
 
@@ -141,15 +140,10 @@ export default function channels(state = initialState, action) {
 				.map((channel, i) =>
 					action.channelId === i ? Object.assign({}, channel, { pan: action.value }) : channel
 				);
-		case CHANGE_REVERB_BY_AMOUNT:
+		case TOGGLE_REVERB:
 			return state
 				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { reverb: channel.reverb + action.value }) : channel
-				);
-		case CHANGE_REVERB_TO_AMOUNT:
-			return state
-				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { reverb: action.value }) : channel
+					action.channelId === i ? Object.assign({}, channel, { reverb: !channel.reverb }) : channel
 				);
 		case CHANGE_SELECTED_CHANNEL:
 			return state

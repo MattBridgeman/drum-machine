@@ -60,8 +60,8 @@ export const createBuffer = store => {
 		let reverbNodes = sourceNodes
 			.map(sourceNode => sourceNode.reverbNode);
 
-		let reverbGains = sourceNodes
-			.map(sourceNode => sourceNode.reverb);
+		let reverbs = channels
+			.map(channel => channel.reverb);
 			
 		//create gain nodes for decay
 		zip([decayNodes, sourceNodes])
@@ -72,13 +72,13 @@ export const createBuffer = store => {
 			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + decay));
 		
 		//play sound
-		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbGains, pitches])
+		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.forEach(([pattern, buffer, decayNode, reverbNode, reverbGain, pitch]) => {
+			.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
 				let bufferSource = createBufferSource(context, buffer);
 				bufferSource.playbackRate.value = pitch || 1;
 				bufferSource.connect(decayNode);
-				if(reverbGain.gain.value > 0.02){
+				if(reverb){
 					bufferSource.connect(reverbNode.input);
 				}
 				bufferSource.start(context.currentTime);

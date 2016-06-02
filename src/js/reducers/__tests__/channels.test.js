@@ -12,8 +12,7 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	CHANGE_REVERB_BY_AMOUNT,
-	CHANGE_REVERB_TO_AMOUNT
+	TOGGLE_REVERB
 } from "../../constants/channel.constants";
 
 describe("Channel reducer", function() {
@@ -26,7 +25,7 @@ describe("Channel reducer", function() {
 				pitch: 50,
 				decay: 100,
 				pan: 50,
-				reverb: 50,
+				reverb: true,
 				selected: true,
 				solo: true,
 				mute: false
@@ -38,7 +37,7 @@ describe("Channel reducer", function() {
 				pitch: 50,
 				decay: 100,
 				pan: 50,
-				reverb: 0,
+				reverb: false,
 				solo: false,
 				mute: false
 			}
@@ -181,38 +180,34 @@ describe("Channel reducer", function() {
 		expect(nextState[channelId].pan).to.equal(20);
 	});
 
-	it("Expect reverb value to increase by amount", function() {
+	it("Expect reverb value to toggle from true to false", function() {
 		const channelId = 0;
-		const amount = 20;
 		const initialState = getInitialState();
 
 		const action = {
-			type: CHANGE_REVERB_BY_AMOUNT,
-			channelId,
-			value: amount
+			type: TOGGLE_REVERB,
+			channelId
 		};
 
 		const nextState = channels(initialState, action);
 
 		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].reverb).to.equal(70);
+		expect(nextState[channelId].reverb).to.equal(false);
 	});
-
-	it("Expect reverb value to change to amount", function() {
-		const channelId = 0;
-		const value = 55;
+	
+	it("Expect reverb value to toggle from false to true", function() {
+		const channelId = 1;
 		const initialState = getInitialState();
 
 		const action = {
-			type: CHANGE_REVERB_TO_AMOUNT,
-			channelId,
-			value
+			type: TOGGLE_REVERB,
+			channelId
 		};
 
 		const nextState = channels(initialState, action);
 
 		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].reverb).to.equal(55);
+		expect(nextState[channelId].reverb).to.equal(true);
 	});
 	
 	it("Expect selected channel to change", function() {

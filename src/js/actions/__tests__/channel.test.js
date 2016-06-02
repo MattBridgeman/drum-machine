@@ -11,6 +11,7 @@ import { changeSelectedChannel,
 	changeReverbToAmount,
 	changeReverbByAmount,
 	changePitchToAmount,
+	toggleReverb,
 	toggleMuteChannel
 } from "../channel.actions";
 
@@ -25,8 +26,7 @@ import { CHANGE_SELECTED_CHANNEL,
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	CHANGE_REVERB_BY_AMOUNT,
-	CHANGE_REVERB_TO_AMOUNT
+	TOGGLE_REVERB
 } from "../../constants/channel.constants";
 
 describe("Channel actions", function() {
@@ -126,25 +126,13 @@ describe("Channel actions", function() {
 		});
 	});
 
-	it("Expect changeReverbByAmount to return a 'change reverb value by amount' action", () => {
+	it("Expect toggleReverb to return a 'toggle reverb' action", () => {
 		let channelId = 0;
-		let amount = 10;
-		let action = changeReverbByAmount(channelId, amount);
+		let value = false;
+		let action = toggleReverb(channelId, value);
 
 		expect(action).to.deep.equal({
-			type: CHANGE_REVERB_BY_AMOUNT,
-			channelId,
-			value: amount
-		});
-	});
-	
-	it("Expect changeReverbToAmount to return a 'change reverb value to amount' action", () => {
-		let channelId = 0;
-		let value = 10;
-		let action = changeReverbToAmount(channelId, value);
-
-		expect(action).to.deep.equal({
-			type: CHANGE_REVERB_TO_AMOUNT,
+			type: TOGGLE_REVERB,
 			channelId,
 			value
 		});

@@ -9,6 +9,8 @@ export const supplyAudioNodes = store => next => {
     let init;
     let sourceNodes;
     let master;
+    let reverbGain;
+    let reverbNode;
 
 	return action => {
         let prevState = store.getState();
@@ -23,7 +25,18 @@ export const supplyAudioNodes = store => next => {
         
         if(!init) {
             init = true;
+            
+            reverbNode = new SimpleReverb(context, {
+                seconds: 1.5,
+                decay: 2,
+                reverse: 0
+            });
+            
             master = context.createGain();
+            reverbGain = context.createGain();
+            
+            reverbNode.connect(reverbGain);
+            reverbGain.connect(master);
             master.connect(context.destination);
             
 		    sourceNodes = channels
@@ -31,12 +44,7 @@ export const supplyAudioNodes = store => next => {
                     volume: context.createGain(),
                     master: context.createGain(),
                     pan: context.createStereoPanner(),
-                    reverb: context.createGain(),
-                    reverbNode: new SimpleReverb(context, {
-                        seconds: 3,
-                        decay: 2,
-                        reverse: 0
-                    })
+                    reverbNode
                 }));
             
             sourceNodes
@@ -44,8 +52,6 @@ export const supplyAudioNodes = store => next => {
                     sourceNode.master.connect(sourceNode.volume);
                     sourceNode.volume.connect(sourceNode.pan);
                     sourceNode.pan.connect(master);
-                    sourceNode.reverb.connect(master);
-                    sourceNode.reverbNode.connect(sourceNode.reverb);
                 });
             
             next(newSourceNodes(sourceNodes))

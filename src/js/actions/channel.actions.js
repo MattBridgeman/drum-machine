@@ -10,8 +10,7 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	CHANGE_REVERB_BY_AMOUNT,
-	CHANGE_REVERB_TO_AMOUNT
+	TOGGLE_REVERB
 } from "../constants/channel.constants";
 
 export function changeVolumeByAmount(channelId, amount){
@@ -78,17 +77,9 @@ export function changePanToAmount(channelId, value){
 	};
 }
 
-export function changeReverbByAmount(channelId, amount){
+export function toggleReverb(channelId, value){
 	return {
-		type: CHANGE_REVERB_BY_AMOUNT,
-		channelId,
-		value: amount
-	};
-}
-
-export function changeReverbToAmount(channelId, value){
-	return {
-		type: CHANGE_REVERB_TO_AMOUNT,
+		type: TOGGLE_REVERB,
 		channelId,
 		value
 	};

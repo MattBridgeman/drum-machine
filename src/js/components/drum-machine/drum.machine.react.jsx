@@ -78,7 +78,10 @@ class DrumMachine extends Component {
 								<h3 ref="name" className="item-title light">FX</h3>
 							</div>
 							<div className="channel-tray">
-								<Rotator name="Reverb" value={channel.reverb} onKnobRotate={ (amount) => channelActions.changeReverbToAmount(i, amount) } onValueChange={ (value) => channelActions.changeReverbToAmount(i, value) } />
+								<div className="toggle-button-item">
+									<h3 className="item-label">Reverb</h3>
+									<ToggleButton classes="channel-item red" selected={channel.reverb} onClick={ (amount) => channelActions.toggleReverb(i, amount) } />
+								</div>
 							</div>
 						</Channel>
 					)}
