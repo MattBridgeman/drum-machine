@@ -5,6 +5,7 @@ import sounds from "./sounds.reducer";
 import patterns from "./patterns.reducer";
 import beats from "./beats.reducer";
 import playState from "./play.state.reducer";
+import reverb from "./reverb.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	patterns,
 	beats,
 	channels,
-	playState
+	playState,
+	reverb
 });
 
 export default rootReducer;

@@ -17,7 +17,8 @@ import { Pattern } from "../pattern/pattern.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
-import { getPatternBanksArray } from "../../reducers/patterns.reducer"
+import { getPatternBanksArray } from "../../reducers/patterns.reducer";
+import { Reverb } from "./reverb/reverb.react.jsx";
 
 class DrumMachine extends Component {
 
@@ -63,6 +64,9 @@ class DrumMachine extends Component {
 								)
 							}
 						</div>
+					</div>
+					<div className="toolbar-item">
+						<Reverb {...this.props} />
 					</div>
 				</div>
 				<div className="channels">
