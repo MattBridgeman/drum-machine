@@ -2,6 +2,7 @@ import { NEW_SOURCE_NODES } from "../constants/audio.context.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { zip } from "../library/natives/array";
 import { panPercentageToValue } from "../library/audio-api/pan";
+import { reverbPercentageToValue } from "../library/audio-api/reverb";
 
 export const updateAudioParams = store => next => {
     
@@ -11,7 +12,7 @@ export const updateAudioParams = store => next => {
         let prevState = store.getState();
 		let state = rootReducer(prevState, action);
         
-		let { channels } = state;
+		let { channels, reverb } = state;
         
         if(action.type === NEW_SOURCE_NODES){
             sourceNodes = action.value;
@@ -23,12 +24,16 @@ export const updateAudioParams = store => next => {
         let atLeastOneChannelSolod = channels.reduce(((prev, channel) => prev || channel.solo), false);
         
         zip([channels, sourceNodes])
-            .forEach(([channel, sourceNode]) => {
+            .forEach(([channel, sourceNode], index) => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
                 sourceNode.pan.pan.value = panPercentageToValue(channel.pan);
             });
-            
+        
+        sourceNodes
+            .filter((sourceNode, i) => i === 0)
+            .forEach(sourceNode => sourceNode.reverbNode.seconds = reverbPercentageToValue(reverb.seconds));
+
 		return next(action);
     }
 };
