@@ -27,7 +27,7 @@ export const supplyAudioNodes = store => next => {
             init = true;
             
             reverbNode = new SimpleReverb(context, {
-                seconds: 1.5,
+                seconds: 2,
                 decay: 2,
                 reverse: 0
             });

@@ -16,14 +16,14 @@ class Rotator extends React.Component {
 	}
 	
 	render() {
-		var { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange } = this.props;
+		var { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
 		var valuePercentage = normaliseValue(valueAsPercentage(value, min, max), 0, 100);
 		var rotation = percentageToValueOfRange(valuePercentage, MIN_ROTATION, MAX_ROTATION);
 		var knobStyle = {
 			transform: "rotate(" + rotation + "deg)"
 		};
 		return (
-			<div ref="knobContainer" className="channel-item rotator">
+			<div ref="knobContainer" className={(classes || "channel-item") + " rotator"}>
 				<h3 ref="name" className="item-label">{name}</h3>
 				<input type="range" ref="value" min={min} max={max} step="1" className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
 				<div className="knob-container">

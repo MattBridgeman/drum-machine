@@ -2,7 +2,7 @@ import { NEW_SOURCE_NODES } from "../constants/audio.context.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { zip } from "../library/natives/array";
 import { panPercentageToValue } from "../library/audio-api/pan";
-import { reverbPercentageToValue } from "../library/audio-api/reverb";
+import { reverbSecondsPercentageToValue, reverbDecayPercentageToValue } from "../library/audio-api/reverb";
 
 export const updateAudioParams = store => next => {
     
@@ -32,7 +32,14 @@ export const updateAudioParams = store => next => {
         
         sourceNodes
             .filter((sourceNode, i) => i === 0)
-            .forEach(sourceNode => sourceNode.reverbNode.seconds = reverbPercentageToValue(reverb.seconds));
+            .forEach(sourceNode => {
+                if(sourceNode.reverbNode.seconds !== reverb.seconds) {
+                    sourceNode.reverbNode.seconds = reverbSecondsPercentageToValue(reverb.seconds);
+                }
+                if(sourceNode.reverbNode.decay !== reverb.decay) {
+                    sourceNode.reverbNode.decay = reverbDecayPercentageToValue(reverb.decay);
+                }
+            });
 
 		return next(action);
     }

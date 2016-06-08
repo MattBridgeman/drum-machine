@@ -1,7 +1,8 @@
 import { expect } from "chai";
 import reverb from "../reverb.reducer";
 import {
-    CHANGE_REVERB_SECONDS_TO_AMOUNT
+    CHANGE_REVERB_SECONDS_TO_AMOUNT,
+    CHANGE_REVERB_DECAY_TO_AMOUNT
 } from "../../constants/reverb.constants";
 
 describe("Reverb reducer", function() {
@@ -26,6 +27,21 @@ describe("Reverb reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState.seconds).to.equal(20);
+	});
+
+	it("Expect decay value to increase to amount", function() {
+		const value = 20;
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_REVERB_DECAY_TO_AMOUNT,
+			value
+		};
+
+		const nextState = reverb(initialState, action);
+
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState.decay).to.equal(20);
 	});
 
 });
