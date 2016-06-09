@@ -33,11 +33,13 @@ export const updateAudioParams = store => next => {
         sourceNodes
             .filter((sourceNode, i) => i === 0)
             .forEach(sourceNode => {
-                if(sourceNode.reverbNode.seconds !== reverb.seconds) {
-                    sourceNode.reverbNode.seconds = reverbSecondsPercentageToValue(reverb.seconds);
+                let reverbSeconds = reverbSecondsPercentageToValue(reverb.seconds);
+                let reverbDecay = reverbDecayPercentageToValue(reverb.decay);
+                if(sourceNode.reverbNode.seconds !== reverbSeconds) {
+                    sourceNode.reverbNode.seconds = reverbSeconds;
                 }
-                if(sourceNode.reverbNode.decay !== reverb.decay) {
-                    sourceNode.reverbNode.decay = reverbDecayPercentageToValue(reverb.decay);
+                if(sourceNode.reverbNode.decay !== reverbDecay) {
+                    sourceNode.reverbNode.decay = reverbDecay;
                 }
             });
 
