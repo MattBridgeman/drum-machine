@@ -1,0 +1,10 @@
+script:
+	- npm run test
+	- npm run build 
+	- bash ./deploy.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: 9fde238112ac
+language: node_js
+node_js:
+- stable
