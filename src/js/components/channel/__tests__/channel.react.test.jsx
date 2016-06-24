@@ -23,26 +23,6 @@ describe("Channel", () => {
 		expect(name.textContent).to.equal(expectedName);
 	});
 
-	it("displays an unselected button, given selected=false prop", () => {
-		let selected = false;
-		let $component = renderIntoDocument(
-			<Channel selected={selected} />
-		);
-		let { toggleButton } = $component.refs;
-		expect(toggleButton.classList.contains("selected")).to.equal(false);
-		expect(toggleButton.getAttribute('aria-pressed')).to.equal('false');
-	});
-
-	it("displays an selected button, given selected=true prop", () => {
-		let selected = true;
-		let $component = renderIntoDocument(
-			<Channel selected={selected} />
-		);
-		let { toggleButton } = $component.refs;
-		expect(toggleButton.classList.contains("selected")).to.equal(true);
-		expect(toggleButton.getAttribute('aria-pressed')).to.equal('true');
-	});
-
 	it("triggers onSelectClick callback on click", () => {
 		let clicked = false,
 			onSelectClick = function(){
