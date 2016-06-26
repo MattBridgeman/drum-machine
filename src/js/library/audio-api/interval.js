@@ -1,18 +1,21 @@
 import * as Rx from "rx";
 
-export var createIntervalStream = (startTime, getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
+export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
 		loop,
-		tick;
+		tick,
+		prevTime;
 
 	loop = function() {
 		let now = getNow();
-		let deltaTime = now - startTime;
-		let interval = getIntervalTime();
+		prevTime = prevTime || now;
+		let deltaTime = now - prevTime;
+		let interval = getIntervalTime() / 1000;
+		let bufferLength = interval / 2;
 
-		if(deltaTime >= interval) {
-			observer.onNext(1);
-			startTime = now;
+		if(deltaTime >= bufferLength) {
+			observer.onNext(prevTime + interval);
+			prevTime = prevTime + interval;
 		}
 		tick();
 	};

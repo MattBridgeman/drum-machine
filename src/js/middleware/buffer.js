@@ -36,6 +36,7 @@ export const createBuffer = store => {
 		}
 		
 		//playing of sounds
+		let bufferTime = action.value || context.currentTime;
 		let { channels, patterns } = state;
 		let { currentSegmentIndex, currentBarIndex } = state.playState;
 
@@ -69,7 +70,7 @@ export const createBuffer = store => {
 		
 		//apply decay to decay node
 		zip([decayNodes, decays])
-			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, context.currentTime + decay));
+			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, bufferTime + decay));
 		
 		//play sound
 		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
@@ -81,7 +82,7 @@ export const createBuffer = store => {
 				if(reverb){
 					bufferSource.connect(reverbNode.input);
 				}
-				bufferSource.start(context.currentTime);
+				bufferSource.start(bufferTime);
 			});
 
 		return next(action);
