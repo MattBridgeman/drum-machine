@@ -43,7 +43,7 @@ export const supplyAudioNodes = store => next => {
                 .map(channel => ({
                     volume: context.createGain(),
                     master: context.createGain(),
-                    pan: context.createStereoPanner(),
+                    pan: context.createPanner(),
                     reverbNode
                 }));
             
@@ -52,6 +52,7 @@ export const supplyAudioNodes = store => next => {
                     sourceNode.master.connect(sourceNode.volume);
                     sourceNode.volume.connect(sourceNode.pan);
                     sourceNode.pan.connect(master);
+                    sourceNode.pan.panningModel = 'equalpower';
                 });
             
             next(newSourceNodes(sourceNodes))

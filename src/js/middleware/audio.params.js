@@ -27,7 +27,7 @@ export const updateAudioParams = store => next => {
             .forEach(([channel, sourceNode], index) => {
                 sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
                 sourceNode.volume.gain.value = channel.volume * 0.01;
-                sourceNode.pan.pan.value = panPercentageToValue(channel.pan);
+                sourceNode.pan.setPosition(...panPercentageToValue(channel.pan));
             });
         
         sourceNodes

@@ -4,5 +4,8 @@ export const MIN_PAN = -1;
 export const MAX_PAN = 1;
 
 export function panPercentageToValue(panPercentage) {
-	return percentageToValueOfRange(panPercentage, MIN_PAN, MAX_PAN);
+	let x = percentageToValueOfRange(panPercentage, MIN_PAN, MAX_PAN),
+		y = 0,
+        z = 1 - Math.abs(x);
+	return [x, y, z];
 }
