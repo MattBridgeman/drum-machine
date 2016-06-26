@@ -11,7 +11,6 @@ describe("Interval", () => {
 		let subject = new Rx.Subject();
 		
 		let segmentStream = createIntervalStream(
-			startTime,
 			() => currentTime,
 			() => intervalTime,
 			(callback) => subject.take(1).subscribe(callback)
