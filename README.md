@@ -4,6 +4,8 @@
 
 You can [try out here](http://mattbridgeman.github.io/drum-machine/)!
 
+![build status](https://travis-ci.org/MattBridgeman/drum-machine.svg?branch=master)
+
 It features:
 
 - A 16 step sequencer
