@@ -81,9 +81,7 @@ module.exports = function(grunt) {
           browserifyOptions: {
             extension: ".jsx",
             transform: [
-                ["babelify", {
-                  loose: "all"
-                }]
+                ["babelify"]
             ]
           }
         },
