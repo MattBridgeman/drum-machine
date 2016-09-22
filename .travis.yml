@@ -2,7 +2,7 @@ after_success:
   - $(npm bin)/set-up-ssh --key "$encrypted_c484f66ed2ff_key"
                              --iv "$encrypted_c484f66ed2ff_iv"
                              --path-encrypted-key "github_deploy_key.enc"
-  - $(npm bin)/update-branch --commands "npm run build"
+  - $(npm bin)/update-branch --commands "NODE_ENV='production' npm run build"
                              --commit-message "Hey GitHub, this content is for you! [skip ci]"
                              --directory "build"
                              --distribution-branch "gh-pages"
