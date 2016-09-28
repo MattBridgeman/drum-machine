@@ -1,0 +1,13 @@
+@mobile-landscape: 480px;
+@tablet-portrait: 768px;
+@tablet-landscape: 1024px;
+@desktop: 1280px;
+
+@break-tablet-portrait: ~"screen and (min-width: @{tablet-portrait})";
+
+.break-tablet-portrait(@rules) {
+    @media @break-tablet-portrait {
+        @import 'tablet-grid-variables.less';
+        @rules();
+    }
+}

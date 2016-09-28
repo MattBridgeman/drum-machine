@@ -18,9 +18,10 @@ class Channel extends React.Component {
 		var toggleButton = <ToggleButton ref="toggleButton" classes="channel-item" selected={selected} name="Select" onClick={onSelectClick} />;
 		var soloButton = <ToggleButton ref="soloButton" classes="channel-item green" selected={solo} name="Solo" onClick={onSoloClick} />;
 		var muteButton = <ToggleButton ref="muteButton" classes="channel-item red" selected={muted} name="Mute" onClick={onMuteClick} />;
-		
+		var channelClass = "channel " + (selected ? "selected" : "");
+
 		return (
-			<div className="channel">
+			<div className={channelClass} ref="channel">
 				{title}
 				{toggleButton}
 				<div className="channel-tray">

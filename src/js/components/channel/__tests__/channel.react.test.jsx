@@ -23,6 +23,15 @@ describe("Channel", () => {
 		expect(name.textContent).to.equal(expectedName);
 	});
 
+	it("adds selected class if channel is selected", () => {
+		let expectedClass = " selected";
+		let $component = renderIntoDocument(
+			<Channel selected={true} />
+		);
+		let { channel } = $component.refs;
+		expect(channel.className).to.contain(expectedClass);
+	});
+
 	// Disable failing tests until it's determined why
 	// you cannot 'ref' an externally imported React component
 
