@@ -1,7 +1,7 @@
 .display {
 	text-align: center;
 	.inner {
-		padding: @baseline * 6;
+		padding: @baseline;
 		&:after {
 			.clear-float;
 		}
@@ -16,5 +16,13 @@
 	}
 	.value {
 		font-size: 2.5em;
+	}
+}
+
+.break-mobile-landscape(){
+	.display {
+		.inner {
+			padding: @baseline * 6;
+		}
 	}
 }

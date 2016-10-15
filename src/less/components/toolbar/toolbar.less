@@ -10,14 +10,14 @@
             margin: 0 0 @baseline * 2;
         }
         &.play-pause {
-            width: 97px;
+            width: 60px;
             .button {
-                height: 70px;
+                height: 55px;
                 width: 100%;
             }
         }
         &.tempo {
-            width: 70px;
+            width: 40px;
         }
         &.swing {
             width: 40px;
@@ -34,8 +34,27 @@
             }
         }
         &.tempo-display {
-            width: 97px;
+            width: 80px;
         }
     }
 }
 
+.break-mobile-landscape(){
+    .toolbar {
+        .toolbar-item {
+            &.play-pause {
+                width: 97px;
+                .button {
+                    height: 70px;
+                    width: 100%;
+                }
+            }
+        }
+        &.tempo-display {
+            width: 97px;
+        }
+        &.tempo {
+            width: 70px;
+        }
+    }
+}
