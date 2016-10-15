@@ -3,11 +3,31 @@
 @tablet-landscape: 1024px;
 @desktop: 1280px;
 
+@break-mobile-landscape: ~"screen and (min-width: @{mobile-landscape})";
 @break-tablet-portrait: ~"screen and (min-width: @{tablet-portrait})";
+@break-tablet-landscape: ~"screen and (min-width: @{tablet-landscape})";
+@break-desktop: ~"screen and (min-width: @{desktop})";
+
+.break-mobile-landscape(@rules) {
+    @media @break-mobile-landscape {
+        @rules();
+    }
+}
 
 .break-tablet-portrait(@rules) {
     @media @break-tablet-portrait {
-        @import 'tablet-grid-variables.less';
+        @rules();
+    }
+}
+
+.break-tablet-landscape(@rules) {
+    @media @break-tablet-landscape {
+        @rules();
+    }
+}
+
+.break-desktop(@rules) {
+    @media @break-desktop {
         @rules();
     }
 }
