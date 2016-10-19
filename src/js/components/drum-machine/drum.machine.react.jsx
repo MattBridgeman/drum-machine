@@ -65,7 +65,7 @@ class DrumMachine extends Component {
 							}
 						</div>
 					</div>
-					<div className="toolbar-item">
+					<div className="toolbar-item reverb">
 						<Reverb {...this.props} />
 					</div>
 				</div>

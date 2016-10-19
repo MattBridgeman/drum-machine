@@ -1,5 +1,5 @@
 .channels {
-	display: flex;
+	display: block;
 	margin: 0 0 @baseline * 5;
 }
 
@@ -34,21 +34,33 @@
 	.channel-tray {
 		display: flex;
 		margin: @baseline * 5 0;
-	    flex-wrap: wrap;
+		flex-wrap: wrap;
 		> * {
-			width: 50%;
+			width: 25%;
 		}
 		> .button {
 			width: 48%;
 			margin-left: 1%;
 			margin-right: 1%;
 			font-size: 1.3em;
+			height: auto;
 		}
 	}
-	.toggle-button-item {
-		.button {
-			width: 70%;
-			height: 20px;
+	.button {
+		width: 70%;
+		height: 20px;
+	}
+}
+
+.break-mobile-landscape(){
+	.channels {
+		display: flex;
+	}
+	.channel {
+		.channel-tray {
+			> * {
+				width: 50%;
+			}
 		}
 	}
 }
