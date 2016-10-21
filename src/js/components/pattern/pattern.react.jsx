@@ -1,4 +1,7 @@
 import * as React from "react";
+import { bindActionCreators } from "redux";
+import DrumMachineActions from "../../actions/drum.machine.actions";
+import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 
 class Pattern extends React.Component {
 
@@ -6,7 +9,9 @@ class Pattern extends React.Component {
 		super(props);
 	}
 
-	render() {
+	render(props) {
+		const { channels, playState, patterns, dispatch } = this.props;
+		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
 		return (
 			<div className="pattern">
 				<div className="time-signature">
@@ -36,7 +41,14 @@ class Pattern extends React.Component {
 					</div>
 				</div>
 				<div className="pattern-tray">
-					{this.props.children}
+					{ channels
+						.filter((channel, i) => channel.selected)
+						.map((channel, i) => 
+							patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) => 
+								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
+							)
+						)
+					}
 				</div>
 			</div>
 		);

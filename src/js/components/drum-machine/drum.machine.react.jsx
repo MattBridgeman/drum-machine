@@ -14,7 +14,6 @@ import { Rotator } from "../rotator/rotator.react.jsx";
 import { SourceSelector } from "../source-selector/source.selector.react.jsx";
 import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 import { Pattern } from "../pattern/pattern.react.jsx";
-import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { getPatternBanksArray } from "../../reducers/patterns.reducer";
@@ -90,16 +89,7 @@ class DrumMachine extends Component {
 						</Channel>
 					)}
 				</div>
-				<Pattern>
-					{ channels
-						.filter((channel, i) => channel.selected)
-						.map((channel, i) => 
-							patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) => 
-								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
-							)
-						)
-					}
-				</Pattern>
+				<Pattern {...this.props} />
 		</div>
 		);
 	}
