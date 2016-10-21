@@ -9,7 +9,7 @@ class Pattern extends React.Component {
 		super(props);
 	}
 
-	render(props) {
+	render() {
 		const { channels, playState, patterns, dispatch } = this.props;
 		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
 		return (
