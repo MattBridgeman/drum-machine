@@ -3,7 +3,6 @@
 // import { Sequencer } from "../../audio-api/sequencer";
 // import { arrayBuffer } from "../../request/arraybuffer";
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { Channels } from "../channel/channels.react.jsx";
