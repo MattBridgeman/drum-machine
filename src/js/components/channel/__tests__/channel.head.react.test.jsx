@@ -1,15 +1,15 @@
 import TestUtils from "react-addons-test-utils";
 import React from "react";
-import { Channel } from "../channel.react.jsx";
+import { ChannelHead } from "../channel.head.react.jsx";
 import { expect } from "chai";
 
 const { renderIntoDocument, Simulate } = TestUtils;
 
-describe("Channel", () => {
+describe("ChannelHead", () => {
 
-	it("renders a Channel", () => {
+	it("renders a ChannelHead", () => {
 		let $component = renderIntoDocument(
-			<Channel />
+			<ChannelHead />
 		);
 		expect($component).to.be.a("object");
 	});
@@ -17,19 +17,10 @@ describe("Channel", () => {
 	it("displays the initial name", () => {
 		let expectedName = "Channel name";
 		let $component = renderIntoDocument(
-			<Channel name={expectedName} />
+			<ChannelHead name={expectedName} />
 		);
 		let { name } = $component.refs;
 		expect(name.textContent).to.equal(expectedName);
-	});
-
-	it("adds selected class if channel is selected", () => {
-		let expectedClass = " selected";
-		let $component = renderIntoDocument(
-			<Channel selected={true} />
-		);
-		let { channel } = $component.refs;
-		expect(channel.className).to.contain(expectedClass);
 	});
 
 	// Disable failing tests until it's determined why

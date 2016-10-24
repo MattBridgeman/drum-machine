@@ -87,7 +87,7 @@ module.exports = function(grunt) {
         },
         files: {
           'build/js/main.js': ['src/js/main.jsx'],
-          'build/js/styleguide.js': ['src/js/styleguide.jsx'],
+          // 'build/js/styleguide.js': ['src/js/styleguide.jsx'],
         }
       }
     },
