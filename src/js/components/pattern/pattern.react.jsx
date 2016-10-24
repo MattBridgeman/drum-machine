@@ -44,7 +44,8 @@ class Pattern extends React.Component {
 					{ channels
 						.filter((channel, i) => channel.selected)
 						.map((channel, i) => 
-							patterns[channel.patterns[playState.currentBarIndex]].map((beat, index) => 
+							patterns[channel.patterns[playState.currentBarIndex]]
+							.map((beat, index) => 
 								<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
 							)
 						)

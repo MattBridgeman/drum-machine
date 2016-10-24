@@ -1,9 +1,9 @@
 .pattern {
 	.pattern-tray {
 		display: flex;
+		flex-wrap: wrap;
 	}
 	.time-signature {
-		display: flex;
 		.time-signature-4-4 {
 			border: 1px solid @grey;
 			height: 20px;
@@ -13,11 +13,22 @@
 			align-items: center;
 			text-align: center;
 			margin-bottom: @baseline * 3;
+			+ .time-signature-4-4 {
+				display: none;
+			}
 		}
 		.signature-item {
 			display: block;
 			flex-grow: 1;
 			width: 55px;
+		}
+	}
+}
+
+.break-mobile-landscape() {
+	.pattern {
+		.time-signature {
+			display: flex;
 		}
 	}
 }
