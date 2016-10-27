@@ -44,6 +44,10 @@ module.exports = function(grunt) {
       lint: {
         files: ['src/**/*.@(js|jsx)'],
         tasks: ['eslint']
+      },
+      minify: {
+        files: ['build/js/main.js'],
+        tasks: ['uglify']
       }
     },
 
@@ -108,6 +112,14 @@ module.exports = function(grunt) {
         },
         src: ['src/**/__tests__/*.@(js|jsx)']
       }
+    },
+
+    uglify: {
+      build: {
+        files: {
+          'build/js/main.min.js': 'build/js/main.js'
+        }
+      }
     }
   });
   
@@ -139,7 +151,7 @@ module.exports = function(grunt) {
 
   //tasks
   grunt.registerTask('test', ['mochaTest']);
-  grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify']);
+  grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify', 'uglify']);
   grunt.registerTask('default', ['build', 'server', 'watch']);
 
 };
