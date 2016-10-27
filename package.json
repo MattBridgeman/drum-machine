@@ -6,7 +6,8 @@
   "scripts": {
     "test": "grunt test",
     "build": "grunt build",
-    "serve": "grunt"
+    "serve": "grunt",
+    "disk": "browserify --extension=\".jsx\" --full-paths -t babelify src/js/main.jsx | discify --open"
   },
   "repository": {
     "type": "git",
