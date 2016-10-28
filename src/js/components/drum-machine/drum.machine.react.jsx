@@ -17,11 +17,13 @@ class DrumMachine extends Component {
 
 	render() {		
 		return (
-			<div className="drum-machine">
-				<Toolbar {...this.props} />
-				<Channels {...this.props} />
-				<Pattern {...this.props} />
-		</div>
+			<div className="container">
+				<div className="drum-machine">
+					<Toolbar {...this.props} />
+					<Channels {...this.props} />
+					<Pattern {...this.props} />
+				</div>
+			</div>
 		);
 	}
 
