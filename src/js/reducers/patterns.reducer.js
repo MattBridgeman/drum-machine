@@ -1,14 +1,11 @@
 import { ADD_PATTERN, TOGGLE_BEAT_STATE } from "../constants/patterns.constants";
+import { numberToArrayLength } from "../library/natives/array";
 
 const NUMBER_OF_CHANNELS = 9;
 const NUMBER_OF_BANKS = 8;
 
 export function getPatternBanksArray(numberOfBanks = NUMBER_OF_BANKS){
-	let banks = [];
-	for(let i = 0; i < numberOfBanks; i++) {
-		banks[i] = i;
-	}
-	return banks;
+	return numberToArrayLength(numberOfBanks);
 }
 
 export function getInitialPattern(){
