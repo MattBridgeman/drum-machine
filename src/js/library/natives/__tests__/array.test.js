@@ -10,4 +10,8 @@ describe("Number to array length", function() {
     var array = numberToArrayLength(1);
     expect(array.length).to.equal(1);
   });
+	it("values in array are offset by specified number", function(){
+    var array = numberToArrayLength(3,1);
+    expect(array).to.deep.equal([1,2,3]);
+  });
 });
