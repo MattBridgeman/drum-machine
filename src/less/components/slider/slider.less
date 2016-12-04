@@ -1,0 +1,31 @@
+.slider {
+	border: 1px solid black;
+	overflow: hidden;
+	position: relative;
+	&:after,
+		&:before {
+			content: '';
+			position: absolute;
+			width: 33.3%;
+			height: 100%;
+			background: rgba(0,0,0,0.3);
+			top: 0;
+			left: 0;
+		}
+		&:after {
+			left: auto;
+			right: 0;
+		}
+	.slider-wrapper {
+		height: 100px;
+		white-space: nowrap;
+		div {
+			display: inline-block;
+			width: 33.3%;
+			text-align: center;
+			font-size: 1em;
+			border: 1px solid red;
+			line-height: 100px;
+		}
+	}
+}

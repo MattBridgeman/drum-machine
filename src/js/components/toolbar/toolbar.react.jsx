@@ -13,6 +13,7 @@ import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { getPatternBanksArray } from "../../reducers/patterns.reducer";
 import { Reverb } from "./reverb/reverb.react.jsx";
+import { Slider } from "../slider/slider.react.jsx";
 
 class Toolbar extends Component {
 
@@ -41,6 +42,7 @@ class Toolbar extends Component {
               </div>
             </div>
           </div>
+          <Slider min={50} max={190} step={1} onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
         </div>
         <div className="toolbar-item tempo">
           <Rotator name="Tempo" value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
