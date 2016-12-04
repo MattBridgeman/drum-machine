@@ -1,4 +1,5 @@
 import * as React from "react";
+import { rangeToArray } from "../../library/natives/array";
 
 class Slider extends React.Component {
 
@@ -8,10 +9,14 @@ class Slider extends React.Component {
 	
 	render() {
     let { min, max, step, onChange } = this.props;
+    debugger;
+    let steps = rangeToArray(min, max, step);
 		return (
 			<div className="slider">
         <div className="slider-wrapper">
-          <div className="item">1</div>
+          { steps.map((tempo, i) => 
+            <div className="item">{ tempo }</div>
+          )}
         </div>
       </div>
 		);
