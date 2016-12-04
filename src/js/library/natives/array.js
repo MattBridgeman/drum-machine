@@ -9,3 +9,13 @@ export function numberToArrayLength(length, offset = 0) {
 	}
 	return array;
 }
+
+export function rangeToArray(min, max, step) {
+	let array = [];
+	let i = min;
+	while(i <= max){
+		array.push(i);
+		i += step;
+	}
+	return array;
+}
