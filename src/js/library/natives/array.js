@@ -19,3 +19,12 @@ export function rangeToArray(min, max, step) {
 	}
 	return array;
 }
+
+export function first([head, ...tail]) {
+	return head;
+}
+
+export function last(array) {
+	let last = array[array.length-1];
+	return last;
+}

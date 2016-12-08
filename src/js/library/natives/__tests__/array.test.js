@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { numberToArrayLength, rangeToArray } from "../array";
+import { numberToArrayLength, rangeToArray, first, last } from "../array";
 
 describe("Number to array length", function() {
 	it("return an empty array if 0 passed in", function(){
@@ -30,5 +30,23 @@ describe("Range to array", function() {
     let step = 1;
     let array = rangeToArray(min, max, step);
     expect(array).to.deep.equal([0, 1]);
+  });
+});
+
+describe("First from array", function() {
+	it("returns the first item from a list", function(){
+    let expectedValue = 1;
+    let array = [1,2,3,4];
+    let actualValue = first(array);
+    expect(expectedValue).to.equal(actualValue);
+  });
+});
+
+describe("Last from array", function() {
+	it("returns the last item from a list", function(){
+    let expectedValue = 4;
+    let array = [1,2,3,4];
+    let actualValue = last(array);
+    expect(expectedValue).to.equal(actualValue);
   });
 });
