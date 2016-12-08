@@ -4,6 +4,20 @@ export function normaliseValue(value, min, max){
 	return value;
 }
 
+export function normalisedStretchValue(value, min, max, stretchiness = 4) {
+	if(value < min) {
+		let diff = min - value;
+		let stretch = min - (diff / stretchiness);
+		return stretch;
+	}
+	if(value > max) {
+		let diff = max - value;
+		let stretch = max - (diff / stretchiness);
+		return stretch;
+	}
+	return value;
+}
+
 export function valueAsPercentage(value, min, max){
 	var range = max - min;
 	var valueMinueMin = value - min;
