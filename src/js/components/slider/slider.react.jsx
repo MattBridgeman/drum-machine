@@ -1,7 +1,7 @@
 import * as React from "react";
 import { rangeToArray, first, last } from "../../library/natives/array";
 import { easeIn, easeInOut } from "../../library/animation/easing";
-import { normaliseValue, normalisedStretchValue } from "../../library/natives/numbers";
+import { normaliseValue, normalisedStretchValue, isBeyondNormalisedValue } from "../../library/natives/numbers";
 
 const STEP_SIZE = 33.3;
 const STEP_OFFSET = -1;
@@ -13,11 +13,15 @@ class Slider extends React.Component {
     this.state = {
       lastTranslate: null,
       touchData: [],
-      coordinateData: {},
+      coordinateData: {
+        numberOfItems: 0,
+        containerWidth: 300,
+        itemWidth: 100,
+        itemsVisible: 3
+      },
       touching: false,
       touchMomentum: 0
     };
-    // initCoordinateData();
     // lastTranslate = getInitialTranslateData();
     // render();
 	}
@@ -49,25 +53,16 @@ class Slider extends React.Component {
   }
 
   initTouchData() {
-    lastTranslate = getTranslateData();
-    touchData = [];
+    this.setState({
+      lastTranslate: getTranslateData,
+      touchData: []
+    });
   }
 
   updateTouchData({clientX, clientY}) {
-    touchData.push([clientX, clientY, getNow()]);
-  }
-
-  initCoordinateData() {
-    var numberOfItems = $items.length;
-    var containerWidth = $scroller.getBoundingClientRect().width;
-    var itemWidth = $items[0].getBoundingClientRect().width;
-    var itemsVisible = containerWidth / itemWidth;
-    coordinateData = {
-      numberOfItems,
-      containerWidth,
-      itemWidth,
-      itemsVisible
-    };
+    this.setState({
+      touchData: this.state.touchData.concat([clientX, clientY, getNow()])
+    });
   }
 
   getInitialTranslateData() {
@@ -76,7 +71,7 @@ class Slider extends React.Component {
   }
 
   getTranslateData() {
-    if(touchData.length){
+    if(this.state.touchData.length){
       var position = getPosition();
       var scrollForceOffset = getScrollForceOffset(position);
       var stretchedBoundary = applyStretchedBoundary(scrollForceOffset);
@@ -89,7 +84,7 @@ class Slider extends React.Component {
       }
       return boundedPosition;
     } else {
-      return lastTranslate;
+      return this.state.lastTranslate;
     }
   }
 
@@ -115,8 +110,8 @@ class Slider extends React.Component {
   getPosition() {
     var first = _.first(touchData);
     var last = _.last(touchData);
-    var x = lastTranslate[0]-(first[0]-last[0]);
-    var y = lastTranslate[1]-(first[1]-last[1]);
+    var x = this.state.lastTranslate[0]-(first[0]-last[0]);
+    var y = this.state.lastTranslate[1]-(first[1]-last[1]);
     return [x,y];
   }
 
@@ -200,16 +195,10 @@ class Slider extends React.Component {
     return [x, y];
   }
 
-  isBeyondBound (value, min, max) {
-    if(value < min) return true;
-    if(value > max) return true;
-    return false;
-  };
-
   stretchedBeyondBounds ([x,y]) {
     var xMin = getMinX();
     var xMax = getMaxX();
-    return isBeyondBound(x, xMin, xMax);
+    return isBeyondNormalisedValue(x, xMin, xMax);
   }
 
   nearestValue (x) {
