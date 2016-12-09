@@ -18,6 +18,12 @@ export function normalisedStretchValue(value, min, max, stretchiness = 4) {
 	return value;
 }
 
+export function isBeyondNormalisedValue(value, min, max) {
+	if(value < min) return true;
+	if(value > max) return true;
+	return false;
+}
+
 export function valueAsPercentage(value, min, max){
 	var range = max - min;
 	var valueMinueMin = value - min;
