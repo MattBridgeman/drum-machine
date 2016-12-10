@@ -23,7 +23,7 @@ class Slider extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, value, onValueChange } = this.props;
+    let { min, max, step, value, onValueChange, name } = this.props;
     
     let steps = _.rangeToArray(min, max, step);
 
@@ -39,15 +39,18 @@ class Slider extends React.Component {
       transition: this.state.touching ? '' : 'transform 300ms ease'
 		};
 		return (
-			<div className="slider" ref="slider">
-        <div className="slider-wrapper" style={sliderStyle}>
-          { steps.map((tempo, i) => {
-            let className = tempo === value ? "item selected" : "item";
-            return (
-              <div className={className}>{tempo}</div>
-            );
-          }
-          )}
+      <div className="slider-container">
+        <h3 className="item-title light">{name}</h3>
+        <div className="slider" ref="slider">
+          <div className="slider-wrapper" style={sliderStyle}>
+            { steps.map((tempo, i) => {
+              let className = tempo === value ? "item selected" : "item";
+              return (
+                <div className={className}>{tempo}</div>
+              );
+            }
+            )}
+          </div>
         </div>
       </div>
 		);
