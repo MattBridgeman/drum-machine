@@ -24,7 +24,7 @@ export function isBeyondNormalisedValue(value, min, max) {
 	return false;
 }
 
-export function valueAsPercentage(value, min, max){
+export function valueAsPercentageOfRange(value, min, max){
 	var range = max - min;
 	var valueMinueMin = value - min;
 	return (valueMinueMin / range) * 100;
@@ -33,4 +33,8 @@ export function valueAsPercentage(value, min, max){
 export function percentageToValueOfRange(value, min, max){
 	var range = max - min;
 	return (((range / 100) * value) + min);
+}
+
+export function valueAsPercentageOfX(value, x){
+	return (value / x) * 100;
 }

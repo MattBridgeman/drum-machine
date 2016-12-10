@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Rx from "rx";
-import { valueAsPercentage, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
+import { valueAsPercentageOfRange, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 import { lengthOfLine } from "../../library/geometry/line";
 import { angleInRightTriangleInDegrees, angleFromVerticalGivenXandY } from "../../library/geometry/triangle";
 
@@ -17,7 +17,7 @@ class Rotator extends React.Component {
 	
 	render() {
 		var { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
-		var valuePercentage = normaliseValue(valueAsPercentage(value, min, max), 0, 100);
+		var valuePercentage = normaliseValue(valueAsPercentageOfRange(value, min, max), 0, 100);
 		var rotation = percentageToValueOfRange(valuePercentage, MIN_ROTATION, MAX_ROTATION);
 		var knobStyle = {
 			transform: "rotate(" + rotation + "deg)"
@@ -76,7 +76,7 @@ class Rotator extends React.Component {
 			.forEach(({ length, angle }) => {
 				let angleLess180 = angle - 180;
 				let { onKnobRotate, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, value } = this.props;
-				let percentage = valueAsPercentage(normaliseValue(angleLess180, MIN_ROTATION, MAX_ROTATION), MIN_ROTATION, MAX_ROTATION);
+				let percentage = valueAsPercentageOfRange(normaliseValue(angleLess180, MIN_ROTATION, MAX_ROTATION), MIN_ROTATION, MAX_ROTATION);
 				let newValue = percentageToValueOfRange(percentage, min, max);
 				onKnobRotate(newValue || value);
 			});
