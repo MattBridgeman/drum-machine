@@ -127,7 +127,14 @@ class Slider extends React.Component {
 
   onMove(e) {
     e.preventDefault();
+    let { onValueChange, value } = this.props;
     let touch = e.pageX || e.touches[0].pageX;
+    let newValue = this.getCurrentValueFromX(this.getCurrentX());
+
+    if(value !== newValue) {
+      onValueChange(newValue);
+    }
+
     this.setState({
       touching: true,
       touches: this.state.touches.concat([touch]),
