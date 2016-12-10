@@ -1,5 +1,4 @@
 .slider {
-	border: 1px solid black;
 	overflow: hidden;
 	position: relative;
 	&:after,
@@ -8,24 +7,30 @@
 			position: absolute;
 			width: 33.3%;
 			height: 100%;
-			background: rgba(0,0,0,0.3);
+			background: linear-gradient(to right, @white 0%,rgba(255,255,255,0) 100%);
 			top: 0;
 			left: 0;
+			z-index: 1;
 		}
 		&:after {
 			left: auto;
 			right: 0;
+			background: linear-gradient(to right, rgba(255,255,255,0) 0%, @white 100%);
 		}
 	.slider-wrapper {
-		height: 100px;
+		height: 50px;
 		white-space: nowrap;
 		div {
 			display: inline-block;
 			width: 33.3%;
 			text-align: center;
-			font-size: 1em;
-			border: 1px solid red;
-			line-height: 100px;
+			font-size: 2em;
+			line-height: 50px;
+			transform: scale(0.6);
+			transition: transform 200ms;
+			&.selected {
+				transform: scale(1);
+			}
 		}
 	}
 }

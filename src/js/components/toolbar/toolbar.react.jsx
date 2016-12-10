@@ -33,22 +33,11 @@ class Toolbar extends Component {
         <div className="toolbar-item play-pause">
           <PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
         </div>
-        <div className="toolbar-item tempo-display">
-          <div className="display">
-            <div className="sleeve">
-              <h3 className="item-title light">Tempo</h3>
-              <div className="inner">
-                <span className="value">{tempo.beatsPerMinute}</span>
-              </div>
-            </div>
-          </div>
+        <div className="toolbar-item tempo">
           <Slider name="Tempo" min={50} max={190} step={1} value={tempo.beatsPerMinute} onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
         </div>
-        <div className="toolbar-item tempo">
-          <Rotator name="Tempo" value={tempo.beatsPerMinute} min={50} max={190} onKnobRotate={ (amount) => tempoActions.changeBPMToAmount(amount) } onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
-        </div>
         <div className="toolbar-item swing">
-          <Rotator name="Swing" value={tempo.swing} onKnobRotate={ (amount) => tempoActions.changeSwingToAmount(amount) } onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
+          <Slider name="Swing" min={0} max={100} step={1} value={tempo.swing} onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
         </div>
         <div className="toolbar-item bank-selector">
           <h3 className="item-title light">Pattern Bank</h3>

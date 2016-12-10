@@ -40,7 +40,7 @@ class Slider extends React.Component {
 		};
 		return (
       <div className="slider-container">
-        <h3 className="item-title light">{name}</h3>
+        <h3 className="item-label">{name}</h3>
         <div className="slider" ref="slider">
           <div className="slider-wrapper" style={sliderStyle}>
             { steps.map((tempo, i) => {

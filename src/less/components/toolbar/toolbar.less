@@ -1,20 +1,20 @@
 .toolbar {
+    display: flex;
     .toolbar-item {
         text-align: center;
         margin-bottom: @baseline * 5;
+        flex-grow: 1;
         .title {
             margin: 0 0 @baseline * 2;
         }
         &.play-pause {
             margin-right: @baseline * 5;
-            flex-grow: 1;
             .button {
-                height: 55px;
+                height: 65px;
                 width: 100%;
             }
         }
         &.tempo-display {
-            flex-grow: 1;
             margin-right: @baseline * 5;
         }
         &.tempo {
@@ -26,6 +26,7 @@
         &.bank-selector {
             width: 160px;
             margin-right: @baseline * 5;
+            display: none;
             .banks-available {
                 display: flex;
                 flex-wrap: wrap;
@@ -36,7 +37,7 @@
             }
         }
         &.reverb {
-            flex-grow: 1;
+            display: none;
         }
     }
 }
