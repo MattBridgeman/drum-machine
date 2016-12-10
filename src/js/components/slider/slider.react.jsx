@@ -5,6 +5,7 @@ import { normaliseValue, normalisedStretchValue, isBeyondNormalisedValue, valueA
 
 const STEP_SIZE = 33.3;
 const STEP_OFFSET = -1;
+const STEPS_VISIBLE = 3;
 
 class Slider extends React.Component {
 
@@ -22,13 +23,14 @@ class Slider extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, value, onChange } = this.props;
+    let { min, max, step, value, onValueChange } = this.props;
     
     let steps = _.rangeToArray(min, max, step);
 
     let x;
     if(this.state.touching){
       x = this.state.currentX;
+      value = this.getCurrentValueFromX(x);
     } else {
       x = this.getXFromCurrentValue();
     }
@@ -39,8 +41,12 @@ class Slider extends React.Component {
 		return (
 			<div className="slider" ref="slider">
         <div className="slider-wrapper" style={sliderStyle}>
-          { steps.map((tempo, i) => 
-            <div className="item">{tempo}</div>
+          { steps.map((tempo, i) => {
+            let className = tempo === value ? "item selected" : "item";
+            return (
+              <div className={className}>{tempo}</div>
+            );
+          }
           )}
         </div>
       </div>
@@ -61,6 +67,16 @@ class Slider extends React.Component {
     let viewStep = currentStep + STEP_OFFSET;
 
     return viewStep * STEP_SIZE * -1
+  }
+
+  getCurrentValueFromX(x) {
+    let { min } = this.props;
+
+    let viewStep = x / (STEP_SIZE * -1);
+    let currentStep = viewStep - STEP_OFFSET;
+    let value = currentStep + min;
+
+    return Math.round(value);
   }
 
   getCurrentX() {
@@ -89,32 +105,46 @@ class Slider extends React.Component {
 
     window.addEventListener("resize", e => this.calculateContainerWidth);
 
-    $slider.addEventListener("touchstart", e => {
-      e.preventDefault();
-      var touch = e.pageX || e.touches[0].pageX;
-      this.setState({
-        touching: true,
-        touches: [touch],
-        currentX: this.getCurrentX(),
-        previousX: this.getXFromCurrentValue()
-      });
-    });
+    $slider.addEventListener("touchstart", e => this.onStart(e));
+    $slider.addEventListener("touchmove", e => this.onMove(e));
+    $slider.addEventListener("touchend", e => this.onEnd(e));
 
-    $slider.addEventListener("touchmove", e => {
-      e.preventDefault();
-      var touch = e.pageX || e.touches[0].pageX;
-      this.setState({
-        touching: true,
-        touches: this.state.touches.concat([touch]),
-        currentX: this.getCurrentX()
-      });
-    });
+    $slider.addEventListener("mousedown", e => this.onStart(e));
+    $slider.addEventListener("mousemove", e => this.onMove(e));
+    $slider.addEventListener("mouseup", e => this.onEnd(e));
+  }
 
-    $slider.addEventListener("touchend", e => {
-      e.preventDefault();
-      this.setState({
-        touching: false
-      });
+  onStart(e) {
+    e.preventDefault();
+    let touch = e.pageX || e.touches[0].pageX;
+    this.setState({
+      touching: true,
+      touches: [touch],
+      currentX: this.getXFromCurrentValue(),
+      previousX: this.getXFromCurrentValue()
+    });
+  }
+
+  onMove(e) {
+    e.preventDefault();
+    let touch = e.pageX || e.touches[0].pageX;
+    this.setState({
+      touching: true,
+      touches: this.state.touches.concat([touch]),
+      currentX: this.getCurrentX()
+    });
+  }
+
+  onEnd(e) {
+    e.preventDefault();
+
+    let { onValueChange } = this.props;
+    let value = this.getCurrentValueFromX(this.getCurrentX());
+
+    onValueChange(value);
+
+    this.setState({
+      touching: false
     });
   }
 }
