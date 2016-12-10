@@ -34,7 +34,7 @@ class Slider extends React.Component {
     }
     var sliderStyle = {
 			transform: "translate(" + x + "%, 0)",
-      transition: this.state.touching ? '' : 'translate 300ms ease'
+      transition: this.state.touching ? '' : 'transform 300ms ease'
 		};
 		return (
 			<div className="slider" ref="slider">
@@ -87,7 +87,9 @@ class Slider extends React.Component {
 
     this.calculateContainerWidth();
 
-    $slider.addEventListener('touchstart', e => {
+    window.addEventListener("resize", e => this.calculateContainerWidth);
+
+    $slider.addEventListener("touchstart", e => {
       e.preventDefault();
       var touch = e.pageX || e.touches[0].pageX;
       this.setState({
@@ -98,7 +100,7 @@ class Slider extends React.Component {
       });
     });
 
-    $slider.addEventListener('touchmove', e => {
+    $slider.addEventListener("touchmove", e => {
       e.preventDefault();
       var touch = e.pageX || e.touches[0].pageX;
       this.setState({
@@ -108,7 +110,7 @@ class Slider extends React.Component {
       });
     });
 
-    $slider.addEventListener('touchend', e => {
+    $slider.addEventListener("touchend", e => {
       e.preventDefault();
       this.setState({
         touching: false
