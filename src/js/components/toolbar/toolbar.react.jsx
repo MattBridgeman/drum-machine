@@ -37,7 +37,7 @@ class Toolbar extends Component {
           <Slider name="Tempo" min={50} max={190} step={1} value={tempo.beatsPerMinute} onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
         </div>
         <div className="toolbar-item swing">
-          <Slider name="Swing" min={0} max={100} step={1} value={tempo.swing} onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
+          <Slider name="Swing" min={0} max={100} step={5} value={tempo.swing} onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
         </div>
         <div className="toolbar-item bank-selector">
           <h3 className="item-title light">Pattern Bank</h3>

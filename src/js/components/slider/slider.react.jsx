@@ -3,7 +3,7 @@ import * as _ from "../../library/natives/array";
 import { easeIn, easeInOut } from "../../library/animation/easing";
 import { normaliseValue, normalisedStretchValue, isBeyondNormalisedValue, valueAsPercentageOfX } from "../../library/natives/numbers";
 
-const STEP_SIZE = 33.3;
+const STEP_SIZE = 33.34;
 const STEP_OFFSET = -1;
 const STEPS_VISIBLE = 3;
 
@@ -41,12 +41,13 @@ class Slider extends React.Component {
 		return (
       <div className="slider-container">
         <h3 className="item-label">{name}</h3>
+				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className="slider" ref="slider">
           <div className="slider-wrapper" style={sliderStyle}>
-            { steps.map((tempo, i) => {
-              let className = tempo === value ? "item selected" : "item";
+            { steps.map((item, i) => {
+              let className = item === value ? "item selected" : "item";
               return (
-                <div className={className}>{tempo}</div>
+                <div className={className}>{item}</div>
               );
             }
             )}
@@ -66,20 +67,20 @@ class Slider extends React.Component {
   getXFromCurrentValue() {
     let { min, max, step, value, onChange } = this.props;
 
-    let currentStep = value - min / step;
+    let currentStep = (value - min) / step;
     let viewStep = currentStep + STEP_OFFSET;
 
     return viewStep * STEP_SIZE * -1
   }
 
   getCurrentValueFromX(x) {
-    let { min } = this.props;
+    let { min, max, step } = this.props;
 
     let viewStep = x / (STEP_SIZE * -1);
     let currentStep = viewStep - STEP_OFFSET;
-    let value = currentStep + min;
+    let value = (Math.round(currentStep) + min) * step;
 
-    return Math.round(value);
+    return normaliseValue(value, min, max);
   }
 
   getCurrentX() {

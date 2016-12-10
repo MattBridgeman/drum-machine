@@ -1,7 +1,9 @@
-.slider {
-	overflow: hidden;
-	position: relative;
-	&:after,
+.slider-container {
+	.slider {
+		overflow: hidden;
+		position: relative;
+		border: 2px solid transparent;
+		&:after,
 		&:before {
 			content: '';
 			position: absolute;
@@ -17,20 +19,25 @@
 			right: 0;
 			background: linear-gradient(to right, rgba(255,255,255,0) 0%, @white 100%);
 		}
-	.slider-wrapper {
-		height: 50px;
-		white-space: nowrap;
-		div {
-			display: inline-block;
-			width: 33.3%;
-			text-align: center;
-			font-size: 2em;
-			line-height: 50px;
-			transform: scale(0.6);
-			transition: transform 200ms;
-			&.selected {
-				transform: scale(1);
+
+		.slider-wrapper {
+			height: 40px;
+			white-space: nowrap;
+			div {
+				display: inline-block;
+				width: 33.3%;
+				text-align: center;
+				font-size: 2em;
+				line-height: 40px;
+				transform: scale(0.6);
+				transition: transform 200ms;
+				&.selected {
+					transform: scale(1);
+				}
 			}
 		}
+	}
+	input:focus + .slider {
+		border-color: @orange;
 	}
 }
