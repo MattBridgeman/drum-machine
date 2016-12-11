@@ -51,10 +51,10 @@ class Rotator extends React.Component {
 					.concatMap((contactPoint) =>
 						knobContainerMouseMoves
 							.takeUntil(knobContainerMouseUps)
-							.map((movePoint) => ({ movePoint, contactPoint})))
-							.map(({contactPoint, movePoint}) => {
-								let originx = contactPoint.pageX;
-								let originy = contactPoint.pageY;
+							.map(movePoint => {
+								let knobCoordinates = $knob.getBoundingClientRect();
+								let originx = knobCoordinates.left + (knobCoordinates.width / 2);
+								let originy = knobCoordinates.top + (knobCoordinates.height / 2);
 								let ax = movePoint.pageX - originx;
 								let ay = originy - movePoint.pageY;
 								let bx = movePoint.pageX - originx;
@@ -65,7 +65,7 @@ class Rotator extends React.Component {
 								let realAngle = angleFromVerticalGivenXandY(angle, {x: ax, y: ay});
 								return { length: aLength, angle: realAngle };
 							})
-							.filter(({ length }) => length > 1);
+							.filter(({ length }) => length > 1));
 		knobMouseDowns
 			.forEach(e => e.preventDefault && e.preventDefault());
 
