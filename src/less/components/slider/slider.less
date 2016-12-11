@@ -3,6 +3,12 @@
 		overflow: hidden;
 		position: relative;
 		border: 2px solid transparent;
+		cursor: -webkit-grab;
+		cursor: -moz-grab;
+		&.grabbing {
+			cursor: -webkit-grabbing;
+			cursor: -moz-grabbing;
+		}
 		&:after,
 		&:before {
 			content: '';

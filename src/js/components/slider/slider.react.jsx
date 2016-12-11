@@ -34,15 +34,16 @@ class Slider extends React.Component {
     } else {
       x = this.getXFromCurrentValue();
     }
-    var sliderStyle = {
+    let sliderStyle = {
 			transform: "translate(" + x + "%, 0)",
-      transition: this.state.touching ? '' : 'transform 300ms ease'
+      transition: this.state.touching ? "" : "transform 300ms ease"
 		};
+    let sliderClass = this.state.touching ? "slider grabbing" : "slider";
 		return (
       <div className="slider-container">
         <h3 className="item-label">{name}</h3>
 				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
-        <div className="slider" ref="slider">
+        <div className={sliderClass} ref="slider">
           <div className="slider-wrapper" style={sliderStyle}>
             { steps.map((item, i) => {
               let className = item === value ? "item selected" : "item";
@@ -114,8 +115,8 @@ class Slider extends React.Component {
     $slider.addEventListener("touchend", e => this.onEnd(e));
 
     $slider.addEventListener("mousedown", e => this.onStart(e));
-    $slider.addEventListener("mousemove", e => this.onMove(e));
-    $slider.addEventListener("mouseup", e => this.onEnd(e));
+    window.addEventListener("mousemove", e => this.onMove(e));
+    window.addEventListener("mouseup", e => this.onEnd(e));
   }
 
   onStart(e) {
@@ -130,6 +131,9 @@ class Slider extends React.Component {
   }
 
   onMove(e) {
+    if(!e.target || !this.state.touching) {
+      return;
+    }
     e.preventDefault();
     let { onValueChange, value } = this.props;
     let touch = e.pageX || e.touches[0].pageX;
@@ -147,6 +151,9 @@ class Slider extends React.Component {
   }
 
   onEnd(e) {
+    if(!e.target || !this.state.touching) {
+      return;
+    }
     e.preventDefault();
 
     let { onValueChange } = this.props;
