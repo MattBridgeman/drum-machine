@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as Rx from "rx";
 import { valueAsPercentageOfRange, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 import { lengthOfLine } from "../../library/geometry/line";
 import { angleInRightTriangleInDegrees, angleFromVerticalGivenXandY } from "../../library/geometry/triangle";
@@ -13,13 +12,25 @@ class Rotator extends React.Component {
 
 	constructor(props) {
 		super(props);
+    this.state = {
+      touching: false,
+			currentTouch: [0, 0],
+      previousRotation: [0, 0]
+    }
 	}
 	
 	render() {
-		var { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
-		var valuePercentage = normaliseValue(valueAsPercentageOfRange(value, min, max), 0, 100);
-		var rotation = percentageToValueOfRange(valuePercentage, MIN_ROTATION, MAX_ROTATION);
-		var knobStyle = {
+		let { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
+		let rotation;
+    if(this.state.touching){
+			let { currentTouch } = this.state;
+			let lengthAndAngle = this.getLengthAndAngleFromCentre(currentTouch);
+			let newValue = this.getValueFromLengthAndAngle(lengthAndAngle);
+      rotation = this.getRotationFromValue(newValue);
+    } else {
+      rotation = this.getRotationFromValue(value);
+    }
+		let knobStyle = {
 			transform: "rotate(" + rotation + "deg)"
 		};
 		return (
@@ -39,47 +50,92 @@ class Rotator extends React.Component {
 		);
 	}
 
+	getRotationFromValue(value) {
+		let { min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
+		let valuePercentage = normaliseValue(valueAsPercentageOfRange(value, min, max), 0, 100);
+		let rotation = percentageToValueOfRange(valuePercentage, MIN_ROTATION, MAX_ROTATION);
+		return rotation;
+	}
+
 	componentDidMount() {
 		let { knob: $knob } = this.refs;
 		let $knobContainer = document;
-		
-		let knobMouseDowns = Rx.Observable.fromEvent($knob, "mousedown"),
-			knobContainerMouseMoves = Rx.Observable.fromEvent($knobContainer, "mousemove"),
-			knobContainerMouseUps = Rx.Observable.fromEvent($knobContainer, "mouseup"),
-			knobMouseDrags =
-				knobMouseDowns
-					.concatMap((contactPoint) =>
-						knobContainerMouseMoves
-							.takeUntil(knobContainerMouseUps)
-							.map(movePoint => {
-								let knobCoordinates = $knob.getBoundingClientRect();
-								let originx = knobCoordinates.left + (knobCoordinates.width / 2);
-								let originy = knobCoordinates.top + (knobCoordinates.height / 2);
-								let ax = movePoint.pageX - originx;
-								let ay = originy - movePoint.pageY;
-								let bx = movePoint.pageX - originx;
-								let by = 0;
-								let aLength = lengthOfLine({x: ax, y: ay}, { x: 0, y: 0 });
-								let bLength = lengthOfLine({x: bx, y: by}, { x: 0, y: 0 });
-								let angle = angleInRightTriangleInDegrees(bLength, aLength);
-								let realAngle = angleFromVerticalGivenXandY(angle, {x: ax, y: ay});
-								return { length: aLength, angle: realAngle };
-							})
-							.filter(({ length }) => length > 1));
-		knobMouseDowns
-			.forEach(e => e.preventDefault && e.preventDefault());
 
-		knobMouseDrags
-			.forEach(e => e.preventDefault && e.preventDefault());
-			
-		knobMouseDrags
-			.forEach(({ length, angle }) => {
-				let angleLess180 = angle - 180;
-				let { onKnobRotate, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, value } = this.props;
-				let percentage = valueAsPercentageOfRange(normaliseValue(angleLess180, MIN_ROTATION, MAX_ROTATION), MIN_ROTATION, MAX_ROTATION);
-				let newValue = percentageToValueOfRange(percentage, min, max);
-				onKnobRotate(newValue || value);
-			});
+		$knob.addEventListener("touchstart", e => this.onStart(e));
+		$knob.addEventListener("touchmove", e => this.onMove(e));
+		$knob.addEventListener("touchend", e => this.onEnd(e));
+
+		$knob.addEventListener("mousedown", e => this.onStart(e));
+		$knobContainer.addEventListener("mousemove", e => this.onMove(e));
+		$knobContainer.addEventListener("mouseup", e => this.onEnd(e));
+	}
+
+	getLengthAndAngleFromCentre(movePoint){
+		let { knob: $knob } = this.refs;
+		let { currentTouch } = this.state;
+		let knobCoordinates = $knob.getBoundingClientRect();
+		let originx = knobCoordinates.left + (knobCoordinates.width / 2);
+		let originy = knobCoordinates.top + (knobCoordinates.height / 2);
+		let ax = movePoint[0] - originx;
+		let ay = originy - movePoint[1];
+		let bx = movePoint[0] - originx;
+		let by = 0;
+		let aLength = lengthOfLine({x: ax, y: ay}, { x: 0, y: 0 });
+		let bLength = lengthOfLine({x: bx, y: by}, { x: 0, y: 0 });
+		let angle = angleInRightTriangleInDegrees(bLength, aLength);
+		let realAngle = angleFromVerticalGivenXandY(angle, {x: ax, y: ay});
+		return { length: aLength, angle: realAngle };
+	}
+
+	getValueFromLengthAndAngle({ length, angle }){
+		let angleLess180 = angle - 180;
+		let { min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, value } = this.props;
+		let percentage = valueAsPercentageOfRange(normaliseValue(angleLess180, MIN_ROTATION, MAX_ROTATION), MIN_ROTATION, MAX_ROTATION);
+		let newValue = percentageToValueOfRange(percentage, min, max);
+		return newValue;
+	}
+
+	onStart(e) {
+		e.preventDefault();
+		let touchX = e.pageX || e.touches[0].pageX;
+		let touchY = e.pageY || e.touches[0].pageY;
+		this.setState({
+			touching: true,
+			currentTouch: [touchX, touchY]
+		});
+	}
+
+	onMove(e) {
+		if(!e.target || !this.state.touching) {
+			return;
+		}
+		e.preventDefault();
+		let { onValueChange, value } = this.props;
+		let touchX = e.pageX || e.touches[0].pageX;
+		let touchY = e.pageY || e.touches[0].pageY;
+		let touch = [touchX, touchY];
+		let lengthAndAngle = this.getLengthAndAngleFromCentre(touch);
+		let newValue = this.getValueFromLengthAndAngle(lengthAndAngle);
+
+		if(value !== newValue) {
+			onValueChange(newValue);
+		}
+
+		this.setState({
+			touching: true,
+			currentTouch: [touchX, touchY]
+		});
+	}
+
+	onEnd(e) {
+		if(!e.target || !this.state.touching) {
+			return;
+		}
+		e.preventDefault();
+
+		this.setState({
+			touching: false
+		});
 	}
 }
 
