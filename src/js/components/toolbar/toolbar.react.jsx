@@ -1,7 +1,3 @@
-// import { WebAudioContext } from "../../audio-api/context";
-// import { Tempo } from "../../audio-api/tempo";
-// import { Sequencer } from "../../audio-api/sequencer";
-// import { arrayBuffer } from "../../request/arraybuffer";
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
