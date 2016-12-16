@@ -74,8 +74,9 @@ class Rotator extends React.Component {
 		let { knob: $knob } = this.refs;
 		let { currentTouch } = this.state;
 		let knobCoordinates = $knob.getBoundingClientRect();
+		let scrollY = window.pageYOffset;
 		let originx = knobCoordinates.left + (knobCoordinates.width / 2);
-		let originy = knobCoordinates.top + (knobCoordinates.height / 2);
+		let originy = knobCoordinates.top + (knobCoordinates.height / 2) + scrollY;
 		let ax = movePoint[0] - originx;
 		let ay = originy - movePoint[1];
 		let bx = movePoint[0] - originx;
