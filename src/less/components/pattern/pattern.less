@@ -1,3 +1,5 @@
+@import "../../variables/breakpoints";
+
 .pattern {
 	.pattern-tray {
 		display: flex;
@@ -25,10 +27,22 @@
 	}
 }
 
-.break-mobile-landscape() {
+.break-tablet-portrait({
 	.pattern {
 		.time-signature {
 			display: flex;
+			flex-wrap: wrap;
+			.time-signature-group {
+				width: 50%;
+			}
 		}
 	}
-}
+});
+
+.break-tablet-landscape({
+	.pattern {
+		.time-signature {
+			flex-wrap: nowrap;
+		}
+	}
+});
