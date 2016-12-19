@@ -43,7 +43,7 @@ class Slider extends React.Component {
       <div className="slider-container">
         <h3 className="item-label">{name}</h3>
 				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
-        <div className={sliderClass} ref="slider">
+        <div className={sliderClass} ref="slider" aria-hidden="true">
           <div className="slider-wrapper" style={sliderStyle}>
             { steps.map((item, i) => {
               let className = item === value ? "item selected" : "item";
