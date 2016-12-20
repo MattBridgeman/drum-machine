@@ -18,7 +18,7 @@ class ChannelHead extends React.Component {
 		return (
 			<div className="channel-head">
 				{title}
-				<ToggleButton ref="toggleButton" classes="channel-item" selected={selected} name="Select" onClick={onSelectClick} />
+				<ToggleButton ref="toggleButton" classes="channel-item select-button" selected={selected} name="Select" onClick={onSelectClick} />
 				<div className="channel-tray">
 					<ToggleButton ref="soloButton" classes="channel-item green" selected={solo} name="Solo" onClick={onSoloClick} />
 					<ToggleButton ref="muteButton" classes="channel-item red" selected={muted} name="Mute" onClick={onMuteClick} />

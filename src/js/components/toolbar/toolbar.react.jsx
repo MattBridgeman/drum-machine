@@ -36,7 +36,7 @@ class Toolbar extends Component {
           <Slider name="Swing" min={0} max={100} step={5} value={tempo.swing} onValueChange={ (value) => tempoActions.changeSwingToAmount(value) } />
         </div>
         <div className="toolbar-item bank-selector">
-          <h3 className="item-title light">Pattern Bank</h3>
+          <h3 className="item-label">Pattern Bank</h3>
           <div className="banks-available">
             { getPatternBanksArray()
               .map(i => 

@@ -15,7 +15,7 @@ class Reverb extends React.Component {
         
 		return (
             <div className="effects-parameters">
-                <h3 className="item-title light">Reverb</h3>
+                <h3 className="item-label">Reverb</h3>
                 <div className="effects-tray">
                     <Rotator name="Length" classes="effect-item" value={reverb.seconds} onKnobRotate={ (amount) => reverbActions.changeReverbSecondsToAmount(amount) } onValueChange={ (value) => reverbActions.changeReverbSecondsToAmount(value) } />
                     <Rotator name="Decay" classes="effect-item" value={reverb.decay} onKnobRotate={ (amount) => reverbActions.changeReverbDecayToAmount(amount) } onValueChange={ (value) => reverbActions.changeReverbDecayToAmount(value) } />

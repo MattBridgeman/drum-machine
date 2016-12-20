@@ -14,6 +14,9 @@
 	&:first-child {
 		border-left: 1px solid @grey;
 	}
+	.select-button {
+		display: none;
+	}
 	.channel-item {
 		margin: 0 0 @baseline * 4;
 		
@@ -59,6 +62,9 @@
 
 	.channel {
 		display: block;
+		.select-button {
+			display: inline-block;
+		}
 		.channel-tray {
 			> * {
 				width: 50%;

@@ -12,7 +12,7 @@
             width: 100px;
             flex-grow: 0;
             .button {
-                height: 65px;
+                height: 70px;
                 width: 100%;
             }
         }
@@ -20,10 +20,10 @@
             margin-right: @baseline * 5;
         }
         &.tempo {
-            width: 50px;
+            width: 100px;
         }
         &.swing {
-            width: 50px;
+            width: 100px;
         }
         &.bank-selector {
             width: 160px;
@@ -34,6 +34,7 @@
                 flex-wrap: wrap;
                 .button {
                     margin: @baseline;
+                    flex-grow: 1;
                     width: 36px;
                 }
             }
@@ -44,35 +45,16 @@
     }
 }
 
-/*.toolbar {
-    .toolbar-item {
-        margin-right: 10px;
-        height: 80px;
-        &.tempo-display {
-            width: 80px;
-        }
-        &.play-pause {
-            width: 60px;
-            .button {
-                height: 55px;
-                width: 100%;
+.break-tablet-portrait({
+    .toolbar {
+        .toolbar-item {
+            flex-grow: 0;
+            &.bank-selector {
+                display: block;
+            }
+            &.reverb {
+                display: block;
             }
         }
-        &.play-pause {
-            width: 97px;
-            .button {
-                height: 70px;
-                width: 100%;
-            }
-        }
-        &.tempo {
-            width: 70px;
-        }
-        &.swing {
-            width: 40px;
-        }
     }
-    &.tempo-display {
-        width: 97px;
-    }
-}*/
+});
