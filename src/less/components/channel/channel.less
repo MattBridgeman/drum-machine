@@ -4,15 +4,11 @@
 }
 
 .channel {
-	border-right: 1px solid @grey;
 	text-align: center;
 	padding: 0 @baseline * 2;
 	display: none;
 	&.selected {
 		display: block;
-	}
-	&:first-child {
-		border-left: 1px solid @grey;
 	}
 	.select-button {
 		display: none;
@@ -21,10 +17,8 @@
 		margin: 0 0 @baseline * 4;
 		
 		.item-title {
-			margin-left: -(@baseline * 2 + 1);
-			margin-right: -(@baseline * 2 + 1);
-			border-left: 1px solid @white;
-			border-right: 1px solid @white;
+			margin-left: -(@baseline * 2);
+			margin-right: -(@baseline * 2) + 1;
 			&.light {
 				margin-left: 0;
 				margin-right: 0;
