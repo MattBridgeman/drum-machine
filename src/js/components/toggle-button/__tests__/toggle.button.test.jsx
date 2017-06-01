@@ -1,4 +1,4 @@
-import TestUtils from "react-addons-test-utils";
+import TestUtils from "react-dom/test-utils";
 import React from "react";
 import { ToggleButton } from "../toggle.button.react.jsx";
 import { expect } from "chai";
