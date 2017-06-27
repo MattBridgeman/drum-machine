@@ -6,7 +6,7 @@ import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
 import { decayPercentageToValue } from "../library/audio-api/decay";
 import { zip } from "../library/natives/array";
 
-export const createBuffer = store => {
+export const triggerSounds = store => {
 
 	let context;
 	let sounds;
