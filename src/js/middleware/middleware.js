@@ -1,8 +1,8 @@
-import { supplyAudioContext } from "../middleware/audio.context";
-import { supplyAudioNodes } from "../middleware/audio.nodes";
-import { updateAudioParams } from "../middleware/audio.params";
-import { supplySoundBuffers } from "../middleware/load.sounds";
-import { sequencer } from "../middleware/scheduler";
-import { triggerSounds } from "../middleware/buffer";
+import { supplyAudioContext } from "./audio.context";
+import { supplyAudioNodes } from "./audio.nodes";
+import { updateAudioParams } from "./audio.params";
+import { supplySoundBuffers } from "./load.sounds";
+import { sequencer } from "./scheduler";
+import { triggerSounds } from "./buffer";
 
 export default applyMiddleware(supplyAudioContext, supplyAudioNodes, updateAudioParams, supplySoundBuffers, sequencer(), triggerSounds);
