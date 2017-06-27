@@ -24,13 +24,14 @@ export function angleFromHorizontalGivenXandY(angle, { x, y }){
 }
 
 export function angleFromVerticalGivenXandY(angle, { x, y }){
-	if(x < 0 && y > 0){
+	if(x < 0 && y >= 0){
 		return 90 + angle;
-	} else if (x > 0 && y > 0) {
+	} else if (x >= 0 && y > 0) {
 		return 270 - angle;
-	} else if (x > 0 && y < 0) {
+	} else if (x > 0 && y <= 0) {
 		return 270 + angle;
 	} else if(x < 0 && y < 0) {
 		return 90 - angle;
 	}
+	return 0;
 }

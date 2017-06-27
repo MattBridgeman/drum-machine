@@ -38,3 +38,8 @@ export function percentageToValueOfRange(value, min, max){
 export function valueAsPercentageOfX(value, x){
 	return (value / x) * 100;
 }
+
+export function unique(){
+	let uniqueIndex = 0;
+	return () => uniqueIndex++;
+} 

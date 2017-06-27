@@ -28,3 +28,16 @@ export function last(array) {
 	let last = array[array.length-1];
 	return last;
 }
+
+export function objectToArray(object) {
+	let keys = Object.keys(object);
+	return keys.map(key => object[key]);
+}
+
+export function objectToArrayWithKeyValue(object) {
+	let keys = Object.keys(object);
+	return keys.map(key => ({
+		key: key,
+		value: object[key]
+	}));
+}

@@ -60,12 +60,20 @@ describe("Angle from horizontal", function(){
 
 describe("Angle from vertical", function(){
 	
+	it("Expect 0 degrees given 90, a 0 x and 0 y", function(){
+		expect(angleFromVerticalGivenXandY(90, { x: 0, y: 0 })).to.equal(0);
+	});
+
 	it("Expect 20 degrees given 70, a negative x and negative y", function(){
 		expect(angleFromVerticalGivenXandY(70, { x: -1, y: -1 })).to.equal(20);
 	});
 	
 	it("Expect 70 degrees given 20, a negative x and negative y", function(){
 		expect(angleFromVerticalGivenXandY(20, { x: -1, y: -1 })).to.equal(70);
+	});
+
+	it("Expect 90 degrees given 0, a negative x and 0 y", function(){
+		expect(angleFromVerticalGivenXandY(0, { x: -1, y: 0 })).to.equal(90);
 	});
 	
 	it("Expect 110 degrees given 20, a negative x and positive y", function(){
@@ -74,6 +82,10 @@ describe("Angle from vertical", function(){
 	
 	it("Expect 160 degrees given 70, a negative x and positive y", function(){
 		expect(angleFromVerticalGivenXandY(70, { x: -1, y: 1 })).to.equal(160);
+	});
+
+	it("Expect 180 degrees given 90, a 0 x and positive y", function(){
+		expect(angleFromVerticalGivenXandY(90, { x: 0, y: 1 })).to.equal(180);
 	});
 	
 	it("Expect 200 degrees given 70, a positive x and positive y", function(){
@@ -84,11 +96,19 @@ describe("Angle from vertical", function(){
 		expect(angleFromVerticalGivenXandY(20, { x: 1, y: 1 })).to.equal(250);
 	});
 	
+	it("Expect 270 degrees given 0, a positive x and 0 y", function(){
+		expect(angleFromVerticalGivenXandY(0, { x: 1, y: 0 })).to.equal(270);
+	});
+
 	it("Expect 290 degrees given 20, a positive x and negative y", function(){
 		expect(angleFromVerticalGivenXandY(20, { x: 1, y: -1 })).to.equal(290);
 	});
 	
 	it("Expect 340 degrees given 70, a positive x and negative y", function(){
 		expect(angleFromVerticalGivenXandY(70, { x: 1, y: -1 })).to.equal(340);
+	});
+
+	it("Expect 0 degrees given 90, a 0 x and negative y", function(){
+		expect(angleFromVerticalGivenXandY(90, { x: 0, y: -1 })).to.equal(0);
 	});
 });
