@@ -3,7 +3,6 @@ import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { getSegmentsInTimespan, getSegmentTimeInSeconds } from "../library/audio-api/tempo";
 import { last, numberToArrayLength } from "../library/natives/array";
 import { normalisedIndex } from "../library/audio-api/play.state";
-import { Buffer } from "../library/audio-api/buffer";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../actions/drum.machine.actions";
 
@@ -15,7 +14,6 @@ export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 5;
 export const buffer = store => next => {
     
   let context;
-  let buffer = new Buffer();
 
   let render = () => {
     let { playState } = this.props;
@@ -27,13 +25,13 @@ export const buffer = store => next => {
     return null;
   }
 
-  let start() => {
+  let start = () => {
     if(this.isPlaying) return;
     this.isPlaying = true;
     this.buffer();
   }
 
-  let stop() => {
+  let stop = () => {
     let { dispatch } = this.props;
     //clear all buffered
     //do clearing of frames that have passed
