@@ -7,4 +7,4 @@ import { sequencer } from "./scheduler";
 import { triggerSounds } from "./trigger.sounds";
 import { buffer } from "./buffer";
 
-export default applyMiddleware(supplyAudioContext, supplyAudioNodes, updateAudioParams, supplySoundBuffers, sequencer(), triggerSounds, buffer);
+export default applyMiddleware(supplyAudioContext, buffer, supplyAudioNodes, updateAudioParams, supplySoundBuffers, sequencer(), triggerSounds);

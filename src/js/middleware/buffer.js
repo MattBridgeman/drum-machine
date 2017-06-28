@@ -1,5 +1,6 @@
 import * as React from "react";
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
+import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
 import { getSegmentsInTimespan, getSegmentTimeInSeconds } from "../library/audio-api/tempo";
 import { last, numberToArrayLength } from "../library/natives/array";
 import { normalisedIndex } from "../library/audio-api/play.state";
@@ -14,37 +15,39 @@ export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 5;
 export const buffer = store => next => {
     
   let context;
+  let isPlaying = false;
+  let nextFrame;
 
-  let render = () => {
-    let { playState } = this.props;
-    if(playState.isPlaying && !this.isPlaying){
-      this.start();
-    } else if(!playState.isPlaying && this.isPlaying) {
-      this.stop();
+  let playPause = () => {
+    let { playState } = store.getState();
+    if(playState.isPlaying && !isPlaying){
+      start();
+    } else if(!playState.isPlaying && isPlaying) {
+      stop();
     }
     return null;
   }
 
   let start = () => {
-    if(this.isPlaying) return;
-    this.isPlaying = true;
-    this.buffer();
+    if(isPlaying) return;
+    isPlaying = true;
+    buffer();
   }
 
   let stop = () => {
-    let { dispatch } = this.props;
+    let { next } = store.getState();
     //clear all buffered
     //do clearing of frames that have passed
     //do queuing
-		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    window.setTimeout(bufferActions.clearBufferSegments, 0);
-    this.isPlaying = false;
+		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    window.setTimeout(() => next(DrumMachineActions.clearBufferSegments), 0);
+    isPlaying = false;
   }
 
   let _buffer = () => {
-    if(!this.isPlaying) return;
-    let { dispatch, playState, tempo, buffer, context } = this.props;
-		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    if(!isPlaying) return;
+    let { playState, tempo, buffer, context } = store.getState();
+		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
     let currentLookAhead = context.currentTime + LOOK_AHEAD_IN_SECONDS;
     let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
     let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
@@ -53,7 +56,7 @@ export const buffer = store => next => {
     //do clearing of frames that have passed
     buffer.filter(({time, id}) => 
       time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= context.currentTime
-    ).forEach(({id}) => window.setTimeout(() => bufferActions.clearBufferSegment(id), 0));
+    ).forEach(({id}) => window.setTimeout(() => next(DrumMachineActions.clearBufferSegment(id)), 0));
     //do queuing
     if(!lastBuffer || lastBuffer.time < currentLookAhead) {
       segmentsToBufferAsArray
@@ -65,11 +68,11 @@ export const buffer = store => next => {
           segmentIndex,
           time
         }) => {
-          window.setTimeout(() => bufferActions.newBufferSegment(segmentIndex, time), 0);
+          window.setTimeout(() => next(DrumMachineActions.newBufferSegment(segmentIndex, time)), 0);
         });
     }
 
-    this.nextFrame = window.setTimeout(() => this.buffer(), LOOP_INTERVAL_IN_MILLISECONDS);
+    nextFrame = window.setTimeout(buffer, LOOP_INTERVAL_IN_MILLISECONDS);
   }
 
 	return action => {
@@ -78,6 +81,8 @@ export const buffer = store => next => {
       case NEW_AUDIO_CONTEXT:
         context = action.value;
         return next(action);
+      case TOGGLE_PLAY_PAUSE:
+        playPause();
       default:
         return next(action);
     }
