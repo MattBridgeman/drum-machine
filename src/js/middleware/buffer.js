@@ -20,9 +20,9 @@ export const buffer = store => next => {
 
   let playPause = () => {
     let { playState } = store.getState();
-    if(playState.isPlaying && !isPlaying){
+    if(!playState.isPlaying && !isPlaying){
       start();
-    } else if(!playState.isPlaying && isPlaying) {
+    } else if(playState.isPlaying && isPlaying) {
       stop();
     }
     return null;
@@ -31,23 +31,24 @@ export const buffer = store => next => {
   let start = () => {
     if(isPlaying) return;
     isPlaying = true;
-    buffer();
+    update();
   }
 
   let stop = () => {
-    let { next } = store.getState();
+    let { dispatch } = store;
     //clear all buffered
     //do clearing of frames that have passed
     //do queuing
-		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    window.setTimeout(() => next(DrumMachineActions.clearBufferSegments), 0);
+		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    window.setTimeout(() => dispatch(bufferActions.clearBufferSegments()), 0);
     isPlaying = false;
   }
 
-  let _buffer = () => {
+  let update = () => {
     if(!isPlaying) return;
-    let { playState, tempo, buffer, context } = store.getState();
-		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    let { dispatch } = store;
+    let { playState, tempo, buffer } = store.getState();
+		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
     let currentLookAhead = context.currentTime + LOOK_AHEAD_IN_SECONDS;
     let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
     let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
@@ -56,7 +57,7 @@ export const buffer = store => next => {
     //do clearing of frames that have passed
     buffer.filter(({time, id}) => 
       time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= context.currentTime
-    ).forEach(({id}) => window.setTimeout(() => next(DrumMachineActions.clearBufferSegment(id)), 0));
+    ).forEach(({id}) => window.setTimeout(() => dispatch(bufferActions.clearBufferSegment(id)), 0));
     //do queuing
     if(!lastBuffer || lastBuffer.time < currentLookAhead) {
       segmentsToBufferAsArray
@@ -68,11 +69,11 @@ export const buffer = store => next => {
           segmentIndex,
           time
         }) => {
-          window.setTimeout(() => next(DrumMachineActions.newBufferSegment(segmentIndex, time)), 0);
+          window.setTimeout(() => dispatch(bufferActions.newBufferSegment(segmentIndex, time)), 0);
         });
     }
 
-    nextFrame = window.setTimeout(buffer, LOOP_INTERVAL_IN_MILLISECONDS);
+    nextFrame = window.setTimeout(update, LOOP_INTERVAL_IN_MILLISECONDS);
   }
 
 	return action => {
@@ -83,6 +84,7 @@ export const buffer = store => next => {
         return next(action);
       case TOGGLE_PLAY_PAUSE:
         playPause();
+        return next(action);
       default:
         return next(action);
     }
