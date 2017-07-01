@@ -1,7 +1,8 @@
-import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS } from "../constants/buffer.constants";
+import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS, CLEAR_BUFFER_SEGMENT } from "../constants/buffer.constants";
 import { unique } from "../library/natives/numbers";
 
 let initialState = [];
+let uniqueGenerator = unique();
 
 export default function buffer(state = initialState, action) {
   switch (action.type) {
@@ -11,8 +12,10 @@ export default function buffer(state = initialState, action) {
         time,
         index,
         bar: 0,
-        id: unique()
+        id: uniqueGenerator()
       }];
+    case CLEAR_BUFFER_SEGMENT:
+      return state.filter(segment => segment.id !== action.id);
     case CLEAR_BUFFER_SEGMENTS:
       return [];
     default:

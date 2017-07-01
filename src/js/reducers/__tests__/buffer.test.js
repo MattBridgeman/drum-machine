@@ -2,7 +2,8 @@ import { expect } from "chai";
 import buffer from "../buffer.reducer";
 import {
     NEW_BUFFER_SEGMENT,
-    CLEAR_BUFFER_SEGMENTS
+    CLEAR_BUFFER_SEGMENTS,
+    CLEAR_BUFFER_SEGMENT
 } from "../../constants/buffer.constants";
 
 describe("Buffer reducer", () => {
@@ -24,6 +25,19 @@ describe("Buffer reducer", () => {
     }];
     let nextState = buffer(initialState, {
       type: CLEAR_BUFFER_SEGMENTS
+    });
+    expect(nextState.length).to.equal(0);
+  });
+
+	it("clear buffer by id", () => {
+    let initialState = [{
+      index: 0,
+      id: 1,
+      time: 1234
+    }];
+    let nextState = buffer(initialState, {
+      type: CLEAR_BUFFER_SEGMENT,
+      id: 1
     });
     expect(nextState.length).to.equal(0);
   });
