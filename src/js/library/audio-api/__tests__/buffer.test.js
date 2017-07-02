@@ -32,4 +32,30 @@ describe("Add buffer", () => {
       index: 1
     }]);
   });
+  it("Schedules 0 segments, given look ahead is already complete", () => {
+    let previousState = [{
+      time: 1234.1,
+      index: 0
+    }, {
+      time: 1234.225,
+      index: 1
+    }];
+    let currentTime = 1233;
+    let store = {
+      playState: {
+        currentSegmentIndex: 0,
+        currentBarIndex: 0,
+        isPlaying: true,
+        looping: true
+      },
+      tempo: {
+        beatsPerMinute: 120,
+        beatsPerBar: 4,
+        segmentsPerBeat: 4,
+        swing: 15
+      }
+    }
+    let nextState = segmentsToSchedule(previousState, currentTime, store);
+    expect(nextState).to.deep.equal([]);
+  });
 });

@@ -3,7 +3,6 @@ import { last, numberToArrayLength } from "../natives/array";
 import { normalisedIndex } from "./play.state";
 
 export const LOOK_AHEAD_IN_SECONDS = 0.25;
-export const LOOP_INTERVAL_IN_MILLISECONDS = LOOK_AHEAD_IN_SECONDS * 500;
 export const BUFFER_DELAY_IN_SECONDS = 0.1;
 export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 5;
 
@@ -22,6 +21,7 @@ export function segmentsToSchedule(previousState, currentTime, state) {
         time: lastBuffer ? lastBuffer.time + ((1 + segmentIndex) * segmentTime) : currentTime + (segmentIndex * segmentTime) + BUFFER_DELAY_IN_SECONDS
       }));
   }
+  return [];
 }
 
 //do clearing of frames that have passed
