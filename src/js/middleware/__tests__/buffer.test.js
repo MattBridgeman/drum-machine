@@ -19,14 +19,13 @@ describe("Buffer", () => {
 		let context = getStubContext();
     context.currentTime = 1234;
     let store = configureTestStore();
-    store.dispatch = td.function();
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
       segmentsPerBeat: 4,
       swing: 0
     };
-    let next = buffer(store)(td.function());
+    let next = buffer(store)(store.dispatch);
     next({
       type: NEW_AUDIO_CONTEXT,
       value: context
@@ -34,45 +33,41 @@ describe("Buffer", () => {
     next({
       type: TOGGLE_PLAY_PAUSE
     });
-    // GlobalSetTimeoutTick();
-		td.verify(store.dispatch({
-      type: NEW_BUFFER_SEGMENT,
+    GlobalSetTimeoutTick();
+
+		expect(store.getState().buffer).to.deep.equal([{
       time: 1234.1,
       index: 0
-    }));
-		td.verify(store.dispatch({
-      type: NEW_BUFFER_SEGMENT,
+    }, {
       time: 1234.225,
       index: 1
-    }));
+    }]);
 	});
 
 	it("calls dispatch clearing buffer when playing stops", () => {
 		let context = getStubContext();
     context.currentTime = 1234;
-    let dispatch = td.function();
-    let buffer = [];
+    let store = configureTestStore();
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
       segmentsPerBeat: 4,
       swing: 0
     };
-		//is playing true
-    //is playing false
-		td.verify(dispatch({
-      type: NEW_BUFFER_SEGMENT,
-      time: 1234.1,
-      index: 0
-    }));
-		td.verify(dispatch({
-      type: NEW_BUFFER_SEGMENT,
-      time: 1234.225,
-      index: 1
-    }));
-    td.verify(dispatch({
-      type: CLEAR_BUFFER_SEGMENTS
-    }));
+    let next = buffer(store)(store.dispatch);
+    next({
+      type: NEW_AUDIO_CONTEXT,
+      value: context
+    });
+    next({
+      type: TOGGLE_PLAY_PAUSE
+    });
+    GlobalSetTimeoutTick();
+    next({
+      type: TOGGLE_PLAY_PAUSE
+    });
+    GlobalSetTimeoutTick();
+    expect(store.getState().buffer).to.deep.equal([]);
 	});
   
 	it("calls dispatch with a 3rd and 4th buffer when is playing and time has passed", () => {

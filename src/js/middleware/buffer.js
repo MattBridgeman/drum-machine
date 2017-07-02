@@ -53,6 +53,7 @@ export const buffer = store => next => {
     let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
     let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
     let segmentsToBufferAsArray = numberToArrayLength(segmentsToBuffer);
+    console.log(segmentsToBuffer);
     let lastBuffer = last(buffer);
     //do clearing of frames that have passed
     buffer.filter(({time, id}) => 
