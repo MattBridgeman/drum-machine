@@ -40,7 +40,7 @@ export const buffer = store => next => {
     //do clearing of frames that have passed
     //do queuing
 		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    window.setTimeout(() => dispatch(bufferActions.clearBufferSegments()), 0);
+    dispatch(bufferActions.clearBufferSegments());
     isPlaying = false;
   }
 
@@ -53,12 +53,11 @@ export const buffer = store => next => {
     let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
     let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
     let segmentsToBufferAsArray = numberToArrayLength(segmentsToBuffer);
-    console.log(segmentsToBuffer);
     let lastBuffer = last(buffer);
     //do clearing of frames that have passed
     buffer.filter(({time, id}) => 
       time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= context.currentTime
-    ).forEach(({id}) => window.setTimeout(() => dispatch(bufferActions.clearBufferSegment(id)), 0));
+    ).forEach(({id}) => dispatch(bufferActions.clearBufferSegment(id)));
     //do queuing
     if(!lastBuffer || lastBuffer.time < currentLookAhead) {
       segmentsToBufferAsArray
@@ -70,7 +69,7 @@ export const buffer = store => next => {
           segmentIndex,
           time
         }) => {
-          window.setTimeout(() => dispatch(bufferActions.newBufferSegment(segmentIndex, time)), 0);
+          dispatch(bufferActions.newBufferSegment(segmentIndex, time));
         });
     }
 

@@ -34,13 +34,26 @@ describe("Buffer", () => {
       type: TOGGLE_PLAY_PAUSE
     });
     GlobalSetTimeoutTick();
-
 		expect(store.getState().buffer).to.deep.equal([{
       time: 1234.1,
-      index: 0
+      index: 0,
+      id: 0,
+      bar: 0
     }, {
       time: 1234.225,
-      index: 1
+      index: 1,
+      id: 1,
+      bar: 0
+    }, {
+      time: 1234.35,
+      index: 2,
+      id: 2,
+      bar: 0
+    }, {
+      time: 1234.475,
+      index: 3,
+      id: 3,
+      bar: 0
     }]);
 	});
 
