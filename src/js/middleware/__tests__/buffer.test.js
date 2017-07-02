@@ -1,11 +1,14 @@
-import TestUtils from "react-addons-test-utils";
+import TestUtils from "react-dom/test-utils";
 import React from "react";
 import { buffer } from "../buffer";
 import { expect } from "chai";
+import { NEW_AUDIO_CONTEXT } from "../../constants/audio.context.constants";
+import { TOGGLE_PLAY_PAUSE } from "../../constants/play.state.constants";
+import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS } from "../../constants/buffer.constants";
 import { last } from "../../library/natives/array";
 import { getStubContext } from "../../library/test-helpers/stubs/audio.api";
-import { NEW_AUDIO_CONTEXT } from "../../constants/audio.context.constants";
-import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS } from "../../constants/buffer.constants";
+import { GlobalSetTimeout, GlobalSetTimeoutTick } from "../../library/test-helpers/stubs/set.timeout";
+import configureTestStore from "../../store/test.store";
 import td from "testdouble";
 
 const { renderIntoDocument, Simulate } = TestUtils;
@@ -15,21 +18,23 @@ describe("Buffer", () => {
 	it("calls dispatch twice with a buffer when is playing", () => {
 		let context = getStubContext();
     context.currentTime = 1234;
-    let store = {
-      dispatch: td.function()
-    };
+    let store = configureTestStore();
+    store.dispatch = td.function();
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
       segmentsPerBeat: 4,
       swing: 0
     };
-    //
-    let dispatch = buffer(store)(td.function());
-    dispatch({
+    let next = buffer(store)(td.function());
+    next({
       type: NEW_AUDIO_CONTEXT,
       value: context
     });
+    next({
+      type: TOGGLE_PLAY_PAUSE
+    });
+    // GlobalSetTimeoutTick();
 		td.verify(store.dispatch({
       type: NEW_BUFFER_SEGMENT,
       time: 1234.1,
