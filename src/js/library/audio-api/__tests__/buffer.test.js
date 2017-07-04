@@ -20,7 +20,7 @@ describe("Add buffer", () => {
         beatsPerMinute: 120,
         beatsPerBar: 4,
         segmentsPerBeat: 4,
-        swing: 15
+        swing: 0
       }
     }
     let nextState = segmentsToSchedule(previousState, currentTime, store);
@@ -30,6 +30,9 @@ describe("Add buffer", () => {
     }, {
       time: 1234.225,
       index: 1
+    }, {
+      time: 1234.35,
+      index: 2
     }]);
   });
   it("Schedules 0 segments, given look ahead is already complete", () => {
