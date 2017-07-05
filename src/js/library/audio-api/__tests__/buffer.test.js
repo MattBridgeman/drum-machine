@@ -1,11 +1,11 @@
 import TestUtils from "react-dom/test-utils";
 import React from "react";
-import { segmentsToSchedule } from "../buffer";
+import { segmentsToSchedule, segmentsToClear } from "../buffer";
 import { expect } from "chai";
 
 const { renderIntoDocument, Simulate } = TestUtils;
 
-describe("Add buffer", () => {
+describe("segments to schedule", () => {
   it("Schedules 4 segments, given no previous segments", () => {
     let previousState = [];
     let currentTime = 1234;
@@ -22,7 +22,7 @@ describe("Add buffer", () => {
         segmentsPerBeat: 4,
         swing: 0
       }
-    }
+    };
     let nextState = segmentsToSchedule(previousState, currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.1,
@@ -60,7 +60,7 @@ describe("Add buffer", () => {
         segmentsPerBeat: 4,
         swing: 0
       }
-    }
+    };
     let nextState = segmentsToSchedule(previousState, currentTime, store);
     expect(nextState).to.deep.equal([]);
   });
@@ -90,7 +90,7 @@ describe("Add buffer", () => {
         segmentsPerBeat: 4,
         swing: 0
       }
-    }
+    };
     let nextState = segmentsToSchedule(previousState, currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.475,
@@ -104,5 +104,33 @@ describe("Add buffer", () => {
   //TODO: Follow can happen when browser window loses focus
 	it("delays the clock if current time is greater than segments being scheduled", () => {
 		
+  });
+});
+
+describe("Segments to clear", () => {
+  it("Clears segments more than 2 seconds old", () => {
+    let previousState = [{
+      time: 1234.1,
+      index: 0
+    }, {
+      time: 1234.225,
+      index: 1
+    }, {
+      time: 1234.35,
+      index: 2
+    }];
+    let currentTime = 1239.2;
+
+    let nextState = segmentsToClear(previousState, currentTime);
+    expect(nextState).to.deep.equal([{
+      time: 1234.1,
+      index: 0
+    }, {
+      time: 1234.225,
+      index: 1
+    }, {
+      time: 1234.35,
+      index: 2
+    }]);
   });
 });

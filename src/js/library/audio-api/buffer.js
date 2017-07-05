@@ -5,7 +5,7 @@ import { normalisedIndex } from "./play.state";
 
 export const LOOK_AHEAD_IN_SECONDS = 0.25;
 export const BUFFER_DELAY_IN_SECONDS = 0.1;
-export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 5;
+export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 2;
 
 export function segmentsToSchedule(previousState, currentTime, state) {
   let { playState, tempo } = state;
@@ -29,9 +29,7 @@ export function segmentsToSchedule(previousState, currentTime, state) {
       .filter((segment, index) => lastBuffer ? index !== 0 : true);
   }
   return [];
-}
+};
 
-//do clearing of frames that have passed
-// previousState.filter(({time, id}) => 
-//   time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= context.currentTime
-// ).forEach(({id}) => dispatch(bufferActions.clearBufferSegment(id)));
+export let segmentsToClear = (previousState, currentTime) =>
+  previousState.filter(({time}) => time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= currentTime);
