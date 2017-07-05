@@ -36,45 +36,13 @@ export const buffer = store => next => {
 
   let stop = () => {
     let { dispatch } = store;
-    //clear all buffered
-    //do clearing of frames that have passed
-    //do queuing
-		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    dispatch(bufferActions.clearBufferSegments());
+		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    // dispatch(bufferActions.clearBufferSegments());
     isPlaying = false;
   }
 
-  let update = () => {
-    if(!isPlaying) return;
-    let { dispatch } = store;
-    let { playState, tempo, buffer } = store.getState();
-		const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    let currentLookAhead = context.currentTime + LOOK_AHEAD_IN_SECONDS;
-    let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
-    let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
-    let segmentsToBufferAsArray = numberToArrayLength(segmentsToBuffer);
-    let lastBuffer = last(buffer);
-    //do clearing of frames that have passed
-    buffer.filter(({time, id}) => 
-      time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= context.currentTime
-    ).forEach(({id}) => dispatch(bufferActions.clearBufferSegment(id)));
-    //do queuing
-    if(!lastBuffer || lastBuffer.time < currentLookAhead) {
-      segmentsToBufferAsArray
-        .map(segmentIndex => ({
-          segmentIndex: lastBuffer ? normalisedIndex(playState, tempo, lastBuffer.index + (segmentIndex + 1)) : segmentIndex,
-          time: lastBuffer ? lastBuffer.time + ((1 + segmentIndex) * segmentTime) : context.currentTime + (segmentIndex * segmentTime) + BUFFER_DELAY_IN_SECONDS
-        }))
-        .forEach(({
-          segmentIndex,
-          time
-        }) => {
-          dispatch(bufferActions.newBufferSegment(segmentIndex, time));
-        });
-    }
-
-    nextFrame = window.setTimeout(update, LOOP_INTERVAL_IN_MILLISECONDS);
-  }
+  // const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+  // dispatch(bufferActions.newBufferSegment(segmentIndex, time));
 
 	return action => {
     //do stuff
