@@ -101,32 +101,8 @@ describe("Add buffer", () => {
     }]);
 	});
 
-	it("clears a buffer that is more than 5 seconds old", () => {
-		let initialContext = getStubContext();
-    initialContext.currentTime = 1230;
-		let secondContext = getStubContext();
-    secondContext.currentTime = 1236.2;
-    let dispatch = td.function();
-    let initialBuffer = [];
-    let secondBuffer = [{
-      time: 1230.1,
-      index: 0,
-      id: 1111
-    },{
-      time: 1230.225,
-      index: 1,
-      id: 2222
-    }];
-    let tempo = {
-      beatsPerMinute: 120,
-      beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
-    };
-		//is playing true, initialBuffer
-    //is playing true, second
-    let { calls } = td.explain(dispatch);
-    expect(calls[2].args[0]).to.deep.equal({ type: 'clear_buffer_segment', id: 1111 });
-    expect(calls[3].args[0]).to.deep.equal({ type: 'clear_buffer_segment', id: 2222 });
+  //TODO: Follow can happen when browser window loses focus
+	it("delays the clock if current time is greater than segments being scheduled", () => {
+		
   });
 });
