@@ -15,5 +15,15 @@ describe("Generator", () => {
     };
     let value = generatorFn().next().value;
     expect(value).to.equal(1);
-  })
+  });
+  it("Yields async result from a generator", () => {
+    let promise = new Promise(resolve => setTimeout(resolve, 200));
+    let asyncValue = promise.then(() => "foobar");
+    let generatorFn = function*(){
+      yield asyncValue;
+      yield 2;
+    };
+    let value = generatorFn().next().value;
+    expect(value).to.equal(asyncValue);
+  });
 });
