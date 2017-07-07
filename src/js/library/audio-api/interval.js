@@ -1,4 +1,4 @@
-import * as Rx from "rx";
+import Rx from "rxjs/Rx";
 
 export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
