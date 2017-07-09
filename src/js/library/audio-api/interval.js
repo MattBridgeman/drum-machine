@@ -32,7 +32,7 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
     };
 });
 
-export let intervalStream = function*(shouldContinue, timeout, callback){
+export let intervalGenerator = function*(shouldContinue, timeout, callback){
 	while(shouldContinue()){
 		yield timeout().then(callback);
 	}

@@ -1,7 +1,7 @@
 import Rx from "rxjs/Rx";
 import td from "testdouble";
 import { expect } from "chai";
-import { createIntervalStream, intervalStream } from "../interval";
+import { createIntervalStream, intervalGenerator } from "../interval";
 
 describe("Interval", () => {
 	
@@ -28,7 +28,7 @@ describe("Interval", () => {
 	});
 });
 
-describe("Interval stream", () => {
+describe("Interval generator", () => {
 	it("calls callback asynchronously from generator whilst 'shouldContinue' is true", () => {
 		let i = -1;
 		let shouldContinue = () => {
@@ -38,10 +38,24 @@ describe("Interval stream", () => {
 		};
 		let timeout = () => Promise.resolve(true);
 		let callback = td.function();
-		let stream = intervalStream(shouldContinue, timeout, callback);
+		let stream = intervalGenerator(shouldContinue, timeout, callback);
 		let promise = stream.next().value;
 		return promise.then(() => {
 			td.verify(callback(true));
 		});
+	});
+	it("finishes the generator when 'shouldContinue' is false", () => {
+		let i = -1;
+		let shouldContinue = () => {
+			i++;
+			if(i < 1) return true;
+			else return false;
+		};
+		let timeout = () => Promise.resolve(true);
+		let callback = td.function();
+		let stream = intervalGenerator(shouldContinue, timeout, callback);
+		stream.next();
+		let final = stream.next();
+		expect(final.done).to.be.true;
 	});
 });
