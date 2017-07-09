@@ -31,3 +31,10 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
         cancelCallback(frameId);
     };
 });
+
+export let intervalStream = function*(shouldContinue, timeout, callback){
+	while(shouldContinue()){
+		console.log("here");
+		yield timeout().then(callback);
+	}
+};
