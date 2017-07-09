@@ -4,7 +4,6 @@ import ogen from "../library/generator/ogen";
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
 import { segmentsToSchedule } from "../library/audio-api/buffer";
-import { last, numberToArrayLength } from "../library/natives/array";
 import { intervalGenerator, timeout } from "../library/audio-api/interval";
 import DrumMachineActions from "../actions/drum.machine.actions";
 
@@ -17,9 +16,8 @@ export const buffer = store => next => {
     
   let context;
   let isPlaying = false;
-  let nextFrame;
-  let currentStream;
   let createIntervalStream = ogen(intervalGenerator);
+  let bufferActions = DrumMachineActions.buffer;
 
   let playPause = () => {
     let { playState } = store.getState();
@@ -39,24 +37,23 @@ export const buffer = store => next => {
 
   let startStream = () => {
     let interval = timeout.get;
-    let currentState = store.getState();
-    let { playState, buffer, dispatch } = currentState;
     let shouldContinue = () => isPlaying;
-    let bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    currentStream = createIntervalStream(shouldContinue, interval);
-    currentStream.subscribe(() => {
-      let segments = segmentsToSchedule(context.currentTime, currentState);
-      console.log(segments);
-      segments.forEach(({index, time}) => dispatch(bufferActions.newBufferSegment(index, time)));
-    },
-    console.error.bind(console));
+    createIntervalStream(shouldContinue, interval)
+      .subscribe(() => {
+        let currentState = store.getState();
+        let segments = segmentsToSchedule(context.currentTime, currentState);
+        segments.forEach(({index, time}) => {
+          interval().then(next(bufferActions.newBufferSegment(index, time)));
+        });
+      },
+      (err) => console.error(err));
   };
 
   let stop = () => {
     let { dispatch } = store;
-		let bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    dispatch(bufferActions.clearBufferSegments());
+    let interval = timeout.get;
     isPlaying = false;
+    interval().then(next(bufferActions.clearBufferSegments()));
   };
 
 	return action => {
