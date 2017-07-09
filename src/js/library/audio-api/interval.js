@@ -38,5 +38,3 @@ export let intervalGenerator = function*(shouldContinue, timeout, callback){
 		yield timeout().then(callback);
 	}
 };
-
-export let intervalStream = (...args) => () => ogen(intervalGenerator(...args));
