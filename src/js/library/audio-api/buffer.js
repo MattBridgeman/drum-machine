@@ -7,13 +7,13 @@ export const LOOK_AHEAD_IN_SECONDS = 0.25;
 export const BUFFER_DELAY_IN_SECONDS = 0.1;
 export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 2;
 
-export function segmentsToSchedule(previousState, currentTime, state) {
-  let { playState, tempo } = state;
+export function segmentsToSchedule(currentTime, state) {
+  let { playState, tempo, buffer } = state;
   let currentLookAhead = currentTime + LOOK_AHEAD_IN_SECONDS;
   let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
   let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
   let segmentsToBufferAsArray = numberToArrayLength(segmentsToBuffer);
-  let lastBuffer = last(previousState);
+  let lastBuffer = last(buffer);
   if(!lastBuffer || lastBuffer.time < currentLookAhead) {
     return segmentsToBufferAsArray
       .reduce((prev, curr, index) => {

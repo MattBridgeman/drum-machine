@@ -7,7 +7,6 @@ const { renderIntoDocument, Simulate } = TestUtils;
 
 describe("segments to schedule", () => {
   it("Schedules 4 segments, given no previous segments", () => {
-    let previousState = [];
     let currentTime = 1234;
     let store = {
       playState: {
@@ -21,9 +20,10 @@ describe("segments to schedule", () => {
         beatsPerBar: 4,
         segmentsPerBeat: 4,
         swing: 0
-      }
+      },
+      buffer: []
     };
-    let nextState = segmentsToSchedule(previousState, currentTime, store);
+    let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.1,
       index: 0
@@ -36,16 +36,6 @@ describe("segments to schedule", () => {
     }]);
   });
   it("Schedules 0 segments, given look ahead is already complete", () => {
-    let previousState = [{
-      time: 1234.1,
-      index: 0
-    }, {
-      time: 1234.225,
-      index: 1
-    }, {
-      time: 1234.35,
-      index: 2
-    }];
     let currentTime = 1234.1;
     let store = {
       playState: {
@@ -59,23 +49,23 @@ describe("segments to schedule", () => {
         beatsPerBar: 4,
         segmentsPerBeat: 4,
         swing: 0
-      }
+      },
+      buffer: [{
+        time: 1234.1,
+        index: 0
+      }, {
+        time: 1234.225,
+        index: 1
+      }, {
+        time: 1234.35,
+        index: 2
+      }]
     };
-    let nextState = segmentsToSchedule(previousState, currentTime, store);
+    let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([]);
   });
 
 	it("Schedules 4th and 5th buffer when is playing and time has passed", () => {
-		let previousState = [{
-      time: 1234.1,
-      index: 0
-    }, {
-      time: 1234.225,
-      index: 1
-    }, {
-      time: 1234.35,
-      index: 2
-    }];
     let currentTime = 1234.225;
     let store = {
       playState: {
@@ -89,9 +79,19 @@ describe("segments to schedule", () => {
         beatsPerBar: 4,
         segmentsPerBeat: 4,
         swing: 0
-      }
+      },
+      buffer: [{
+        time: 1234.1,
+        index: 0
+      }, {
+        time: 1234.225,
+        index: 1
+      }, {
+        time: 1234.35,
+        index: 2
+      }]
     };
-    let nextState = segmentsToSchedule(previousState, currentTime, store);
+    let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.475,
       index: 3
