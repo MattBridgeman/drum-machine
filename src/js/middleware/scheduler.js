@@ -34,7 +34,7 @@ export const sequencer = () => {
 		if((action.type === TOGGLE_PLAY_PAUSE && state.playState.isPlaying === false)) {
 			segmentStream = createSegmentStream(store, context).subscribe((time) => next(incrementSegmentIndex(time)));
 		} else if ((action.type === TOGGLE_PLAY_PAUSE && state.playState.isPlaying === true)) {
-			segmentStream.dispose();
+			segmentStream.unsubscribe();
 		}
 
 		return next(action);

@@ -1,10 +1,11 @@
 import * as React from "react";
+import { bindActionCreators } from "redux";
+import ogen from "../library/generator/ogen";
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
-import { getSegmentsInTimespan, getSegmentTimeInSeconds } from "../library/audio-api/tempo";
+import { segmentsToSchedule } from "../library/audio-api/buffer";
 import { last, numberToArrayLength } from "../library/natives/array";
-import { normalisedIndex } from "../library/audio-api/play.state";
-import { bindActionCreators } from "redux";
+import { intervalGenerator, timeout } from "../library/audio-api/interval";
 import DrumMachineActions from "../actions/drum.machine.actions";
 
 export const LOOK_AHEAD_IN_SECONDS = 0.25;
@@ -17,6 +18,8 @@ export const buffer = store => next => {
   let context;
   let isPlaying = false;
   let nextFrame;
+  let currentStream;
+  let createIntervalStream = ogen(intervalGenerator);
 
   let playPause = () => {
     let { playState } = store.getState();
@@ -26,23 +29,34 @@ export const buffer = store => next => {
       stop();
     }
     return null;
-  }
+  };
 
   let start = () => {
     if(isPlaying) return;
     isPlaying = true;
-    update();
+    startStream();
   }
+
+  let startStream = () => {
+    let interval = timeout.get;
+    let currentState = store.getState();
+    let { playState, buffer, dispatch } = currentState;
+    let shouldContinue = () => isPlaying;
+    let bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    currentStream = createIntervalStream(shouldContinue, interval);
+    currentStream.subscribe(() => {
+      let segments = segmentsToSchedule(buffer, context.currentTime, currentState);
+      segments.forEach(({index, time}) => dispatch(bufferActions.newBufferSegment(index, time)));
+    },
+    console.error.bind(console));
+  };
 
   let stop = () => {
     let { dispatch } = store;
-		// const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-    // dispatch(bufferActions.clearBufferSegments());
+		let bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
+    dispatch(bufferActions.clearBufferSegments());
     isPlaying = false;
-  }
-
-  // const bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
-  // dispatch(bufferActions.newBufferSegment(segmentIndex, time));
+  };
 
 	return action => {
     //do stuff
@@ -56,5 +70,5 @@ export const buffer = store => next => {
       default:
         return next(action);
     }
-  }
+  };
 };

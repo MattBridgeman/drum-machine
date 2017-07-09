@@ -14,7 +14,7 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
 		let bufferLength = interval / 2;
 
 		if(deltaTime >= bufferLength) {
-			observer.onNext(prevTime + interval);
+			observer.next(prevTime + interval);
 			prevTime = prevTime + interval;
 		}
 		tick();
