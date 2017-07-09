@@ -1,7 +1,7 @@
 import Rx from "rxjs/Rx";
 import td from "testdouble";
 import { expect } from "chai";
-import { createIntervalStream, intervalGenerator } from "../interval";
+import { createIntervalStream, intervalGenerator, intervalStream } from "../interval";
 
 describe("Interval", () => {
 	
@@ -57,5 +57,15 @@ describe("Interval generator", () => {
 		stream.next();
 		let final = stream.next();
 		expect(final.done).to.be.true;
+	});
+});
+
+describe("Interval stream", () => {
+	it("returns a function to create a stream given arguments", () => {
+		let shouldContinue = td.function();
+		let timeout = td.function();
+		let callback = td.function();
+		let createStream = intervalStream(shouldContinue, timeout, callback);
+		expect(createStream).to.be.a.function;
 	});
 });

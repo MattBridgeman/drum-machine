@@ -1,4 +1,5 @@
 import Rx from "rxjs/Rx";
+import ogen from "../generator/ogen";
 
 export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
@@ -37,3 +38,5 @@ export let intervalGenerator = function*(shouldContinue, timeout, callback){
 		yield timeout().then(callback);
 	}
 };
+
+export let intervalStream = (...args) => () => ogen(intervalGenerator(...args));
