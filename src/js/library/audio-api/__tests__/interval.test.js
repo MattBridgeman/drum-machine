@@ -29,12 +29,10 @@ describe("Interval", () => {
 });
 
 describe("Interval stream", () => {
-	
 	it("calls callback asynchronously from generator whilst 'shouldContinue' is true", () => {
 		let i = -1;
 		let shouldContinue = () => {
 			i++;
-			console.log("should continue", i < 1);
 			if(i < 1) return true;
 			else return false;
 		};

@@ -34,7 +34,6 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
 
 export let intervalStream = function*(shouldContinue, timeout, callback){
 	while(shouldContinue()){
-		console.log("here");
 		yield timeout().then(callback);
 	}
 };
