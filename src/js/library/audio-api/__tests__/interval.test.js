@@ -29,7 +29,7 @@ describe("Interval", () => {
 });
 
 describe("Interval generator", () => {
-	it("calls callback asynchronously from generator whilst 'shouldContinue' is true", () => {
+	it("returns the promise from generator whilst 'shouldContinue' is true", () => {
 		let i = -1;
 		let shouldContinue = () => {
 			i++;
@@ -40,9 +40,7 @@ describe("Interval generator", () => {
 		let callback = td.function();
 		let stream = intervalGenerator(shouldContinue, timeout, callback);
 		let promise = stream.next().value;
-		return promise.then(() => {
-			td.verify(callback(true));
-		});
+		expect(promise).to.be.instanceOf(Promise);
 	});
 	it("finishes the generator when 'shouldContinue' is false", () => {
 		let i = -1;

@@ -1,5 +1,4 @@
 import Rx from "rxjs/Rx";
-import ogen from "../generator/ogen";
 
 export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
@@ -33,8 +32,12 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
     };
 });
 
-export let intervalGenerator = function*(shouldContinue, timeout, callback){
+export let intervalGenerator = function*(shouldContinue, timeout){
 	while(shouldContinue()){
-		yield timeout().then(callback);
+		yield timeout();
 	}
+};
+
+export let timeout = {
+	get: () => new Promise(window.requestAnimationFrame)
 };
