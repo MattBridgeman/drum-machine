@@ -42,18 +42,18 @@ export const buffer = store => next => {
       .subscribe(() => {
         let currentState = store.getState();
         let segments = segmentsToSchedule(context.currentTime, currentState);
-        segments.forEach(({index, time}) => {
-          interval().then(next(bufferActions.newBufferSegment(index, time)));
-        });
+        segments.forEach(({index, time}) => 
+          interval().then(next(bufferActions.newBufferSegment(index, time)))
+        );
       },
-      (err) => console.error(err));
+      (err) => console.error(err),
+      () => next(bufferActions.clearBufferSegments()));
   };
 
   let stop = () => {
     let { dispatch } = store;
     let interval = timeout.get;
     isPlaying = false;
-    interval().then(next(bufferActions.clearBufferSegments()));
   };
 
 	return action => {
