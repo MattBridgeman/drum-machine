@@ -35,7 +35,7 @@ export const buffer = store => next => {
     if(isPlaying) return;
     isPlaying = true;
     startStream();
-  }
+  };
 
   let startStream = () => {
     let interval = timeout.get;
@@ -45,7 +45,8 @@ export const buffer = store => next => {
     let bufferActions = bindActionCreators(DrumMachineActions.buffer, dispatch);
     currentStream = createIntervalStream(shouldContinue, interval);
     currentStream.subscribe(() => {
-      let segments = segmentsToSchedule(buffer, context.currentTime, currentState);
+      let segments = segmentsToSchedule(context.currentTime, currentState);
+      console.log(segments);
       segments.forEach(({index, time}) => dispatch(bufferActions.newBufferSegment(index, time)));
     },
     console.error.bind(console));
