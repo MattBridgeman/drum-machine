@@ -65,9 +65,14 @@ describe("Play State", () => {
     let soundBuffers = [];
     let store = configureTestStore();
     let next = td.function();
-    let connect = td.function();
+    let gainNode = {
+      connect: td.function(),
+      gain: {
+        linearRampToValueAtTime: td.function()
+      }
+    };
     let newAction = triggerSounds(mockStore)(next);
-    td.when(context.createGain()).thenReturn({ connect });
+    td.when(context.createGain()).thenReturn(gainNode);
     newAction(newAudioContext(context));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
