@@ -51,8 +51,6 @@ export const buffer = store => next => {
   };
 
   let stop = () => {
-    let { dispatch } = store;
-    let interval = timeout.get;
     isPlaying = false;
   };
 
