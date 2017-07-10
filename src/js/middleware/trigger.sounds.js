@@ -55,16 +55,17 @@ export const triggerSounds = store => {
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
-		let decayNodes = channels
-			.map(channel => context.createGain());
-		
 		let reverbNodes = sourceNodes
 			.map(sourceNode => sourceNode.reverbNode);
 
 		let reverbs = channels
 			.map(channel => channel.reverb);
-			
+		
 		//create gain nodes for decay
+		let decayNodes = channels
+			.map(channel => context.createGain());
+			
+		//connect decay to master
 		zip([decayNodes, sourceNodes])
 			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master))
 		
