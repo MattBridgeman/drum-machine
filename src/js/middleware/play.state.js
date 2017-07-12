@@ -43,7 +43,7 @@ export const playState = store => next => {
           else return prev;
         });
         if(currentSegment !== currentState.playState.currentSegmentIndex) {
-          interval().then(next(bufferActions.newSegmentIndex(currentSegment)))
+          next(bufferActions.newSegmentIndex(currentSegment));
         }
       },
       (err) => console.error(err));

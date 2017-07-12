@@ -43,7 +43,7 @@ export const buffer = store => next => {
         let currentState = store.getState();
         let segments = segmentsToSchedule(context.currentTime, currentState);
         segments.forEach(({index, time}) => 
-          interval().then(next(bufferActions.newBufferSegment(index, time)))
+          next(bufferActions.newBufferSegment(index, time));
         );
       },
       (err) => console.error(err),

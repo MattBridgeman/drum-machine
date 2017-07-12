@@ -11,7 +11,7 @@ import td from "testdouble";
 describe("Play state", () => {
   it("passes 'next' onwards for all action types", () => {
     let promise = Promise.resolve(true);
-    td.replace(timeout, "timeout", () => promise);
+    td.replace(timeout, "get", () => promise);
     let context = {
       currentTime: 1234
     };
@@ -24,5 +24,43 @@ describe("Play state", () => {
     td.verify(next(newAudioContext(context)));
     td.verify(next(togglePlayPause()));
     td.verify(next({type: "A_RANDOM_ACTION"}));
+  });
+  it("triggers new segment index", () => {
+    let promise = Promise.resolve(true);
+    td.replace(timeout, "get", () => promise);
+    let context = {
+      currentTime: 1234
+    };
+    let state = {
+      playState: {
+        currentSegmentIndex: 3,
+        currentBarIndex: 0,
+        isPlaying: false,
+        looping: true
+      },
+      buffer: [{
+        time: 1234,
+        index: 0
+      }]
+    };
+    let mockStore = {
+      getState: () => state
+    };
+    let sourceNodes = [{
+      master: null
+    },{
+      master: null
+    }];
+    let soundBuffers = [];
+    let store = configureTestStore();
+    let next = td.function();
+    let newAction = playState(mockStore)(next);
+    newAction(newAudioContext(context));
+    newAction(togglePlayPause());
+    td.verify(next(newAudioContext(context)));
+    td.verify(next(togglePlayPause()));
+    return promise.then(() => {
+      td.verify(next(newSegmentIndex(0)))
+    });
   });
 });
