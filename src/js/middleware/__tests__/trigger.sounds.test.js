@@ -69,7 +69,7 @@ describe("Play State", () => {
     td.verify(contextStub.context.createGain());
     td.verify(contextStub.context.createGain());
   });
-  it("triggers sounds for patterns", () => {
+  it("triggers sounds for patterns with correct pitch", () => {
     let contextStub = getStubContext();
     let state = {
       playState: {
@@ -85,9 +85,11 @@ describe("Play State", () => {
         swing: 0
       },
       channels: [{
-        patterns: [0]
+        patterns: [0],
+        pitch: 100
       }, {
-        patterns: [1]
+        patterns: [1],
+        pitch: 100
       }],
       patterns: {
         0: [1,0,0,0],
@@ -112,5 +114,8 @@ describe("Play State", () => {
     newAction(togglePlayPause());
     td.verify(contextStub.context.createGain());
     td.verify(contextStub.context.createGain());
+    expect(contextStub.sourceBuffer.playbackRate.value).to.equal(1.6);
+    td.verify(contextStub.sourceBuffer.start(1234));
+    td.verify(contextStub.sourceBuffer.start(1234));
   });
 });
