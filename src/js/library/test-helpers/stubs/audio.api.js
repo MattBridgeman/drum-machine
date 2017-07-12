@@ -21,13 +21,19 @@ export let getStubContext = () => {
 			value: 1
 		}
 	};
-	td.when(context.createGain()).thenReturn(gainNode);
-	td.when(context.createBufferSource()).thenReturn(sourceBuffer);
-	td.when(context.createPanner()).thenReturn({
+	let panner = {
 		setPosition: td.function(),
     panningModel: ''
-	});
-	return context;
+	};
+	td.when(context.createGain()).thenReturn(gainNode);
+	td.when(context.createBufferSource()).thenReturn(sourceBuffer);
+	td.when(context.createPanner()).thenReturn(panner);
+	return {
+		context,
+		gainNode,
+		sourceBuffer,
+		panner
+	};
 };
 
 export let audioNode = td.object({

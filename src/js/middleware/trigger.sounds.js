@@ -67,7 +67,7 @@ export const triggerSounds = store => {
 			
 		//connect decay to master
 		zip([decayNodes, sourceNodes])
-			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master))
+			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master));
 		
 		//apply decay to decay node
 		zip([decayNodes, decays])

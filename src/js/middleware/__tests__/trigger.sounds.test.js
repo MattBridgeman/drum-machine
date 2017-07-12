@@ -2,7 +2,7 @@ import React from "react";
 import { triggerSounds } from "../trigger.sounds";
 import { expect } from "chai";
 import { newAudioContext, newSoundBuffers, newSourceNodes } from "../../actions/audio.context.actions";
-import { getStubContext } from "../../library/test-helpers/stubs/audio.api"
+import { getStubContext } from "../../library/test-helpers/stubs/audio.api";
 import { togglePlayPause } from "../../actions/play.state.actions";
 import { timeout } from "../../library/audio-api/interval";
 import configureTestStore from "../../store/test.store";
@@ -10,23 +10,23 @@ import td from "testdouble";
 
 describe("Play State", () => {
   it("passes 'next' onwards for all action types", () => {
-    let context = getStubContext();
+    let contextStub = getStubContext();
     let sourceNodes = [];
     let soundBuffers = [];
     let store = configureTestStore();
     let next = td.function();
     let newAction = triggerSounds(store)(next);
-    newAction(newAudioContext(context));
+    newAction(newAudioContext(contextStub.context));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
     newAction({type: "A_RANDOM_ACTION"});
-    td.verify(next(newAudioContext(context)));
+    td.verify(next(newAudioContext(contextStub.context)));
     td.verify(next(newSoundBuffers(soundBuffers)));
     td.verify(next(newSourceNodes(sourceNodes)));
     td.verify(next({type: "A_RANDOM_ACTION"}));
   });
   it("creates a decay per channel", () => {
-    let context = getStubContext();
+    let contextStub = getStubContext();
     let state = {
       playState: {
         currentSegmentIndex: 1,
@@ -62,15 +62,15 @@ describe("Play State", () => {
     let store = configureTestStore();
     let next = td.function();
     let newAction = triggerSounds(mockStore)(next);
-    newAction(newAudioContext(context));
+    newAction(newAudioContext(contextStub.context));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
     newAction(togglePlayPause());
-    td.verify(context.createGain());
-    td.verify(context.createGain());
+    td.verify(contextStub.context.createGain());
+    td.verify(contextStub.context.createGain());
   });
   it("triggers sounds for patterns", () => {
-    let context = getStubContext();
+    let contextStub = getStubContext();
     let state = {
       playState: {
         currentSegmentIndex: 0,
@@ -106,11 +106,11 @@ describe("Play State", () => {
     let store = configureTestStore();
     let next = td.function();
     let newAction = triggerSounds(mockStore)(next);
-    newAction(newAudioContext(context));
+    newAction(newAudioContext(contextStub.context));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
     newAction(togglePlayPause());
-    td.verify(context.createGain());
-    td.verify(context.createGain());
+    td.verify(contextStub.context.createGain());
+    td.verify(contextStub.context.createGain());
   });
 });
