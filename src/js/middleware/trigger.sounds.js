@@ -73,12 +73,10 @@ export const triggerSounds = store => {
 		zip([decayNodes, decays])
 			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, bufferTime + decay));
 		
-				console.log("playstate:", currentSegmentIndex, currentBarIndex);
 		//play sound
 		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
 			.filter(([pattern]) => !!pattern[currentSegmentIndex])
 			.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
-				console.log("pattern");
 				let bufferSource = createBufferSource(context, buffer);
 				bufferSource.playbackRate.value = pitch || 1;
 				bufferSource.connect(decayNode);

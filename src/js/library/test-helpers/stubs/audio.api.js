@@ -2,22 +2,27 @@ import td from "testdouble";
 
 export let getStubContext = () => {
 	let context = {
+		currentTime: 1234,
 		createGain: td.function(),
     createPanner: td.function(),
 		createBufferSource: td.function()
 	};
-	td.when(context.createGain()).thenReturn({
+	let gainNode = {
+		connect: td.function(),
 		gain: {
-			value: 1
+			value: 1,
+			linearRampToValueAtTime: td.function()
 		}
-	});
-	td.when(context.createBufferSource()).thenReturn({
+	};
+	let sourceBuffer = {
 		connect: td.function(),
 		start: td.function(),
 		playbackRate: {
 			value: 1
 		}
-	});
+	};
+	td.when(context.createGain()).thenReturn(gainNode);
+	td.when(context.createBufferSource()).thenReturn(sourceBuffer);
 	td.when(context.createPanner()).thenReturn({
 		setPosition: td.function(),
     panningModel: ''
