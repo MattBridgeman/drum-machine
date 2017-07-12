@@ -1,5 +1,5 @@
-import { TOGGLE_PLAY_PAUSE, INCREMENT_SEGMENT_INDEX } from "../constants/play.state.constants";
 import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS, NEW_SOURCE_NODES } from "../constants/audio.context.constants";
+import { NEW_BUFFER_SEGMENT } from "../constants/buffer.constants";
 import rootReducer from "../reducers/drum.machine.root.reducer";
 import { createBufferSource } from "../library/audio-api/context";
 import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
@@ -17,10 +17,10 @@ export const triggerSounds = store => {
 		let triggerSounds = (action) => {
 			let prevState = store.getState();
 			let state = rootReducer(prevState, action);
-			//playing of sounds
-			let bufferTime = action.value || context.currentTime;
+
+			let { index, time } = action;
 			let { channels, patterns } = state;
-			let { currentSegmentIndex, currentBarIndex } = state.playState;
+			let { currentBarIndex } = state.playState;
 
 			let soundIds = channels
 				.map(channel => channel.sound);
@@ -53,11 +53,11 @@ export const triggerSounds = store => {
 			
 			//apply decay to decay node
 			zip([decayNodes, decays])
-				.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, bufferTime + decay));
+				.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, time + decay));
 			
 			//play sound
 			zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
-				.filter(([pattern]) => !!pattern[currentSegmentIndex])
+				.filter(([pattern]) => !!pattern[index])
 				.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
 					let bufferSource = createBufferSource(context, buffer);
 					bufferSource.playbackRate.value = pitch || 1;
@@ -65,33 +65,26 @@ export const triggerSounds = store => {
 					if(reverb){
 						bufferSource.connect(reverbNode.input);
 					}
-					bufferSource.start(bufferTime);
+					bufferSource.start(time);
 				});
 		};
 
 		return action => {
-			let prevState = store.getState();
-			
-			if(action.type === NEW_AUDIO_CONTEXT){
-				context = action.value;
-				return next(action);
+
+			switch(action.type) {
+				case NEW_AUDIO_CONTEXT:
+					context = action.value;
+					return next(action);
+				case NEW_SOUND_BUFFERS:
+					sounds = action.value;
+					return next(action);
+				case NEW_SOURCE_NODES:
+					sourceNodes = action.value;
+					return next(action);
+				case NEW_BUFFER_SEGMENT:
+					triggerSounds(action);
+					return next(action);
 			}
-			
-			if(action.type === NEW_SOUND_BUFFERS){
-				sounds = action.value;
-				return next(action);
-			}
-			
-			if(action.type === NEW_SOURCE_NODES){
-				sourceNodes = action.value;
-				return next(action);
-			}
-			
-			if (!(action.type === TOGGLE_PLAY_PAUSE && prevState.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
-				return next(action);
-			}
-			
-			triggerSounds(action);
 
 			return next(action);
 		};
