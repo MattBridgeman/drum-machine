@@ -8,84 +8,92 @@ import { zip } from "../library/natives/array";
 
 export const triggerSounds = store => {
 
-	let context;
-	let sounds;
-	let sourceNodes;
+	return next => {
 
-	return next => action => {
-		let prevState = store.getState();
-		let state = rootReducer(prevState, action);
-		
-		if(action.type === NEW_AUDIO_CONTEXT){
-			context = action.value;
-			return next(action);
-		}
-		
-		if(action.type === NEW_SOUND_BUFFERS){
-			sounds = action.value;
-			return next(action);
-		}
-		
-		if(action.type === NEW_SOURCE_NODES){
-			sourceNodes = action.value;
-			return next(action);
-		}
-		
-		if (!(action.type === TOGGLE_PLAY_PAUSE && prevState.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
-			return next(action);
-		}
-		
-		//playing of sounds
-		let bufferTime = action.value || context.currentTime;
-		let { channels, patterns } = state;
-		let { currentSegmentIndex, currentBarIndex } = state.playState;
+		let context;
+		let sounds;
+		let sourceNodes;
 
-		let soundIds = channels
-			.map(channel => channel.sound);
+		let triggerSounds = (action) => {
+			let prevState = store.getState();
+			let state = rootReducer(prevState, action);
+			//playing of sounds
+			let bufferTime = action.value || context.currentTime;
+			let { channels, patterns } = state;
+			let { currentSegmentIndex, currentBarIndex } = state.playState;
 
-		let pitches = channels
-			.map(channel => channel.pitch)
-			.map(pitchToPlaybackRate);
+			let soundIds = channels
+				.map(channel => channel.sound);
 
-		let decays = channels
-			.map(channel => channel.decay)
-			.map(decayPercentageToValue);
+			let pitches = channels
+				.map(channel => channel.pitch)
+				.map(pitchToPlaybackRate);
 
-		let patternsArray = channels
-			.map(channel => channel.patterns[currentBarIndex])
-			.map(patternId => patterns[patternId]);
-		
-		let reverbNodes = sourceNodes
-			.map(sourceNode => sourceNode.reverbNode);
+			let decays = channels
+				.map(channel => channel.decay)
+				.map(decayPercentageToValue);
 
-		let reverbs = channels
-			.map(channel => channel.reverb);
-		
-		//create gain nodes for decay
-		let decayNodes = channels
-			.map(channel => context.createGain());
+			let patternsArray = channels
+				.map(channel => channel.patterns[currentBarIndex])
+				.map(patternId => patterns[patternId]);
 			
-		//connect decay to master
-		zip([decayNodes, sourceNodes])
-			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master));
-		
-		//apply decay to decay node
-		zip([decayNodes, decays])
-			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, bufferTime + decay));
-		
-		//play sound
-		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
-			.filter(([pattern]) => !!pattern[currentSegmentIndex])
-			.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
-				let bufferSource = createBufferSource(context, buffer);
-				bufferSource.playbackRate.value = pitch || 1;
-				bufferSource.connect(decayNode);
-				if(reverb){
-					bufferSource.connect(reverbNode.input);
-				}
-				bufferSource.start(bufferTime);
-			});
+			let reverbNodes = sourceNodes
+				.map(sourceNode => sourceNode.reverbNode);
 
-		return next(action);
+			let reverbs = channels
+				.map(channel => channel.reverb);
+			
+			//create gain nodes for decay
+			let decayNodes = channels
+				.map(channel => context.createGain());
+				
+			//connect decay to master
+			zip([decayNodes, sourceNodes])
+				.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master));
+			
+			//apply decay to decay node
+			zip([decayNodes, decays])
+				.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, bufferTime + decay));
+			
+			//play sound
+			zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
+				.filter(([pattern]) => !!pattern[currentSegmentIndex])
+				.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
+					let bufferSource = createBufferSource(context, buffer);
+					bufferSource.playbackRate.value = pitch || 1;
+					bufferSource.connect(decayNode);
+					if(reverb){
+						bufferSource.connect(reverbNode.input);
+					}
+					bufferSource.start(bufferTime);
+				});
+		};
+
+		return action => {
+			let prevState = store.getState();
+			
+			if(action.type === NEW_AUDIO_CONTEXT){
+				context = action.value;
+				return next(action);
+			}
+			
+			if(action.type === NEW_SOUND_BUFFERS){
+				sounds = action.value;
+				return next(action);
+			}
+			
+			if(action.type === NEW_SOURCE_NODES){
+				sourceNodes = action.value;
+				return next(action);
+			}
+			
+			if (!(action.type === TOGGLE_PLAY_PAUSE && prevState.playState.isPlaying === false) && action.type !== INCREMENT_SEGMENT_INDEX) {
+				return next(action);
+			}
+			
+			triggerSounds(action);
+
+			return next(action);
+		};
 	};
 };
