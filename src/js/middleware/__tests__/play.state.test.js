@@ -33,7 +33,7 @@ describe("Play state", () => {
       then: (fn) => {
         promises.push(fn)
         return {
-          catch: (errFn) => promiseErrors.push(errFn);
+          catch: (errFn) => promiseErrors.push(errFn)
         }
       }
     };
