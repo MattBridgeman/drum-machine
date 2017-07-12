@@ -1,9 +1,35 @@
-import { arrayBuffer } from "../request/arraybuffer";
-import * as Rx from "rx";
+import { getSegmentsInTimespan, getSegmentTimeInSeconds } from "./tempo";
+import { getSegmentTimeInMilliseconds } from "./tempo";
+import { last, numberToArrayLength } from "../natives/array";
+import { normalisedIndex } from "./play.state";
 
-export function loadSounds(store){
-	let state = store.getState();
-	let soundKeys = Object.keys(state.sounds);
-	let soundPaths = soundKeys.map(key => state.sounds[key].path);
-	return soundPaths.map(arrayBuffer);
-}
+export const LOOK_AHEAD_IN_SECONDS = 0.25;
+export const BUFFER_DELAY_IN_SECONDS = 0.1;
+export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 2;
+
+export function segmentsToSchedule(currentTime, state) {
+  let { playState, tempo, buffer } = state;
+  let currentLookAhead = currentTime + LOOK_AHEAD_IN_SECONDS;
+  let segmentTime = getSegmentTimeInSeconds(tempo.beatsPerMinute, tempo.segmentsPerBeat);
+  let segmentsToBuffer = getSegmentsInTimespan(LOOK_AHEAD_IN_SECONDS, segmentTime);
+  let segmentsToBufferAsArray = numberToArrayLength(segmentsToBuffer);
+  let lastBuffer = last(buffer);
+  if(!lastBuffer || lastBuffer.time < currentLookAhead) {
+    return segmentsToBufferAsArray
+      .reduce((prev, curr, index) => {
+        let lastSegment = last(prev);
+        return [...prev, {
+          index: normalisedIndex(playState, tempo, lastSegment.index + 1),
+          time: lastSegment.time + (getSegmentTimeInMilliseconds(tempo.beatsPerMinute, tempo.segmentsPerBeat, lastSegment.index + 1, tempo.swing) / 1000)
+        }];
+      }, [lastBuffer || {
+        index: 0,
+        time: currentTime + BUFFER_DELAY_IN_SECONDS
+      }])
+      .filter((segment, index) => lastBuffer ? index !== 0 : true);
+  }
+  return [];
+};
+
+export let segmentsToClear = (previousState, currentTime) =>
+  previousState.filter(({time}) => time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= currentTime);

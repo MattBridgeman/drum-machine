@@ -1,4 +1,4 @@
-import * as Rx from "rx";
+import Rx from "rxjs/Rx";
 
 export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCallback) => Rx.Observable.create(function (observer) {
 	let frameId,
@@ -14,7 +14,7 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
 		let bufferLength = interval / 2;
 
 		if(deltaTime >= bufferLength) {
-			observer.onNext(prevTime + interval);
+			observer.next(prevTime + interval);
 			prevTime = prevTime + interval;
 		}
 		tick();
@@ -31,3 +31,13 @@ export var createIntervalStream = (getNow, getIntervalTime, callback, cancelCall
         cancelCallback(frameId);
     };
 });
+
+export let intervalGenerator = function*(shouldContinue, timeout){
+	while(shouldContinue()){
+		yield timeout();
+	}
+};
+
+export let timeout = {
+	get: () => new Promise(window.requestAnimationFrame)
+};
