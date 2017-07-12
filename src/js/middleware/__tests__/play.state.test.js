@@ -2,8 +2,7 @@ import React from "react";
 import { playState } from "../play.state";
 import { expect } from "chai";
 import { newAudioContext } from "../../actions/audio.context.actions";
-import { newSegmentIndex } from "../../actions/play.state.actions";
-import { togglePlayPause } from "../../actions/play.state.actions";
+import { newSegmentIndex, togglePlayPause } from "../../actions/play.state.actions";
 import { timeout } from "../../library/audio-api/interval";
 import configureTestStore from "../../store/test.store";
 import td from "testdouble";
@@ -24,9 +23,20 @@ describe("Play state", () => {
     td.verify(next(newAudioContext(context)));
     td.verify(next(togglePlayPause()));
     td.verify(next({type: "A_RANDOM_ACTION"}));
+    td.reset();
   });
-  it("triggers new segment index", () => {
-    let promise = Promise.resolve(true);
+  it("triggers new segment index", (done) => {
+    let resolve;
+    let promises = [];
+    let promiseErrors = []
+    let promise = {
+      then: (fn) => {
+        promises.push(fn)
+        return {
+          catch: (errFn) => promiseErrors.push(errFn);
+        }
+      }
+    };
     td.replace(timeout, "get", () => promise);
     let context = {
       currentTime: 1234
@@ -59,8 +69,11 @@ describe("Play state", () => {
     newAction(togglePlayPause());
     td.verify(next(newAudioContext(context)));
     td.verify(next(togglePlayPause()));
-    return promise.then(() => {
-      td.verify(next(newSegmentIndex(0)))
+    promise.then(() => {
+      td.verify(next(newSegmentIndex(0)));
+      td.reset();
+      done();
     });
+    promises.map(callback => callback());
   });
 });

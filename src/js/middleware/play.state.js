@@ -42,8 +42,8 @@ export const playState = store => next => {
           if(curr.time <= currentTime) return curr;
           else return prev;
         });
-        if(currentSegment !== currentState.playState.currentSegmentIndex) {
-          next(bufferActions.newSegmentIndex(currentSegment));
+        if(currentSegment.index !== currentState.playState.currentSegmentIndex) {
+          next(playStateActions.newSegmentIndex(currentSegment.index));
         }
       },
       (err) => console.error(err));
