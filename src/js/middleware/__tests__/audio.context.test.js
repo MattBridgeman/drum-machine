@@ -14,4 +14,13 @@ describe("Audio Context", () => {
     nextAction();
     td.verify(next(newAudioContext(td.matchers.anything())));
   });
+  it("passes and other actions through to next", () => {
+    
+    let next = td.function();
+    let store = td.function();
+    let nextAction = supplyAudioContext(store)(next);
+    nextAction({ type: "SOME_RANDOM_ACTION" });
+    td.verify(next(newAudioContext(td.matchers.anything())));
+    td.verify(next({ type: "SOME_RANDOM_ACTION" }));
+  });
 });
