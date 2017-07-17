@@ -14,7 +14,7 @@ describe("Audio Context", () => {
     nextAction();
     td.verify(next(newAudioContext(td.matchers.anything())));
   });
-  it("passes and other actions through to next", () => {
+  it("passes other actions through to next", () => {
     
     let next = td.function();
     let store = td.function();
