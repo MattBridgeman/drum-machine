@@ -20,7 +20,6 @@ export const supplyAudioNodes = store => next => {
         
         if(action.type === NEW_AUDIO_CONTEXT){
 			context = action.value;
-			return next(action);
 		}
         
         if(!init) {
