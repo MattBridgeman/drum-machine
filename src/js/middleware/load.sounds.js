@@ -16,14 +16,7 @@ export const supplySoundBuffers = store => next => {
 				let context = action.value;
 				Promise.all(requestSounds(store))
 					.then((promises) => decodeAudioDataArray(context, promises))
-					.then(soundBuffers => {
-						next(newSoundBuffers(soundBuffers));
-						return soundBuffers;
-					})
-					.then(data => {
-						console.log("after next load sounds", data);
-						return data;
-					});
+					.then(soundBuffers => next(newSoundBuffers(soundBuffers)));
 			default:
 				return next(action);
 		}
