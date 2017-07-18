@@ -4,6 +4,7 @@ import { expect } from "chai";
 import { newAudioContext } from "../../actions/audio.context.actions";
 import { newSegmentIndex, togglePlayPause } from "../../actions/play.state.actions";
 import { timeout } from "../../library/audio-api/interval";
+import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
 import configureTestStore from "../../store/test.store";
 import td from "testdouble";
 
@@ -27,16 +28,7 @@ describe("Play state", () => {
   });
   it("triggers new segment index", (done) => {
     let resolve;
-    let promises = [];
-    let promiseErrors = []
-    let promise = {
-      then: (fn) => {
-        promises.push(fn)
-        return {
-          catch: (errFn) => promiseErrors.push(errFn)
-        }
-      }
-    };
+    let { promise, flush } = getPromiseMock();
     td.replace(timeout, "get", () => promise);
     let context = {
       currentTime: 1234
@@ -74,6 +66,6 @@ describe("Play state", () => {
       td.reset();
       done();
     });
-    promises.map(callback => callback());
+    flush();
   });
 });
