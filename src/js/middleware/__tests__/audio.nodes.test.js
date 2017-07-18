@@ -50,7 +50,7 @@ describe("Audio Nodes", () => {
     let context = getStubContext();
     let nextAction = supplyAudioNodes(mockStore)(next);
     nextAction(newAudioContext(context.context));
-    td.verify(newSourceNodes(td.matchers.anything()));
+    td.verify(next(newSourceNodes(td.matchers.anything())));
     td.reset();
   });
 });
