@@ -1,8 +1,7 @@
 import React from "react";
 import { supplySoundBuffers } from "../load.sounds";
 import { newAudioContext, newSoundBuffers } from "../../actions/audio.context.actions";
-import * as _arrayBuffer from "../../library/request/arraybuffer";
-import * as _libContext from "../../library/audio-api/context";
+import * as _request from "../../library/audio-api/request";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
 import { expect } from "chai";
 import td from "testdouble";
@@ -17,8 +16,7 @@ describe("Load Sounds", () => {
   });
   it("calls next with new sounds buffers", () => {
     let { promise, flush } = getPromiseMock([1234, 5678]);
-    td.replace(_arrayBuffer, "arrayBuffer", () => promise);
-    td.replace(_libContext, "decodeAudioDataArray", () => promise);
+    td.replace(_request, "requestAndDecodeSoundArray", (paths) => promise);
     let context = td.function();
     let next = td.function();
     let state = {
