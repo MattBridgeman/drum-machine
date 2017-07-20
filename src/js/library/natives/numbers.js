@@ -32,7 +32,7 @@ export function valueAsPercentageOfRange(value, min, max){
 
 export function percentageToValueOfRange(value, min, max){
 	var range = max - min;
-	return (((range / 100) * value) + min);
+	return ((range * value) + (min * 100)) / 100;
 }
 
 export function valueAsPercentageOfX(value, x){
