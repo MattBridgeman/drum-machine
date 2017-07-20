@@ -23,4 +23,40 @@ describe("Audio Params", () => {
     nextAction(newSourceNodes([]));
     td.verify(next(newSourceNodes([])));
   });
+  it("sets gains to correct value", () => {
+    
+    let next = td.function();
+    let state = {
+      channels: [{
+        mute: false,
+        solo: false,
+        pan: 50
+      }],
+      reverb: {
+        decay: 1,
+        seconds: 1
+      }
+    };
+    let mockStore = {
+      getState: () => state
+    };
+    let sourceNodes = [{
+      master: {
+        gain: {
+          value: 0
+        }
+      },
+      volume: {
+        gain: {
+          value: 0
+        }
+      },
+      pan: {
+        setPosition: td.function()
+      }
+    }];
+    let nextAction = updateAudioParams(mockStore)(next);
+    nextAction(newSourceNodes([]));
+    td.verify(next(newSourceNodes([])));
+  });
 });
