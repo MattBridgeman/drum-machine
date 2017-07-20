@@ -30,7 +30,8 @@ describe("Audio Params", () => {
       channels: [{
         mute: false,
         solo: false,
-        pan: 50
+        pan: 50,
+        volume: 100
       }],
       reverb: {
         decay: 1,
@@ -53,10 +54,15 @@ describe("Audio Params", () => {
       },
       pan: {
         setPosition: td.function()
+      },
+      reverbNode: {
+        decay: 0,
+        seconds: 0
       }
     }];
     let nextAction = updateAudioParams(mockStore)(next);
-    nextAction(newSourceNodes([]));
-    td.verify(next(newSourceNodes([])));
+    nextAction(newSourceNodes(sourceNodes));
+    expect(sourceNodes[0].volume.gain.value).to.equal(1);
+    expect(sourceNodes[0].master.gain.value).to.equal(1);
   });
 });
