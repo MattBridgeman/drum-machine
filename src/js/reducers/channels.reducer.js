@@ -2,13 +2,9 @@ import {
 	CHANGE_SELECTED_CHANNEL,
 	TOGGLE_SOLO_CHANNEL,
 	TOGGLE_MUTE_CHANNEL,
-	CHANGE_VOLUME_BY_AMOUNT,
 	CHANGE_VOLUME_TO_AMOUNT,
-	CHANGE_PITCH_BY_AMOUNT,
 	CHANGE_PITCH_TO_AMOUNT,
-	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	CHANGE_DECAY_BY_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
 	TOGGLE_REVERB
 } from "../constants/channel.constants";
@@ -100,40 +96,20 @@ const initialState = [
 
 export default function channels(state = initialState, action) {
 	switch (action.type) {
-		case CHANGE_VOLUME_BY_AMOUNT:
-			return state
-				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { volume: channel.volume + action.value }) : channel
-				);
 		case CHANGE_VOLUME_TO_AMOUNT:
 			return state
 				.map((channel, i) =>
 					action.channelId === i ? Object.assign({}, channel, { volume: action.value }) : channel
-				);
-		case CHANGE_PITCH_BY_AMOUNT:
-			return state
-				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { pitch: channel.pitch + action.value }) : channel
 				);
 		case CHANGE_PITCH_TO_AMOUNT:
 			return state
 				.map((channel, i) =>
 					action.channelId === i ? Object.assign({}, channel, { pitch: action.value }) : channel
 				);
-		case CHANGE_DECAY_BY_AMOUNT:
-			return state
-				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { decay: channel.decay + action.value }) : channel
-				);
 		case CHANGE_DECAY_TO_AMOUNT:
 			return state
 				.map((channel, i) =>
 					action.channelId === i ? Object.assign({}, channel, { decay: action.value }) : channel
-				);
-		case CHANGE_PAN_BY_AMOUNT:
-			return state
-				.map((channel, i) =>
-					action.channelId === i ? Object.assign({}, channel, { pan: channel.pan + action.value }) : channel
 				);
 		case CHANGE_PAN_TO_AMOUNT:
 			return state

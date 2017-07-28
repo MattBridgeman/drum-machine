@@ -4,13 +4,9 @@ import {
 	CHANGE_SELECTED_CHANNEL,
 	TOGGLE_SOLO_CHANNEL,
 	TOGGLE_MUTE_CHANNEL,
-	CHANGE_VOLUME_BY_AMOUNT,
 	CHANGE_VOLUME_TO_AMOUNT,
-	CHANGE_PITCH_BY_AMOUNT,
 	CHANGE_PITCH_TO_AMOUNT,
-	CHANGE_DECAY_BY_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
-	CHANGE_PAN_BY_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB
 } from "../../constants/channel.constants";
@@ -44,23 +40,6 @@ describe("Channel reducer", function() {
 		];
 	}
 
-	it("Expect volume value to increase by amount", function() {
-		const channelId = 0;
-		const amount = 20;
-		const initialState = getInitialState();
-
-		const action = {
-			type: CHANGE_VOLUME_BY_AMOUNT,
-			channelId,
-			value: amount
-		};
-
-		const nextState = channels(initialState, action);
-
-		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].volume).to.equal(70);
-	});
-
 	it("Expect volume value to change to amount", function() {
 		const channelId = 0;
 		const value = 20;
@@ -76,23 +55,6 @@ describe("Channel reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[channelId].volume).to.equal(20);
-	});
-
-	it("Expect pitch value to increase by amount", function() {
-		const channelId = 0;
-		const amount = 20;
-		const initialState = getInitialState();
-
-		const action = {
-			type: CHANGE_PITCH_BY_AMOUNT,
-			channelId,
-			value: amount
-		};
-
-		const nextState = channels(initialState, action);
-
-		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].pitch).to.equal(70);
 	});
 
 	it("Expect pitch value to change to amount", function() {
@@ -112,23 +74,6 @@ describe("Channel reducer", function() {
 		expect(nextState[channelId].pitch).to.equal(20);
 	});
 
-	it("Expect decay value to increase by amount", function() {
-		const channelId = 0;
-		const amount = 20;
-		const initialState = getInitialState();
-
-		const action = {
-			type: CHANGE_DECAY_BY_AMOUNT,
-			channelId,
-			value: amount
-		};
-
-		const nextState = channels(initialState, action);
-
-		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].decay).to.equal(120);
-	});
-
 	it("Expect decay value to change to amount", function() {
 		const channelId = 0;
 		const value = 20;
@@ -144,23 +89,6 @@ describe("Channel reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[channelId].decay).to.equal(20);
-	});
-
-	it("Expect pan value to increase by amount", function() {
-		const channelId = 0;
-		const amount = 20;
-		const initialState = getInitialState();
-
-		const action = {
-			type: CHANGE_PAN_BY_AMOUNT,
-			channelId,
-			value: amount
-		};
-
-		const nextState = channels(initialState, action);
-
-		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[channelId].pan).to.equal(70);
 	});
 
 	it("Expect pan value to change to amount", function() {
