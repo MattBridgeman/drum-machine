@@ -1,3 +1,8 @@
+## 1.1.3
+
+- Tidied unused channel reducers and actions
+- Removed unused beats reducer
+
 ## 1.1.2
 
 - Mainly adding test coverage to middleware
