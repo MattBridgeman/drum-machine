@@ -7,11 +7,6 @@ import { segmentsToSchedule } from "../library/audio-api/buffer";
 import { intervalGenerator, timeout } from "../library/audio-api/interval";
 import DrumMachineActions from "../actions/drum.machine.actions";
 
-export const LOOK_AHEAD_IN_SECONDS = 0.25;
-export const LOOP_INTERVAL_IN_MILLISECONDS = LOOK_AHEAD_IN_SECONDS * 500;
-export const BUFFER_DELAY_IN_SECONDS = 0.1;
-export const MAX_KEEP_STALE_BUFFER_IN_SECONDS = 5;
-
 export const buffer = store => next => {
     
   let context;
