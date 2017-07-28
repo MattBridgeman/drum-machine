@@ -1,3 +1,8 @@
+## 1.1.2
+
+- Mainly adding test coverage to middleware
+- Simplified some middleware
+
 ## 1.1.1
 
 - Improved the sound buffering to look ahead, improving rhythm
