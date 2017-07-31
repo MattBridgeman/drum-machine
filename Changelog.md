@@ -1,3 +1,7 @@
+## 1.1.4
+
+- Perf improvements to slider and rotator
+
 ## 1.1.3
 
 - Tidied unused channel reducers and actions

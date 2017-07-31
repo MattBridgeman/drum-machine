@@ -23,9 +23,7 @@ class Rotator extends React.Component {
 		let { value, min = DEFAULT_MIN_VALUE, max = DEFAULT_MAX_VALUE, name, onValueChange, classes } = this.props;
 		let rotation;
     if(this.state.touching){
-			let { currentTouch } = this.state;
-			let lengthAndAngle = this.getLengthAndAngleFromCentre(currentTouch);
-			let newValue = this.getValueFromLengthAndAngle(lengthAndAngle);
+			let { currentTouch, newValue } = this.state;
       rotation = this.getRotationFromValue(newValue);
     } else {
       rotation = this.getRotationFromValue(value);
@@ -96,13 +94,21 @@ class Rotator extends React.Component {
 		return newValue;
 	}
 
+	getValueFromTouch(touch){
+		let lengthAndAngle = this.getLengthAndAngleFromCentre(touch);
+		return this.getValueFromLengthAndAngle(lengthAndAngle);
+	}
+
 	onStart(e) {
 		e.preventDefault();
-		let touchX = e.pageX || e.touches[0].pageX;
-		let touchY = e.pageY || e.touches[0].pageY;
+		let touchX = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
+		let touchY = e.pageY !== undefined ? e.pageY : e.touches[0].pageY;
+		let touch = [touchX, touchY];
+		let newValue = this.getValueFromTouch(touch);
 		this.setState({
 			touching: true,
-			currentTouch: [touchX, touchY]
+			currentTouch: [touchX, touchY],
+			newValue
 		});
 	}
 
@@ -112,20 +118,25 @@ class Rotator extends React.Component {
 		}
 		e.preventDefault();
 		let { onValueChange, value } = this.props;
-		let touchX = e.pageX || e.touches[0].pageX;
-		let touchY = e.pageY || e.touches[0].pageY;
+		let touchX = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
+		let touchY = e.pageY !== undefined ? e.pageY : e.touches[0].pageY;
 		let touch = [touchX, touchY];
-		let lengthAndAngle = this.getLengthAndAngleFromCentre(touch);
-		let newValue = this.getValueFromLengthAndAngle(lengthAndAngle);
+		let newValue = this.getValueFromTouch(touch);
 
-		if(value !== newValue) {
-			onValueChange(newValue);
-		}
+		if(this.rafId) window.cancelAnimationFrame(this.rafId);
 
-		this.setState({
-			touching: true,
-			currentTouch: [touchX, touchY]
-		});
+		this.rafId = window.requestAnimationFrame(() => {
+			if(!this.state.touching) return;
+			if(value !== newValue) {
+				onValueChange(newValue);
+			}
+
+			this.setState({
+				touching: true,
+				currentTouch: [touchX, touchY],
+				newValue
+			});
+		})
 	}
 
 	onEnd(e) {
