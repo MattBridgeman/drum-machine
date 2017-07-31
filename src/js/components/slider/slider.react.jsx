@@ -121,7 +121,7 @@ class Slider extends React.Component {
 
   onStart(e) {
     e.preventDefault();
-    let touch = e.pageX || e.touches[0].pageX;
+    let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
     this.setState({
       touching: true,
       touches: [touch],
@@ -136,17 +136,23 @@ class Slider extends React.Component {
     }
     e.preventDefault();
     let { onValueChange, value } = this.props;
-    let touch = e.pageX || e.touches[0].pageX;
+    let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
     let newValue = this.getCurrentValueFromX(this.getCurrentX());
 
-    if(value !== newValue) {
-      onValueChange(newValue);
-    }
+		if(this.rafId) window.cancelAnimationFrame(this.rafId);
 
-    this.setState({
-      touching: true,
-      touches: this.state.touches.concat([touch]),
-      currentX: this.getCurrentX()
+		this.rafId = window.requestAnimationFrame(() => {
+      if(!this.state.touching) return;
+      
+      if(value !== newValue) {
+        onValueChange(newValue);
+      }
+      
+      this.setState({
+        touching: true,
+        touches: this.state.touches.concat([touch]),
+        currentX: this.getCurrentX()
+      });
     });
   }
 
