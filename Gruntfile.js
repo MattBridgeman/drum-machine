@@ -68,6 +68,15 @@ module.exports = function(grunt) {
           src: ['**/*'],
           dest: 'build/samples/'
         }]
+      },
+      firebaseui: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'node_modules/firebaseui/dist/',
+          src: ['firebaseui.css'],
+          dest: 'build/css/'
+        }]
       }
     },
 
