@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { Channels } from "../channel/channels.react.jsx";
 import { Pattern } from "../pattern/pattern.react.jsx";
@@ -16,6 +17,7 @@ class DrumMachine extends Component {
 		return (
 			<div className="container">
 				<div className="drum-machine">
+					<Link to="/user/login">Login</Link>
 					<Toolbar {...this.props} />
 					<ChannelSelector {...this.props} />
 					<Channels {...this.props} />
