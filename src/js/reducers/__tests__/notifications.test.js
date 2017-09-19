@@ -22,7 +22,7 @@ describe("Notification reducer", () => {
     }];
     let nextState = notifications(initialState, {
       type: CLEAR_NOTIFICATION,
-      id: 1
+      value: 1
     });
     expect(nextState).to.be.an("array").that.is.empty;
   });
