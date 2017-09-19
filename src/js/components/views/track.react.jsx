@@ -5,7 +5,7 @@ import { View } from "./view.react.jsx";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
 
 let Track = (props) =>
-  <View {...props}>
+  <View {...props} view={{ name: "track" }}>
     <div className="container">
       <DrumMachine {...props} />
     </div>
