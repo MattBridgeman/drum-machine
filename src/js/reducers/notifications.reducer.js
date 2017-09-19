@@ -4,7 +4,10 @@ import {
 } from "../constants/notifications.constants";
 import { unique } from "../library/natives/numbers";
 
-const initialState = [];
+const initialState = [{
+  id: 1,
+  value: "Dummy Notification"
+}];
 let idGenerator = unique();
 
 export default function notifications(state = initialState, action) {
