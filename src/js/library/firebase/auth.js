@@ -5,7 +5,9 @@ let auth = (() => {
   return {
     init: () => {
       firebase.initializeApp(config);
-    }
+    },
+    onAuthStateChanged: (cb) => 
+      firebase.auth().onAuthStateChanged(cb)
   }
 })();
 
