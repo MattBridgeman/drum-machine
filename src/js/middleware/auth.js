@@ -1,4 +1,5 @@
 import { auth } from "../library/firebase/auth";
+import { authStateChange } from "../actions/auth.actions";
 
 export const supplyAuth = store => next => {
   auth.init();
@@ -11,7 +12,7 @@ export const supplyAuth = store => next => {
     // var phoneNumber = user.phoneNumber;
     // var providerData = user.providerData;
     //user.getIdToken().then(accessToken)
-    alert(user ? user.email : "not authenticated");
+    next(authStateChange(user));
   });
 
 	return action => next(action);
