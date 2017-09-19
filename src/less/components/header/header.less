@@ -25,14 +25,19 @@
       text-decoration: none;
       border: 1px solid @grey;
       border-bottom-width: 3px;
-      border-radius: 5px;
       transition: background-color 300ms ease;
       padding: 10px;
       margin: 0 5px;
       font-size: 1.6em;
+      background: @white;
       &:hover,
       &:focus {
         background: @grey;
+        color: @black;
+      }
+      &.active {
+        border-bottom-color: @black;
+        color: @black;
       }
     }
   }

@@ -1,21 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export let Header = (props) => <div className="header">
   <div className="logo">
-    <h1><Link to="/">Drum Machine</Link></h1>
+    <h1><NavLink to="/" activeClassName="active">Drum Machine</NavLink></h1>
   </div>
   {
     props.auth.user ?
     (
       <div className="tray">
-        <Link to="/track/save" className="header-link">Save Track</Link>
-        <Link to="/user/logout" className="header-link">Logout</Link>
+        <NavLink to="/track/save" className="header-link" activeClassName="active">Save Track</NavLink>
+        <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
       </div>
     ) : (
       <div className="tray">
-        <Link to="/user/login" className="header-link">Login</Link>
-        <Link to="/user/signup" className="header-link">Sign Up</Link>
+        <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
+        <NavLink to="/user/signup" className="header-link" activeClassName="active">Sign Up</NavLink>
       </div>
     )
   }
