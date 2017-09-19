@@ -14,7 +14,7 @@ class Auth extends Component {
     ui = ui || new firebaseui.auth.AuthUI(firebase.auth());
     ui.start('#firebase-auth', {
       ...uiConfig,
-      signInSuccessUrl: from
+      signInSuccessUrl: from.pathname
     });
   }
 }
