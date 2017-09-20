@@ -6,7 +6,8 @@ import { unique } from "../library/natives/numbers";
 
 const initialState = [{
   id: 1,
-  value: "Dummy Notification"
+  value: "Dummy Notification",
+  notificationType: "timeout"
 },{
   id: 2,
   value: "Another Notification"

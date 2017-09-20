@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+const NOTIFICATION_TIMEOUT = 5000;
+const TRANSITION_TIME = 300;
+
 export class Notifications extends Component {
 
 	constructor(props) {
@@ -48,9 +51,18 @@ export class Notifications extends Component {
         closed: true
       });
     }
+    this.deleteNotification(id);
   }
 
   setExpiryTimout(id) {
-    setTimeout(() => this.closeNotification(id));
+    setTimeout(() => this.closeNotification(id), NOTIFICATION_TIMEOUT);
+  }
+
+  deleteNotification(id) {
+    setTimeout(() => {
+      if(this.state.notification && id === this.state.notification.id) {
+        //TODO: setState
+      }
+    }, TRANSITION_TIME);
   }
 }
