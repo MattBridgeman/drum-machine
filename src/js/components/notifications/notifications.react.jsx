@@ -18,7 +18,9 @@ export class Notifications extends Component {
     (
       <div className={"notification " + showHideClass}>
         { notification.value }
-        <button className="close" onClick={() => this.closeNotification(notification.id)}>Close notification</button>
+        <button className="close" onClick={() => this.closeNotification(notification.id)}>
+          <span className="assistive">Close notification</span>
+        </button>
       </div>
     ) : null
   }
