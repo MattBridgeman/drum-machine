@@ -61,7 +61,7 @@ export class Notifications extends Component {
   deleteNotification(id) {
     setTimeout(() => {
       if(this.state.notification && id === this.state.notification.id) {
-        //TODO: setState
+        //TODO: remove notification action call
       }
     }, TRANSITION_TIME);
   }
