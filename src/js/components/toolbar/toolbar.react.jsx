@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import DrumMachineActions from "../../actions/drum.machine.actions";
 
 import { Display } from "../display/display.react.jsx";

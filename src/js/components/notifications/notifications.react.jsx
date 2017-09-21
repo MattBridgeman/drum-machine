@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import DrumMachineActions from "../../actions/drum.machine.actions";
 
 const NOTIFICATION_TIMEOUT = 5000;
 const TRANSITION_TIME = 300;
@@ -9,14 +11,13 @@ export class Notifications extends Component {
 		super(props);
     this.state = {
       notification: undefined,
-      expired: false,
       closed: true
     };
   }
   
   render(){
-    let { notification, expired, closed } = this.state;
-    let showHideClass = expired || closed ? "hide" : "show";
+    let { notification, closed } = this.state;
+    let showHideClass = closed ? "hide" : "show";
     return notification ? 
     (
       <div className={"notification " + showHideClass}>
@@ -36,7 +37,6 @@ export class Notifications extends Component {
       && notification.id === this.state.notification)) {
         this.setState({
           notification,
-          expired: false,
           closed: false
         });
         if(notification.notificationType === "timeout"){
@@ -61,7 +61,9 @@ export class Notifications extends Component {
   deleteNotification(id) {
     setTimeout(() => {
       if(this.state.notification && id === this.state.notification.id) {
-        //TODO: remove notification action call
+        let { dispatch } = this.props;
+        const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
+        notificationsActions.clearNotification(id);
       }
     }, TRANSITION_TIME);
   }
