@@ -1,6 +1,6 @@
 import { NEW_NOTIFICATION, CLEAR_NOTIFICATION } from "../constants/notifications.constants";
 
-export function newNotification(text, type = "timeout") {
+export function newNotification(text, type) {
 	return {
 		type: NEW_NOTIFICATION,
     value: text,

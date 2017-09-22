@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import firebaseui from "firebaseui";
 import firebase from "firebase";
+import { bindActionCreators } from "redux";
 import { uiConfig } from "../../library/firebase/config";
+import DrumMachineActions from "../../actions/drum.machine.actions";
 
 let ui;
 
@@ -20,9 +22,14 @@ class Auth extends Component {
     ui.start('#firebase-auth', {
       ...uiConfig,
       callbacks: {
-        signInSuccess: (user) => this.setState({
-          signedIn: true
-        })
+        signInSuccess: (user) => {
+          let { dispatch } = this.props;
+          const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
+          notificationsActions.newNotification("Login successful!");
+          this.setState({
+            signedIn: true
+          });
+        }        
       }
     });
   }
