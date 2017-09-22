@@ -10,14 +10,15 @@ export class Notifications extends Component {
 	constructor(props) {
 		super(props);
     this.state = {
-      notification: undefined,
-      closed: true
+      open: false
     };
   }
   
   render(){
-    let { notification, closed } = this.state;
-    let showHideClass = closed ? "hide" : "show";
+    let { open } = this.state;
+    let { notifications } = this.props;
+    let notification =  notifications[0];
+    let showHideClass = open && !!notification ? "show" : "hide";
     return notification ? 
     (
       <div className={"notification " + showHideClass}>
@@ -29,28 +30,25 @@ export class Notifications extends Component {
     ) : null
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps(nextProps){
     let { notifications } = this.props;
-    let notification = notifications[0];
-    if(notification
-      && !(this.state.notification
-      && notification.id === this.state.notification)) {
-        this.setState({
-          notification,
-          closed: false
-        });
-        if(notification.notificationType === "timeout"){
-          this.setExpiryTimout(notification.id);
-        }
+    let newNotifications = nextProps.notifications;
+    let oldNotification = notifications[0];
+    let newNotification = newNotifications[0];
+    if(newNotification && oldNotification !== newNotification) {
+      this.setState({
+        open: true
+      });
+      if(newNotifications[0].notificationType === "timeout"){
+        this.setExpiryTimout(notification.id);
       }
+    }
   }
 
   closeNotification(id) {
-    if(this.state.notification && id === this.state.notification.id) {
-      this.setState({
-        closed: true
-      });
-    }
+    this.setState({
+      open: false
+    });
     this.deleteNotification(id);
   }
 
@@ -60,11 +58,9 @@ export class Notifications extends Component {
 
   deleteNotification(id) {
     setTimeout(() => {
-      if(this.state.notification && id === this.state.notification.id) {
-        let { dispatch } = this.props;
-        const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
-        notificationsActions.clearNotification(id);
-      }
+      let { dispatch } = this.props;
+      const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
+      notificationsActions.clearNotification(id);
     }, TRANSITION_TIME);
   }
 }
