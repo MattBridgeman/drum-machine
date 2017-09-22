@@ -19,15 +19,12 @@ export class Notifications extends Component {
     let { notifications } = this.props;
     let notification =  notifications[0];
     let showHideClass = open && !!notification ? "show" : "hide";
-    return notification ? 
-    (
-      <div className={"notification " + showHideClass}>
-        { notification.value }
-        <button className="close" onClick={() => this.closeNotification(notification.id)}>
-          <span className="assistive">Close notification</span> X
-        </button>
-      </div>
-    ) : null
+    return <div className={"notification " + showHideClass}>
+      { notification.value }
+      <button className="close" onClick={() => this.closeNotification(notification.id)}>
+        <span className="assistive">Close notification</span> X
+      </button>
+    </div>
   }
 
   componentWillReceiveProps(nextProps){
