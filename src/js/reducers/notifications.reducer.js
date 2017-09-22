@@ -4,14 +4,7 @@ import {
 } from "../constants/notifications.constants";
 import { unique } from "../library/natives/numbers";
 
-const initialState = [{
-  id: 1,
-  value: "Dummy Notification",
-  notificationType: "timeout"
-},{
-  id: 2,
-  value: "Another Notification"
-}];
+const initialState = [];
 let idGenerator = unique();
 
 export default function notifications(state = initialState, action) {
@@ -19,7 +12,8 @@ export default function notifications(state = initialState, action) {
 		case NEW_NOTIFICATION:
 			return [{
         id: idGenerator(),
-        value: action.value
+        value: action.value,
+        notificationType: action.notificationType
       }, ...state];
 		case CLEAR_NOTIFICATION:
 			return state.filter(({id}) => id !== action.value);
