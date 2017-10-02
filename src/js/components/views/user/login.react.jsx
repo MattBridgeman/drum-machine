@@ -8,6 +8,7 @@ let Login = (props) =>
   <View {...props} view={{ name: "login" }}>
     <div className="container">
       <h2>Log In</h2>
+      <p>The ability to save tracks is coming very soon. For now log in or register.</p>
       <Auth {...props} />
     </div>
   </View>;

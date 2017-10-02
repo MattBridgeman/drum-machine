@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/drum.machine.actions";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
@@ -54,8 +54,5 @@ class Pattern extends React.Component {
 	}
 
 }
-
-Pattern.propTypes = {
-};
 
 export { Pattern };

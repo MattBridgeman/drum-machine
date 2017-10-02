@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class ValueSelector extends React.Component {
 
@@ -17,8 +17,5 @@ class ValueSelector extends React.Component {
 		);
 	}
 }
-
-ValueSelector.propTypes = {
-};
 
 export { ValueSelector };

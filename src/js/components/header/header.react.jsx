@@ -9,7 +9,6 @@ export let Header = (props) => <div className="header">
     props.auth.user ?
     (
       <div className="tray">
-        <NavLink to="/track/save" className="header-link" activeClassName="active">Save Track</NavLink>
         <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
       </div>
     ) : (

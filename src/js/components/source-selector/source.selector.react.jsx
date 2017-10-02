@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { ValueSelector } from "../value-selector/value.selector.react.jsx";
 
 function getSelectedNumber(index){
@@ -26,8 +26,5 @@ class SourceSelector extends React.Component {
 		);
 	}
 }
-
-SourceSelector.propTypes = {
-};
 
 export { SourceSelector };

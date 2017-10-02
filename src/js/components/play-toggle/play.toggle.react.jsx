@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class PlayToggle extends React.Component {
 
@@ -19,8 +19,5 @@ class PlayToggle extends React.Component {
 		);
 	}
 }
-
-PlayToggle.propTypes = {
-};
 
 export { PlayToggle };

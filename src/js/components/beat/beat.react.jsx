@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class Beat extends React.Component {
 
@@ -40,12 +40,5 @@ class Beat extends React.Component {
 	}
 
 }
-
-Beat.propTypes = {
-	name: React.PropTypes.string.isRequired,
-	value: React.PropTypes.any.isRequired,
-	beats: React.PropTypes.array.isRequired,
-	current: React.PropTypes.number.isRequired
-};
 
 export { Beat };

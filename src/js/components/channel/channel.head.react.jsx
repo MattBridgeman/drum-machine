@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 
 class ChannelHead extends React.Component {
@@ -28,8 +28,5 @@ class ChannelHead extends React.Component {
 	}
 
 }
-
-ChannelHead.propTypes = {
-};
 
 export { ChannelHead };
