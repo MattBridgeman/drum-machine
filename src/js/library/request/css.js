@@ -1,4 +1,4 @@
-import loadCSS from "fg-loadcss";
+import { loadCSS } from "fg-loadcss";
 
 let cache = {};
 

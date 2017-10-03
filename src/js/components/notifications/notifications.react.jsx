@@ -36,8 +36,8 @@ export class Notifications extends Component {
       this.setState({
         open: true
       });
-      if(newNotifications[0].notificationType === "timeout"){
-        this.setExpiryTimout(notification.id);
+      if(newNotification.notificationType === "timeout"){
+        this.setExpiryTimout(newNotification.id);
       }
     }
   }
