@@ -14,7 +14,6 @@ export let Header = (props) => <div className="header">
     ) : (
       <div className="tray">
         <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
-        <NavLink to="/user/signup" className="header-link" activeClassName="active">Sign Up</NavLink>
       </div>
     )
   }
