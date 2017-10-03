@@ -1,6 +1,6 @@
 import TestUtils from "react-dom/test-utils";
 import React, { Component } from "react";
-import DrumMachine from "../drum.machine.react.jsx";
+import { DrumMachine } from "../drum.machine.react.jsx";
 import { expect } from "chai";
 import { Provider } from "react-redux";
 import configureTestStore from "../../../store/test.store";
@@ -17,7 +17,7 @@ class DrumMachineMock extends Component {
 		const { store } = this.props;
 		return (
 			<Provider store={store}>
-				<DrumMachine ref="drumMachine" />
+				<DrumMachine />
 			</Provider>
 		);
 	}
