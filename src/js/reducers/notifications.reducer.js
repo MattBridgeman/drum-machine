@@ -13,7 +13,7 @@ export default function notifications(state = initialState, action) {
 			return [{
         id: idGenerator(),
         value: action.value,
-        notificationType: action.notificationType
+        notificationType: action.notificationType || "timeout"
       }, ...state];
 		case CLEAR_NOTIFICATION:
 			return state.filter(({id}) => id !== action.value);
