@@ -8,7 +8,6 @@ export default function auth(state = initialState, action) {
   switch (action.type) {
     case AUTH_STATE_CHANGE:
       return {
-        ...state,
         user: action.value
       }
     default:
