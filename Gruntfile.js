@@ -69,13 +69,31 @@ module.exports = function(grunt) {
           dest: 'build/samples/'
         }]
       },
-      firebaseui: {
+      firebase: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'node_modules/firebase/',
+          src: ['firebase.js'],
+          dest: 'build/js/'
+        }]
+      },
+      firebaseuicss: {
         files: [{
           expand: true,
           flatten: false,
           cwd: 'node_modules/firebaseui/dist/',
           src: ['firebaseui.css'],
           dest: 'build/css/'
+        }]
+      },
+      firebaseuijs: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'node_modules/firebaseui/dist/',
+          src: ['firebaseui.js'],
+          dest: 'build/js/'
         }]
       }
     },
@@ -99,8 +117,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'build/js/main.js': ['src/js/main.jsx'],
-          // 'build/js/styleguide.js': ['src/js/styleguide.jsx'],
+          'build/js/main.js': ['src/js/main.jsx']
         }
       }
     },

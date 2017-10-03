@@ -1,6 +1,4 @@
-import firebase from "firebase";
-
-let uiConfig = {
+let uiConfig = () => ({
   signInFlow: "popup",
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -8,7 +6,7 @@ let uiConfig = {
     firebase.auth.PhoneAuthProvider.PROVIDER_ID
   ],
   signInSuccessUrl: '/'
-};
+});
 
 let config = {
   apiKey: "AIzaSyAWA-6GU2ARBmfMOTniWEZLtz_LYE5N828",
