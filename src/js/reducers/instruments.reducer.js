@@ -10,7 +10,7 @@ let initialState = [{
 
 let uniqueGenerator = unique();
 
-export default function instrument(state = initialState, action) {
+export default function instruments(state = initialState, action) {
   switch (action.type) {
     default:
       return state;

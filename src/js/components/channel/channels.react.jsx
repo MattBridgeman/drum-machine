@@ -12,7 +12,7 @@ class Channels extends React.Component {
 	}
 
 	render() {
-		const { channels, playState, sounds, dispatch } = this.props;
+    const { channels, machineId, playState, sounds, dispatch } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
     return (
