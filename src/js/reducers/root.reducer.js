@@ -8,6 +8,7 @@ import reverb from "./reverb.reducer";
 import buffer from "./buffer.reducer";
 import auth from "./auth.reducer";
 import notifications from "./notifications.reducer";
+import instrument from "./instrument.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
 	reverb,
 	buffer,
 	auth,
-	notifications
+	notifications,
+	instrument
 });
 
 export default rootReducer;
