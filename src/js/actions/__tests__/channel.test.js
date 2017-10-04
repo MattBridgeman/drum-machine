@@ -18,7 +18,7 @@ import { CHANGE_SELECTED_CHANNEL,
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB
-} from "../../constants/channel.constants";
+} from "../../constants/drum.machine.constants";
 
 describe("Channel actions", function() {
 	

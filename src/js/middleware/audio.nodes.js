@@ -1,6 +1,6 @@
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { newSourceNodes } from "../actions/audio.context.actions";
-import rootReducer from "../reducers/drum.machine.root.reducer";
+import rootReducer from "../reducers/root.reducer";
 import { SimpleReverb } from "../library/web-audio-components/simple.reverb";
 
 export const supplyAudioNodes = store => next => {

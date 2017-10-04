@@ -7,7 +7,7 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB
-} from "../constants/channel.constants";
+} from "../constants/drum.machine.constants";
 
 export function changeVolumeToAmount(channelId, value){
 	return {

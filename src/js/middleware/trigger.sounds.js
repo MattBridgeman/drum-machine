@@ -1,6 +1,6 @@
 import { NEW_AUDIO_CONTEXT, NEW_SOUND_BUFFERS, NEW_SOURCE_NODES } from "../constants/audio.context.constants";
 import { NEW_BUFFER_SEGMENT } from "../constants/buffer.constants";
-import rootReducer from "../reducers/drum.machine.root.reducer";
+import rootReducer from "../reducers/root.reducer";
 import { createBufferSource } from "../library/audio-api/context";
 import { pitchToPlaybackRate } from "../library/audio-api/playback.rate";
 import { decayPercentageToValue } from "../library/audio-api/decay";

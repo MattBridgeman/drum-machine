@@ -1,5 +1,5 @@
 import { NEW_SOURCE_NODES } from "../constants/audio.context.constants";
-import rootReducer from "../reducers/drum.machine.root.reducer";
+import rootReducer from "../reducers/root.reducer";
 import { zip } from "../library/natives/array";
 import { panPercentageToValue } from "../library/audio-api/pan";
 import { reverbSecondsPercentageToValue, reverbDecayPercentageToValue } from "../library/audio-api/reverb";
