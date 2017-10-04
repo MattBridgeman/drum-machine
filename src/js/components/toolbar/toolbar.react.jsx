@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 import { Display } from "../display/display.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";

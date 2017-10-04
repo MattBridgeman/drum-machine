@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { auth } from "../../library/firebase/auth";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 class Logout extends Component {
   render(){

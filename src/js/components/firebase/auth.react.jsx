@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { uiConfig } from "../../library/firebase/config";
 import { auth } from "../../library/firebase/auth";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 let ui;
 

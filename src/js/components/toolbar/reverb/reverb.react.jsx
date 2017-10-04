@@ -1,7 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { Rotator } from "../../rotator/rotator.react.jsx";
-import DrumMachineActions from "../../../actions/drum.machine.actions";
+import DrumMachineActions from "../../../actions/root.actions";
 
 class Reverb extends React.Component {
 

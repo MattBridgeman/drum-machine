@@ -5,7 +5,7 @@ import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
 import { segmentsToSchedule } from "../library/audio-api/buffer";
 import { intervalGenerator, timeout } from "../library/audio-api/interval";
-import DrumMachineActions from "../actions/drum.machine.actions";
+import DrumMachineActions from "../actions/root.actions";
 
 export const buffer = store => next => {
     
