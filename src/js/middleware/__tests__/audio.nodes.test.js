@@ -11,7 +11,9 @@ describe("Audio Nodes", () => {
     td.replace(_SimpleReverb, "SimpleReverb");
     let next = td.function();
     let state = {
-      channels: []
+      drumMachine: {
+        0: []
+      }
     };
     let mockStore = {
       getState: () => state
@@ -27,7 +29,9 @@ describe("Audio Nodes", () => {
     td.replace(_SimpleReverb, "SimpleReverb");
     let next = td.function();
     let state = {
-      channels: []
+      drumMachine: {
+        0: []
+      }  
     };
     let mockStore = {
       getState: () => state
@@ -42,7 +46,9 @@ describe("Audio Nodes", () => {
     td.replace(_SimpleReverb, "SimpleReverb");
     let next = td.function();
     let state = {
-      channels: []
+      drumMachine: {
+        0: []
+      }  
     };
     let mockStore = {
       getState: () => state

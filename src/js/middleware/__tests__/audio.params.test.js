@@ -10,7 +10,9 @@ describe("Audio Params", () => {
     
     let next = td.function();
     let state = {
-      channels: [],
+      drumMachine: {
+        0: []
+      },
       reverb: {
         decay: 1,
         seconds: 1
@@ -27,12 +29,14 @@ describe("Audio Params", () => {
     
     let next = td.function();
     let state = {
-      channels: [{
-        mute: false,
-        solo: false,
-        pan: 50,
-        volume: 100
-      }],
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
       reverb: {
         decay: 100,
         seconds: 100
@@ -69,12 +73,14 @@ describe("Audio Params", () => {
     
     let next = td.function();
     let state = {
-      channels: [{
-        mute: true,
-        solo: false,
-        pan: 50,
-        volume: 100
-      }],
+      drumMachine: {
+        0: [{
+          mute: true,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
       reverb: {
         decay: 100,
         seconds: 100
@@ -110,17 +116,19 @@ describe("Audio Params", () => {
     
     let next = td.function();
     let state = {
-      channels: [{
-        mute: false,
-        solo: false,
-        pan: 50,
-        volume: 100
-      },{
-        mute: false,
-        solo: true,
-        pan: 50,
-        volume: 100
-      }],
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        },{
+          mute: false,
+          solo: true,
+          pan: 50,
+          volume: 100
+        }]
+      },
       reverb: {
         decay: 100,
         seconds: 100
@@ -174,12 +182,14 @@ describe("Audio Params", () => {
   it("sets pan to equally left and right", () => {
     let next = td.function();
     let state = {
-      channels: [{
-        mute: false,
-        solo: false,
-        pan: 50,
-        volume: 100
-      }],
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
       reverb: {
         decay: 100,
         seconds: 100
@@ -214,12 +224,14 @@ describe("Audio Params", () => {
   it("sets reverb seconds and decay", () => {
     let next = td.function();
     let state = {
-      channels: [{
-        mute: false,
-        solo: false,
-        pan: 50,
-        volume: 100
-      }],
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
       reverb: {
         decay: 100,
         seconds: 100

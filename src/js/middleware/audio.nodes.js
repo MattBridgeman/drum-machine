@@ -16,7 +16,7 @@ export const supplyAudioNodes = store => next => {
         let prevState = store.getState();
 		let state = rootReducer(prevState, action);
         
-		let { channels } = state;
+		let { drumMachine } = state;
         
         if(action.type === NEW_AUDIO_CONTEXT){
 			context = action.value;
@@ -38,7 +38,8 @@ export const supplyAudioNodes = store => next => {
             reverbGain.connect(master);
             master.connect(context.destination);
             
-		    sourceNodes = channels
+            //TODO: Make dynamic for however many drum machines there are
+		    sourceNodes = drumMachine["0"]
                 .map(channel => ({
                     volume: context.createGain(),
                     master: context.createGain(),

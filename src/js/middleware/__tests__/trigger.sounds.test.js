@@ -41,11 +41,13 @@ describe("Play State", () => {
         segmentsPerBeat: 4,
         swing: 0
       },
-      channels: [{
-        patterns: [0]
-      }, {
-        patterns: [1]
-      }],
+      drumMachine: {
+        0: [{
+          patterns: [0]
+        }, {
+          patterns: [1]
+        }]
+      },
       patterns: {
         0: [],
         1: []
@@ -85,13 +87,15 @@ describe("Play State", () => {
         segmentsPerBeat: 4,
         swing: 0
       },
-      channels: [{
-        patterns: [0],
-        pitch: 100
-      }, {
-        patterns: [1],
-        pitch: 100
-      }],
+      drumMachine: {
+        0: [{
+          patterns: [0],
+          pitch: 100
+        }, {
+          patterns: [1],
+          pitch: 100
+        }]
+      },
       patterns: {
         0: [1,0,0,0],
         1: [1,0,0,0]

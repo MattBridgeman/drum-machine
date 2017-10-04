@@ -17,32 +17,33 @@ export const triggerSounds = store => next => {
 		let state = rootReducer(prevState, action);
 
 		let { index, time } = action;
-		let { channels, patterns } = state;
+		let { drumMachine, patterns } = state;
 		let { currentBarIndex } = state.playState;
 
-		let soundIds = channels
+		//TODO: Make dynamic for however many drum machines there are
+		let soundIds = drumMachine["0"]
 			.map(channel => channel.sound);
 
-		let pitches = channels
+		let pitches = drumMachine["0"]
 			.map(channel => channel.pitch)
 			.map(pitchToPlaybackRate);
 
-		let decays = channels
+		let decays = drumMachine["0"]
 			.map(channel => channel.decay)
 			.map(decayPercentageToValue);
 
-		let patternsArray = channels
+		let patternsArray = drumMachine["0"]
 			.map(channel => channel.patterns[currentBarIndex])
 			.map(patternId => patterns[patternId]);
 		
 		let reverbNodes = sourceNodes
 			.map(sourceNode => sourceNode.reverbNode);
 
-		let reverbs = channels
+		let reverbs = drumMachine["0"]
 			.map(channel => channel.reverb);
 		
 		//create gain nodes for decay
-		let decayNodes = channels
+		let decayNodes = drumMachine["0"]
 			.map(channel => context.createGain());
 			
 		//connect decay to master
