@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { ChannelHead } from "./channel.head.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";

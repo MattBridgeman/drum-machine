@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { bindActionCreators } from "redux";
 import ogen from "../library/generator/ogen";
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";

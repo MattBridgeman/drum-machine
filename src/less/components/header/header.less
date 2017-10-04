@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 20px;
+  border-bottom: 1px solid @grey;
+  background: @white;
+  .logo {
+    h1 {
+      a {
+        color: @dark-grey;
+        text-decoration: none;
+        transition: color 300ms ease;
+        &:hover,
+        &:focus {
+          color: @black;
+        }
+      }
+    }
+  }
+  .tray {
+    .header-link {
+      color: @dark-grey;
+      text-decoration: none;
+      border: 1px solid @grey;
+      border-bottom-width: 3px;
+      transition: background-color 300ms ease;
+      padding: 10px;
+      margin: 0 5px;
+      font-size: 1.6em;
+      background: @white;
+      &:hover,
+      &:focus {
+        background: @grey;
+        color: @black;
+      }
+      &.active {
+        border-bottom-color: @black;
+        color: @black;
+      }
+    }
+  }
+}

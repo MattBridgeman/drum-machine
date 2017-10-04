@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class PatternBeat extends React.Component {
 
@@ -22,8 +22,5 @@ class PatternBeat extends React.Component {
 	}
 
 }
-
-PatternBeat.propTypes = {
-};
 
 export { PatternBeat };

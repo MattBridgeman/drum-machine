@@ -3,11 +3,11 @@ var connect 	= require('connect'),
 	fs			= require('fs'),
 	__args		= process.argv,
 	__dir		= __dirname + '/../build/',
-	port 		= 8081;
+	port 		= 8082;
 
 var app = connect();
 
 app.use(serveStatic(__dir));
-app.listen(8081);
+app.listen(8082);
 
 module.exports = connect;

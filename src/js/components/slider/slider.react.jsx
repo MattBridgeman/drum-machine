@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import * as _ from "../../library/natives/array";
 import { easeIn, easeInOut } from "../../library/animation/easing";
 import { normaliseValue, normalisedStretchValue, isBeyondNormalisedValue, valueAsPercentageOfX } from "../../library/natives/numbers";
@@ -172,8 +172,5 @@ class Slider extends React.Component {
     });
   }
 }
-
-Slider.propTypes = {
-};
 
 export { Slider };

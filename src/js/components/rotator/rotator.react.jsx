@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { valueAsPercentageOfRange, normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 import { lengthOfLine } from "../../library/geometry/line";
 import { angleInRightTriangleInDegrees, angleFromVerticalGivenXandY } from "../../library/geometry/triangle";
@@ -150,8 +150,5 @@ class Rotator extends React.Component {
 		});
 	}
 }
-
-Rotator.propTypes = {
-};
 
 export { Rotator };

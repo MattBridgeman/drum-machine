@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class Display extends React.Component {
 
@@ -9,7 +9,7 @@ class Display extends React.Component {
 	render() {
 		var expandedClass = this.props.expanded ? "open" : "closed";
 		var expandedName = this.props.expanded ? "close" : "expand";
-		var displayClass = "display unit " + this.props.colour;
+		var displayClass = "display unit " + (this.props.colour || "green");
 		var expandableButtonClass = "button expandable " + expandedClass;
 		return (
 			<div className={displayClass}>
@@ -23,13 +23,5 @@ class Display extends React.Component {
 	}
 
 }
-
-Display.propTypes = {
-	name: React.PropTypes.string.isRequired,
-	value: React.PropTypes.any.isRequired,
-	colour: React.PropTypes.string
-};
-
-Display.defaultProps = { colour: "green" };
 
 export { Display };

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class ToggleButton extends React.Component {
 
@@ -14,8 +14,5 @@ class ToggleButton extends React.Component {
 		return (toggleButton);
 	}
 }
-
-ToggleButton.propTypes = {
-};
 
 export { ToggleButton };

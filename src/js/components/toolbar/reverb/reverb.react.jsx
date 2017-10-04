@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { bindActionCreators } from "redux";
 import { Rotator } from "../../rotator/rotator.react.jsx";
 import DrumMachineActions from "../../../actions/drum.machine.actions";
@@ -24,8 +24,5 @@ class Reverb extends React.Component {
         );
     }
 }
-
-Reverb.propTypes = {
-};
 
 export { Reverb };

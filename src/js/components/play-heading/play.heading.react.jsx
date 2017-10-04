@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 class PlayHeading extends React.Component {
 
@@ -22,11 +22,5 @@ class PlayHeading extends React.Component {
 	}
 
 }
-
-PlayHeading.propTypes = {
-	isPlaying: React.PropTypes.bool.isRequired,
-	value: React.PropTypes.string.isRequired,
-	onPlayPause: React.PropTypes.func
-};
 
 export { PlayHeading };

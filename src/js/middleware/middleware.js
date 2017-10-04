@@ -7,5 +7,16 @@ import { triggerSounds } from "./trigger.sounds";
 import { playState } from "./play.state";
 import { buffer } from "./buffer";
 import { startNoise } from "./start.noise";
+import { supplyAuth } from "./auth";
 
-export default applyMiddleware(supplyAudioContext, buffer, supplyAudioNodes, updateAudioParams, supplySoundBuffers, triggerSounds, playState, startNoise);
+export default applyMiddleware(
+  supplyAuth,
+  supplyAudioContext,
+  buffer,
+  supplyAudioNodes,
+  updateAudioParams,
+  supplySoundBuffers,
+  triggerSounds,
+  playState,
+  startNoise
+);
