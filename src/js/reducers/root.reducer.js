@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import channels from "./channels.reducer";
+import drumMachine from "./drum.machine.reducer";
 import tempo from "./tempo.reducer";
 import sounds from "./sounds.reducer";
 import patterns from "./patterns.reducer";
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 	tempo,
 	sounds,
 	patterns,
-	channels,
+	drumMachine,
 	playState,
 	reverb,
 	buffer,

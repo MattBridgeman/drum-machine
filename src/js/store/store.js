@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "../reducers/drum.machine.root.reducer";
+import rootReducer from "../reducers/root.reducer";
 import middleware from "../middleware/middleware";
 
 export default function configureStore(initialState) {
