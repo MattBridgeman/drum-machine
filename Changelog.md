@@ -1,3 +1,9 @@
+## 1.2.0
+
+- Added Firebase for user auth
+- Upgraded React to v16
+- Masthead added with log in / log out
+
 ## 1.1.4
 
 - Perf improvements to slider and rotator
