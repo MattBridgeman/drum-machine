@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
 
-class InstrumentSelector extends Component {
+class Instrument extends Component {
   render(){
     const { instruments } = this.props;
     let selectedInstruments = instruments.filter(item => item.selected);
@@ -19,4 +19,4 @@ class InstrumentSelector extends Component {
   }
 };
 
-export { InstrumentSelector };
+export { Instrument };
