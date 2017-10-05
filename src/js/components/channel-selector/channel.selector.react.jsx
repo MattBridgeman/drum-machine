@@ -12,7 +12,7 @@ class ChannelSelector extends Component {
 	}
 
 	render() {
-		const { channels, sounds, dispatch } = this.props;
+		const { machineId, channels, sounds, dispatch } = this.props;
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		
 		return (
@@ -21,7 +21,7 @@ class ChannelSelector extends Component {
         <div className="item-tray">
           {channels.map((channel, i) =>
             <div className="selector-button">
-              <ToggleButton onClick={() => channelActions.changeSelectedChannel(i)} name={sounds[channel.sound].shortName} selected={channel.selected} classes="red" />
+              <ToggleButton onClick={() => channelActions.changeSelectedChannel(machineId, i)} name={sounds[channel.sound].shortName} selected={channel.selected} classes="red" />
             </div>
           )}
         </div>
