@@ -2,14 +2,11 @@ import { updateInstrumentAudio } from "../library/audio-api/instruments/instrume
 
 export const instruments = store => next => {
   let update = () => {
-    let { instruments } = store.getState();
-    updateInstrumentAudio(instruments);
+    let state = store.getState();
+    updateInstrumentAudio(state);
   }
 	return action => {
-		switch (action.type) {
-      default:
-        update();
-        return next(action);
-    }
+    update();
+    return next(action);
   }
 };
