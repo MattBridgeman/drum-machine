@@ -1,6 +1,6 @@
 import { drumMachine } from "./drum.machine";
 
-export let getInstrumentAudio = (instruments) => 
+export let updateInstrumentAudio = (instruments) => 
   instruments.map(instrument => {
     switch(instrument.type) {
       case "drumMachine":

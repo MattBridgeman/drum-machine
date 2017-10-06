@@ -1,18 +1,14 @@
-import { getInstrumentAudio } from "../library/audio-api/instruments/instrument.audio";
+import { updateInstrumentAudio } from "../library/audio-api/instruments/instrument.audio";
 
 export const instruments = store => next => {
-  let isInit = false;
-  let init = () => {
+  let update = () => {
     let { instruments } = store.getState();
-    let instrumentAudio = getInstrumentAudio(instruments);
+    updateInstrumentAudio(instruments);
   }
 	return action => {
-    if(!isInit) {
-      isInit = true;
-      init();
-    }
 		switch (action.type) {
       default:
+        update();
         return next(action);
     }
   }
