@@ -6,14 +6,17 @@ export let updateInstrumentAudio = (state) => {
   let idCache = {};
   let { instruments } = state;
   instruments.map(instrument => {
-    let item = cache[instrument.id];
+    let { id, type } = instrument;
+    let item = cache[id];
     if(item) return item;
     let machine;
-    switch(instrument.type) {
+    switch(type) {
       case "drumMachine":
-        machine = drumMachine(instrument);
+        machine = drumMachine();
+        break;
       default:
         machine = null;
+        break;
     }
     return {
       instrument,

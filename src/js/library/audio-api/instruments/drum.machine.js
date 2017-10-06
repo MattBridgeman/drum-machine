@@ -1,1 +1,1 @@
-export let drumMachine = () => null;
+export let drumMachine = () => "foo";
