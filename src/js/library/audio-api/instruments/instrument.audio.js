@@ -37,9 +37,8 @@ export let updateInstrumentAudio = (state) => {
   cacheArray.forEach(item => {
     let { key, value } = item;
     let { machine } = value;
-    console.log(value);
     if(!idCache[key]) {
-      machine.delete();
+      machine.remove();
     }
   });
 };
