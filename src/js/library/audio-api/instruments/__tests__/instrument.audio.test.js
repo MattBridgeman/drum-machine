@@ -1,7 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
-import { updateInstrumentAudio } from "../instrument.audio";
+import { updateInstrumentAudio, cache } from "../instrument.audio";
 import * as _drumMachine from "../drum.machine";
 
 describe("Instrument Audio", () => {
@@ -22,5 +22,23 @@ describe("Instrument Audio", () => {
     updateInstrumentAudio(state);
     td.verify(drumMachine());
     td.verify(update(instrument, state));
+  });
+  it("removes a deleted drum machine", () => {
+    let remove = td.function();
+    cache["0"] = {
+      instrument: {
+        id: 0,
+        type: "drumMachine"
+      },
+      machine: {
+        update: () => null,
+        remove
+      }
+    };
+    let state = {
+      instruments: []
+    };
+    updateInstrumentAudio(state);
+    td.verify(remove());
   });
 });

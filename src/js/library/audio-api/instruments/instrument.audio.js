@@ -1,4 +1,5 @@
 import { drumMachine } from "./drum.machine";
+import { objectToArrayWithKeyValue } from "../../natives/array";
 
 export let cache = {};
 
@@ -28,7 +29,18 @@ export let updateInstrumentAudio = (state) => {
       instrument,
       machine
     };
+    idCache[instrument.id] = true;
     machine.update(instrument, state);
   });
-}
+
+  let cacheArray = objectToArrayWithKeyValue(cache);
+  cacheArray.forEach(item => {
+    let { key, value } = item;
+    let { machine } = value;
+    console.log(value);
+    if(!idCache[key]) {
+      machine.delete();
+    }
+  });
+};
   
