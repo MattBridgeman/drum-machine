@@ -1,1 +1,13 @@
-export let drumMachine = () => "foo";
+export let drumMachine = () => {
+  
+  let update = () => {
+
+  };
+  let remove = () => {
+
+  };
+  return {
+    update,
+    remove
+  }
+};

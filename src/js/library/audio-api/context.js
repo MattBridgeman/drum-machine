@@ -1,3 +1,14 @@
+let context = null;
+
+export function getAudioContext() {
+	if(context) {
+		return context;
+	} else {
+		context = createAudioContext();
+		return context;
+	}
+}
+
 export function createAudioContext() {
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
 	return new AudioContext();
