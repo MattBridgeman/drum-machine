@@ -1,5 +1,6 @@
 import { getAudioContext } from "../context";
 import { numberToArrayLength, zip } from "../../natives/array";
+import { panPercentageToValue } from "../pan";
 
 export let createDrumMachine = () => {
   let context = getAudioContext();
@@ -53,7 +54,8 @@ export let createDrumMachine = () => {
   };
 
   let remove = () => {
-
+    context = null;
+    channels = null;
   };
 
   init();
