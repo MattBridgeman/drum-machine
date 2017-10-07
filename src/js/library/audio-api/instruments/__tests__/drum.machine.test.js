@@ -8,13 +8,13 @@ import * as _context from "../../context";
 describe("Drum Machine", () => {
   it("creates a drum machine", () => {
     let context = getStubContext();
-    td.replace(_context, "getAudioContext", () => context.context);
+    td.replace(_context, "getAudioContext", () => context);
     let drumMachine = createDrumMachine();
     td.reset();
   });
   it("sets gains to correct values", () => {
     let context = getStubContext();
-    td.replace(_context, "getAudioContext", () => context.context);
+    td.replace(_context, "getAudioContext", () => context);
     let drumMachine = createDrumMachine();
     let state = {
       drumMachine: {
@@ -34,6 +34,29 @@ describe("Drum Machine", () => {
     drumMachine.update(state.instruments["0"], state);
     expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(1);
     expect(drumMachine.outputs.channels[0].volume.gain.value).to.equal(1);
+    td.reset();
+  });
+  it("mutes channel", () => {
+    let context = getStubContext();
+    td.replace(_context, "getAudioContext", () => context);
+    let drumMachine = createDrumMachine();
+    let state = {
+      drumMachine: {
+        0: [{
+          mute: true,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
+      instruments: [{
+        id: 0,
+        type: "drumMachine",
+        machineId: 0
+      }]
+    };
+    drumMachine.update(state.instruments["0"], state);
+    expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(0);
     td.reset();
   });
 });

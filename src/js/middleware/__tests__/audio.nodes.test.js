@@ -20,7 +20,7 @@ describe("Audio Nodes", () => {
     };
     let context = getStubContext();
     let nextAction = supplyAudioNodes(mockStore)(next);
-    nextAction(newAudioContext(context.context));
+    nextAction(newAudioContext(context));
     nextAction({ type: "RANDOM_ACTION" });
     td.verify(next({ type: "RANDOM_ACTION" }));
     td.reset();
@@ -38,8 +38,8 @@ describe("Audio Nodes", () => {
     };
     let context = getStubContext();
     let nextAction = supplyAudioNodes(mockStore)(next);
-    nextAction(newAudioContext(context.context));
-    td.verify(new _SimpleReverb.SimpleReverb(context.context, td.matchers.anything()));
+    nextAction(newAudioContext(context));
+    td.verify(new _SimpleReverb.SimpleReverb(context, td.matchers.anything()));
     td.reset();
   });
   it("calls newSourceNodes with new source nodes", () => {
@@ -55,7 +55,7 @@ describe("Audio Nodes", () => {
     };
     let context = getStubContext();
     let nextAction = supplyAudioNodes(mockStore)(next);
-    nextAction(newAudioContext(context.context));
+    nextAction(newAudioContext(context));
     td.verify(next(newSourceNodes(td.matchers.anything())));
     td.reset();
   });
