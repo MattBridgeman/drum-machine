@@ -88,4 +88,27 @@ describe("Drum Machine", () => {
     expect(drumMachine.outputs.channels[1].master.gain.value).to.equal(1);
     td.reset();
   });
+  it("sets pan to equally left and right", () => {
+    let context = getStubContext();
+    td.replace(_context, "getAudioContext", () => context);
+    let drumMachine = createDrumMachine();
+    let state = {
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
+      instruments: [{
+        id: 0,
+        type: "drumMachine",
+        machineId: 0
+      }]
+    };
+    drumMachine.update(state.instruments["0"], state);
+    td.verify(drumMachine.outputs.channels[0].pan.setPosition(0, 0, 1));
+    td.reset();
+  });
 });
