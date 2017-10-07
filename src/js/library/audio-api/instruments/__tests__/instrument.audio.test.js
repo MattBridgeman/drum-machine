@@ -18,11 +18,30 @@ describe("Instrument Audio", () => {
     td.when(drumMachine()).thenReturn({
       update
     });
-    td.replace(_drumMachine, "drumMachine", drumMachine);
+    td.replace(_drumMachine, "createDrumMachine", drumMachine);
     updateInstrumentAudio(state);
     td.verify(drumMachine());
     td.verify(update(instrument, state));
   });
+
+  it("returns drum machine node", () => {
+    let instrument = {
+      id: 0,
+      type: "drumMachine"
+    };
+    let state = {
+      instruments: [instrument]
+    };
+    let update = td.function();
+    let drumMachine = td.function();
+    td.when(drumMachine()).thenReturn({
+      update
+    });
+    td.replace(_drumMachine, "createDrumMachine", drumMachine);
+    let instrumentNodes = updateInstrumentAudio(state);
+    expect(instrumentNodes.length).to.equal(1);
+  });
+
   it("removes a deleted drum machine", () => {
     let remove = td.function();
     cache["0"] = {
