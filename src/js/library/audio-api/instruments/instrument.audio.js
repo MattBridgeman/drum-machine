@@ -1,4 +1,4 @@
-import { drumMachine } from "./drum.machine";
+import { createDrumMachine } from "./drum.machine";
 import { objectToArrayWithKeyValue } from "../../natives/array";
 
 export let cache = {};
@@ -13,7 +13,7 @@ export let updateInstrumentAudio = (state) => {
     let machine;
     switch(type) {
       case "drumMachine":
-        machine = drumMachine();
+        machine = createDrumMachine();
         break;
       default:
         machine = null;
