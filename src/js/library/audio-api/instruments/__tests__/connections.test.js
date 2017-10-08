@@ -67,4 +67,58 @@ describe("Connections", () => {
     updateConnections(instrumentNodes, state);
     td.verify(drumMachineOutput.connect(masterInput));
   });
+
+  it("diconnects two nodes missing in the connection data", () => {
+    let state = {
+      drumMachine: {
+        0: [{
+          mute: false,
+          solo: false,
+          pan: 50,
+          volume: 100
+        }]
+      },
+      instruments: [{
+        id: 0,
+        type: "drumMachine",
+        machineId: 0
+      }, {
+        id: 1,
+        type: "master",
+        machineId: 0
+      }],
+      connections: []
+    };
+    let drumMachineOutput = {
+      connect: td.function(),
+      disconnect: td.function()
+    };
+    let masterInput = {
+      connect: td.function(),
+      disconnect: td.function()
+    };
+    let instrumentNodes = [{
+      instrument: {
+        type: "drumMachine",
+        machineId: 0  
+      },
+      machine: {
+        outputs: {
+          main: drumMachineOutput
+        }
+      }
+    },{
+      instrument: {
+        type: "master",
+        machineId: 0  
+      },
+      machine: {
+        inputs: {
+          main: masterInput
+        }
+      }
+    }];
+    updateConnections(instrumentNodes, state);
+    td.verify(drumMachineOutput.disconnect(masterInput));
+  });
 });
