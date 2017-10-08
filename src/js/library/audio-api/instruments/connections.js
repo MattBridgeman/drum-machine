@@ -20,9 +20,9 @@ export let updateConnections = (instrumentNodes, state) => {
     if(item) {
       return;
     };
-    let fromMachine = getMachineFromConnection(from, state);
+    let fromMachine = getMachineFromConnection(from, instrumentNodes);
     let fromNodePath = from.nodePath;
-    let fromNode = getValueFromPath(fromMachine, fromNodePath);
+    let fromNode = getValueFromPath(fromMachine, instrumentNodes, fromNodePath);
     let toMachine = getMachineFromConnection(to, state);
     let toNodePath = to.nodePath;
     let toNode = getValueFromPath(toMachine, toNodePath);
@@ -38,8 +38,10 @@ export let updateConnections = (instrumentNodes, state) => {
   });
 };
 
-export let getMachineFromConnection = (connectionNode, state) => {
-  let { machineId, type } = connectionNode; 
-  let machine = state[type][machineId];
-  return machine;
+export let getMachineFromConnection = (connectionNode, instrumentNodes) => {
+  let { machineId, type } = connectionNode;
+  let node = instrumentNodes.filter(node => 
+    node.instrument.type === type && node.instrument.machineId === machineId
+  )[0];
+  return node.machine;
 };
