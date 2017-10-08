@@ -9,7 +9,7 @@ describe("Master", () => {
   it("creates a master output", () => {
     let context = getStubContext();
     td.replace(_context, "getAudioContext", () => context);
-    let drumMachine = createMaster();
+    let master = createMaster();
     td.reset();
   });
 });
