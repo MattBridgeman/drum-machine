@@ -11,16 +11,19 @@ export let createReverb = () => {
   });
 
   let master = context.createGain();
-  let prereverbGain = context.createGain();
-  let reverbGain = context.createGain();
+  let input = context.createGain();
+  let output = context.createGain();
 
-  prereverbGain.connect(reverbNode.input);
-  reverbNode.connect(reverbGain);
-  //reverbGain.connect(master);
+  input.connect(reverbNode.input);
+  reverbNode.connect(output);
+  //output.connect(master);
 
   return {
     inputs: {
-      main: prereverbGain
+      main: input
+    },
+    outputs: {
+      main: output
     }
   };
 };
