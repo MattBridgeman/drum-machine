@@ -62,7 +62,7 @@ export const triggerSounds = store => next => {
 				bufferSource.playbackRate.value = pitch || 1;
 				bufferSource.connect(decayNode);
 				if(reverb){
-					bufferSource.connect(reverbNode.input);
+					bufferSource.connect(reverbNode);
 				}
 				bufferSource.start(time);
 			});

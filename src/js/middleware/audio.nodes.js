@@ -10,6 +10,7 @@ export const supplyAudioNodes = store => next => {
     let sourceNodes;
     let master;
     let reverbGain;
+    let prereverbGain;
     let reverbNode;
 
 	return action => {
@@ -32,8 +33,10 @@ export const supplyAudioNodes = store => next => {
             });
             
             master = context.createGain();
+            prereverbGain = context.createGain();
             reverbGain = context.createGain();
             
+            prereverbGain.connect(reverbNode.input);
             reverbNode.connect(reverbGain);
             reverbGain.connect(master);
             master.connect(context.destination);
@@ -44,7 +47,7 @@ export const supplyAudioNodes = store => next => {
                     volume: context.createGain(),
                     master: context.createGain(),
                     pan: context.createPanner(),
-                    reverbNode
+                    reverbNode: prereverbGain
                 }));
             
             sourceNodes
