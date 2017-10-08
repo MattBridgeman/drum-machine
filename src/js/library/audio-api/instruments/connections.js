@@ -27,6 +27,14 @@ export let updateConnections = (instrumentNodes, state) => {
     let toNodePath = to.nodePath;
     let toNode = getValueFromPath(toMachine, toNodePath);
     fromNode.connect(toNode);
+
+    cache = {
+      ...cache,
+      [id]: {
+        from,
+        to
+      }
+    };
   });
 };
 
