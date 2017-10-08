@@ -68,7 +68,7 @@ describe("Connections", () => {
     td.verify(drumMachineOutput.connect(masterInput));
   });
 
-  it("diconnects two nodes missing in the connection data", () => {
+  it("disconnects two nodes missing in the connection data", () => {
     let state = {
       drumMachine: {
         0: [{
