@@ -1,15 +1,6 @@
 import { getValueFromPath } from "../../natives/object";
 export let cache = {};
 
-// instrumentNode = instrument: {
-// type: "drumMachine"
-// machineId: 0  
-//}, machine: {
-//  outputs: {
-//    channels
-//  }
-//}
-
 export let updateConnections = (instrumentNodes, state) => {
   let idCache = {};
   let { connections } = state;
@@ -22,8 +13,8 @@ export let updateConnections = (instrumentNodes, state) => {
     };
     let fromMachine = getMachineFromConnection(from, instrumentNodes);
     let fromNodePath = from.nodePath;
-    let fromNode = getValueFromPath(fromMachine, instrumentNodes, fromNodePath);
-    let toMachine = getMachineFromConnection(to, state);
+    let fromNode = getValueFromPath(fromMachine, fromNodePath);
+    let toMachine = getMachineFromConnection(to, instrumentNodes);
     let toNodePath = to.nodePath;
     let toNode = getValueFromPath(toMachine, toNodePath);
     fromNode.connect(toNode);
