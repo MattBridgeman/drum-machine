@@ -1,11 +1,12 @@
 import React from "react";
 import { bindActionCreators } from "redux";
+import { getAudioContext } from "../library/audio-api/context";
 import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
 
 export const startNoise = store => next => {
 
-  let context;
+  let context = getAudioContext();
   let startNoisePlayed = false;
   let playStartNoise = () => {
     if(startNoisePlayed) return;
@@ -30,9 +31,6 @@ export const startNoise = store => next => {
   
   return action => {
     switch(action.type) {
-      case NEW_AUDIO_CONTEXT:
-        context = action.value;
-        return next(action);
       case TOGGLE_PLAY_PAUSE:
         playStartNoise();
         return next(action);
