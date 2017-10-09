@@ -1,12 +1,12 @@
 import { expect } from "chai";
-import instrument from "../instrument.reducer";
+import instruments from "../instruments.reducer";
 // import {
 //   AUTH_STATE_CHANGE
 // } from "../../constants/auth.constants";
 
 describe("Instrument reducer", () => {
 	it("returns the default state", () => {
-    let state = instrument(undefined, {
+    let state = instruments(undefined, {
       type: "SOME_RANDOM_ACTION"
     });
     
