@@ -6,6 +6,16 @@ let initialState = [{
   type: "drumMachine",
   machineId: 0,
   selected: true
+},{
+  id: 1,
+  type: "reverb",
+  machineId: 0,
+  selected: false
+},{
+  id: 3,
+  type: "master",
+  machineId: 0,
+  selected: false
 }];
 
 let uniqueGenerator = unique();
