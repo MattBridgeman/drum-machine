@@ -65,12 +65,12 @@ describe("Play State", () => {
     let store = configureTestStore();
     let next = td.function();
     let newAction = triggerSounds(mockStore)(next);
-    newAction(newAudioContext(contextStub.context));
+    newAction(newAudioContext(contextStub));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
     newAction(newBufferSegment(0, 1234));
-    td.verify(contextStub.context.createGain());
-    td.verify(contextStub.context.createGain());
+    td.verify(contextStub.createGain());
+    td.verify(contextStub.createGain());
   });
   it("triggers sounds for patterns with correct pitch", () => {
     let contextStub = getStubContext();
@@ -113,12 +113,12 @@ describe("Play State", () => {
     let store = configureTestStore();
     let next = td.function();
     let newAction = triggerSounds(mockStore)(next);
-    newAction(newAudioContext(contextStub.context));
+    newAction(newAudioContext(contextStub));
     newAction(newSoundBuffers(soundBuffers));
     newAction(newSourceNodes(sourceNodes));
     newAction(newBufferSegment(0, 1234));
-    td.verify(contextStub.context.createGain());
-    td.verify(contextStub.context.createGain());
+    td.verify(contextStub.createGain());
+    td.verify(contextStub.createGain());
     td.verify(contextStub.sourceBuffer.start(1234));
     td.verify(contextStub.sourceBuffer.start(1234));
     expect(contextStub.sourceBuffer.playbackRate.value).to.equal(1.6);
