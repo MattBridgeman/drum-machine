@@ -69,10 +69,15 @@ export let createDrumMachine = () => {
 
   let updateSoundTriggers = (instrument, state) => {
     let { machineId } = instrument;
-    let { drumMachine, buffer, patterns } = state;
+    let { drumMachine, buffer, patterns, playState } = state;
     let machine = drumMachine[machineId];
     
-    let buffers = buffersSinceId(lastBufferId, buffer);
+    if(!playState.isPlaying) {
+      lastBufferId = undefined;
+      return;
+    }
+
+    let buffers = lastBufferId ? buffersSinceId(lastBufferId, buffer) : buffer;
     if(buffers.length) {
       lastBufferId = last(buffers).id;
     }

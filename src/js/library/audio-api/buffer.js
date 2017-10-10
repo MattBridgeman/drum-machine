@@ -39,7 +39,7 @@ export let buffersSinceId = (id, buffer) => {
   let buffers = buffer.reduce((prev, curr) => {
     let shouldAdd = prev.shouldAdd || curr.id === id;
     let { items } = prev;
-    if(shouldAdd) {
+    if(prev.shouldAdd) {
       items = [
         ...items,
         curr
