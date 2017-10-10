@@ -73,7 +73,9 @@ export let createDrumMachine = () => {
     let machine = drumMachine[machineId];
     
     let buffers = buffersSinceId(lastBufferId, buffer);
-    lastBufferId = last(buffers).id;
+    if(buffers.length) {
+      lastBufferId = last(buffers).id;
+    }
 
     buffers.forEach(item => {
       let { time, index } = item;

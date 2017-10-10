@@ -1,4 +1,5 @@
 import { createDrumMachine } from "./drum.machine";
+import { createReverb } from "./reverb";
 import { objectToArrayWithKeyValue } from "../../natives/array";
 
 export let cache = {};
@@ -14,6 +15,9 @@ export let updateInstrumentAudio = (state) => {
     switch(type) {
       case "drumMachine":
         machine = createDrumMachine();
+        break;
+      case "reverb":
+        machine = createReverb();
         break;
       default:
         machine = null;
@@ -49,4 +53,8 @@ export let updateInstrumentAudio = (state) => {
   });
 
   return instrumentNodes;
+};
+
+export let clearCache = () => {
+  cache = {};
 };
