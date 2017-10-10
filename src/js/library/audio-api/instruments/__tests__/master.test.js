@@ -12,4 +12,11 @@ describe("Master", () => {
     let master = createMaster();
     td.reset();
   });
+  it("returns inputs/main ", () => {
+    let context = getStubContext();
+    td.replace(_context, "getAudioContext", () => context);
+    let master = createMaster();
+    expect(master.inputs.main).to.exist;
+    td.reset();
+  });
 });

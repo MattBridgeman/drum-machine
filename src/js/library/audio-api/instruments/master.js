@@ -6,7 +6,7 @@ export let createMaster = () => {
   master.connect(context.destination);
   return {
     inputs: {
-      master
+      main: master
     }
   }
 };
