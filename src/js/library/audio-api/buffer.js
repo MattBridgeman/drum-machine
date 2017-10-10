@@ -33,3 +33,25 @@ export function segmentsToSchedule(currentTime, state) {
 
 export let segmentsToClear = (previousState, currentTime) =>
   previousState.filter(({time}) => time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= currentTime);
+
+export let buffersSinceId = (id, buffer) => {
+  if(!id) return buffer;
+  let buffers = buffer.reduce((prev, curr) => {
+    let soundAdd = prev.shouldAdd || curr.id === id;
+    let { items } = prev;
+    if(shouldAdd) {
+      items = [
+        ...items,
+        curr
+      ];
+    }
+    return {
+      items,
+      shouldAdd
+    }
+  }, {
+    items: [],
+    shouldAdd: false
+  });
+  return buffers.items;
+};

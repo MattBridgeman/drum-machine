@@ -1,13 +1,17 @@
-import { getAudioContext } from "../context";
+import { getAudioContext, createBufferSource } from "../context";
 import { get } from "../load.sounds";
-import { numberToArrayLength, zip } from "../../natives/array";
+import { numberToArrayLength, zip, last } from "../../natives/array";
 import { panPercentageToValue } from "../pan";
 import { loadSounds } from "../load.sounds";
+import { buffersSinceId } from "../buffer";
+import { pitchToPlaybackRate } from "../playback.rate";
+import { decayPercentageToValue } from "../decay";
 
 export let createDrumMachine = () => {
   let context = getAudioContext();
   let channels = [];
   let sounds = {};
+  let lastBufferId = undefined;
   let output = context.createGain();
   let send1 = context.createGain();
   let send2 = context.createGain();
@@ -27,6 +31,8 @@ export let createDrumMachine = () => {
         output.connect(channelNode.master);
         channelNode.master.connect(channelNode.volume);
         channelNode.volume.connect(channelNode.pan);
+        channelNode.master.connect(channelNode.send1);
+        channelNode.master.connect(channelNode.send2);
         channelNode.send1.connect(send1);
         channelNode.send2.connect(send2);
         channelNode.pan.panningModel = 'equalpower';
@@ -36,6 +42,7 @@ export let createDrumMachine = () => {
   let update = (instrument, state) => {
     updateSounds(instrument, state);
     updateGains(instrument, state);
+    updateSoundTriggers(instrument, state);
   };
 
   let updateSounds = (instrument, state) => {
@@ -55,63 +62,68 @@ export let createDrumMachine = () => {
         channelNode.volume.gain.value = channel.volume * 0.01;
         channelNode.pan.setPosition(...panPercentageToValue(channel.pan));
         channelNode.send1.gain.value = channel.reverb ? 1 : 0;
+        //Unused at the moment
+        channelNode.send2.gain.value = 0;
       });
   };
 
-  let onNewBufferSegment = () => {
-    let prevState = store.getState();
-		let state = rootReducer(prevState, action);
+  let updateSoundTriggers = (instrument, state) => {
+    let { machineId } = instrument;
+    let { drumMachine, buffer, patterns } = state;
+    let machine = drumMachine[machineId];
+    
+    let buffers = buffersSinceId(lastBufferId, buffer);
+    lastBufferId = last(buffers).id;
 
-		let { index, time } = action;
-		let { drumMachine, patterns } = state;
-		let { currentBarIndex } = state.playState;
+    buffers.forEach(item => {
+      let { time, index } = item;
+      //TODO: Make dynamic for however many drum machines there are
+      let soundIds = machine
+        .map(channel => channel.sound);
 
-		//TODO: Make dynamic for however many drum machines there are
-		let soundIds = drumMachine["0"]
-			.map(channel => channel.sound);
+      let pitches = machine
+        .map(channel => channel.pitch)
+        .map(pitchToPlaybackRate);
 
-		let pitches = drumMachine["0"]
-			.map(channel => channel.pitch)
-			.map(pitchToPlaybackRate);
+      let decays = machine
+        .map(channel => channel.decay)
+        .map(decayPercentageToValue);
 
-		let decays = drumMachine["0"]
-			.map(channel => channel.decay)
-			.map(decayPercentageToValue);
+      let patternsArray = machine
+        .map(channel => channel.patterns[index])
+        .map(patternId => patterns[patternId]);
+      
+      let send1Nodes = channels
+        .map(channel => channel.send1);
 
-		let patternsArray = drumMachine["0"]
-			.map(channel => channel.patterns[currentBarIndex])
-			.map(patternId => patterns[patternId]);
-		
-		let reverbNodes = sourceNodes
-			.map(sourceNode => sourceNode.reverbNode);
-
-		let reverbs = drumMachine["0"]
-			.map(channel => channel.reverb);
-		
-		//create gain nodes for decay
-		let decayNodes = drumMachine["0"]
-			.map(channel => context.createGain());
-			
-		//connect decay to master
-		zip([decayNodes, sourceNodes])
-			.forEach(([decayNode, sourceNode]) => decayNode.connect(sourceNode.master));
-		
-		//apply decay to decay node
-		zip([decayNodes, decays])
-			.forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, time + decay));
-		
-		//play sound
-		zip([patternsArray, sounds, decayNodes, reverbNodes, reverbs, pitches])
-			.filter(([pattern]) => !!pattern[index])
-			.forEach(([pattern, buffer, decayNode, reverbNode, reverb, pitch]) => {
-				let bufferSource = createBufferSource(context, buffer);
-				bufferSource.playbackRate.value = pitch || 1;
-				bufferSource.connect(decayNode);
-				if(reverb){
-					bufferSource.connect(reverbNode);
-				}
-				bufferSource.start(time);
-			});
+      let reverbs = machine
+        .map(channel => channel.reverb);
+      
+      //create gain nodes for decay
+      let decayNodes = machine
+        .map(channel => context.createGain());
+        
+      //connect decay to master
+      zip([decayNodes, channels])
+        .forEach(([decayNode, channel]) => decayNode.connect(channel.master));
+      
+      //apply decay to decay node
+      zip([decayNodes, decays])
+        .forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, time + decay));
+      
+      //play sound
+      zip([patternsArray, sounds, decayNodes, send1Nodes, reverbs, pitches])
+        .filter(([pattern]) => !!pattern[index])
+        .forEach(([pattern, sound, decayNode, send1Node, reverb, pitch]) => {
+          sound.buffer.then(buffer => {
+            let bufferSource = createBufferSource(context, buffer);
+            bufferSource.playbackRate.value = pitch || 1;
+            bufferSource.connect(decayNode);
+            // bufferSource.connect(send1Node);
+            bufferSource.start(time);
+          });
+        });
+    });
   };
 
   let remove = () => {
