@@ -9,7 +9,7 @@ export let loadSounds = state => {
   return soundKeys.map(key => ({
     id: key,
     path: sounds[key].path,
-    sound: loadSound(path)
+    sound: loadSound(sounds[key].path)
   }));
 };
 
