@@ -4,6 +4,7 @@ import td from "testdouble";
 import { updateInstrumentAudio, cache, clearCache } from "../instrument.audio";
 import * as _drumMachine from "../drum.machine";
 import * as _reverb from "../reverb";
+import * as _master from "../master";
 
 describe("Instrument Audio", () => {
   it("creates a drum machine and calls update", () => {
@@ -28,6 +29,7 @@ describe("Instrument Audio", () => {
   });
 
   it("creates a reverb and calls update", () => {
+    clearCache();
     let instrument = {
       id: 0,
       type: "reverb"
@@ -45,10 +47,31 @@ describe("Instrument Audio", () => {
     td.verify(reverb());
     td.verify(update(instrument, state));
     td.reset();
+  });
+
+  it("creates a master and calls update", () => {
     clearCache();
+    let instrument = {
+      id: 0,
+      type: "master"
+    };
+    let state = {
+      instruments: [instrument]
+    };
+    let update = td.function();
+    let master = td.function();
+    td.when(master()).thenReturn({
+      update
+    });
+    td.replace(_master, "createMaster", master);
+    updateInstrumentAudio(state);
+    td.verify(master());
+    td.verify(update(instrument, state));
+    td.reset();
   });
 
   it("returns drum machine node", () => {
+    clearCache();
     let instrument = {
       id: 0,
       type: "drumMachine"
@@ -65,10 +88,10 @@ describe("Instrument Audio", () => {
     let instrumentNodes = updateInstrumentAudio(state);
     expect(instrumentNodes.length).to.equal(1);
     td.reset();
-    clearCache();
   });
 
   it("removes a deleted drum machine", () => {
+    clearCache();
     let remove = td.function();
     cache["0"] = {
       instrument: {
@@ -86,6 +109,5 @@ describe("Instrument Audio", () => {
     updateInstrumentAudio(state);
     td.verify(remove());
     td.reset();
-    clearCache();
   });
 });

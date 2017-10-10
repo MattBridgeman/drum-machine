@@ -1,5 +1,6 @@
 import { createDrumMachine } from "./drum.machine";
 import { createReverb } from "./reverb";
+import { createMaster } from "./master";
 import { objectToArrayWithKeyValue } from "../../natives/array";
 
 export let cache = {};
@@ -18,6 +19,9 @@ export let updateInstrumentAudio = (state) => {
         break;
       case "reverb":
         machine = createReverb();
+        break
+      case "master":
+        machine = createMaster();
         break;
       default:
         machine = null;
