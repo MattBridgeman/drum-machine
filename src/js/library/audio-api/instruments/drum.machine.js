@@ -84,7 +84,7 @@ export let createDrumMachine = () => {
 
     buffers.forEach(item => {
       let { time, index, bar } = item;
-      //TODO: Make dynamic for however many drum machines there are
+
       let soundIds = machine
         .map(channel => channel.sound);
 
@@ -127,7 +127,6 @@ export let createDrumMachine = () => {
             let bufferSource = createBufferSource(context, buffer);
             bufferSource.playbackRate.value = pitch || 1;
             bufferSource.connect(decayNode);
-            // bufferSource.connect(send1Node);
             bufferSource.start(time);
           });
         });
