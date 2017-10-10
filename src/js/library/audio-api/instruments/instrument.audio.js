@@ -19,7 +19,7 @@ export let updateInstrumentAudio = (state) => {
         break;
       case "reverb":
         machine = createReverb();
-        break
+        break;
       case "master":
         machine = createMaster();
         break;
@@ -43,7 +43,9 @@ export let updateInstrumentAudio = (state) => {
       }
     };
     idCache[instrument.id] = true;
-    machine.update(instrument, state);
+    if(machine.update) {
+      machine.update(instrument, state);
+    }
   });
 
   //remove nodes
@@ -51,7 +53,7 @@ export let updateInstrumentAudio = (state) => {
   cacheArray.forEach(item => {
     let { key, value } = item;
     let { machine } = value;
-    if(!idCache[key]) {
+    if(!idCache[key] && machine.remove) {
       machine.remove();
     }
   });
