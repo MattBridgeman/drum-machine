@@ -17,7 +17,7 @@ export let createDrumMachine = () => {
   let send2 = context.createGain();
 
   let init = () => {
-    channels = numberToArrayLength(8)
+    channels = numberToArrayLength(9)
       .map(channel => ({
         send1: context.createGain(),
         send2: context.createGain(),
@@ -127,6 +127,7 @@ export let createDrumMachine = () => {
   };
 
   let remove = () => {
+    console.log("Remove!");
     context = null;
     channels = null;
   };
