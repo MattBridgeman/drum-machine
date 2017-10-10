@@ -28,14 +28,14 @@ export let createDrumMachine = () => {
   
     channels
       .forEach(channelNode => {
-        output.connect(channelNode.master);
         channelNode.master.connect(channelNode.volume);
         channelNode.volume.connect(channelNode.pan);
+        channelNode.pan.connect(output);
         channelNode.master.connect(channelNode.send1);
         channelNode.master.connect(channelNode.send2);
         channelNode.send1.connect(send1);
         channelNode.send2.connect(send2);
-        channelNode.pan.panningModel = 'equalpower';
+        channelNode.pan.panningModel = "equalpower";
       });
   };
 
@@ -78,7 +78,7 @@ export let createDrumMachine = () => {
     }
 
     buffers.forEach(item => {
-      let { time, index } = item;
+      let { time, index, bar } = item;
       //TODO: Make dynamic for however many drum machines there are
       let soundIds = machine
         .map(channel => channel.sound);
@@ -92,7 +92,7 @@ export let createDrumMachine = () => {
         .map(decayPercentageToValue);
 
       let patternsArray = machine
-        .map(channel => channel.patterns[index])
+        .map(channel => channel.patterns[bar])
         .map(patternId => patterns[patternId]);
       
       let send1Nodes = channels
@@ -117,7 +117,8 @@ export let createDrumMachine = () => {
       zip([patternsArray, sounds, decayNodes, send1Nodes, reverbs, pitches])
         .filter(([pattern]) => !!pattern[index])
         .forEach(([pattern, sound, decayNode, send1Node, reverb, pitch]) => {
-          sound.buffer.then(buffer => {
+          sound.sound.then(buffer => {
+            if(context.time > time) return;
             let bufferSource = createBufferSource(context, buffer);
             bufferSource.playbackRate.value = pitch || 1;
             bufferSource.connect(decayNode);

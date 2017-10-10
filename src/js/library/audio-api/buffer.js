@@ -37,7 +37,7 @@ export let segmentsToClear = (previousState, currentTime) =>
 export let buffersSinceId = (id, buffer) => {
   if(!id) return buffer;
   let buffers = buffer.reduce((prev, curr) => {
-    let soundAdd = prev.shouldAdd || curr.id === id;
+    let shouldAdd = prev.shouldAdd || curr.id === id;
     let { items } = prev;
     if(shouldAdd) {
       items = [
