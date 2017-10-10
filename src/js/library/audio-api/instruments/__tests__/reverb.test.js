@@ -17,4 +17,16 @@ describe("Reverb", () => {
     let reverb = createReverb();
     td.reset();
   });
+  it("returns inputs/main and outputs/main", () => {
+    let context = getStubContext();
+    let SimpleReverb = () => ({
+      connect: td.function()
+    });
+    td.replace(_context, "getAudioContext", () => context);
+    td.replace(_SimpleReverb, "SimpleReverb", SimpleReverb);
+    let reverb = createReverb();
+    expect(reverb.inputs.main).to.exist;
+    expect(reverb.outputs.main).to.exist;
+    td.reset();
+  });
 });

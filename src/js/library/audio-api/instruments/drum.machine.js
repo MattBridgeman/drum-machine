@@ -129,7 +129,6 @@ export let createDrumMachine = () => {
   };
 
   let remove = () => {
-    console.log("Remove!");
     context = null;
     channels = null;
   };
