@@ -1,7 +1,6 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { getAudioContext } from "../library/audio-api/context";
-import { NEW_AUDIO_CONTEXT } from "../constants/audio.context.constants";
 import { TOGGLE_PLAY_PAUSE } from "../constants/play.state.constants";
 
 export const startNoise = store => next => {
