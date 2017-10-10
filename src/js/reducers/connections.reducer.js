@@ -41,5 +41,5 @@ let initialState = [{
 let uniqueGenerator = unique();
 
 export default function connections(state = initialState, action) {
-
+  return state;
 };
