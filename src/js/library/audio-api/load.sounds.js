@@ -5,8 +5,12 @@ export let cache = {};
 
 export let loadSounds = state => {
   let { sounds } = state;
-  let paths = getSoundPaths(sounds);
-  return paths.map(loadSound);
+  let soundKeys = Object.keys(sounds);
+  return soundKeys.map(key => ({
+    id: key,
+    path: sounds[key].path,
+    sound: loadSound(path)
+  }));
 };
 
 export let loadSound = path => {
@@ -15,9 +19,4 @@ export let loadSound = path => {
     return cache[path];
   }
   return requestAndDecodeSound(context, path);
-};
-
-let getSoundPaths = (sounds) => {
-  let soundKeys = Object.keys(sounds);
-  return soundKeys.map(key => sounds[key].path);
 };
