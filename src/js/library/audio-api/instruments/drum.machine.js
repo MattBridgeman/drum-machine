@@ -1,4 +1,4 @@
-import { getAudioContext, createBufferSource } from "../context";
+import { getAudioContext } from "../context";
 import { get } from "../load.sounds";
 import { numberToArrayLength, zip, last } from "../../natives/array";
 import { panPercentageToValue } from "../pan";
@@ -6,10 +6,11 @@ import { loadSounds } from "../load.sounds";
 import { buffersSinceId } from "../buffer";
 import { pitchToPlaybackRate } from "../playback.rate";
 import { decayPercentageToValue } from "../decay";
+import { triggerBuffer } from "./trigger.buffer";
 
 export let createDrumMachine = () => {
   let context = getAudioContext();
-  let channels = [];
+  let channelNodes = [];
   let sounds = {};
   let lastBufferId = undefined;
   let output = context.createGain();
@@ -17,7 +18,7 @@ export let createDrumMachine = () => {
   let send2 = context.createGain();
 
   let init = () => {
-    channels = numberToArrayLength(9)
+    channelNodes = numberToArrayLength(9)
       .map(channel => ({
         send1: context.createGain(),
         send2: context.createGain(),
@@ -26,7 +27,7 @@ export let createDrumMachine = () => {
         pan: context.createPanner()
       }));
   
-    channels
+    channelNodes
       .forEach(channelNode => {
         channelNode.master.connect(channelNode.volume);
         channelNode.volume.connect(channelNode.pan);
@@ -56,7 +57,7 @@ export let createDrumMachine = () => {
 
     let atLeastOneChannelSolod = machine.reduce(((prev, channel) => prev || channel.solo), false);
 
-    zip([machine, channels])
+    zip([machine, channelNodes])
       .forEach(([channel, channelNode], index) => {
         channelNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
         channelNode.volume.gain.value = channel.volume * 0.01;
@@ -85,57 +86,24 @@ export let createDrumMachine = () => {
     buffers.forEach(item => {
       let { time, index, bar } = item;
 
-      let soundIds = machine
-        .map(channel => channel.sound);
-
-      let pitches = machine
-        .map(channel => channel.pitch)
-        .map(pitchToPlaybackRate);
-
-      let decays = machine
-        .map(channel => channel.decay)
-        .map(decayPercentageToValue);
-
-      let patternsArray = machine
-        .map(channel => channel.patterns[bar])
-        .map(patternId => patterns[patternId]);
-      
-      let send1Nodes = channels
-        .map(channel => channel.send1);
-
-      let reverbs = machine
-        .map(channel => channel.reverb);
-      
-      //create gain nodes for decay
-      let decayNodes = machine
-        .map(channel => context.createGain());
-        
-      //connect decay to master
-      zip([decayNodes, channels])
-        .forEach(([decayNode, channel]) => decayNode.connect(channel.master));
-      
-      //apply decay to decay node
-      zip([decayNodes, decays])
-        .forEach(([decayNode, decay]) => decayNode.gain.linearRampToValueAtTime(0, time + decay));
-      
-      //play sound
-      zip([patternsArray, sounds, decayNodes, send1Nodes, reverbs, pitches])
-        .filter(([pattern]) => !!pattern[index])
-        .forEach(([pattern, sound, decayNode, send1Node, reverb, pitch]) => {
-          sound.sound.then(buffer => {
-            if(context.time > time) return;
-            let bufferSource = createBufferSource(context, buffer);
-            bufferSource.playbackRate.value = pitch || 1;
-            bufferSource.connect(decayNode);
-            bufferSource.start(time);
-          });
+      machine.forEach((channel, channelIndex) => {
+        let { sound, pitch, decay } = channel;
+        pitch = pitchToPlaybackRate(pitch);
+        let pattern = patterns[channel.patterns[bar]];
+        let soundPromise = sound.sound;
+        if(!(pattern && pattern[index])) return;
+        soundPromise.then(soundBuffer => {
+          if(context.time > time) return;
+          let node = triggerBufferAndDecay(context, soundBuffer, pitch, time, decay);
+          node.connect(channelNodes[channelIndex]);
         });
+      });
     });
   };
 
   let remove = () => {
     context = null;
-    channels = null;
+    channelNodes = null;
   };
 
   init();
@@ -147,7 +115,7 @@ export let createDrumMachine = () => {
       main: output,
       send1,
       send2,
-      channels
+      channels: channelNodes
     }
   }
 };

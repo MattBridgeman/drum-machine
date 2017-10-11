@@ -31,10 +31,3 @@ export function createBufferSource(context, buffer) {
 	source.buffer = buffer;
 	return source;
 }
-
-export function playSound(context, buffer, destination, time, pitch) {
-	let bufferSource = createBufferSource(context, buffer);
-	bufferSource.playbackRate.value = pitch || 1;
-	bufferSource.connect(destination);
-	bufferSource.start(time);
-}
