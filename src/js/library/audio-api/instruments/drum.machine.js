@@ -6,7 +6,7 @@ import { loadSounds } from "../load.sounds";
 import { buffersSinceId } from "../buffer";
 import { pitchToPlaybackRate } from "../playback.rate";
 import { decayPercentageToValue } from "../decay";
-import { triggerBuffer } from "./trigger.buffer";
+import { triggerBufferAndDecay } from "./trigger.buffer";
 
 export let createDrumMachine = () => {
   let context = getAudioContext();
@@ -90,12 +90,12 @@ export let createDrumMachine = () => {
         let { sound, pitch, decay } = channel;
         pitch = pitchToPlaybackRate(pitch);
         let pattern = patterns[channel.patterns[bar]];
-        let soundPromise = sound.sound;
+        let { soundPromise } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
           if(context.time > time) return;
           let node = triggerBufferAndDecay(context, soundBuffer, pitch, time, decay);
-          node.connect(channelNodes[channelIndex]);
+          node.connect(channelNodes[channelIndex].master);
         });
       });
     });

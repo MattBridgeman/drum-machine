@@ -1,7 +1,7 @@
 import { createBufferSource } from "../context";
 
 export let triggerBuffer = (context, sound, pitch = 1, time) => {
-  let bufferSource = createBufferSource(context, buffer);
+  let bufferSource = createBufferSource(context, sound);
   bufferSource.playbackRate.value = pitch || 1;
   bufferSource.start(time);
   return bufferSource;
