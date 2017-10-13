@@ -6,7 +6,8 @@ import {
 	CHANGE_PITCH_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
-	TOGGLE_REVERB
+	TOGGLE_REVERB,
+	TOGGLE_BEAT_STATE
 } from "../constants/drum.machine.constants";
 
 const initialState = {
@@ -272,11 +273,11 @@ export default function drumMachine(state = initialState, action) {
 				...state,
 				[action.machineId]: state[action.machineId]
 				.map((channel, i) =>
-					action.channelId === i ? {
+					action.bankId === i ? {
 						...channel,
 						patterns: {
-							...state[action.machineId],
-							[action.bankId]: state[action.machineId][action.bankId]
+							...state[action.bankId].patterns,
+							[action.bankId]: state[action.machineId].patterns[action.bankId]
 								.map((beat, i) => i === action.index ? action.value : beat)
 						}
 					} : channel

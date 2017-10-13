@@ -6,7 +6,7 @@ import { Display } from "../display/display.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
-import { numberToArrayLength } from "../../library/native/array";
+import { numberToArrayLength } from "../../library/natives/array";
 import { Reverb } from "./reverb/reverb.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
 

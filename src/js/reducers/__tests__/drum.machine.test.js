@@ -239,7 +239,6 @@ describe("Drum Machine reducer", function() {
 	});
 
 	it("toggles the beat for the 0 pattern bank", function() {
-		const channelId = 0;
 		const machineId = 0;
 		const bankId = 0;
 		const index = 0;
@@ -256,6 +255,6 @@ describe("Drum Machine reducer", function() {
 		const nextState = drumMachine(initialState, action);
 
 		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[machineId][channelId].patterns[bankId][index]).to.equal(1);
+		expect(nextState[machineId].patterns[bankId][index]).to.equal(1);
 	});
 });
