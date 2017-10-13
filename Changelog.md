@@ -1,3 +1,10 @@
+## 1.2.1
+
+- Refactored inner workings to support multiple instruments moving forward
+- Refactored middleware to dynamically create instruments when the appear in the redux data layer
+- Multiple drum machines and reverbs are now possible
+- Created a "connections" redux reducer for maintaining connections between different instruments
+
 ## 1.2.0
 
 - Added Firebase for user auth

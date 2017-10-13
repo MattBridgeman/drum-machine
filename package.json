@@ -1,6 +1,6 @@
 {
   "name": "drum-machine",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "drum machine",
   "main": "src/js/main.js",
   "scripts": {
