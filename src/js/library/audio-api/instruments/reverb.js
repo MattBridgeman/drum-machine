@@ -5,7 +5,7 @@ import { reverbSecondsPercentageToValue, reverbDecayPercentageToValue } from "..
 export let createReverb = () => {
   let context = getAudioContext();
 
-  let reverb = new SimpleReverb(context, {
+  let reverbNode = new SimpleReverb(context, {
     seconds: 2,
     decay: 2,
     reverse: 0
@@ -15,8 +15,8 @@ export let createReverb = () => {
   let input = context.createGain();
   let output = context.createGain();
 
-  input.connect(reverb.input);
-  reverb.connect(output);
+  input.connect(reverbNode.input);
+  reverbNode.connect(output);
 
   let update = (instrument, state) => {
     let { machineId } = instrument;
@@ -25,11 +25,11 @@ export let createReverb = () => {
     let { seconds, decay } = machine;
     let reverbSeconds = reverbSecondsPercentageToValue(seconds);
     let reverbDecay = reverbDecayPercentageToValue(decay);
-    if(reverb.seconds !== reverbSeconds) {
-      reverb.seconds = reverbSeconds;
+    if(reverbNode.seconds !== reverbSeconds) {
+      reverbNode.seconds = reverbSeconds;
     }
-    if(reverb.decay !== reverbDecay) {
-      reverb.decay = reverbDecay;
+    if(reverbNode.decay !== reverbDecay) {
+      reverbNode.decay = reverbDecay;
     }
   };
 
