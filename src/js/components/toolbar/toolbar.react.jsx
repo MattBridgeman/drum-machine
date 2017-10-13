@@ -6,7 +6,7 @@ import { Display } from "../display/display.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { PlayToggle } from "../play-toggle/play.toggle.react.jsx";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
-import { getPatternBanksArray } from "../../reducers/patterns.reducer";
+import { numberToArrayLength } from "../../library/native/array";
 import { Reverb } from "./reverb/reverb.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
 
@@ -17,11 +17,12 @@ class Toolbar extends Component {
 	}
 
 	render() {
-		const { tempo, playState, sounds, patterns, dispatch } = this.props;
+		const { tempo, playState, sounds, patterns, dispatch, drumMachine } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
 		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
+		const drumMachineActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		
 		return (
       <div className="toolbar">
@@ -37,9 +38,9 @@ class Toolbar extends Component {
         <div className="toolbar-item bank-selector">
           <h3 className="item-label">Pattern Bank</h3>
           <div className="banks-available">
-            { getPatternBanksArray()
-              .map(i => 
-                <ToggleButton onClick={() => playStateActions.newBarIndex(i)} name={"A" + (i + 1)} selected={i === playState.currentBarIndex} classes="red" />
+            { numberToArrayLength(8)
+              .map(i =>
+                <ToggleButton onClick={() => drumMachineActions.newBankIndex(i)} name={"A" + (i + 1)} selected={i === drumMachine[0].currentBankIndex} classes="red" />
               )
             }
           </div>

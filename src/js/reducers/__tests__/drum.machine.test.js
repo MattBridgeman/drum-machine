@@ -8,7 +8,8 @@ import {
 	CHANGE_PITCH_TO_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	TOGGLE_REVERB
+	TOGGLE_REVERB,
+	TOGGLE_BEAT_STATE
 } from "../../constants/drum.machine.constants";
 
 describe("Drum Machine reducer", function() {
@@ -235,5 +236,26 @@ describe("Drum Machine reducer", function() {
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[machineId]["0"].mute).to.equal(true);
 		expect(nextState[machineId]["1"].mute).to.equal(false);
+	});
+
+	it("toggles the beat for the 0 pattern bank", function() {
+		const channelId = 0;
+		const machineId = 0;
+		const bankId = 0;
+		const index = 0;
+		const initialState = getInitialState();
+
+		const action = {
+			type: TOGGLE_BEAT_STATE,
+			machineId,
+			bankId,
+			index,
+			value: 1
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState[machineId][channelId].patterns[bankId][index]).to.equal(1);
 	});
 });
