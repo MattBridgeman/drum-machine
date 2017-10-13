@@ -23,17 +23,19 @@ export let createDrumMachine = () => {
         send1: context.createGain(),
         send2: context.createGain(),
         volume: context.createGain(),
-        master: context.createGain(),
+        pre: context.createGain(),
+        post: context.createGain(),
         pan: context.createPanner()
       }));
   
     channelNodes
       .forEach(channelNode => {
-        channelNode.master.connect(channelNode.volume);
+        channelNode.pre.connect(channelNode.volume);
         channelNode.volume.connect(channelNode.pan);
-        channelNode.pan.connect(output);
-        channelNode.master.connect(channelNode.send1);
-        channelNode.master.connect(channelNode.send2);
+        channelNode.pan.connect(channelNode.post);
+        channelNode.post.connect(output);
+        channelNode.post.connect(channelNode.send1);
+        channelNode.post.connect(channelNode.send2);
         channelNode.send1.connect(send1);
         channelNode.send2.connect(send2);
         channelNode.pan.panningModel = "equalpower";
@@ -59,7 +61,7 @@ export let createDrumMachine = () => {
 
     zip([machine, channelNodes])
       .forEach(([channel, channelNode], index) => {
-        channelNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
+        channelNode.pre.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
         channelNode.volume.gain.value = channel.volume * 0.01;
         channelNode.pan.setPosition(...panPercentageToValue(channel.pan));
         channelNode.send1.gain.value = channel.reverb ? 1 : 0;
@@ -90,13 +92,14 @@ export let createDrumMachine = () => {
         let { sound, pitch, decay } = channel;
         let { currentBarIndex } = playState;
         pitch = pitchToPlaybackRate(pitch);
+        decay = decayPercentageToValue(decay);
         let pattern = patterns[channel.patterns[currentBarIndex]];
         let { soundPromise } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
           if(context.time > time) return;
           let node = triggerBufferAndDecay(context, soundBuffer, pitch, time, decay);
-          node.connect(channelNodes[channelIndex].master);
+          node.connect(channelNodes[channelIndex].pre);
         });
       });
     });

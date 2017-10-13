@@ -48,7 +48,7 @@ describe("Drum Machine", () => {
       }
     };
     drumMachine.update(state.instruments["0"], state);
-    expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(1);
+    expect(drumMachine.outputs.channels[0].pre.gain.value).to.equal(1);
     expect(drumMachine.outputs.channels[0].volume.gain.value).to.equal(1);
     td.reset();
   });
@@ -77,7 +77,7 @@ describe("Drum Machine", () => {
       }
     };
     drumMachine.update(state.instruments["0"], state);
-    expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(0);
+    expect(drumMachine.outputs.channels[0].pre.gain.value).to.equal(0);
     td.reset();
   });
   it("solos a single channel, muting the other", () => {
@@ -110,8 +110,8 @@ describe("Drum Machine", () => {
       }
     };
     drumMachine.update(state.instruments["0"], state);
-    expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(0);
-    expect(drumMachine.outputs.channels[1].master.gain.value).to.equal(1);
+    expect(drumMachine.outputs.channels[0].pre.gain.value).to.equal(0);
+    expect(drumMachine.outputs.channels[1].pre.gain.value).to.equal(1);
     td.reset();
   });
   it("sets pan to equally left and right", () => {
