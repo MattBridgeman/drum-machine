@@ -15,8 +15,8 @@ export let loadSounds = state => {
 
 export let loadSound = path => {
   let context = getAudioContext();
-  if(cache[path]){
-    return cache[path];
+  if(!cache[path]){
+    cache[path] = requestAndDecodeSound(context, path);
   }
-  return requestAndDecodeSound(context, path);
+  return cache[path];
 };
