@@ -88,8 +88,9 @@ export let createDrumMachine = () => {
 
       machine.forEach((channel, channelIndex) => {
         let { sound, pitch, decay } = channel;
+        let { currentBarIndex } = playState;
         pitch = pitchToPlaybackRate(pitch);
-        let pattern = patterns[channel.patterns[bar]];
+        let pattern = patterns[channel.patterns[currentBarIndex]];
         let { soundPromise } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
