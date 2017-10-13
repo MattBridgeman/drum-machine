@@ -11,6 +11,7 @@ export let getStubContext = () => {
 			}
 		}),
     createPanner: () => ({
+			connect: td.function(),
 			setPosition: td.function(),
 			panningModel: ''
 		}),

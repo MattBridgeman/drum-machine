@@ -42,7 +42,10 @@ describe("Drum Machine", () => {
         type: "drumMachine",
         machineId: 0
       }],
-      buffer: []
+      buffer: [],
+      playState: {
+        isPlaying: false
+      }
     };
     drumMachine.update(state.instruments["0"], state);
     expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(1);
@@ -68,7 +71,10 @@ describe("Drum Machine", () => {
         type: "drumMachine",
         machineId: 0
       }],
-      buffer: []
+      buffer: [],
+      playState: {
+        isPlaying: false
+      }
     };
     drumMachine.update(state.instruments["0"], state);
     expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(0);
@@ -98,7 +104,10 @@ describe("Drum Machine", () => {
         type: "drumMachine",
         machineId: 0
       }],
-      buffer: []
+      buffer: [],
+      playState: {
+        isPlaying: false
+      }
     };
     drumMachine.update(state.instruments["0"], state);
     expect(drumMachine.outputs.channels[0].master.gain.value).to.equal(0);
@@ -124,7 +133,10 @@ describe("Drum Machine", () => {
         type: "drumMachine",
         machineId: 0
       }],
-      buffer: []
+      buffer: [],
+      playState: {
+        isPlaying: false
+      }
     };
     drumMachine.update(state.instruments["0"], state);
     td.verify(drumMachine.outputs.channels[0].pan.setPosition(0, 0, 1));
