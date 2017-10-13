@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 const NOTIFICATION_TIMEOUT = 5000;
 const TRANSITION_TIME = 300;

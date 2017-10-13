@@ -1,3 +1,14 @@
+let context = null;
+
+export function getAudioContext() {
+	if(context) {
+		return context;
+	} else {
+		context = createAudioContext();
+		return context;
+	}
+}
+
 export function createAudioContext() {
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
 	return new AudioContext();
@@ -19,11 +30,4 @@ export function createBufferSource(context, buffer) {
 	var source = context.createBufferSource();
 	source.buffer = buffer;
 	return source;
-}
-
-export function playSound(context, buffer, destination, time, pitch) {
-	let bufferSource = createBufferSource(context, buffer);
-	bufferSource.playbackRate.value = pitch || 1;
-	bufferSource.connect(destination);
-	bufferSource.start(time);
 }

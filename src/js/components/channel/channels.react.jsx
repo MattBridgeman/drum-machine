@@ -3,7 +3,7 @@ import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { ChannelHead } from "./channel.head.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { bindActionCreators } from "redux";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 class Channels extends React.Component {
 
@@ -12,7 +12,7 @@ class Channels extends React.Component {
 	}
 
 	render() {
-		const { channels, playState, sounds, dispatch } = this.props;
+    const { channels, machineId, playState, sounds, dispatch } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
     return (
@@ -24,14 +24,14 @@ class Channels extends React.Component {
                 name={sounds[channel.sound].name}
                 selected={channel.selected}
                 solo={channel.solo}
-                onSelectClick={() => channelActions.changeSelectedChannel(i)} 
-                onSoloClick={() => channelActions.toggleSoloChannel(i)}
-                onMuteClick={() => channelActions.toggleMuteChannel(i)} muted={channel.mute} />
+                onSelectClick={() => channelActions.changeSelectedChannel(machineId, i)} 
+                onSoloClick={() => channelActions.toggleSoloChannel(machineId, i)}
+                onMuteClick={() => channelActions.toggleMuteChannel(machineId, i)} muted={channel.mute} />
               <div className="channel-tray">
-                <Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeToAmount(i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(i, value) } />
-                <Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchToAmount(i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(i, value) } />
-                <Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayToAmount(i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(i, value) } />
-                <Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanToAmount(i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(i, value) } />
+                <Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(machineId, i, value) } />
+                <Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(machineId, i, value) } />
+                <Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(machineId, i, value) } />
+                <Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(machineId, i, value) } />
               </div>
               <div className="channel-item">
                 <h3 ref="name" className="item-title light">FX</h3>
@@ -39,7 +39,7 @@ class Channels extends React.Component {
               <div className="channel-tray">
                 <div className="toggle-button-item">
                   <h3 className="item-label">Reverb</h3>
-                  <ToggleButton classes="channel-item red" selected={channel.reverb} onClick={ (amount) => channelActions.toggleReverb(i, amount) } />
+                  <ToggleButton classes="channel-item red" selected={channel.reverb} onClick={ (amount) => channelActions.toggleReverb(machineId, i, amount) } />
                 </div>
               </div>
             </div>

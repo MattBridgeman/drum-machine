@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 
 import { Display } from "../display/display.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
@@ -17,7 +17,7 @@ class Toolbar extends Component {
 	}
 
 	render() {
-		const { channels, tempo, playState, sounds, patterns, dispatch } = this.props;
+		const { tempo, playState, sounds, patterns, dispatch } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
 		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
@@ -45,7 +45,7 @@ class Toolbar extends Component {
           </div>
         </div>
         <div className="toolbar-item reverb">
-          <Reverb {...this.props} />
+          <Reverb machineId={0} {...this.props} />
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import { bindActionCreators } from "redux";
-import DrumMachineActions from "../../actions/drum.machine.actions";
+import DrumMachineActions from "../../actions/root.actions";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { numberToArrayLength } from "../../library/natives/array";
 

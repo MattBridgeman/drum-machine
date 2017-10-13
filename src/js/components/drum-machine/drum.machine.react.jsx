@@ -5,12 +5,14 @@ import { Pattern } from "../pattern/pattern.react.jsx";
 import { Toolbar } from "../toolbar/toolbar.react.jsx";
 import { ChannelSelector } from "../channel-selector/channel.selector.react.jsx";
 
-let DrumMachine = (props) =>
-	<div className="drum-machine">
+let DrumMachine = (props) => {
+	let channels = props.drumMachine[props.machineId];
+	return <div className="drum-machine">
 		<Toolbar {...props} />
-		<ChannelSelector {...props} />
-		<Channels {...props} />
-		<Pattern {...props} />
-	</div>;
+		<ChannelSelector {...props} channels={channels} />
+		<Channels {...props} channels={channels} />
+		<Pattern {...props} channels={channels} />
+	</div>
+};
 
 export { DrumMachine };

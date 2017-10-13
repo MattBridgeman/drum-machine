@@ -1,5 +1,5 @@
 import { NEW_SOURCE_NODES } from "../constants/audio.context.constants";
-import rootReducer from "../reducers/drum.machine.root.reducer";
+import rootReducer from "../reducers/root.reducer";
 import { zip } from "../library/natives/array";
 import { panPercentageToValue } from "../library/audio-api/pan";
 import { reverbSecondsPercentageToValue, reverbDecayPercentageToValue } from "../library/audio-api/reverb";
@@ -12,7 +12,7 @@ export const updateAudioParams = store => next => {
     let prevState = store.getState();
 		let state = rootReducer(prevState, action);
         
-		let { channels, reverb } = state;
+		let { drumMachine, reverb } = state;
         
     if(action.type === NEW_SOURCE_NODES){
       sourceNodes = action.value;
@@ -20,9 +20,10 @@ export const updateAudioParams = store => next => {
 
     if(!sourceNodes) return next(action);
 
-    let atLeastOneChannelSolod = channels.reduce(((prev, channel) => prev || channel.solo), false);
+    //TODO: Make dynamic for however many drum machines there are
+    let atLeastOneChannelSolod = drumMachine["0"].reduce(((prev, channel) => prev || channel.solo), false);
 
-    zip([channels, sourceNodes])
+    zip([drumMachine["0"], sourceNodes])
       .forEach(([channel, sourceNode], index) => {
         sourceNode.master.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
         sourceNode.volume.gain.value = channel.volume * 0.01;
