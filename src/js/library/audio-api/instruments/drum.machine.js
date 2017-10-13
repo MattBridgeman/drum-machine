@@ -80,7 +80,7 @@ export let createDrumMachine = () => {
       return;
     }
 
-    let buffers = lastBufferId ? buffersSinceId(lastBufferId, buffer) : buffer;
+    let buffers = lastBufferId !== undefined ? buffersSinceId(lastBufferId, buffer) : buffer;
     if(buffers.length) {
       lastBufferId = last(buffers).id;
     }
@@ -94,7 +94,7 @@ export let createDrumMachine = () => {
         pitch = pitchToPlaybackRate(pitch);
         decay = decayPercentageToValue(decay);
         let pattern = patterns[channel.patterns[currentBarIndex]];
-        let { soundPromise } = sounds[sound];
+        let { soundPromise, path } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
           if(context.time > time) return;

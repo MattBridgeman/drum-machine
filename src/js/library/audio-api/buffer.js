@@ -35,7 +35,7 @@ export let segmentsToClear = (previousState, currentTime) =>
   previousState.filter(({time}) => time + MAX_KEEP_STALE_BUFFER_IN_SECONDS <= currentTime);
 
 export let buffersSinceId = (id, buffer) => {
-  if(!id) return buffer;
+  if(id === undefined) return buffer;
   let buffers = buffer.reduce((prev, curr) => {
     let shouldAdd = prev.shouldAdd || curr.id === id;
     let { items } = prev;
