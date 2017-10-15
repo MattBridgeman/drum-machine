@@ -18,7 +18,16 @@ describe("Drum Machine reducer", function() {
 			0: [
 				{
 					sound: 0,
-					patterns: [0],
+					patterns: {
+						0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+					},
 					volume: 50,
 					pitch: 50,
 					decay: 100,
@@ -30,7 +39,16 @@ describe("Drum Machine reducer", function() {
 				},
 				{
 					sound: 1,
-					patterns: [1],
+					patterns: {
+						0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+						7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+					},
 					volume: 50,
 					pitch: 50,
 					decay: 100,
@@ -240,13 +258,15 @@ describe("Drum Machine reducer", function() {
 
 	it("toggles the beat for the 0 pattern bank", function() {
 		const machineId = 0;
-		const bankId = 0;
-		const index = 0;
+		const channelId = 1;
+		const bankId = 4;
+		const index = 7;
 		const initialState = getInitialState();
 
 		const action = {
 			type: TOGGLE_BEAT_STATE,
 			machineId,
+			channelId,
 			bankId,
 			index,
 			value: 1
@@ -255,6 +275,6 @@ describe("Drum Machine reducer", function() {
 		const nextState = drumMachine(initialState, action);
 
 		expect(initialState).to.deep.equal(getInitialState());
-		expect(nextState[machineId].patterns[bankId][index]).to.equal(1);
+		expect(nextState[machineId][channelId].patterns[bankId][index]).to.equal(1);
 	});
 });

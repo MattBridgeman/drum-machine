@@ -273,11 +273,11 @@ export default function drumMachine(state = initialState, action) {
 				...state,
 				[action.machineId]: state[action.machineId]
 				.map((channel, i) =>
-					action.bankId === i ? {
+					action.channelId === i ? {
 						...channel,
 						patterns: {
-							...state[action.bankId].patterns,
-							[action.bankId]: state[action.machineId].patterns[action.bankId]
+							...state[action.machineId][action.channelId].patterns,
+							[action.bankId]: state[action.machineId][action.channelId].patterns[action.bankId]
 								.map((beat, i) => i === action.index ? action.value : beat)
 						}
 					} : channel
