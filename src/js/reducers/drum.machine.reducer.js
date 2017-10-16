@@ -8,7 +8,8 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
-	NEW_BANK_INDEX
+	NEW_BANK_INDEX,
+	CHANGE_SWING_TO_AMOUNT
 } from "../constants/drum.machine.constants";
 
 const initialState = {
@@ -320,6 +321,14 @@ export default function drumMachine(state = initialState, action) {
 					currentBankIndex: action.value
 				}
 			};
+		case CHANGE_SWING_TO_AMOUNT:
+			return {
+				...state,
+				[action.machineId]: {
+					...state[action.machineId],
+					swing: action.value
+				}
+			}
 		default:
 			return state;
 	}
