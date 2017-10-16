@@ -11,7 +11,8 @@ class Pattern extends React.Component {
 	}
 
 	render() {
-		const { channels, playState, machineId, tempo, dispatch } = this.props;
+		const { machine, playState, machineId, tempo, dispatch } = this.props;
+		const { channels, currentBankIndex } = machine;
 		const drumMachineActions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
 		return (
 			<div className="pattern">
@@ -37,11 +38,11 @@ class Pattern extends React.Component {
 												}))
 												.filter(({ channel }, i) => channel.selected)
 												.map(({ channel: { patterns }, id }, i) => 
-													patterns[playState.currentBarIndex]
+													patterns[currentBankIndex]
 													.filter((beat, index) => segments.indexOf(index) !== -1)
 													.map((beat, index) => ({beat, index: segments[index]}))
 													.map(({beat, index}) => 
-														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => drumMachineActions.toggleBeat(machineId, id, playState.currentBarIndex, index, beat ? 0 : 1)} />
+														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => drumMachineActions.toggleBeat(machineId, id, currentBankIndex, index, beat ? 0 : 1)} />
 													)
 												)
 											}
