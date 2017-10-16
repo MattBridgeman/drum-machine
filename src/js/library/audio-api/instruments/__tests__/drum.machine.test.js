@@ -30,12 +30,14 @@ describe("Drum Machine", () => {
     let drumMachine = createDrumMachine();
     let state = {
       drumMachine: {
-        0: [{
-          mute: false,
-          solo: false,
-          pan: 50,
-          volume: 100
-        }]
+        0: {
+          channels: [{
+            mute: false,
+            solo: false,
+            pan: 50,
+            volume: 100
+          }]
+        }
       },
       instruments: [{
         id: 0,
@@ -59,12 +61,14 @@ describe("Drum Machine", () => {
     let drumMachine = createDrumMachine();
     let state = {
       drumMachine: {
-        0: [{
-          mute: true,
-          solo: false,
-          pan: 50,
-          volume: 100
-        }]
+        0: {
+          channels: [{
+            mute: false,
+            solo: false,
+            pan: 50,
+            volume: 100
+          }]
+        }
       },
       instruments: [{
         id: 0,
@@ -87,17 +91,19 @@ describe("Drum Machine", () => {
     let drumMachine = createDrumMachine();
     let state = {
       drumMachine: {
-        0: [{
-          mute: false,
-          solo: false,
-          pan: 50,
-          volume: 100
-        },{
-          mute: false,
-          solo: true,
-          pan: 50,
-          volume: 100
-        }]
+        0: {
+          channels: [{
+            mute: false,
+            solo: false,
+            pan: 50,
+            volume: 100
+          },{
+            mute: false,
+            solo: true,
+            pan: 50,
+            volume: 100
+          }]
+        }
       },
       instruments: [{
         id: 0,
@@ -121,12 +127,14 @@ describe("Drum Machine", () => {
     let drumMachine = createDrumMachine();
     let state = {
       drumMachine: {
-        0: [{
-          mute: false,
-          solo: false,
-          pan: 50,
-          volume: 100
-        }]
+        0: {
+          channels: [{
+            mute: false,
+            solo: false,
+            pan: 50,
+            volume: 100
+          }]
+        }
       },
       instruments: [{
         id: 0,
