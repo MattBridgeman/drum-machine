@@ -7,7 +7,8 @@ import {
 	CHANGE_PAN_TO_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
 	TOGGLE_REVERB,
-	TOGGLE_BEAT_STATE
+	TOGGLE_BEAT_STATE,
+	NEW_BANK_INDEX
 } from "../constants/drum.machine.constants";
 
 const initialState = {
@@ -309,6 +310,14 @@ export default function drumMachine(state = initialState, action) {
 							}
 						} : channel
 					)
+				}
+			};
+		case NEW_BANK_INDEX:
+			return {
+				...state,
+				[action.machineId]: {
+					...state[action.machineId],
+					currentBankIndex: action.value
 				}
 			};
 		default:

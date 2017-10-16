@@ -9,14 +9,15 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB,
-	TOGGLE_BEAT_STATE
+	TOGGLE_BEAT_STATE,
+	NEW_BANK_INDEX
 } from "../../constants/drum.machine.constants";
 
 describe("Drum Machine reducer", function() {
 	function getInitialState(){
 		return {
 			0: {
-				selectedBankIndex: 0,
+				currentBankIndex: 0,
 				channels: [{
 					sound: 0,
 					patterns: {
@@ -277,5 +278,22 @@ describe("Drum Machine reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[machineId].channels[channelId].patterns[bankId][index]).to.equal(1);
+	});
+
+	it("changes the current bank index to the new index", function() {
+		const machineId = 0;
+		const bankId = 4;
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_BANK_INDEX,
+			machineId,
+			value: bankId
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(initialState).to.deep.equal(getInitialState());
+		expect(nextState[machineId].currentBankIndex).to.equal(bankId);
 	});
 });
