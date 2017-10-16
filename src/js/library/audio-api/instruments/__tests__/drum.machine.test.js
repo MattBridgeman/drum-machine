@@ -63,7 +63,7 @@ describe("Drum Machine", () => {
       drumMachine: {
         0: {
           channels: [{
-            mute: false,
+            mute: true,
             solo: false,
             pan: 50,
             volume: 100
