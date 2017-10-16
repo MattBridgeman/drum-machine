@@ -55,11 +55,11 @@ export let createDrumMachine = () => {
   let updateGains = (instrument, state) => {
     let { machineId } = instrument;
     let { drumMachine } = state;
-    let machine = drumMachine[machineId];
+    let { channels } = drumMachine[machineId];
 
-    let atLeastOneChannelSolod = machine.reduce(((prev, channel) => prev || channel.solo), false);
+    let atLeastOneChannelSolod = channels.reduce(((prev, channel) => prev || channel.solo), false);
 
-    zip([machine, channelNodes])
+    zip([channels, channelNodes])
       .forEach(([channel, channelNode], index) => {
         channelNode.pre.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
         channelNode.volume.gain.value = channel.volume * 0.01;

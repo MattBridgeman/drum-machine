@@ -6,7 +6,7 @@ import { Toolbar } from "../toolbar/toolbar.react.jsx";
 import { ChannelSelector } from "../channel-selector/channel.selector.react.jsx";
 
 let DrumMachine = (props) => {
-	let channels = props.drumMachine[props.machineId];
+	let channels = props.drumMachine[props.machineId].channels;
 	return <div className="drum-machine">
 		<Toolbar {...props} />
 		<ChannelSelector {...props} channels={channels} />
