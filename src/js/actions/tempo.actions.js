@@ -1,4 +1,4 @@
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_SWING_TO_AMOUNT } from "../constants/tempo.constants";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../constants/tempo.constants";
 
 //tempo
 export function incrementBPM() {
@@ -23,13 +23,6 @@ export function changeBPMByAmount(amount) {
 export function changeBPMToAmount(value) {
   return {
     type: CHANGE_BPM,
-    value: value
-  };
-}
-
-export function changeSwingToAmount(value) {
-  return {
-    type: CHANGE_SWING_TO_AMOUNT,
     value: value
   };
 }

@@ -9,7 +9,8 @@ import { changeSelectedChannel,
 	toggleReverb,
 	toggleMuteChannel,
 	toggleBeat,
-	newBankIndex
+	newBankIndex,
+	changeSwingToAmount
 } from "../drum.machine.actions";
 
 import { CHANGE_SELECTED_CHANNEL,
@@ -21,7 +22,8 @@ import { CHANGE_SELECTED_CHANNEL,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
-	NEW_BANK_INDEX
+	NEW_BANK_INDEX,
+	CHANGE_SWING_TO_AMOUNT
 } from "../../constants/drum.machine.constants";
 
 describe("Channel actions", function() {
@@ -165,5 +167,16 @@ describe("Channel actions", function() {
 		expect(action.type).to.equal(NEW_BANK_INDEX);
 		expect(action.machineId).to.equal(machineId);
 		expect(action.value).to.equal(bankId);
+	});
+
+	it("Expect changeSwingToAmount to return change swing to amount action", function() {
+		let machineId = 0;
+		let action = changeSwingToAmount(machineId, 50);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_SWING_TO_AMOUNT,
+			machineId,
+			value: 50
+		});
 	});
 });

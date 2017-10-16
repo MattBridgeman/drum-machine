@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPMToAmount, changeSwingToAmount } from "../tempo.actions";
-import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, CHANGE_SWING_TO_AMOUNT } from "../../constants/tempo.constants";
+import { incrementBPM, decrementBPM, changeBPMByAmount, changeBPMToAmount } from "../tempo.actions";
+import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM } from "../../constants/tempo.constants";
 
 describe("Tempo actions", function() {
 
@@ -35,15 +35,6 @@ describe("Tempo actions", function() {
 		expect(action).to.deep.equal({
 			type: CHANGE_BPM,
 			value: 101
-		});
-	});
-
-	it("Expect changeSwingToAmount to return change swing to amount action", function() {
-		var action = changeSwingToAmount(50);
-
-		expect(action).to.deep.equal({
-			type: CHANGE_SWING_TO_AMOUNT,
-			value: 50
 		});
 	});
 });
