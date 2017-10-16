@@ -11,8 +11,8 @@ class Pattern extends React.Component {
 	}
 
 	render() {
-		const { channels, playState, patterns, tempo, dispatch } = this.props;
-		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
+		const { channels, playState, machineId, tempo, dispatch } = this.props;
+		const drumMachineActions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
 		return (
 			<div className="pattern">
 				<div className="time-signature">
@@ -32,12 +32,12 @@ class Pattern extends React.Component {
 										<div className="pattern-tray">
 											{ channels
 												.filter((channel, i) => channel.selected)
-												.map((channel, i) => 
-													patterns[channel.patterns[playState.currentBarIndex]]
+												.map(({ patterns }, i) => 
+													patterns[playState.currentBarIndex]
 													.filter((beat, index) => segments.indexOf(index) !== -1)
 													.map((beat, index) => ({beat, index: segments[index]}))
 													.map(({beat, index}) => 
-														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => patternsActions.toggleBeat(channel.patterns[playState.currentBarIndex], !beat, index)} />
+														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => drumMachineActions.toggleBeat(machineId, i, playState.currentBarIndex, index, beat ? 0 : 1)} />
 													)
 												)
 											}

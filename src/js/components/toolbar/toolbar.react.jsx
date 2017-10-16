@@ -17,10 +17,9 @@ class Toolbar extends Component {
 	}
 
 	render() {
-		const { tempo, playState, sounds, patterns, dispatch, drumMachine } = this.props;
+		const { tempo, playState, sounds, dispatch, drumMachine } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
-		const patternsActions = bindActionCreators(DrumMachineActions.patterns, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		const drumMachineActions = bindActionCreators(DrumMachineActions.channel, dispatch);
 		

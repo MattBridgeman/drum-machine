@@ -72,7 +72,7 @@ export let createDrumMachine = () => {
 
   let updateSoundTriggers = (instrument, state) => {
     let { machineId } = instrument;
-    let { drumMachine, buffer, patterns, playState } = state;
+    let { drumMachine, buffer, playState } = state;
     let machine = drumMachine[machineId];
     
     if(!playState.isPlaying) {
@@ -89,11 +89,11 @@ export let createDrumMachine = () => {
       let { time, index, bar } = item;
 
       machine.forEach((channel, channelIndex) => {
-        let { sound, pitch, decay } = channel;
+        let { sound, pitch, decay, patterns } = channel;
         let { currentBarIndex } = playState;
         pitch = pitchToPlaybackRate(pitch);
         decay = decayPercentageToValue(decay);
-        let pattern = patterns[channel.patterns[currentBarIndex]];
+        let pattern = patterns[currentBarIndex];
         let { soundPromise, path } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
