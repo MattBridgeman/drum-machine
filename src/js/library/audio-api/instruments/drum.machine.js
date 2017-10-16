@@ -6,6 +6,7 @@ import { loadSounds } from "../load.sounds";
 import { buffersSinceId } from "../buffer";
 import { pitchToPlaybackRate } from "../playback.rate";
 import { decayPercentageToValue } from "../decay";
+import { getSwingOffset } from "../tempo";
 import { triggerBufferAndDecay } from "./trigger.buffer";
 
 export let createDrumMachine = () => {
@@ -72,8 +73,8 @@ export let createDrumMachine = () => {
 
   let updateSoundTriggers = (instrument, state) => {
     let { machineId } = instrument;
-    let { drumMachine, buffer, playState } = state;
-    let { channels, currentBankIndex } = drumMachine[machineId];
+    let { drumMachine, buffer, playState, tempo: { beatsPerMinute, segmentsPerBeat } } = state;
+    let { channels, currentBankIndex, swing } = drumMachine[machineId];
     
     if(!playState.isPlaying) {
       lastBufferId = undefined;
@@ -87,7 +88,7 @@ export let createDrumMachine = () => {
 
     buffers.forEach(item => {
       let { time, index, bar } = item;
-
+      time += getSwingOffset(beatsPerMinute, segmentsPerBeat, index, swing);
       channels.forEach((channel, channelIndex) => {
         let { sound, pitch, decay, patterns } = channel;
         pitch = pitchToPlaybackRate(pitch);
