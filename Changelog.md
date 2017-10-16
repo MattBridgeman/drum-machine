@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Refactored patterns inside of drum machine reducer
+
 ## 1.2.1
 
 - Refactored inner workings to support multiple instruments moving forward

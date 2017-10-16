@@ -12,7 +12,8 @@ class Channels extends React.Component {
 	}
 
 	render() {
-    const { channels, machineId, playState, sounds, dispatch } = this.props;
+    const { machine, machineId, playState, sounds, dispatch } = this.props;
+    const { channels } = machine;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
     return (
@@ -28,10 +29,10 @@ class Channels extends React.Component {
                 onSoloClick={() => channelActions.toggleSoloChannel(machineId, i)}
                 onMuteClick={() => channelActions.toggleMuteChannel(machineId, i)} muted={channel.mute} />
               <div className="channel-tray">
-                <Rotator name="Volume" value={channel.volume} onKnobRotate={ (amount) => channelActions.changeVolumeToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changeVolumeToAmount(machineId, i, value) } />
-                <Rotator name="Pitch" value={channel.pitch} onKnobRotate={ (amount) => channelActions.changePitchToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changePitchToAmount(machineId, i, value) } />
-                <Rotator name="Decay" value={channel.decay} onKnobRotate={ (amount) => channelActions.changeDecayToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changeDecayToAmount(machineId, i, value) } />
-                <Rotator name="Pan" value={channel.pan} onKnobRotate={ (amount) => channelActions.changePanToAmount(machineId, i, amount) } onValueChange={ (value) => channelActions.changePanToAmount(machineId, i, value) } />
+                <Rotator name="Volume" value={channel.volume} onValueChange={ (value) => channelActions.changeVolumeToAmount(machineId, i, value) } />
+                <Rotator name="Pitch" value={channel.pitch} onValueChange={ (value) => channelActions.changePitchToAmount(machineId, i, value) } />
+                <Rotator name="Decay" value={channel.decay} onValueChange={ (value) => channelActions.changeDecayToAmount(machineId, i, value) } />
+                <Rotator name="Pan" value={channel.pan} onValueChange={ (value) => channelActions.changePanToAmount(machineId, i, value) } />
               </div>
               <div className="channel-item">
                 <h3 ref="name" className="item-title light">FX</h3>

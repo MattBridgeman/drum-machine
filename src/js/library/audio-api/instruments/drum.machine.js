@@ -55,11 +55,11 @@ export let createDrumMachine = () => {
   let updateGains = (instrument, state) => {
     let { machineId } = instrument;
     let { drumMachine } = state;
-    let machine = drumMachine[machineId];
+    let { channels } = drumMachine[machineId];
 
-    let atLeastOneChannelSolod = machine.reduce(((prev, channel) => prev || channel.solo), false);
+    let atLeastOneChannelSolod = channels.reduce(((prev, channel) => prev || channel.solo), false);
 
-    zip([machine, channelNodes])
+    zip([channels, channelNodes])
       .forEach(([channel, channelNode], index) => {
         channelNode.pre.gain.value = channel.mute ? 0: channel.solo ? 1: atLeastOneChannelSolod ? 0 : 1;
         channelNode.volume.gain.value = channel.volume * 0.01;
@@ -72,8 +72,8 @@ export let createDrumMachine = () => {
 
   let updateSoundTriggers = (instrument, state) => {
     let { machineId } = instrument;
-    let { drumMachine, buffer, patterns, playState } = state;
-    let machine = drumMachine[machineId];
+    let { drumMachine, buffer, playState } = state;
+    let { channels, currentBankIndex } = drumMachine[machineId];
     
     if(!playState.isPlaying) {
       lastBufferId = undefined;
@@ -88,12 +88,11 @@ export let createDrumMachine = () => {
     buffers.forEach(item => {
       let { time, index, bar } = item;
 
-      machine.forEach((channel, channelIndex) => {
-        let { sound, pitch, decay } = channel;
-        let { currentBarIndex } = playState;
+      channels.forEach((channel, channelIndex) => {
+        let { sound, pitch, decay, patterns } = channel;
         pitch = pitchToPlaybackRate(pitch);
         decay = decayPercentageToValue(decay);
-        let pattern = patterns[channel.patterns[currentBarIndex]];
+        let pattern = patterns[currentBankIndex];
         let { soundPromise, path } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {

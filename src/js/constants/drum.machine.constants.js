@@ -6,3 +6,5 @@ export const CHANGE_SELECTED_CHANNEL = "change_selected_channel";
 export const TOGGLE_SOLO_CHANNEL = "change_solo_channel";
 export const TOGGLE_MUTE_CHANNEL = "toggle_mute_channel";
 export const TOGGLE_REVERB = "TOGGLE_REVERB";
+export const TOGGLE_BEAT_STATE = "TOGGLE_BEAT_STATE";
+export const NEW_BANK_INDEX = "NEW_BANK_INDEX";
