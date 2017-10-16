@@ -17,11 +17,12 @@ class Toolbar extends Component {
 	}
 
 	render() {
-		const { tempo, playState, sounds, dispatch, drumMachine } = this.props;
+		const { tempo, playState, sounds, dispatch, drumMachine, machineId } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
 		const channelActions = bindActionCreators(DrumMachineActions.channel, dispatch);
-		const drumMachineActions = bindActionCreators(DrumMachineActions.channel, dispatch);
+    const drumMachineActions = bindActionCreators(DrumMachineActions.channel, dispatch);
+    const machine = drumMachine[machineId];
 		
 		return (
       <div className="toolbar">
@@ -39,7 +40,7 @@ class Toolbar extends Component {
           <div className="banks-available">
             { numberToArrayLength(8)
               .map(i =>
-                <ToggleButton onClick={() => drumMachineActions.newBankIndex(i)} name={"A" + (i + 1)} selected={i === drumMachine[0].currentBankIndex} classes="red" />
+                <ToggleButton onClick={() => drumMachineActions.newBankIndex(i)} name={"A" + (i + 1)} selected={i === machine.currentBankIndex} classes="red" />
               )
             }
           </div>

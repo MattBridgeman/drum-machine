@@ -31,13 +31,17 @@ class Pattern extends React.Component {
 										</div>
 										<div className="pattern-tray">
 											{ channels
-												.filter((channel, i) => channel.selected)
-												.map(({ patterns }, i) => 
+												.map((channel, i) => ({
+													id: i,
+													channel
+												}))
+												.filter(({ channel }, i) => channel.selected)
+												.map(({ channel: { patterns }, id }, i) => 
 													patterns[playState.currentBarIndex]
 													.filter((beat, index) => segments.indexOf(index) !== -1)
 													.map((beat, index) => ({beat, index: segments[index]}))
 													.map(({beat, index}) => 
-														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => drumMachineActions.toggleBeat(machineId, i, playState.currentBarIndex, index, beat ? 0 : 1)} />
+														<PatternBeat index={index} current={playState.currentSegmentIndex === index} selected={!!beat} onToggle={() => drumMachineActions.toggleBeat(machineId, id, playState.currentBarIndex, index, beat ? 0 : 1)} />
 													)
 												)
 											}
