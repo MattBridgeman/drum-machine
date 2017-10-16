@@ -6,7 +6,8 @@ import {
 	CHANGE_PITCH_TO_AMOUNT,
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
-	TOGGLE_REVERB
+	TOGGLE_REVERB,
+	TOGGLE_BEAT_STATE
 } from "../constants/drum.machine.constants";
 
 export function changeVolumeToAmount(machineId, channelId, value){
@@ -77,3 +78,14 @@ export function toggleMuteChannel(machineId, channelId) {
 		value: channelId
 	};
 }
+
+export function toggleBeat(machineId, channelId, bankId, index, value) {
+  return {
+		type: TOGGLE_BEAT_STATE,		
+		machineId,
+		channelId,
+		bankId,
+		index,
+    value
+  };
+} 
