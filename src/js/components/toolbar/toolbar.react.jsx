@@ -40,7 +40,7 @@ class Toolbar extends Component {
           <div className="banks-available">
             { numberToArrayLength(8)
               .map(i =>
-                <ToggleButton onClick={() => drumMachineActions.newBankIndex(i)} name={"A" + (i + 1)} selected={i === machine.currentBankIndex} classes="red" />
+                <ToggleButton onClick={() => drumMachineActions.newBankIndex(machineId, i)} name={"A" + (i + 1)} selected={i === machine.currentBankIndex} classes="red" />
               )
             }
           </div>

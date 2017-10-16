@@ -8,7 +8,8 @@ import { changeSelectedChannel,
 	changePitchToAmount,
 	toggleReverb,
 	toggleMuteChannel,
-	toggleBeat
+	toggleBeat,
+	newBankIndex
 } from "../drum.machine.actions";
 
 import { CHANGE_SELECTED_CHANNEL,
@@ -19,7 +20,8 @@ import { CHANGE_SELECTED_CHANNEL,
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB,
-	TOGGLE_BEAT_STATE
+	TOGGLE_BEAT_STATE,
+	NEW_BANK_INDEX
 } from "../../constants/drum.machine.constants";
 
 describe("Channel actions", function() {
@@ -153,5 +155,15 @@ describe("Channel actions", function() {
 		expect(action.bankId).to.equal(bankId);
 		expect(action.index).to.equal(index);
 		expect(action.value).to.equal(value);
+	});
+
+	it("Expect newBankIndex to return the correct action", function() {
+		let machineId = 0;
+		let bankId = 77;
+		let action = newBankIndex(machineId, bankId);
+
+		expect(action.type).to.equal(NEW_BANK_INDEX);
+		expect(action.machineId).to.equal(machineId);
+		expect(action.value).to.equal(bankId);
 	});
 });

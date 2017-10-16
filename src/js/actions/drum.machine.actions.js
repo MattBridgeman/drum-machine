@@ -7,7 +7,8 @@ import {
 	CHANGE_DECAY_TO_AMOUNT,
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB,
-	TOGGLE_BEAT_STATE
+	TOGGLE_BEAT_STATE,
+	NEW_BANK_INDEX
 } from "../constants/drum.machine.constants";
 
 export function changeVolumeToAmount(machineId, channelId, value){
@@ -88,4 +89,12 @@ export function toggleBeat(machineId, channelId, bankId, index, value) {
 		index,
     value
   };
-} 
+}
+
+export function newBankIndex(machineId, bankId) {
+	return {
+		type: NEW_BANK_INDEX,		
+		machineId,
+    value: bankId
+  };
+}
