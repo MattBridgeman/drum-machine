@@ -88,7 +88,6 @@ export let createDrumMachine = () => {
 
     buffers.forEach(item => {
       let { time, index, bar } = item;
-      debugger;
       time = time + getSwingOffset(beatsPerMinute, segmentsPerBeat, index, swing);
       channels.forEach((channel, channelIndex) => {
         let { sound, pitch, decay, patterns } = channel;
