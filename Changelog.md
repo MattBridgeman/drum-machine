@@ -1,3 +1,7 @@
+## 1.2.3
+
+- Refactored swing into drum machine
+
 ## 1.2.2
 
 - Refactored patterns inside of drum machine reducer
