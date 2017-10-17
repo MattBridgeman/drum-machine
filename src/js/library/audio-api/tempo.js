@@ -21,7 +21,8 @@ function isEven(int){
 	return int % 2 === 0;
 }
 
-export function getSwingOffset(currentSegmentIndex, swing, segmentTime){
+export function getSwingOffset(beatsPerMinute, segmentsPerBeat, currentSegmentIndex, swing){
+	let segmentTime = getSegmentTimeInSeconds(beatsPerMinute, segmentsPerBeat);
 	let even = isEven(currentSegmentIndex);
 	let swingPercentage = percentageToValueOfRange(swing, MIN_PERCENTAGE_OF_SEGMENT_TO_SWING, MAX_PERCENTAGE_OF_SEGMENT_TO_SWING);
 	let swingValue = segmentTime / 100 * swingPercentage;

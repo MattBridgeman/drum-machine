@@ -15,6 +15,7 @@ import {
 const initialState = {
 	0: {
 		currentBankIndex: 0,
+		swing: 0,
 		channels: [{
 			sound: 0,
 			patterns: {
