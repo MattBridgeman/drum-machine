@@ -47,6 +47,11 @@ describe("Drum Machine", () => {
       buffer: [],
       playState: {
         isPlaying: false
+      },
+      tempo: {
+        beatsPerMinute: 120,
+        beatsPerBar: 4,
+        segmentsPerBeat: 4
       }
     };
     drumMachine.update(state.instruments["0"], state);
@@ -78,6 +83,11 @@ describe("Drum Machine", () => {
       buffer: [],
       playState: {
         isPlaying: false
+      },
+      tempo: {
+        beatsPerMinute: 120,
+        beatsPerBar: 4,
+        segmentsPerBeat: 4
       }
     };
     drumMachine.update(state.instruments["0"], state);
@@ -113,6 +123,11 @@ describe("Drum Machine", () => {
       buffer: [],
       playState: {
         isPlaying: false
+      },
+      tempo: {
+        beatsPerMinute: 120,
+        beatsPerBar: 4,
+        segmentsPerBeat: 4
       }
     };
     drumMachine.update(state.instruments["0"], state);
@@ -144,6 +159,11 @@ describe("Drum Machine", () => {
       buffer: [],
       playState: {
         isPlaying: false
+      },
+      tempo: {
+        beatsPerMinute: 120,
+        beatsPerBar: 4,
+        segmentsPerBeat: 4
       }
     };
     drumMachine.update(state.instruments["0"], state);
