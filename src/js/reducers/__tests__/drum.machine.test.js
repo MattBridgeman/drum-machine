@@ -10,13 +10,15 @@ import {
 	CHANGE_PAN_TO_AMOUNT,
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
-	NEW_BANK_INDEX
+	NEW_BANK_INDEX,
+	CHANGE_SWING_TO_AMOUNT
 } from "../../constants/drum.machine.constants";
 
 describe("Drum Machine reducer", function() {
 	function getInitialState(){
 		return {
 			0: {
+				swing: 0,
 				currentBankIndex: 0,
 				channels: [{
 					sound: 0,
@@ -295,5 +297,21 @@ describe("Drum Machine reducer", function() {
 
 		expect(initialState).to.deep.equal(getInitialState());
 		expect(nextState[machineId].currentBankIndex).to.equal(bankId);
+	});
+
+	it("Expect swing to change to set amount", function() {
+		const machineId = 0;
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_SWING_TO_AMOUNT,
+			machineId,
+			value: 55
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(initialState[machineId].swing).to.equal(0);
+		expect(nextState[machineId].swing).to.equal(55);
 	});
 });

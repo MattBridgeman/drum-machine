@@ -18,8 +18,7 @@ describe("segments to schedule", () => {
       tempo: {
         beatsPerMinute: 120,
         beatsPerBar: 4,
-        segmentsPerBeat: 4,
-        swing: 0
+        segmentsPerBeat: 4
       },
       buffer: []
     };
@@ -47,8 +46,7 @@ describe("segments to schedule", () => {
       tempo: {
         beatsPerMinute: 120,
         beatsPerBar: 4,
-        segmentsPerBeat: 4,
-        swing: 0
+        segmentsPerBeat: 4
       },
       buffer: [{
         time: 1234.1,
@@ -77,8 +75,7 @@ describe("segments to schedule", () => {
       tempo: {
         beatsPerMinute: 120,
         beatsPerBar: 4,
-        segmentsPerBeat: 4,
-        swing: 0
+        segmentsPerBeat: 4
       },
       buffer: [{
         time: 1234.1,

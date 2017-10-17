@@ -12,8 +12,7 @@ describe("normalisedIndex", () => {
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
+      segmentsPerBeat: 4
     };
     let index = 0;
 		let actualIndex = normalisedIndex(playState, tempo, index);
@@ -31,8 +30,7 @@ describe("normalisedIndex", () => {
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
+      segmentsPerBeat: 4
     };
     let index = 1;
 		let actualIndex = normalisedIndex(playState, tempo, index);
@@ -50,8 +48,7 @@ describe("normalisedIndex", () => {
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
+      segmentsPerBeat: 4
     };
     let index = 15;
 		let actualIndex = normalisedIndex(playState, tempo, index);
@@ -69,8 +66,7 @@ describe("normalisedIndex", () => {
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
+      segmentsPerBeat: 4
     };
     let index = 16;
 		let actualIndex = normalisedIndex(playState, tempo, index);
@@ -88,8 +84,7 @@ describe("normalisedIndex", () => {
     let tempo = {
       beatsPerMinute: 120,
       beatsPerBar: 4,
-      segmentsPerBeat: 4,
-      swing: 0
+      segmentsPerBeat: 4
     };
     let index = 17;
 		let actualIndex = normalisedIndex(playState, tempo, index);

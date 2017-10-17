@@ -21,21 +21,21 @@ function isEven(int){
 	return int % 2 === 0;
 }
 
-export function getSwingOffset(currentSegmentIndex, swing, segmentTime){
+export function getSwingOffset(beatsPerMinute, segmentsPerBeat, currentSegmentIndex, swing){
+	let segmentTime = getSegmentTimeInSeconds(beatsPerMinute, segmentsPerBeat);
 	let even = isEven(currentSegmentIndex);
 	let swingPercentage = percentageToValueOfRange(swing, MIN_PERCENTAGE_OF_SEGMENT_TO_SWING, MAX_PERCENTAGE_OF_SEGMENT_TO_SWING);
 	let swingValue = segmentTime / 100 * swingPercentage;
 	if(even) {
-		return -swingValue;
+		return 0;
 	} else {
 		return swingValue;
 	}
 }
 
-export function getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat, currentSegmentIndex, swing){
+export function getSegmentTimeInMilliseconds(beatsPerMinute, segmentsPerBeat){
 	let segmentTime = getSegmentTimeInSeconds(beatsPerMinute, segmentsPerBeat) * 1000;
-	let swingOffset = getSwingOffset(currentSegmentIndex, swing, segmentTime);
-	return segmentTime + swingOffset;
+	return segmentTime;
 }
 
 export function getSegmentsInTimespan(timespan, segmentTime){

@@ -1,5 +1,4 @@
 import { getSegmentsInTimespan, getSegmentTimeInSeconds } from "./tempo";
-import { getSegmentTimeInMilliseconds } from "./tempo";
 import { last, numberToArrayLength } from "../natives/array";
 import { normalisedIndex } from "./play.state";
 
@@ -20,7 +19,7 @@ export function segmentsToSchedule(currentTime, state) {
         let lastSegment = last(prev);
         return [...prev, {
           index: normalisedIndex(playState, tempo, lastSegment.index + 1),
-          time: lastSegment.time + (getSegmentTimeInMilliseconds(tempo.beatsPerMinute, tempo.segmentsPerBeat, lastSegment.index + 1, tempo.swing) / 1000)
+          time: lastSegment.time + segmentTime
         }];
       }, [lastBuffer || {
         index: 0,
