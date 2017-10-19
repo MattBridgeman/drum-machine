@@ -96,7 +96,6 @@ export let createDrumMachine = () => {
         let { soundPromise, path } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
-          console.log(index, time, path);
           if(context.time > time) return;
           let node = triggerBufferAndDecay(context, soundBuffer, pitch, time, decay);
           node.connect(channelNodes[channelIndex].pre);
