@@ -75,10 +75,9 @@ export let createDrumMachine = () => {
     let { machineId } = instrument;
     let { drumMachine, buffer, playState, tempo: { beatsPerMinute, segmentsPerBeat } } = state;
     let { channels, currentBankIndex, swing } = drumMachine[machineId];
-    
-    if(!playState.isPlaying) {
+
+    if(!buffer.length) {
       lastBufferId = undefined;
-      return;
     }
 
     let buffers = lastBufferId !== undefined ? buffersSinceId(lastBufferId, buffer) : buffer;
@@ -97,6 +96,7 @@ export let createDrumMachine = () => {
         let { soundPromise, path } = sounds[sound];
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
+          console.log(index, time, path);
           if(context.time > time) return;
           let node = triggerBufferAndDecay(context, soundBuffer, pitch, time, decay);
           node.connect(channelNodes[channelIndex].pre);
