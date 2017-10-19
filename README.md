@@ -20,4 +20,5 @@ The main features on the roadmap are:
 
 - Save drum machine patterns
 - Upload custom samples
+- New Instruments
 - Add service worker for offline support

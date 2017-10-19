@@ -1,3 +1,7 @@
+## 1.2.4
+
+- Moved all sounds to Firebase storage
+
 ## 1.2.3
 
 - Refactored swing into drum machine
