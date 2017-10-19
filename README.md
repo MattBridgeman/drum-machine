@@ -1,8 +1,8 @@
-# 890 Drum Machine
+# Drum Machine
 
-890 is a drum machine which is built ontop of the Web Audio API.
+Drum Machine is a Web Audio API based PWA built in React.
 
-You can [try out here](http://mattbridgeman.github.io/drum-machine/)!
+You can [try out here](https://mattbridgeman.github.io/drum-machine/)!
 
 ![build status](https://img.shields.io/travis/MattBridgeman/drum-machine.svg)
 
@@ -14,10 +14,11 @@ It features:
 - Mute, solo and reverb per channel
 - Adjustable tempo
 - 8 pattern banks
+- Responsive mobile / tablet experience
 
-The main bugs and features on the roadmap are:
+The main features on the roadmap are:
 
-- Create a responsive mobile / tablet experience
-- Improve 'buffer' logic to keep tempo constant
-- Add service worker for offline support
 - Save drum machine patterns
+- Upload custom samples
+- New Instruments
+- Add service worker for offline support
