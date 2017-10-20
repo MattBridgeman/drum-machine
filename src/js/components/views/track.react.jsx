@@ -22,7 +22,10 @@ class Track extends Component {
     }
 	}
 	componentDidMount(){
-		alert("TestTrackRoute: mount");
+		if(this.matchesTrackRoute(this.props.match.path)
+      && this.isNewTrack(nextProps.props.match.params.trackId)) {
+      alert("new track!");
+    }
   }
   isNewPath(oldPath, newPath) {
     return oldPath !== newPath;
