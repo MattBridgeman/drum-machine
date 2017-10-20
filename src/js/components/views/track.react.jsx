@@ -17,13 +17,13 @@ class Track extends Component {
 		let { pathname: nextPathname } = nextProps.location;
     if(this.isNewPath(pathname, nextPathname)
       && this.matchesTrackRoute(this.props.match.path)
-      && this.isNewTrack(nextProps.props.match.params.trackId)) {
+      && this.isNewTrack(nextProps.match.params.trackId)) {
       alert("new track!");
     }
 	}
 	componentDidMount(){
 		if(this.matchesTrackRoute(this.props.match.path)
-      && this.isNewTrack(nextProps.props.match.params.trackId)) {
+      && this.isNewTrack(this.props.match.params.trackId)) {
       alert("new track!");
     }
   }
