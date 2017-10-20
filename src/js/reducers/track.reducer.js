@@ -4,6 +4,7 @@ import { TRACK_STATE_CHANGE } from "../constants/track.constants";
 
 let initialState = {
   name: "Untitled Track",
+  trackId: undefined,
   userId: undefined,
   state: "waiting"
 };

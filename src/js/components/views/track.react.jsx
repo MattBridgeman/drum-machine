@@ -18,17 +18,18 @@ class Track extends Component {
     if(this.isNewPath(pathname, nextPathname)
       && this.matchesTrackRoute(this.props.match.path)
       && this.isNewTrack(nextProps.props.match.params.trackId)) {
-      //fire off an action
+      alert("new track!");
     }
 	}
 	componentDidMount(){
 		alert("TestTrackRoute: mount");
   }
   isNewPath(oldPath, newPath) {
-
+    return oldPath !== newPath;
   }
-  isNewTrack(trackId = "default"){
-    
+  isNewTrack(newId = "default"){
+    let { props: { track: trackId } } = this;
+    return newId !== trackId;
   }
   matchesTrackRoute(route){
     return route === "/users/:userId/tracks/:trackId"
