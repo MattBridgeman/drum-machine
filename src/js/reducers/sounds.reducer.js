@@ -1,4 +1,6 @@
-const initialState = {
+const initialState = {};
+
+const defaultState = {
 	0: {
 		name: "Bass Drum",
 		shortName: "BD",

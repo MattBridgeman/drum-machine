@@ -1,6 +1,8 @@
 import { unique } from "../library/natives/numbers";
 
-let initialState = [{
+let initialState = [];
+
+let defaultState = [{
   id: 0,
   from: {
     machineId: 0,

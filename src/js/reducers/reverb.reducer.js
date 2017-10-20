@@ -3,7 +3,9 @@ import {
     CHANGE_REVERB_DECAY_TO_AMOUNT
 } from "../constants/reverb.constants";
 
-const initialState = {
+const initialState = {};
+
+const defaultState = {
 	0: {
 		seconds: 100,
 		decay: 100,

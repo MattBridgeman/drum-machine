@@ -12,7 +12,9 @@ import {
 	CHANGE_SWING_TO_AMOUNT
 } from "../constants/drum.machine.constants";
 
-const initialState = {
+const initialState = {};
+
+const defaultState = {
 	0: {
 		currentBankIndex: 0,
 		swing: 0,
