@@ -1,12 +1,12 @@
 import { TRACK_STATE_CHANGE } from "../constants/track.constants";
 
-//Track States: "waiting", "clear", "loading", "ready"
+//Track States: "idle", "loading", "ready", "clear"
 
 let initialState = {
   name: "Untitled Track",
   trackId: undefined,
   userId: undefined,
-  state: "waiting"
+  state: "idle"
 };
 
 export default function auth(state = initialState, action) {
