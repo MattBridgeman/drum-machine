@@ -60,6 +60,6 @@ describe("Reverb reducer", function() {
 
 		const nextState = reverb(initialState, action);
 
-		expect(nextState).to.equal({});
+		expect(nextState).to.deep.equal({});
 	});
 });

@@ -5,7 +5,7 @@ import {
 } from "../../constants/track.constants";
 
 describe("Sounds reducer", () => {
-	it("", () => {
+	it("returns the default state on new track load", () => {
     let initialState = {
       0: {
         name: "Bass Drum",

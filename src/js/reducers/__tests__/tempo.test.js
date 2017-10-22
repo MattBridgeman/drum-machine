@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import tempo from "../tempo.reducer";
 import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
+import { NEW_TRACK_LOADING } from "../../constants/track.constants";
 
 describe("Tempo reducer", function() {
 	function getInitialState(){
@@ -125,6 +126,22 @@ describe("Tempo reducer", function() {
 
 		expect(initialState.beatsPerMinute).to.equal(120);
 		expect(nextState.beatsPerMinute).to.equal(MIN_BEATS_PER_MINUTE);
+	});
+
+	it("default state on track load", function() {
+		const initialState = {
+			beatsPerMinute: 144,
+			beatsPerBar: 4,
+			segmentsPerBeat: 4
+		};
+
+		const action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = tempo(initialState, action);
+
+		expect(nextState.beatsPerMinute).to.equal(120);
 	});
 
 });
