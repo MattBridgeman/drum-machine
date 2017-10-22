@@ -16,12 +16,13 @@ class Track extends Component {
   }
 	componentWillReceiveProps(nextProps){
 		let { pathname } = this.props.location;
-		let { pathname: nextPathname } = nextProps.location;
+    let { pathname: nextPathname } = nextProps.location;
+    let { trackId, userID } = nextProps.match.params;
     if(this.isNewPath(pathname, nextPathname)
-      && this.matchesTrackRoute(this.props.match.path)
-      && this.isNewTrack(nextProps.match.params.trackId)) {
+      && this.matchesTrackRoute(nextProps.match.path)
+      && this.isNewTrack(trackId)) {
         const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
-        trackActions.
+        trackActions.newTrack(userId, trackId);
     }
 	}
 	componentDidMount(){
