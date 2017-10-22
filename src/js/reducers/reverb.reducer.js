@@ -34,6 +34,8 @@ export default function reverb(state = initialState, action) {
 					decay: action.value
 				}
 			};
+		case NEW_TRACK_LOADING:
+			return initialState;
 		default:
 			return state;
 	}
