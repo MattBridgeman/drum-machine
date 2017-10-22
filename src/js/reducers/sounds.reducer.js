@@ -1,3 +1,5 @@
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
+
 const initialState = {};
 
 const defaultState = {
@@ -50,6 +52,8 @@ const defaultState = {
 
 export default function sounds(state = initialState, action) {
 	switch (action.type) {
+		case NEW_TRACK_LOADING:
+			return initialState;
 		default:
 			return state;
 	}
