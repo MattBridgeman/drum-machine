@@ -6,7 +6,8 @@ let initialState = {
   name: "Untitled Track",
   trackId: undefined,
   userId: undefined,
-  state: "idle"
+  state: "idle",
+  write: false
 };
 
 export default function auth(state = initialState, action) {
