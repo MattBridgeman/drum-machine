@@ -4,6 +4,7 @@ import {
     CHANGE_REVERB_SECONDS_TO_AMOUNT,
     CHANGE_REVERB_DECAY_TO_AMOUNT
 } from "../../constants/reverb.constants";
+import { NEW_TRACK_LOADING } from "../../constants/track.constants";
 
 describe("Reverb reducer", function() {
 	function getInitialState(){
@@ -50,4 +51,15 @@ describe("Reverb reducer", function() {
 		expect(nextState[0].decay).to.equal(20);
 	});
 
+	it("returns default state on new track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = reverb(initialState, action);
+
+		expect(nextState).to.equal({});
+	});
 });
