@@ -1,14 +1,8 @@
-import { TRACK_STATE_CHANGE, NEW_TRACK } from "../constants/track.constants";
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
 
-export function trackStateChange(trackType) {
+export function newTrackLoading(userId, trackId) {
   return {
-    type: TRACK_STATE_CHANGE,
-    trackType
-  };
-};
-export function newTrack(userId, trackId) {
-  return {
-    type: NEW_TRACK,
+    type: NEW_TRACK_LOADING,
     userId,
     trackId
   };

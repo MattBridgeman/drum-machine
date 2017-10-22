@@ -1,2 +1,2 @@
 export const TRACK_STATE_CHANGE = "TRACK_STATE_CHANGE";
-export const NEW_TRACK = "NEW_TRACK";
+export const NEW_TRACK_LOADING = "NEW_TRACK";

@@ -1,4 +1,4 @@
-import { TRACK_STATE_CHANGE } from "../constants/track.constants";
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
 
 //Track States: "idle", "loading", "ready", "clear"
 
@@ -11,10 +11,12 @@ let initialState = {
 
 export default function auth(state = initialState, action) {
   switch (action.type) {
-    case TRACK_STATE_CHANGE:
+    case NEW_TRACK_LOADING:
       return {
         ...state,
-        state: action.state
+        trackId: action.trackId,
+        userId: action.userId,
+        state: "loading"
       }
     default:
       return state;
