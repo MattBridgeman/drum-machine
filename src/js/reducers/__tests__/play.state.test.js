@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import playState from "../play.state.reducer";
 import { PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX, NEW_BAR_INDEX } from "../../constants/play.state.constants";
+import { NEW_TRACK_LOADING } from "../../constants/track.constants";
 
 function getInitialState({ currentSegmentIndex = 0, currentBarIndex = 0, isPlaying = false, looping = true}){
 	return {
@@ -215,5 +216,22 @@ describe("Play state reducer", function() {
 			isPlaying: true,
 			looping: true
 		});
+	});
+
+	it("sets the default play state on new track loading", function() {
+		let state = {
+			currentSegmentIndex: 1,
+			currentBarIndex: 1,
+			isPlaying: true,
+			looping: true
+		};
+
+		let action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = playState(state, action);
+
+		expect(nextState.isPlaying).to.equal(false);
 	});
 });
