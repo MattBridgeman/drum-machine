@@ -17,7 +17,7 @@ class Track extends Component {
 	componentWillReceiveProps(nextProps){
 		let { pathname } = this.props.location;
     let { pathname: nextPathname } = nextProps.location;
-    let { trackId, userID } = nextProps.match.params;
+    let { trackId, userId } = nextProps.match.params;
     if(this.isNewPath(pathname, nextPathname)
       && this.matchesTrackRoute(nextProps.match.path)
       && this.isNewTrack(trackId)) {
@@ -42,7 +42,7 @@ class Track extends Component {
       || route === "/";
   }
   onNewTrack(props) {
-    let { trackId, userID, dispatch } = props;
+    let { trackId, userId, dispatch } = props;
     const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
     trackActions.newTrackLoading(userId, trackId);
   }
