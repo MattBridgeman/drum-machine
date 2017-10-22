@@ -1,4 +1,5 @@
 import { unique } from "../library/natives/numbers";
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
 
 let initialState = [];
 
@@ -23,6 +24,8 @@ let uniqueGenerator = unique();
 
 export default function instruments(state = initialState, action) {
   switch (action.type) {
+    case NEW_TRACK_LOADING:
+      return initialState;
     default:
       return state;
   }
