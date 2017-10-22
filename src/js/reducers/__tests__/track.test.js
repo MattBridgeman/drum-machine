@@ -7,6 +7,6 @@ describe("Track reducer", () => {
       type: "SOME_RANDOM_ACTION"
     });
     expect(state.name).to.equal("Untitled Track");
-    expect(state.state).to.equal("waiting");
+    expect(state.state).to.equal("idle");
   });
 });
