@@ -11,6 +11,7 @@ import {
 	NEW_BANK_INDEX,
 	CHANGE_SWING_TO_AMOUNT
 } from "../constants/drum.machine.constants";
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
 
 const initialState = {};
 
@@ -332,6 +333,8 @@ export default function drumMachine(state = initialState, action) {
 					swing: action.value
 				}
 			}
+		case NEW_TRACK_LOADING:
+			return initialState;
 		default:
 			return state;
 	}

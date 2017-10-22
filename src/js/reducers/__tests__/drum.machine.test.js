@@ -13,6 +13,7 @@ import {
 	NEW_BANK_INDEX,
 	CHANGE_SWING_TO_AMOUNT
 } from "../../constants/drum.machine.constants";
+import { NEW_TRACK_LOADING } from "../../constants/track.constants";
 
 describe("Drum Machine reducer", function() {
 	function getInitialState(){
@@ -313,5 +314,17 @@ describe("Drum Machine reducer", function() {
 
 		expect(initialState[machineId].swing).to.equal(0);
 		expect(nextState[machineId].swing).to.equal(55);
+	});
+
+	it("clears the drum machine state on new track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(nextState).to.deep.equal({});
 	});
 });
