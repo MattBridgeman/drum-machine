@@ -21,14 +21,13 @@ class Track extends Component {
     if(this.isNewPath(pathname, nextPathname)
       && this.matchesTrackRoute(nextProps.match.path)
       && this.isNewTrack(trackId)) {
-        const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
-        trackActions.newTrack(userId, trackId);
+        this.onNewTrack(nextProps);
     }
 	}
 	componentDidMount(){
 		if(this.matchesTrackRoute(this.props.match.path)
       && this.isNewTrack(this.props.match.params.trackId)) {
-      alert("new track!");
+        this.onNewTrack(this.props);
     }
   }
   isNewPath(oldPath, newPath) {
@@ -42,10 +41,14 @@ class Track extends Component {
     return route === "/users/:userId/tracks/:trackId"
       || route === "/";
   }
+  onNewTrack(props) {
+    let { trackId, userID, dispatch } = props;
+    const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
+    trackActions.newTrackLoading(userId, trackId);
+  }
 };
 
 function mapStateToProps(state) {
-	//return state.drumMachine;
 	return state;
 }
 
