@@ -41,7 +41,7 @@ class Track extends Component {
     return oldPath !== newPath;
   }
   isNewTrack(newId = "default"){
-    let { props: { track: trackId } } = this;
+    let { props: { track: { trackId } } } = this;
     return newId !== trackId;
   }
   matchesTrackRoute(route){

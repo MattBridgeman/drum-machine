@@ -1,5 +1,5 @@
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
-import { timeout } from "../library/audio-api";
+import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack } from "../actions/track.actions";
 
 export const track = store => next => {

@@ -2,7 +2,9 @@ import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../constants/track.consta
 
 //Track States: "idle", "loading"
 
-let initialState = {
+let initialState = {};
+
+let defaultState = {
   name: "Untitled Track",
   trackId: "default",
   userId: undefined,
@@ -20,7 +22,7 @@ export default function auth(state = initialState, action) {
         state: "loading"
       }
     case LOAD_DEFAULT_TRACK:
-      return initialState;
+      return defaultState;
     default:
       return state;
   }
