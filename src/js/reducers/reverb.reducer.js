@@ -3,7 +3,8 @@ import {
     CHANGE_REVERB_DECAY_TO_AMOUNT
 } from "../constants/reverb.constants";
 import {
-	NEW_TRACK_LOADING
+	NEW_TRACK_LOADING,
+	LOAD_DEFAULT_TRACK
 } from "../constants/track.constants";
 
 const initialState = {};
@@ -36,6 +37,8 @@ export default function reverb(state = initialState, action) {
 			};
 		case NEW_TRACK_LOADING:
 			return initialState;
+		case LOAD_DEFAULT_TRACK:
+			return defaultState;
 		default:
 			return state;
 	}
