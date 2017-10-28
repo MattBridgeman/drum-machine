@@ -6,7 +6,7 @@ You can [try out here](https://mattbridgeman.github.io/drum-machine/)!
 
 ![build status](https://img.shields.io/travis/MattBridgeman/drum-machine.svg)
 
-It features:
+## It features:
 
 - A 16 step sequencer
 - 9 sound channels
@@ -16,9 +16,17 @@ It features:
 - 8 pattern banks
 - Responsive mobile / tablet experience
 
-The main features on the roadmap are:
+## The main features on the roadmap are:
 
 - Save drum machine patterns
 - Upload custom samples
 - New Instruments
 - Add service worker for offline support
+
+## Credits:
+
+Libraries
+- Web audio components - https://github.com/web-audio-components
+
+Iconography
+- Loading Icon - https://thenounproject.com/search/?q=loading&i=999838

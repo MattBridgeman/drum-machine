@@ -9,6 +9,7 @@ import auth from "./auth.reducer";
 import notifications from "./notifications.reducer";
 import instruments from "./instruments.reducer";
 import connections from "./connections.reducer";
+import track from "./track.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
 	auth,
 	notifications,
 	instruments,
-	connections
+	connections,
+	track
 });
 
 export default rootReducer;

@@ -8,9 +8,17 @@ import { View } from "./view.react.jsx";
 class Track extends Component {
   render(){
     let { props } = this;
+    console.log(props);
     return <View {...props} view={{ name: "track" }}>
       <div className="container">
+        {props && props.track.state === "loading" ? (
+          <div className="status loading">
+            <span className="icon loading"></span>
+            <p>Loading Track</p>
+          </div>
+        ) : (
         <Instrument {...props} />
+        )}
       </div>
     </View>;
   }
