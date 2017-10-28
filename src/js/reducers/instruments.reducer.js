@@ -1,5 +1,5 @@
 import { unique } from "../library/natives/numbers";
-import { NEW_TRACK_LOADING } from "../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../constants/track.constants";
 
 let initialState = [];
 
@@ -26,6 +26,8 @@ export default function instruments(state = initialState, action) {
   switch (action.type) {
     case NEW_TRACK_LOADING:
       return initialState;
+    case LOAD_DEFAULT_TRACK:
+      return defaultState;
     default:
       return state;
   }

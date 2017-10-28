@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import instruments from "../instruments.reducer";
-import { NEW_TRACK_LOADING } from "../../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../../constants/track.constants";
 
 describe("Instrument reducer", () => {
 	it("returns the default state", () => {
@@ -22,5 +22,18 @@ describe("Instrument reducer", () => {
     });
     
     expect(state).to.deep.equal([]);
+  });
+
+  it("loads the default state", () => {
+    let state = instruments([], {
+      type: LOAD_DEFAULT_TRACK
+    });
+    
+    expect(state[0]).to.deep.equal({
+      id: 0,
+      type: "drumMachine",
+      machineId: 0,
+      selected: true
+    });
   });
 });
