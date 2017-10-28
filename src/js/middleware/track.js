@@ -1,10 +1,14 @@
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
+import { timeout } from "../library/audio-api";
+import { loadDefaultTrack } from "../actions/track.actions";
 
 export const track = store => next => {
   let onNewTrackLoading = (action) => {
     let shouldLoadDefault = !action.userId;
     if(shouldLoadDefault) {
-      //dispatch "load default track action"
+      timeout.get().then(_ => {
+        next(loadDefaultTrack());
+      });
     } else {
       //load track from db
     }
