@@ -1,13 +1,13 @@
-import { NEW_TRACK_LOADING } from "../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../constants/track.constants";
 
-//Track States: "idle", "loading", "ready", "clear"
+//Track States: "idle", "loading"
 
 let initialState = {
   name: "Untitled Track",
-  trackId: undefined,
+  trackId: "default",
   userId: undefined,
   state: "idle",
-  write: false
+  write: true
 };
 
 export default function auth(state = initialState, action) {
@@ -19,6 +19,8 @@ export default function auth(state = initialState, action) {
         userId: action.userId,
         state: "loading"
       }
+    case LOAD_DEFAULT_TRACK:
+      return initialState;
     default:
       return state;
   }
