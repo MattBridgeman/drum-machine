@@ -13,7 +13,10 @@ import {
 	NEW_BANK_INDEX,
 	CHANGE_SWING_TO_AMOUNT
 } from "../../constants/drum.machine.constants";
-import { NEW_TRACK_LOADING } from "../../constants/track.constants";
+import {
+	NEW_TRACK_LOADING,
+	LOAD_DEFAULT_TRACK
+} from "../../constants/track.constants";
 
 describe("Drum Machine reducer", function() {
 	function getInitialState(){
@@ -326,5 +329,18 @@ describe("Drum Machine reducer", function() {
 		const nextState = drumMachine(initialState, action);
 
 		expect(nextState).to.deep.equal({});
+	});
+
+	it("loads the default track state", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: LOAD_DEFAULT_TRACK
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState[0].currentBankIndex).to.equal(0);
+		expect(nextState[0].swing).to.equal(0);
 	});
 });
