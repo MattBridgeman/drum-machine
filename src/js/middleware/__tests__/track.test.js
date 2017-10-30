@@ -17,8 +17,9 @@ describe("Track", () => {
     td.reset();
   });
   it("calls action of type loadDefaultTrack if trackId is default", () => {
-    let then = (cb) => cb();
-    let get = () => ({ then });
+    let get = () => ({
+      then: cb => cb()
+    });
     td.replace(timeout, "get", get);
     let context = {
       currentTime: 1234
