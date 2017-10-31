@@ -5,6 +5,7 @@ import { startNoise } from "./start.noise";
 import { supplyAuth } from "./auth";
 import { instruments } from "./instruments";
 import { track } from "./track";
+import { historyMiddleware } from "./history";
 
 export default applyMiddleware(
   supplyAuth,
@@ -12,5 +13,6 @@ export default applyMiddleware(
   playState,
   startNoise,
   instruments,
-  track
+  track,
+  historyMiddleware
 );
