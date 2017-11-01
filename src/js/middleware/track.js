@@ -12,8 +12,9 @@ export const track = store => next => {
   let checkNewTrack = action => {
     let prevState = store.getState();
     let nextState = rootReducer(prevState, action);
-    let isNewPath = isNewPath(prevState.location.pathname, nextState.location.pathname);
-    let trackRoute = matchesTrackRoute(nextState.location.pathname);
+    if(!prevState.router.location) return;
+    let isNewPath = matchesNewPath(prevState.router.location.pathname, nextState.router.location.pathname);
+    let trackRoute = matchesTrackRoute(nextState.router.location.pathname);
     let isTrackRoute = !!trackRoute;
     let newUserId = isTrackRoute ? trackRoute.params.userId : undefined;
     let newTrackId = isTrackRoute ? trackRoute.params.trackId : undefined;
@@ -36,6 +37,7 @@ export const track = store => next => {
   };
 
 	return action => {
+    checkNewTrack(action);
     return next(action);
   }
 };
