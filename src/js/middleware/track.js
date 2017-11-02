@@ -1,8 +1,8 @@
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
-import { loadDefaultTrack } from "../actions/track.actions";
+import { loadDefaultTrack, newTrackLoading } from "../actions/track.actions";
 import { matchesTrackRoute, matchesNewPath } from "../library/routing/routing";
-import rootReducer from "../reducers/root.reducer"
+import rootReducer from "../reducers/root.reducer";
 
 
 export const track = store => next => {
@@ -16,24 +16,29 @@ export const track = store => next => {
     let trackRoute = matchesTrackRoute(nextState.router.location.pathname);
     let isTrackRoute = !!trackRoute;
     let newUserId = isTrackRoute ? trackRoute.params.userId : undefined;
-    let newTrackId = isTrackRoute ? trackRoute.params.trackId : undefined;
+    let newTrackId = isTrackRoute ? trackRoute.params.trackId || "default" : undefined;
     let noTrackLoaded = !prevState.track.trackId;
     let isNewTrack = matchesNewTrack(prevState.track.trackId, newTrackId);
-    if(isTrackRoute && (noTrackLoaded || isNewTrack)){
+    let isLoadingTrack = nextState.track.state === "loading";
+    if(isTrackRoute && (noTrackLoaded || isNewTrack) && !isLoadingTrack){
       onNewTrackLoading(newUserId, newTrackId);
     }
   };
 
   let onNewTrackLoading = (userId, trackId) => {
     let shouldLoadDefault = !userId;
-    //TODO: call "newTrackLoading" action
-    if(shouldLoadDefault) {
-      timeout.get().then(_ => {
-        next(loadDefaultTrack());
-      });
-    } else {
-      //load track from db
-    }
+    timeout.get().then(_ => {
+      next(newTrackLoading(userId, trackId));
+    })
+    .then(_ => {
+      if(shouldLoadDefault) {
+        timeout.get().then(_ => {
+          next(loadDefaultTrack());
+        });
+      } else {
+        //load track from db
+      }
+    })
   };
 
 	return action => {
