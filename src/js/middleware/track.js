@@ -4,7 +4,7 @@ import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack, newTrackLoading, newTrackSave } from "../actions/track.actions";
 import { newNotification } from "../actions/notifications.actions";
 import { matchesTrackRoute, matchesNewPath, buildTrackRoute } from "../library/routing/routing";
-import { saveTrack, getNewTrackKey } from "../library/firebase/db";
+import { saveTrack, getNewTrackKey, loadTrack } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
 
 export const stateToSave = [
@@ -13,8 +13,7 @@ export const stateToSave = [
   "instruments",
   "reverb",
   "sounds",
-  "tempo",
-  "track"
+  "tempo"
 ];
 
 export const track = store => next => {
@@ -49,12 +48,25 @@ export const track = store => next => {
           timeout.get().then()
         });
       } else {
-        //load track from db
+        loadTrack(userId, trackId)
+          .then(state => {
+            console.log(state);
+            next(newNotification("Track loaded!"));
+          })
+          .catch(error => {
+            next(newNotification("Error loading track"));
+          });
       }
     })
   };
 
-  var onSaveTrack = action => {
+  let getStateToSave = state => stateToSave
+    .reduce((prev, key) => {
+      prev[key] = state[key]
+      return prev
+    }, {});
+
+  let onSaveTrack = action => {
     let prevState = store.getState();
     let nextState = rootReducer(prevState, action);
     let { userId, trackId } = nextState.track;
@@ -63,20 +75,20 @@ export const track = store => next => {
       getNewTrackKey(userId)
         .then(key => {
           trackId = key;
-          return saveTrack(userId, key, { foo: "new track" });
+          return saveTrack(userId, key, getStateToSave(nextState));
         })
         .then(() => {
           timeout.get().then(_ => {
             next(newTrackSave(userId, trackId));
-            next(newNotification("Track saved!"));
             store.dispatch(push(buildTrackRoute(userId, trackId)));
+            next(newNotification("Track saved!"));
           });
         })
         .catch(error => {
           next(newNotification("Error saving track"));
         });
     } else {
-      saveTrack(userId, trackId, { foo: "bazz" })
+      saveTrack(userId, trackId, getStateToSave(nextState))
         .then(() => {
           next(newNotification("Track saved!"));
         })

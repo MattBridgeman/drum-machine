@@ -17,4 +17,14 @@ let saveTrack = (userId, trackId, json) => {
     });
 };
 
+let loadTrack = (userId, trackId) => {
+  return init()
+    .then(() => {
+      var database = firebase.database();
+      return database.ref("users/" + userId + "/tracks/" + trackId)
+        .once("value")
+        .then(snapshot => snapshot.val());
+    });
+};
+
 export { getNewTrackKey, saveTrack };
