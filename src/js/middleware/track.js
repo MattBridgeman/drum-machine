@@ -1,6 +1,7 @@
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
-import { loadDefaultTrack, newTrackLoading } from "../actions/track.actions";
+import { loadDefaultTrack, newTrackLoading, newTrackSave } from "../actions/track.actions";
+import { newNotification } from "../actions/notifications.actions";
 import { matchesTrackRoute, matchesNewPath } from "../library/routing/routing";
 import { saveTrack, getNewTrackKey } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
@@ -55,30 +56,30 @@ export const track = store => next => {
   var onSaveTrack = action => {
     let prevState = store.getState();
     let nextState = rootReducer(prevState, action);
-    let { userId, trackID } = nextState.track;
-    if(!trackID) {
+    let { userId, trackId } = nextState.track;
+    if(!trackId || trackId === "default") {
       userId = nextState.auth.user.uid;
       getNewTrackKey(userId)
         .then(key => {
+          trackId = key;
           return saveTrack(userId, key, { foo: "new track" });
         })
         .then(() => {
-          //send notification of success
-          alert("new track success")
+          timeout.get().then(_ => {
+            next(newTrackSave(userId, trackId));
+            next(newNotification("Track saved!"));
+          });
         })
         .catch(error => {
-          //send notification of error
-          alert("new track error")
+          next(newNotification("Error saving track"));
         });
     } else {
       saveTrack(userId, trackId, { foo: "bazz" })
         .then(() => {
-          //send notification of success
-          alert("update track success")
+          next(newNotification("Track saved!"));
         })
         .catch(error => {
-          //send notification of error
-          alert("update track error")
+          next(newNotification("Error saving track"));
         });
     }
   };
