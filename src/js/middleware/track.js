@@ -2,8 +2,18 @@ import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack, newTrackLoading } from "../actions/track.actions";
 import { matchesTrackRoute, matchesNewPath } from "../library/routing/routing";
+import { saveTrack, getNewTrackKey } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
 
+export const stateToSave = [
+  "connections",
+  "drumMachine",
+  "instruments",
+  "reverb",
+  "sounds",
+  "tempo",
+  "track"
+];
 
 export const track = store => next => {
 
@@ -34,6 +44,7 @@ export const track = store => next => {
       if(shouldLoadDefault) {
         timeout.get().then(_ => {
           next(loadDefaultTrack());
+          timeout.get().then()
         });
       } else {
         //load track from db
@@ -41,8 +52,40 @@ export const track = store => next => {
     })
   };
 
+  var onSaveTrack = action => {
+    let prevState = store.getState();
+    let nextState = rootReducer(prevState, action);
+    let { userId, trackID } = nextState.track;
+    if(!trackID) {
+      getNewTrackKey(userId)
+        .then(key => {
+          return saveTrack(userId, key, { foo: "bar" });
+        })
+        .then(() => {
+          //send notification of success
+        })
+        .catch(error => {
+          //send notification of error
+        });
+    } else {
+      saveTrack(userId, trackId, { foo: "bazz" })
+        .then(() => {
+          //send notification of success
+        })
+        .catch(error => {
+          //send notification of error
+        });
+    }
+  };
+
 	return action => {
-    checkNewTrack(action);
-    return next(action);
+    switch(action.type){
+      case "TRACK_SAVE":
+        onSaveTrack(action);
+        return next(action);
+      default:
+        checkNewTrack(action);
+        return next(action);
+    }
   }
 };
