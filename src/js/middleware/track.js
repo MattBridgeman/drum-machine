@@ -57,6 +57,7 @@ export const track = store => next => {
     let nextState = rootReducer(prevState, action);
     let { userId, trackID } = nextState.track;
     if(!trackID) {
+      userId = nextState.auth.user.uid;
       getNewTrackKey(userId)
         .then(key => {
           return saveTrack(userId, key, { foo: "bar" });
