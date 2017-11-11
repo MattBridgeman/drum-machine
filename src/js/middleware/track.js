@@ -60,21 +60,25 @@ export const track = store => next => {
       userId = nextState.auth.user.uid;
       getNewTrackKey(userId)
         .then(key => {
-          return saveTrack(userId, key, { foo: "bar" });
+          return saveTrack(userId, key, { foo: "new track" });
         })
         .then(() => {
           //send notification of success
+          alert("new track success")
         })
         .catch(error => {
           //send notification of error
+          alert("new track error")
         });
     } else {
       saveTrack(userId, trackId, { foo: "bazz" })
         .then(() => {
           //send notification of success
+          alert("update track success")
         })
         .catch(error => {
           //send notification of error
+          alert("update track error")
         });
     }
   };
