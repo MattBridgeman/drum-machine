@@ -1,8 +1,9 @@
+import { push } from "react-router-redux";
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack, newTrackLoading, newTrackSave } from "../actions/track.actions";
 import { newNotification } from "../actions/notifications.actions";
-import { matchesTrackRoute, matchesNewPath } from "../library/routing/routing";
+import { matchesTrackRoute, matchesNewPath, buildTrackRoute } from "../library/routing/routing";
 import { saveTrack, getNewTrackKey } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
 
@@ -68,6 +69,7 @@ export const track = store => next => {
           timeout.get().then(_ => {
             next(newTrackSave(userId, trackId));
             next(newNotification("Track saved!"));
+            store.dispatch(push(buildTrackRoute(userId, trackId)));
           });
         })
         .catch(error => {
