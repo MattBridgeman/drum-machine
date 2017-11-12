@@ -15,7 +15,8 @@ import {
 } from "../../constants/drum.machine.constants";
 import {
 	NEW_TRACK_LOADING,
-	LOAD_DEFAULT_TRACK
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
 } from "../../constants/track.constants";
 
 describe("Drum Machine reducer", function() {
@@ -342,5 +343,25 @@ describe("Drum Machine reducer", function() {
 
 		expect(nextState[0].currentBankIndex).to.equal(0);
 		expect(nextState[0].swing).to.equal(0);
+	});
+
+	it("loads the new track loaded state", function() {
+		const initialState = getInitialState();
+
+		const _drumMachine = {
+			0: {
+				currentBankIndex: 0,
+				swing: 0
+			}
+		};
+
+		const action = {
+			type: NEW_TRACK_LOADED,
+			drumMachine: _drumMachine
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState).to.deep.equal(_drumMachine);
 	});
 });
