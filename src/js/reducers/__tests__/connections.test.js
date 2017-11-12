@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import connections from "../connections.reducer";
-import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../constants/track.constants";
 
 describe("Connections reducer", () => {
 	it("returns the default connections state", () => {
@@ -44,5 +44,25 @@ describe("Connections reducer", () => {
         nodePath: "inputs/main"
       }
     });
+  });
+  it("loads the connections from the new track load", () => {
+    let _connections = [{
+      id: 0,
+      from: {
+        machineId: 0,
+        type: "drumMachine",
+        nodePath: "outputs/main"
+      },
+      to: {
+        machineId: 0,
+        type: "master",
+        nodePath: "inputs/main"
+      }
+    }];
+    let nextState = connections([], {
+      type: NEW_TRACK_LOADED,
+      connections: _connections
+    });
+    expect(nextState).to.deep.equal(_connections);
   });
 });
