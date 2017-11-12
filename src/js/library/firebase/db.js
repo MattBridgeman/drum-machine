@@ -27,4 +27,4 @@ let loadTrack = (userId, trackId) => {
     });
 };
 
-export { getNewTrackKey, saveTrack };
+export { getNewTrackKey, saveTrack, loadTrack };

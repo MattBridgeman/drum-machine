@@ -1,7 +1,7 @@
 import { push } from "react-router-redux";
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
-import { loadDefaultTrack, newTrackLoading, newTrackSave } from "../actions/track.actions";
+import { loadDefaultTrack, newTrackLoading, newTrackSave, newTrackLoaded } from "../actions/track.actions";
 import { newNotification } from "../actions/notifications.actions";
 import { matchesTrackRoute, matchesNewPath, buildTrackRoute } from "../library/routing/routing";
 import { saveTrack, getNewTrackKey, loadTrack } from "../library/firebase/db";
@@ -45,12 +45,11 @@ export const track = store => next => {
       if(shouldLoadDefault) {
         timeout.get().then(_ => {
           next(loadDefaultTrack());
-          timeout.get().then()
         });
       } else {
         loadTrack(userId, trackId)
           .then(state => {
-            console.log(state);
+            next(newTrackLoaded(state));
             next(newNotification("Track loaded!"));
           })
           .catch(error => {

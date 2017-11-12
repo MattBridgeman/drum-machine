@@ -1,4 +1,4 @@
-import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, TRACK_SAVE, NEW_TRACK_SAVE } from "../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, TRACK_SAVE, NEW_TRACK_SAVE, NEW_TRACK_LOADED } from "../constants/track.constants";
 
 export function newTrackLoading(userId, trackId) {
   return {
@@ -25,5 +25,12 @@ export function newTrackSave(userId, trackId) {
     type: NEW_TRACK_SAVE,
     userId,
     trackId
+  };
+};
+
+export function newTrackLoaded(state) {
+  return {
+    type: NEW_TRACK_LOADED,
+    ...state
   };
 };
