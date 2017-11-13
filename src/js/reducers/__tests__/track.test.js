@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import track from "../track.reducer";
-import { LOAD_DEFAULT_TRACK, NEW_TRACK_SAVE } from "../../constants/track.constants";
+import { LOAD_DEFAULT_TRACK, NEW_TRACK_SAVE, NEW_TRACK_LOADED } from "../../constants/track.constants";
 
 describe("Track reducer", () => {
 	it("returns the initial track state", () => {
@@ -39,6 +39,26 @@ describe("Track reducer", () => {
       userId: 234,
       state: "idle",
       write: true
+    });
+  });
+	it("returns new track loaded state and 'idle'", () => {
+    let state = track({
+      trackId: 123,
+      userId: 234,
+      state: "loading"
+    }, {
+      type: NEW_TRACK_LOADED,
+      track: {
+        name: "Untitled Track",
+        write: true
+      }
+    });
+    expect(state).to.deep.equal({
+      name: "Untitled Track",
+      write: true,
+      trackId: 123,
+      userId: 234,
+      state: "idle"
     });
   });
 });
