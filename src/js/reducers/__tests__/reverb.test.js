@@ -6,7 +6,8 @@ import {
 } from "../../constants/reverb.constants";
 import {
 	NEW_TRACK_LOADING,
-	LOAD_DEFAULT_TRACK
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
 } from "../../constants/track.constants";
 
 describe("Reverb reducer", function() {
@@ -80,5 +81,18 @@ describe("Reverb reducer", function() {
 			decay: 100,
 			reverse: false
 		});
+	});
+
+	it("returns the new loaded track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADED,
+			reverb: initialState
+		};
+
+		const nextState = reverb({}, action);
+
+		expect(nextState).to.deep.equal(initialState);
 	});
 });

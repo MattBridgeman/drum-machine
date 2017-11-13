@@ -4,7 +4,8 @@ import {
 } from "../constants/reverb.constants";
 import {
 	NEW_TRACK_LOADING,
-	LOAD_DEFAULT_TRACK
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
 } from "../constants/track.constants";
 
 const initialState = {};
@@ -39,6 +40,8 @@ export default function reverb(state = initialState, action) {
 			return initialState;
 		case LOAD_DEFAULT_TRACK:
 			return defaultState;
+		case NEW_TRACK_LOADED:
+			return action.reverb;
 		default:
 			return state;
 	}
