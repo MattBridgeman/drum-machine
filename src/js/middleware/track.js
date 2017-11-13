@@ -13,7 +13,8 @@ export const stateToSave = [
   "instruments",
   "reverb",
   "sounds",
-  "tempo"
+  "tempo",
+  "track"
 ];
 
 export const track = store => next => {
