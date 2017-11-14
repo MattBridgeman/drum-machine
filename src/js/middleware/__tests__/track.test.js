@@ -3,8 +3,7 @@ import { expect } from "chai";
 import td from "testdouble";
 import { track } from "../track";
 import { timeout } from "../../library/audio-api/interval";
-import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK } from "../../constants/track.constants";
-import { loadDefaultTrack, newTrackLoading } from "../../actions/track.actions";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../constants/track.constants";
 import * as db from "../../library/firebase/db";
 import configureTestStore from "../../store/test.store";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
@@ -64,7 +63,7 @@ describe("Track", () => {
     }));
     td.reset();
   });
-  it("calls action of type newTrackLoading and loadTrack if no track is loaded and there is a track id", () => {
+  it("calls newTrackLoading, loadTrack and newTrackLoaded if no track is loaded and there is a track id", () => {
     let { promise, flush } = getPromiseMock();
     let get = cb => {
       let ret = {
@@ -76,8 +75,9 @@ describe("Track", () => {
       return ret;
     };
 
+    //mocks
     let loadTrack = td.function();
-    td.when(loadTrack(td.matchers.anything(), td.matchers.anything())).thenResolve(() => promise);
+    td.when(loadTrack(td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
 
     td.replace(timeout, "get", get);
     td.replace(db, "loadTrack", loadTrack);
@@ -113,6 +113,9 @@ describe("Track", () => {
       type: NEW_TRACK_LOADING,
       trackId: "234",
       userId: "123"
+    }));
+    td.verify(next({
+      type: NEW_TRACK_LOADED
     }));
     td.verify(loadTrack("123", "234"));
     td.reset();
