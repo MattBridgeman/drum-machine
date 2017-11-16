@@ -7,6 +7,7 @@ import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../c
 import * as db from "../../library/firebase/db";
 import configureTestStore from "../../store/test.store";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
+import { NEW_NOTIFICATION } from "../../constants/notifications.constants";
 
 describe("Track", () => {
   it("passes 'next' onwards for all action types", () => {
@@ -116,6 +117,58 @@ describe("Track", () => {
     }));
     td.verify(next({
       type: NEW_TRACK_LOADED
+    }));
+    td.verify(loadTrack("123", "234"));
+    td.reset();
+  });
+
+  it("creates a notification if there's an error loading track", () => {
+    let { promise, flush, flushErrors } = getPromiseMock();
+    let get = cb => {
+      let ret = {
+        then: cb => {
+          cb();
+          return ret;
+        }
+      }
+      return ret;
+    };
+
+    //mocks
+    let loadTrack = td.function();
+    td.when(loadTrack(td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
+
+    td.replace(timeout, "get", get);
+    td.replace(db, "loadTrack", loadTrack);
+    let context = {
+      currentTime: 1234
+    };
+    let state = {
+      router: {
+        location: {
+          pathname: "/users/123/tracks/234"
+        }
+      },
+      track: {
+        trackId: undefined,
+        state: "idle"
+      }
+    };
+    let store = {
+      getState: () => state
+    }
+    let next = td.function();
+    let newAction = track(store)(next);
+    
+    newAction({
+      type: "A_RANDOM_ACTION"
+    });
+    flushErrors();
+
+    td.verify(next({
+      type: NEW_NOTIFICATION,
+      value: "Error loading track",
+      notificationType: undefined
     }));
     td.verify(loadTrack("123", "234"));
     td.reset();

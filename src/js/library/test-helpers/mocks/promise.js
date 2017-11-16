@@ -12,8 +12,12 @@ export let getPromiseMock = (value) => {
   let flush = () => promises.map(callback => {
     callback(value);
   });
+  let flushErrors = () => promiseErrors.map(callback => {
+    callback(value);
+  });
   return {
     promise,
-    flush
+    flush,
+    flushErrors
   };
 };

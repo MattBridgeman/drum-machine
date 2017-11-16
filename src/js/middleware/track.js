@@ -80,7 +80,7 @@ export const track = store => next => {
         .then(() => {
           timeout.get().then(_ => {
             next(newTrackSave(userId, trackId));
-            store.dispatch(push(buildTrackRoute(userId, trackId)));
+            next(push(buildTrackRoute(userId, trackId)));
             next(newNotification("Track saved!"));
           });
         })
