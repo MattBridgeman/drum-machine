@@ -4,6 +4,7 @@ import td from "testdouble";
 import { track } from "../track";
 import { timeout } from "../../library/audio-api/interval";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../constants/track.constants";
+import { saveTrack } from "../../actions/track.actions";
 import * as db from "../../library/firebase/db";
 import configureTestStore from "../../store/test.store";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
@@ -29,9 +30,6 @@ describe("Track", () => {
       return ret;
     };
     td.replace(timeout, "get", get);
-    let context = {
-      currentTime: 1234
-    };
     let state = {
       router: {
         location: {
@@ -82,9 +80,6 @@ describe("Track", () => {
 
     td.replace(timeout, "get", get);
     td.replace(db, "loadTrack", loadTrack);
-    let context = {
-      currentTime: 1234
-    };
     let state = {
       router: {
         location: {
@@ -140,9 +135,6 @@ describe("Track", () => {
 
     td.replace(timeout, "get", get);
     td.replace(db, "loadTrack", loadTrack);
-    let context = {
-      currentTime: 1234
-    };
     let state = {
       router: {
         location: {
@@ -163,6 +155,54 @@ describe("Track", () => {
     newAction({
       type: "A_RANDOM_ACTION"
     });
+    flushErrors();
+
+    td.verify(next({
+      type: NEW_NOTIFICATION,
+      value: "Error loading track",
+      notificationType: undefined
+    }));
+    td.verify(loadTrack("123", "234"));
+    td.reset();
+  });
+  
+  it("new track is saved when track save action is fired", () => {
+    let { promise, flush, flushErrors } = getPromiseMock();
+    let trackId = "12345678";
+    let get = cb => {
+      let ret = {
+        then: cb => {
+          cb(trackId);
+          return ret;
+        }
+      }
+      return ret;
+    };
+
+    //mocks
+    let getNewTrackId = td.function();
+    td.when(getNewTrackId(td.matchers.anything())).thenReturn(promise);
+
+    td.replace(timeout, "get", get);
+    td.replace(db, "getNewTrackId", getNewTrackId);
+    let state = {
+      router: {
+        location: {
+          pathname: "/users/123/tracks/234"
+        }
+      },
+      track: {
+        trackId: undefined,
+        state: "idle"
+      }
+    };
+    let store = {
+      getState: () => state
+    }
+    let next = td.function();
+    let newAction = track(store)(next);
+    
+    newAction(saveTrack());
     flushErrors();
 
     td.verify(next({
