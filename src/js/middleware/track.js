@@ -17,8 +17,6 @@ export const stateToSave = [
   "track"
 ];
 
-
-
 export const isNewTrack = store => next => action => {
   let prevState = store.getState();
   let nextState = rootReducer(prevState, action);
@@ -42,6 +40,10 @@ export const isNewTrack = store => next => action => {
       trackId
     };
   }
+};
+
+export const userCanWrite = (userId, trackUserId) => {
+  return userId === trackUserId;
 };
 
 export const track = store => next => {
@@ -68,8 +70,11 @@ export const track = store => next => {
         });
       } else {
         loadTrack(userId, trackId)
-          .then(state => {
-            next(newTrackLoaded(state));
+          .then(data => {
+            let state = store.getState();
+            let uid = state.auth.user ? state.auth.user.uid : undefined;
+            let write = userCanWrite(uid, userId);
+            next(newTrackLoaded(data, write));
             next(newNotification("Track loaded!"));
           })
           .catch(error => {

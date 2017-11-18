@@ -62,6 +62,7 @@ describe("Track", () => {
     }));
     td.reset();
   });
+
   it("calls newTrackLoading, loadTrack and newTrackLoaded if no track is loaded and there is a track id", () => {
     let { promise, flush } = getPromiseMock();
     let get = cb => {
@@ -89,6 +90,9 @@ describe("Track", () => {
       track: {
         trackId: undefined,
         state: "idle"
+      },
+      auth: {
+        user: null
       }
     };
     let store = {
@@ -111,9 +115,62 @@ describe("Track", () => {
       userId: "123"
     }));
     td.verify(next({
-      type: NEW_TRACK_LOADED
+      type: NEW_TRACK_LOADED,
+      write: false
     }));
     td.verify(loadTrack("123", "234"));
+    td.reset();
+  });
+
+  it("write is true on newTrackLoaded if user is track user", () => {
+    let { promise, flush } = getPromiseMock();
+    let get = cb => {
+      let ret = {
+        then: cb => {
+          cb();
+          return ret;
+        }
+      }
+      return ret;
+    };
+
+    //mocks
+    let loadTrack = td.function();
+    td.when(loadTrack(td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
+
+    td.replace(timeout, "get", get);
+    td.replace(db, "loadTrack", loadTrack);
+    let state = {
+      router: {
+        location: {
+          pathname: "/users/123/tracks/234"
+        }
+      },
+      track: {
+        trackId: undefined,
+        state: "idle"
+      },
+      auth: {
+        user: {
+          uid: "123"
+        }
+      }
+    };
+    let store = {
+      getState: () => state
+    }
+    let next = td.function();
+    let newAction = track(store)(next);
+    
+    newAction({
+      type: "A_RANDOM_ACTION"
+    });
+    flush();
+
+    td.verify(next({
+      type: NEW_TRACK_LOADED,
+      write: true
+    }));
     td.reset();
   });
 
