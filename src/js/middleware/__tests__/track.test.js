@@ -312,42 +312,82 @@ describe("Track", () => {
     td.reset();
   });
 
-  it("returns default track when the route is a track, no track is loaded and there isn't a track loading", () => {
-    let state = {
-      router: {
-        location: {
-          pathname: "/"
+  describe("Is new track", () => {
+    it("returns default track when the route is a track, no track is loaded and there isn't a track loading", () => {
+      let state = {
+        router: {
+          location: {
+            pathname: "/"
+          }
+        },
+        track: {
+          trackId: undefined,
+          state: "idle"
+        },
+        auth: {
+          user: {
+            uid: "1234"
+          }
+        },
+        drumMachine: {
+          0: {
+            currentBankIndex: 0,
+            swing: 0,
+            channels: []
+          }
         }
-      },
-      track: {
-        trackId: undefined,
-        state: "idle"
-      },
-      auth: {
-        user: {
-          uid: "1234"
+      };
+      let store = {
+        getState: () => state
+      };
+      let next = td.function();
+  
+      let action = {
+        type: "RANDOM"
+      };
+  
+      let newTrack = isNewTrack(store)(next)(action);
+      
+      expect(newTrack.newTrackId).to.equal("default");
+      expect(newTrack.newUserId).to.equal(undefined);
+    });
+    it("returns false if a track is loading", () => {
+      let state = {
+        router: {
+          location: {
+            pathname: "/"
+          }
+        },
+        track: {
+          trackId: undefined,
+          state: "loading"
+        },
+        auth: {
+          user: {
+            uid: "1234"
+          }
+        },
+        drumMachine: {
+          0: {
+            currentBankIndex: 0,
+            swing: 0,
+            channels: []
+          }
         }
-      },
-      drumMachine: {
-        0: {
-          currentBankIndex: 0,
-          swing: 0,
-          channels: []
-        }
-      }
-    };
-    let store = {
-      getState: () => state
-    };
-    let next = td.function();
-
-    let action = {
-      type: "RANDOM"
-    };
-
-    let newTrack = isNewTrack(store)(next)(action);
-    
-    expect(newTrack.newTrackId).to.equal("default");
-    expect(newTrack.newUserId).to.equal(undefined);
+      };
+      let store = {
+        getState: () => state
+      };
+      let next = td.function();
+  
+      let action = {
+        type: "RANDOM"
+      };
+  
+      let newTrack = isNewTrack(store)(next)(action);
+      
+      expect(newTrack).to.equal(undefined);
+    });
   });
+  
 });
