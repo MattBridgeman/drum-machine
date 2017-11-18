@@ -75,10 +75,12 @@ export const track = store => next => {
       getNewTrackKey(userId)
         .then(key => {
           trackId = key;
+          //TODO: Tidy this logic so it doesn't have to be done in this order
+          nextState = rootReducer(nextState, newTrackSave(userId, trackId));
           return saveTrack(userId, key, getStateToSave(nextState));
         })
         .then(() => {
-          timeout.get().then(_ => {
+          return timeout.get().then(_ => {
             next(newTrackSave(userId, trackId));
             next(push(buildTrackRoute(userId, trackId)));
             next(newNotification("Track saved!"));

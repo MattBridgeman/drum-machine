@@ -201,7 +201,7 @@ describe("Track", () => {
       },
       auth: {
         user: {
-          uid: 1234
+          uid: "1234"
         }
       },
       drumMachine: {
@@ -226,15 +226,15 @@ describe("Track", () => {
     td.verify(next({
       type: TRACK_SAVE
     }));
-    td.verify(getNewTrackKey(1234));
-    td.verify(saveTrack(1234, "12345678", {
+    td.verify(getNewTrackKey("1234"));
+    td.verify(saveTrack("1234", "12345678", {
       connections: [],
       drumMachine: {0: {currentBankIndex: 0, swing: 0, channels: []}},
       instruments: [],
       reverb: {},
       sounds: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
-      track: {trackId: "12345678", state: "idle"}
+      track: {trackId: "12345678", state: "idle", userId: "1234"}
     }))
     td.reset();
   });
