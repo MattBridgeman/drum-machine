@@ -243,4 +243,72 @@ describe("Track", () => {
     }))
     td.reset();
   });
+  
+  it("existing track is saved when track save action is fired", () => {
+    let { promise, flush, flushErrors } = getPromiseMock();
+    let get = cb => {
+      let ret = {
+        then: cb => {
+          cb(trackId);
+          return ret;
+        }
+      }
+      return ret;
+    };
+
+    let saveTrack = td.function();
+    td.when(saveTrack(td.matchers.anything(), td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
+
+    td.replace(timeout, "get", get);
+    td.replace(db, "saveTrack", saveTrack);
+
+    let state = {
+      router: {
+        location: {
+          pathname: "/users/123/tracks/234"
+        }
+      },
+      track: {
+        trackId: "12345678",
+        userId: "1234",
+        state: "idle"
+      },
+      auth: {
+        user: {
+          uid: "1234"
+        }
+      },
+      drumMachine: {
+        0: {
+          currentBankIndex: 0,
+          swing: 0,
+          channels: []
+        }
+      }
+    };
+    let store = {
+      getState: () => state
+    }
+    let next = td.function();
+    let newAction = track(store)(next);
+    
+    newAction({
+      type: TRACK_SAVE
+    });
+    flush();
+
+    td.verify(next({
+      type: TRACK_SAVE
+    }));
+    td.verify(saveTrack("1234", "12345678", {
+      connections: [],
+      drumMachine: {0: {currentBankIndex: 0, swing: 0, channels: []}},
+      instruments: [],
+      reverb: {},
+      sounds: {},
+      tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
+      track: {trackId: "12345678", state: "idle", userId: "1234"}
+    }))
+    td.reset();
+  });
 });
