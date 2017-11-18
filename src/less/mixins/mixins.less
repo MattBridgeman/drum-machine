@@ -15,3 +15,14 @@
     position: absolute;
     width: 1px;
 }
+
+.render-icon(@url, @height, @width){
+    content: "";
+    display: inline-block;
+    background-image: url(@url);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: @height;
+    width: @width;
+}

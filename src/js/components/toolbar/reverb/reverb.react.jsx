@@ -10,15 +10,16 @@ class Reverb extends React.Component {
 	}
 	
 	render() {
-		const { machineId, reverb, dispatch } = this.props;
+        const { machineId, reverb, dispatch } = this.props;
+        const machine = reverb[machineId];
 		const reverbActions = bindActionCreators(DrumMachineActions.reverb, dispatch);
         
 		return (
             <div className="effects-parameters">
                 <h3 className="item-label">Reverb</h3>
                 <div className="effects-tray">
-                    <Rotator name="Length" classes="effect-item" value={reverb.seconds} onValueChange={ (value) => reverbActions.changeReverbSecondsToAmount(machineId, value) } />
-                    <Rotator name="Decay" classes="effect-item" value={reverb.decay} onValueChange={ (value) => reverbActions.changeReverbDecayToAmount(machineId, value) } />
+                    <Rotator name="Length" classes="effect-item" value={machine.seconds} onValueChange={ (value) => reverbActions.changeReverbSecondsToAmount(machineId, value) } />
+                    <Rotator name="Decay" classes="effect-item" value={machine.decay} onValueChange={ (value) => reverbActions.changeReverbDecayToAmount(machineId, value) } />
                 </div>
             </div>
         );

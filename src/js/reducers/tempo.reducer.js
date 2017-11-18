@@ -1,4 +1,5 @@
 import { INCREMENT_BPM, DECREMENT_BPM, CHANGE_BPM_BY_AMOUNT, CHANGE_BPM, MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../constants/tempo.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
 import { normaliseValue } from "../library/natives/numbers.js";
 
 const initialState = {
@@ -33,6 +34,12 @@ export default function tempo(state = initialState, action) {
 			return Object.assign({}, state, {
 				beatsPerMinute: Math.round(normalisedChangeBPM)
 			});
+		case NEW_TRACK_LOADING:
+			return initialState;
+		case LOAD_DEFAULT_TRACK:
+			return initialState;
+		case NEW_TRACK_LOADED:
+			return action.tempo;
 		default:
 			return state;
 	}

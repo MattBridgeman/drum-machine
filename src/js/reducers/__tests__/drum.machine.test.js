@@ -13,6 +13,11 @@ import {
 	NEW_BANK_INDEX,
 	CHANGE_SWING_TO_AMOUNT
 } from "../../constants/drum.machine.constants";
+import {
+	NEW_TRACK_LOADING,
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
+} from "../../constants/track.constants";
 
 describe("Drum Machine reducer", function() {
 	function getInitialState(){
@@ -313,5 +318,50 @@ describe("Drum Machine reducer", function() {
 
 		expect(initialState[machineId].swing).to.equal(0);
 		expect(nextState[machineId].swing).to.equal(55);
+	});
+
+	it("clears the drum machine state on new track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(nextState).to.deep.equal({});
+	});
+
+	it("loads the default track state", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: LOAD_DEFAULT_TRACK
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState[0].currentBankIndex).to.equal(0);
+		expect(nextState[0].swing).to.equal(0);
+	});
+
+	it("loads the new track loaded state", function() {
+		const initialState = getInitialState();
+
+		const _drumMachine = {
+			0: {
+				currentBankIndex: 0,
+				swing: 0
+			}
+		};
+
+		const action = {
+			type: NEW_TRACK_LOADED,
+			drumMachine: _drumMachine
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState).to.deep.equal(_drumMachine);
 	});
 });

@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
-  // Project configuration
-  grunt.initConfig({
+  var config = {
     
     pkg: grunt.file.readJSON('package.json'),
     
@@ -37,6 +36,10 @@ module.exports = function(grunt) {
         files: ['src/*.html'],
         tasks: ['copy:html']
       },
+      icons: {
+        files: ['src/icons/*'],
+        tasks: ['copy:icons']
+      },
       tests: {
         files: ['src/**/__tests__/*.@(js|jsx)'],
         tasks: ['mochaTest']
@@ -44,10 +47,6 @@ module.exports = function(grunt) {
       lint: {
         files: ['src/**/*.@(js|jsx)'],
         tasks: ['eslint']
-      },
-      minify: {
-        files: ['build/js/main.js'],
-        tasks: ['uglify']
       }
     },
 
@@ -67,6 +66,15 @@ module.exports = function(grunt) {
           cwd: 'src/samples/',
           src: ['**/*'],
           dest: 'build/samples/'
+        }]
+      },
+      icons: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/icons/',
+          src: ['**/*'],
+          dest: 'build/icons/'
         }]
       },
       firebase: {
@@ -147,7 +155,17 @@ module.exports = function(grunt) {
         }
       }
     }
-  });
+  };
+
+  if(process.env.NODE_ENV === 'production'){
+    config.watch.minify = {
+      files: ['build/js/main.js'],
+      tasks: ['uglify']
+    };
+  }
+
+  // Project configuration
+  grunt.initConfig(config);
   
   //only test the path that's been saved
   var defaultTestSrc = grunt.config('mochaTest.test.src');

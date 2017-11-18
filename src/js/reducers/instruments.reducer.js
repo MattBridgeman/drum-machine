@@ -1,6 +1,9 @@
 import { unique } from "../library/natives/numbers";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
 
-let initialState = [{
+let initialState = [];
+
+let defaultState = [{
   id: 0,
   type: "drumMachine",
   machineId: 0,
@@ -21,6 +24,12 @@ let uniqueGenerator = unique();
 
 export default function instruments(state = initialState, action) {
   switch (action.type) {
+    case NEW_TRACK_LOADING:
+      return initialState;
+    case LOAD_DEFAULT_TRACK:
+      return defaultState;
+    case NEW_TRACK_LOADED:
+      return action.instruments;
     default:
       return state;
   }

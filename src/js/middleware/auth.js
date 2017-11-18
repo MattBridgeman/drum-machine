@@ -1,9 +1,8 @@
-import { auth } from "../library/firebase/auth";
+import { onAuthStateChanged } from "../library/firebase/auth";
 import { authStateChange } from "../actions/auth.actions";
 
 export const supplyAuth = store => next => {
-  auth.init();
-  auth.onAuthStateChanged(user => {
+  onAuthStateChanged(user => {
     // var displayName = user.displayName;
     // var email = user.email;
     // var emailVerified = user.emailVerified;

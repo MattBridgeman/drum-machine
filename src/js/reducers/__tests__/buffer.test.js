@@ -5,6 +5,7 @@ import {
     CLEAR_BUFFER_SEGMENTS,
     CLEAR_BUFFER_SEGMENT
 } from "../../constants/buffer.constants";
+import { NEW_TRACK_LOADING } from "../../constants/track.constants";
 
 describe("Buffer reducer", () => {
 	it("adds a new buffer", () => {
@@ -29,7 +30,7 @@ describe("Buffer reducer", () => {
     expect(nextState.length).to.equal(0);
   });
 
-	it("clear buffer by id", () => {
+	it("clears buffer by id", () => {
     let initialState = [{
       index: 0,
       id: 1,
@@ -41,4 +42,16 @@ describe("Buffer reducer", () => {
     });
     expect(nextState.length).to.equal(0);
   });
+
+  it("clears buffer on new track loading", () => {
+    let initialState = [{
+      index: 0,
+      id: 1,
+      time: 1234
+    }];
+    let nextState = buffer(initialState, {
+      type: NEW_TRACK_LOADING
+    });
+    expect(nextState).to.deep.equal([]);
+  })
 });

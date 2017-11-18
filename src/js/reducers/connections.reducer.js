@@ -1,6 +1,9 @@
 import { unique } from "../library/natives/numbers";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
 
-let initialState = [{
+let initialState = [];
+
+let defaultState = [{
   id: 0,
   from: {
     machineId: 0,
@@ -41,5 +44,14 @@ let initialState = [{
 let uniqueGenerator = unique();
 
 export default function connections(state = initialState, action) {
-  return state;
+  switch(action.type) {
+    case NEW_TRACK_LOADING:
+      return initialState;
+    case LOAD_DEFAULT_TRACK:
+      return defaultState;
+    case NEW_TRACK_LOADED:
+      return action.connections;
+    default:
+      return state;
+  }
 };

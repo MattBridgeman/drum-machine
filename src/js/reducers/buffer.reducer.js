@@ -1,4 +1,5 @@
 import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS, CLEAR_BUFFER_SEGMENT } from "../constants/buffer.constants";
+import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { unique } from "../library/natives/numbers";
 
 let initialState = [];
@@ -18,6 +19,8 @@ export default function buffer(state = initialState, action) {
       return state.filter(segment => segment.id !== action.id);
     case CLEAR_BUFFER_SEGMENTS:
       return [];
+    case NEW_TRACK_LOADING:
+      return initialState;
     default:
       return state;
   }

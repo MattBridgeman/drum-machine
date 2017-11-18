@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { auth } from "../../library/firebase/auth";
+import { init } from "../../library/firebase/firebase";
 import DrumMachineActions from "../../actions/root.actions";
 
 class Logout extends Component {
@@ -17,19 +17,18 @@ class Logout extends Component {
   }
   componentDidMount(){
     if(!this.props.auth.user) return;
-    auth
-      .load()
-      .then(() => {
-        firebase.auth().signOut()
-          .then(() => {
-            let { dispatch } = this.props;
-            const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
-            notificationsActions.newNotification("Logout successful");
-            this.setState({
-              signedIn: false
-            });
-          }
-        );
+    init()
+    .then(() => {
+      firebase.auth().signOut()
+        .then(() => {
+          let { dispatch } = this.props;
+          const notificationsActions = bindActionCreators(DrumMachineActions.notifications, dispatch);
+          notificationsActions.newNotification("Logout successful");
+          this.setState({
+            signedIn: false
+          });
+        }
+      );
     });
   }
 }

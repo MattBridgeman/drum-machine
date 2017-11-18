@@ -4,6 +4,11 @@ import {
     CHANGE_REVERB_SECONDS_TO_AMOUNT,
     CHANGE_REVERB_DECAY_TO_AMOUNT
 } from "../../constants/reverb.constants";
+import {
+	NEW_TRACK_LOADING,
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
+} from "../../constants/track.constants";
 
 describe("Reverb reducer", function() {
 	function getInitialState(){
@@ -50,4 +55,44 @@ describe("Reverb reducer", function() {
 		expect(nextState[0].decay).to.equal(20);
 	});
 
+	it("returns initial state on new track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADING
+		};
+
+		const nextState = reverb(initialState, action);
+
+		expect(nextState).to.deep.equal({});
+	});
+
+	it("returns default track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: LOAD_DEFAULT_TRACK
+		};
+
+		const nextState = reverb({}, action);
+
+		expect(nextState[0]).to.deep.equal({
+			seconds: 100,
+			decay: 100,
+			reverse: false
+		});
+	});
+
+	it("returns the new loaded track", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: NEW_TRACK_LOADED,
+			reverb: initialState
+		};
+
+		const nextState = reverb({}, action);
+
+		expect(nextState).to.deep.equal(initialState);
+	});
 });

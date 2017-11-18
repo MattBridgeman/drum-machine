@@ -55,6 +55,7 @@ export let updateInstrumentAudio = (state) => {
     let { machine } = value;
     if(!idCache[key] && machine.remove) {
       machine.remove();
+      clearCacheById(key);
     }
   });
 
@@ -63,4 +64,13 @@ export let updateInstrumentAudio = (state) => {
 
 export let clearCache = () => {
   cache = {};
+};
+
+export let clearCacheById = id => {
+  cache = objectToArrayWithKeyValue(cache)
+    .filter(({ key }) => key === id)
+    .reduce((prev, { key, value }) => ({
+      ...prev,
+      [key]: value
+    }), {});
 };
