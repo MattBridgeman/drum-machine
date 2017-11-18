@@ -1,6 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
+import { push } from "react-router-redux";
 import { track, isNewTrack } from "../track";
 import { timeout } from "../../library/audio-api/interval";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE, NEW_TRACK_SAVE } from "../../constants/track.constants";
@@ -348,9 +349,10 @@ describe("Track", () => {
   
       let newTrack = isNewTrack(store)(next)(action);
       
-      expect(newTrack.newTrackId).to.equal("default");
-      expect(newTrack.newUserId).to.equal(undefined);
+      expect(newTrack.trackId).to.equal("default");
+      expect(newTrack.userId).to.equal(undefined);
     });
+
     it("returns false if a track is loading", () => {
       let state = {
         router: {
@@ -387,6 +389,48 @@ describe("Track", () => {
       let newTrack = isNewTrack(store)(next)(action);
       
       expect(newTrack).to.equal(undefined);
+    });
+
+    it("returns new track if a new track route is loaded", () => {
+      let state = {
+        router: {
+          location: {
+            pathname: "/"
+          }
+        },
+        track: {
+          trackId: undefined,
+          state: "idle"
+        },
+        auth: {
+          user: {
+            uid: "1234"
+          }
+        },
+        drumMachine: {
+          0: {
+            currentBankIndex: 0,
+            swing: 0,
+            channels: []
+          }
+        }
+      };
+      let store = {
+        getState: () => state
+      };
+      let next = td.function();
+  
+      let action = {
+        type: "@@router/LOCATION_CHANGE",
+        payload: {
+          pathname: "/users/123/tracks/1234"
+        }
+      };
+      
+      let newTrack = isNewTrack(store)(next)(action);
+      
+      expect(newTrack.trackId).to.equal("1234");
+      expect(newTrack.userId).to.equal("123");
     });
   });
   
