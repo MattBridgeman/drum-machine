@@ -1,3 +1,10 @@
+## 1.3.0
+
+- Added the ability to save tracks to Firebase db
+- Added the ability to load tracks from the Firebase db
+- Tracks loaded based on current URL
+- Default track is loaded via root URL path
+
 ## 1.2.4
 
 - Moved all sounds to Firebase storage
