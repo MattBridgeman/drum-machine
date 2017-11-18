@@ -3,7 +3,7 @@ import { expect } from "chai";
 import td from "testdouble";
 import { track } from "../track";
 import { timeout } from "../../library/audio-api/interval";
-import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE } from "../../constants/track.constants";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE, NEW_TRACK_SAVE } from "../../constants/track.constants";
 import * as db from "../../library/firebase/db";
 import configureTestStore from "../../store/test.store";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
@@ -159,7 +159,7 @@ describe("Track", () => {
     td.verify(next({
       type: NEW_NOTIFICATION,
       value: "Error loading track",
-      notificationType: undefined
+      notificationType: td.matchers.anything()
     }));
     td.verify(loadTrack("123", "234"));
     td.reset();
@@ -225,6 +225,11 @@ describe("Track", () => {
 
     td.verify(next({
       type: TRACK_SAVE
+    }));
+    td.verify(next({
+      type: NEW_TRACK_SAVE,
+      trackId: "12345678",
+      userId: "1234"
     }));
     td.verify(getNewTrackKey("1234"));
     td.verify(saveTrack("1234", "12345678", {
