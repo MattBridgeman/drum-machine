@@ -2,7 +2,8 @@ import { expect } from "chai";
 import sounds from "../sounds.reducer";
 import {
   NEW_TRACK_LOADING,
-  LOAD_DEFAULT_TRACK
+  LOAD_DEFAULT_TRACK,
+  NEW_TRACK_LOADED
 } from "../../constants/track.constants";
 
 describe("Sounds reducer", () => {
@@ -34,7 +35,7 @@ describe("Sounds reducer", () => {
 	it("returns the newly loaded track", () => {
     let _sounds = getInitialState();
     let nextState = sounds({}, {
-      type: LOAD_DEFAULT_TRACK,
+      type: NEW_TRACK_LOADED,
       sounds: _sounds
     });
     expect(nextState).to.deep.equal(_sounds);

@@ -174,7 +174,7 @@ describe("Tempo reducer", function() {
 
 		const nextState = tempo({}, action);
 
-		expect(nextState.beatsPerMinute).to.equal(120);
+		expect(nextState.beatsPerMinute).to.equal(144);
 	});
 
 });
