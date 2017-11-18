@@ -28,9 +28,10 @@ export function newTrackSave(userId, trackId) {
   };
 };
 
-export function newTrackLoaded(state) {
+export function newTrackLoaded(state, write = true) {
   return {
     type: NEW_TRACK_LOADED,
+    write,
     ...state
   };
 };

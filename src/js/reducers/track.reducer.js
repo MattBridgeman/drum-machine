@@ -33,7 +33,8 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         ...action.track,
-        state: "idle"
+        state: "idle",
+        write: action.write
       }
     default:
       return state;

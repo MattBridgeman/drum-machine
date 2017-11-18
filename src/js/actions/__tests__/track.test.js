@@ -36,4 +36,20 @@ describe("Track actions", function() {
     expect(action.connections).to.equal(connections);
     expect(action.drumMachine).to.equal(drumMachine);
   });
+	it("newTrackLoaded returns write false if specified", function() {
+    let connections = [];
+    let drumMachine = {
+      0: {
+        currentBankIndex: 0,
+        swing: 0
+      }
+    };
+    let state = {
+      connections,
+      drumMachine
+    };
+    let write = false;
+		var action = newTrackLoaded(state, write);
+    expect(action.write).to.equal(false);
+  });
 });

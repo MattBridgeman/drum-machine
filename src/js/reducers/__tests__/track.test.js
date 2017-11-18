@@ -48,6 +48,7 @@ describe("Track reducer", () => {
       state: "loading"
     }, {
       type: NEW_TRACK_LOADED,
+      write: true,
       track: {
         name: "Untitled Track",
         write: true
@@ -60,5 +61,21 @@ describe("Track reducer", () => {
       userId: 234,
       state: "idle"
     });
+  });
+  it("returns write status of false if specified", () => {
+    let state = track({
+      trackId: 123,
+      userId: 234,
+      state: "loading",
+      write: true
+    }, {
+      type: NEW_TRACK_LOADED,
+      write: false,
+      track: {
+        name: "Untitled Track",
+        write: true
+      }
+    });
+    expect(state.write).to.equal(false);
   });
 });
