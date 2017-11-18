@@ -1,7 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
-import { track } from "../track";
+import { track, isNewTrack } from "../track";
 import { timeout } from "../../library/audio-api/interval";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE, NEW_TRACK_SAVE } from "../../constants/track.constants";
 import * as db from "../../library/firebase/db";
@@ -310,5 +310,44 @@ describe("Track", () => {
       track: {trackId: "12345678", state: "idle", userId: "1234"}
     }))
     td.reset();
+  });
+
+  it("returns default track when the route is a track, no track is loaded and there isn't a track loading", () => {
+    let state = {
+      router: {
+        location: {
+          pathname: "/"
+        }
+      },
+      track: {
+        trackId: undefined,
+        state: "idle"
+      },
+      auth: {
+        user: {
+          uid: "1234"
+        }
+      },
+      drumMachine: {
+        0: {
+          currentBankIndex: 0,
+          swing: 0,
+          channels: []
+        }
+      }
+    };
+    let store = {
+      getState: () => state
+    };
+    let next = td.function();
+
+    let action = {
+      type: "RANDOM"
+    };
+
+    let newTrack = isNewTrack(store)(next)(action);
+    
+    expect(newTrack.newTrackId).to.equal("default");
+    expect(newTrack.newUserId).to.equal(undefined);
   });
 });
