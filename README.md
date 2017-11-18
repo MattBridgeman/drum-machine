@@ -15,12 +15,14 @@ You can [try out here](https://mattbridgeman.github.io/drum-machine/)!
 - Adjustable tempo
 - 8 pattern banks
 - Responsive mobile / tablet experience
+- Save drum machine patterns
 
 ## The main features on the roadmap are:
 
-- Save drum machine patterns
+- Create a user profile
+- See other user creations
 - Upload custom samples
-- New Instruments
+- New Instruments and effects
 - Add service worker for offline support
 
 ## Credits:
