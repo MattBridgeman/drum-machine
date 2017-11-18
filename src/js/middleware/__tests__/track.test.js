@@ -3,8 +3,7 @@ import { expect } from "chai";
 import td from "testdouble";
 import { track } from "../track";
 import { timeout } from "../../library/audio-api/interval";
-import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../constants/track.constants";
-import { saveTrack } from "../../actions/track.actions";
+import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE } from "../../constants/track.constants";
 import * as db from "../../library/firebase/db";
 import configureTestStore from "../../store/test.store";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
@@ -167,8 +166,8 @@ describe("Track", () => {
   });
   
   it("new track is saved when track save action is fired", () => {
-    let { promise, flush, flushErrors } = getPromiseMock();
     let trackId = "12345678";
+    let { promise, flush, flushErrors } = getPromiseMock(trackId);
     let get = cb => {
       let ret = {
         then: cb => {
@@ -180,11 +179,16 @@ describe("Track", () => {
     };
 
     //mocks
-    let getNewTrackId = td.function();
-    td.when(getNewTrackId(td.matchers.anything())).thenReturn(promise);
+    let getNewTrackKey = td.function();
+    td.when(getNewTrackKey(td.matchers.anything())).thenReturn(promise);
+
+    let saveTrack = td.function();
+    td.when(saveTrack(td.matchers.anything())).thenReturn(promise);
 
     td.replace(timeout, "get", get);
-    td.replace(db, "getNewTrackId", getNewTrackId);
+    td.replace(db, "getNewTrackKey", getNewTrackKey);
+    td.replace(db, "saveTrack", saveTrack);
+
     let state = {
       router: {
         location: {
@@ -194,6 +198,18 @@ describe("Track", () => {
       track: {
         trackId: undefined,
         state: "idle"
+      },
+      auth: {
+        user: {
+          uid: 1234
+        }
+      },
+      drumMachine: {
+        0: {
+          currentBankIndex: 0,
+          swing: 0,
+          channels: []
+        }
       }
     };
     let store = {
@@ -202,15 +218,24 @@ describe("Track", () => {
     let next = td.function();
     let newAction = track(store)(next);
     
-    newAction(saveTrack());
-    flushErrors();
+    newAction({
+      type: TRACK_SAVE
+    });
+    flush();
 
     td.verify(next({
-      type: NEW_NOTIFICATION,
-      value: "Error loading track",
-      notificationType: undefined
+      type: TRACK_SAVE
     }));
-    td.verify(loadTrack("123", "234"));
+    td.verify(getNewTrackKey(1234));
+    td.verify(saveTrack(1234, "12345678", {
+      connections: [],
+      drumMachine: {0: {currentBankIndex: 0, swing: 0, channels: []}},
+      instruments: [],
+      reverb: {},
+      sounds: {},
+      tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
+      track: {trackId: "12345678", state: "idle"}
+    }))
     td.reset();
   });
 });

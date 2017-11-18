@@ -5,6 +5,7 @@ export let getPromiseMock = (value) => {
     then: (fn) => {
       promises.push(fn);
       return {
+        then: promise.then,
         catch: (errFn) => promiseErrors.push(errFn)
       };
     }
