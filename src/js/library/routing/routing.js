@@ -8,6 +8,8 @@ export let matchesUserTrackRoute = path => matchPath(path, "/users/:userId/track
 
 export let matchesDefaultTrackRoute = path => matchPath(path, "/");
 
+export let matchesNewTrack = (oldId, newId) => newId !== oldId;
+
 export let matchesTrackRoute = path => matchesUserTrackRoute(path) || matchesDefaultTrackRoute(path);
 
 export let buildTrackRoute = (userId, trackId) => `/users/${userId}/tracks/${trackId}`;
