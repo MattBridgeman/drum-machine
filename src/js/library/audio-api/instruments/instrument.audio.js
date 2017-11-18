@@ -69,7 +69,7 @@ export let clearCache = () => {
 export let clearCacheById = id => {
   cache = objectToArrayWithKeyValue(cache)
     .filter(({ key }) => key === id)
-    .reduce((prev, { key: value }) => ({
+    .reduce((prev, { key, value }) => ({
       ...prev,
       [key]: value
     }), {});
