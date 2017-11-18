@@ -14,7 +14,12 @@ export let Header = (props) => {
       props.auth.user ?
       (
         <div className="tray">
-          <button className="header-link" onClick={() => trackActions.saveTrack()}>Save Track</button>
+          {
+            props.track.write ?
+            (
+              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save Track</button>
+            ) : null
+          }
           <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
         </div>
       ) : (
