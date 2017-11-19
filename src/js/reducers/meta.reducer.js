@@ -1,4 +1,4 @@
-import { CHANGE_TRACK_TITLE } from "../constants/meta.constants";
+import { CHANGE_TRACK_TITLE, CHANGE_TRACK_CREATED_DATE } from "../constants/meta.constants";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
 
 let initialState = {
@@ -17,6 +17,11 @@ export default function meta(state = initialState, action) {
       return {
         ...state,
         title: action.title
+      };
+    case CHANGE_TRACK_CREATED_DATE:
+      return {
+        ...state,
+        date: action.date
       };
     default:
       return state;
