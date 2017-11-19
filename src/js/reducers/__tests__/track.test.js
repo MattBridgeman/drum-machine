@@ -14,7 +14,6 @@ describe("Track reducer", () => {
       type: LOAD_DEFAULT_TRACK
     });
     expect(state).to.deep.equal({
-      name: "Untitled Track",
       trackId: "default",
       userId: undefined,
       state: "idle",
@@ -23,7 +22,6 @@ describe("Track reducer", () => {
   });
 	it("returns the new track save state", () => {
     let state = track({
-      name: "Untitled Track",
       trackId: "default",
       userId: undefined,
       state: "idle",
@@ -34,7 +32,6 @@ describe("Track reducer", () => {
       userId: 234
     });
     expect(state).to.deep.equal({
-      name: "Untitled Track",
       trackId: 123,
       userId: 234,
       state: "idle",
@@ -50,12 +47,10 @@ describe("Track reducer", () => {
       type: NEW_TRACK_LOADED,
       write: true,
       track: {
-        name: "Untitled Track",
         write: true
       }
     });
     expect(state).to.deep.equal({
-      name: "Untitled Track",
       write: true,
       trackId: 123,
       userId: 234,
@@ -72,7 +67,6 @@ describe("Track reducer", () => {
       type: NEW_TRACK_LOADED,
       write: false,
       track: {
-        name: "Untitled Track",
         write: true
       }
     });
