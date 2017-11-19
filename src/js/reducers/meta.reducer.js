@@ -13,6 +13,11 @@ export default function meta(state = initialState, action) {
       return initialState;
     case NEW_TRACK_LOADED:
       return action.meta;
+    case CHANGE_TRACK_TITLE:
+      return {
+        ...state,
+        title: action.title
+      };
     default:
       return state;
   }
