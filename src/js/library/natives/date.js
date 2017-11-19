@@ -1,0 +1,1 @@
+export let now = () => new Date().toISOString();
