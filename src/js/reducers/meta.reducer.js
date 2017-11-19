@@ -1,4 +1,4 @@
-import { CHANGE_TRACK_TITLE, CHANGE_TRACK_CREATED_DATE } from "../constants/meta.constants";
+import { CHANGE_TRACK_TITLE, CHANGE_TRACK_CREATED_DATE, CHANGE_TRACK_UPDATED_DATE } from "../constants/meta.constants";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
 
 let initialState = {
@@ -21,7 +21,12 @@ export default function meta(state = initialState, action) {
     case CHANGE_TRACK_CREATED_DATE:
       return {
         ...state,
-        date: action.date
+        createdDate: action.createdDate
+      };
+    case CHANGE_TRACK_UPDATED_DATE:
+      return {
+        ...state,
+        updatedDate: action.updatedDate
       };
     default:
       return state;
