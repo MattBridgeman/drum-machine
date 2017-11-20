@@ -17,7 +17,26 @@ describe("Meta", () => {
     td.reset();
   });
 
-  it("saves the creation date on track dave", () => {
+  it("saves the creation date on track save", () => {
+    let store = configureTestStore();
+    let next = td.function();
+
+    let expectedDate = "2017-11-19T16:55:07.107Z";
+    let date = td.function();
+    td.when(date()).thenReturn(expectedDate);
+    td.replace(_date, "getDateToISOString", date);
+
+    let newAction = meta(store)(next);
+    newAction({ type: TRACK_SAVE });
+
+    td.verify(next({
+      type: CHANGE_TRACK_CREATED_DATE,
+      createdDate: expectedDate
+    }));
+    td.reset();
+  });
+
+  it("saves the updated date on track save", () => {
     let store = configureTestStore();
     let next = td.function();
 
@@ -30,8 +49,8 @@ describe("Meta", () => {
     newAction({ type: TRACK_SAVE });
     
     td.verify(next({
-      type: CHANGE_TRACK_CREATED_DATE,
-      createdDate: expectedDate
+      type: CHANGE_TRACK_UPDATED_DATE,
+      updatedDate: expectedDate
     }));
     td.reset();
   });

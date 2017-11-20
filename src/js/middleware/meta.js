@@ -1,5 +1,5 @@
 import { getDateToISOString } from "../library/natives/date";
-import { changeTrackCreatedDate } from "../actions/meta.actions";
+import { changeTrackCreatedDate, changeTrackUpdatedDate } from "../actions/meta.actions";
 
 export const meta = store => next => {
 
@@ -10,6 +10,8 @@ export const meta = store => next => {
       createdDate = getDateToISOString();
       next(changeTrackCreatedDate(createdDate));
     }
+    let updatedDate = getDateToISOString();
+    next(changeTrackUpdatedDate(updatedDate));
   };
 
 	return action => {
