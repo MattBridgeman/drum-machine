@@ -14,7 +14,7 @@ export default applyMiddleware(
   playState,
   startNoise,
   instruments,
-  track,
   meta,
+  track,
   historyMiddleware
 );
