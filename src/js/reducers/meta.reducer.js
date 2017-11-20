@@ -12,7 +12,7 @@ export default function meta(state = initialState, action) {
     case LOAD_DEFAULT_TRACK:
       return initialState;
     case NEW_TRACK_LOADED:
-      return action.meta;
+      return action.meta || initialState;
     case CHANGE_TRACK_TITLE:
       return {
         ...state,
