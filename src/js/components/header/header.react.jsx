@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
-import { DefaultInput } from "../input/input";
+import { DefaultInput } from "../input/input.react.jsx";
 
 export let Header = (props) => {
   const { dispatch } = props;
@@ -15,7 +15,7 @@ export let Header = (props) => {
       </div>
       { props.meta.title ?
         (
-          <DefaultInput value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
+          <DefaultInput disabled={ !props.track.write } value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
         ) : null
       }
     </div>
