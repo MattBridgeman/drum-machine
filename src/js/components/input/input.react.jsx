@@ -30,7 +30,7 @@ export class DefaultInput extends Component {
     return (
       <div className="default-input-wrapper">
         <span className="default-spacer" aria-hidden="true">{ this.state.value }</span>
-        <input className="default-input" type="text" value={ this.state.value } onChange={ (event) => this.onChange(event, true) } onBlur={ (event) => this.onChange(event, false) } />
+        <input className="default-input" disabled={this.props.disabled} type="text" value={ this.state.value } onChange={ (event) => this.onChange(event, true) } onBlur={ (event) => this.onChange(event, false) } />
       </div>
     );
   }
