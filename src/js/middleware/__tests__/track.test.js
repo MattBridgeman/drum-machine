@@ -268,6 +268,9 @@ describe("Track", () => {
           swing: 0,
           channels: []
         }
+      },
+      meta: {
+        title: "foooo"
       }
     };
     let store = {
@@ -297,7 +300,10 @@ describe("Track", () => {
       reverb: {},
       sounds: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
-      track: {trackId: "12345678", state: "idle", userId: "1234"}
+      track: {trackId: "12345678", state: "idle", userId: "1234"},
+      meta: {
+        title: "foooo"
+      }
     }))
     td.reset();
   });
@@ -342,6 +348,9 @@ describe("Track", () => {
           swing: 0,
           channels: []
         }
+      },
+      meta: {
+        title: "fooooo"
       }
     };
     let store = {
@@ -365,7 +374,10 @@ describe("Track", () => {
       reverb: {},
       sounds: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
-      track: {trackId: "12345678", state: "idle", userId: "1234"}
+      track: {trackId: "12345678", state: "idle", userId: "1234"},
+      meta: {
+        title: "fooooo"
+      }
     }))
     td.reset();
   });
