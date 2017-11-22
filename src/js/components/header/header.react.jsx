@@ -13,7 +13,11 @@ export let Header = (props) => {
       <div className="logo">
         <h1><NavLink to="/" activeClassName="active icon__logo"><span className="assistive">Drum Machine</span></NavLink></h1>
       </div>
-      <DefaultInput value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
+      { props.meta.title ?
+        (
+          <DefaultInput value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
+        ) : null
+      }
     </div>
     {
       props.auth.user ?
