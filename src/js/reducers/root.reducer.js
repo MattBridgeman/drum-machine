@@ -11,6 +11,7 @@ import notifications from "./notifications.reducer";
 import instruments from "./instruments.reducer";
 import connections from "./connections.reducer";
 import track from "./track.reducer";
+import meta from "./meta.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
 	instruments,
 	connections,
 	track,
+	meta,
 	router: routerReducer
 });
 

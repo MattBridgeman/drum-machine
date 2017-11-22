@@ -2,13 +2,22 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
+import { DefaultInput } from "../input/input.react.jsx";
 
 export let Header = (props) => {
   const { dispatch } = props;
   const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
+  const metaActions = bindActionCreators(DrumMachineActions.meta, dispatch);
   return <div className="header">
-    <div className="logo">
-      <h1><NavLink to="/" activeClassName="active">Drum Machine</NavLink></h1>
+    <div className="tray">
+      <div className="logo">
+        <h1><NavLink to="/" activeClassName="active icon__logo"><span className="assistive">Drum Machine</span></NavLink></h1>
+      </div>
+      { props.meta.title ?
+        (
+          <DefaultInput disabled={ !props.track.write } value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
+        ) : null
+      }
     </div>
     {
       props.auth.user ?
@@ -17,7 +26,7 @@ export let Header = (props) => {
           {
             props.track.write ?
             (
-              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save Track</button>
+              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
             ) : null
           }
           <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>

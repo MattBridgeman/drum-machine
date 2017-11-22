@@ -5,7 +5,6 @@ import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_SAVE, NEW_TRACK_LOADED
 let initialState = {};
 
 let defaultState = {
-  name: "Untitled Track",
   trackId: "default",
   userId: undefined,
   state: "idle",

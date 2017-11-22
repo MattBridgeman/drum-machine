@@ -2,20 +2,18 @@
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 10px 20px;
+  align-items: center;
+  padding: 10px;
   border-bottom: 1px solid @grey;
   background: @white;
   .logo {
+    margin-right: 10px;
     h1 {
+      margin: 0;
+      font-weight: 200;
+      height: 47px;
       a {
-        color: @dark-grey;
         text-decoration: none;
-        transition: color 300ms ease;
-        &:hover,
-        &:focus {
-          color: @black;
-        }
       }
     }
   }
@@ -27,11 +25,13 @@
       border: 1px solid @grey;
       border-bottom-width: 3px;
       transition: background-color 300ms ease;
-      padding: 10px;
+      padding: 12px 10px;
       margin: 0 5px;
       font-size: 1.6em;
       line-height: 1.2;
       background: @white;
+      height: 47px;
+      cursor: pointer;
       &:hover,
       &:focus {
         background: @grey;

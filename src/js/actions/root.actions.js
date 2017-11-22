@@ -6,6 +6,7 @@ import * as notifications from "./notifications.actions";
 import * as auth from "./auth.actions";
 import * as drumMachine from "./drum.machine.actions";
 import * as track from "./track.actions";
+import * as meta from "./meta.actions";
 
 export default {
   playState,
@@ -15,5 +16,6 @@ export default {
   notifications,
   auth,
   drumMachine,
-  track
+  track,
+  meta
 }

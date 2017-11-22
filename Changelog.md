@@ -1,3 +1,8 @@
+## 1.3.1
+
+- Added the ability to save tracks names
+- Track names are shown when a track loads
+
 ## 1.3.0
 
 - Added the ability to save tracks to Firebase db

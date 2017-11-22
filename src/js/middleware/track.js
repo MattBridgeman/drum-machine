@@ -14,7 +14,8 @@ export const stateToSave = [
   "reverb",
   "sounds",
   "tempo",
-  "track"
+  "track",
+  "meta"
 ];
 
 export const isNewTrack = store => next => action => {
@@ -100,7 +101,8 @@ export const track = store => next => {
         .then(key => {
           trackId = key;
           //TODO: Tidy this logic so it doesn't have to be done in this order
-          nextState = rootReducer(nextState, newTrackSave(userId, trackId));
+          let state = store.getState();
+          nextState = rootReducer(state, newTrackSave(userId, trackId));
           return saveTrack(userId, key, getStateToSave(nextState));
         })
         .then(() => {
