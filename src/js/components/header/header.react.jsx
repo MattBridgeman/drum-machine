@@ -11,7 +11,7 @@ export let Header = (props) => {
   return <div className="header">
     <div className="tray">
       <div className="logo">
-        <h1><NavLink to="/" activeClassName="active">DM</NavLink></h1>
+        <h1><NavLink to="/" activeClassName="active icon__logo"><span className="assistive">Drum Machine</span></NavLink></h1>
       </div>
       <Input value={props.meta.title} onValueChange={value => metaActions.changeTrackTitle(value)} />
     </div>

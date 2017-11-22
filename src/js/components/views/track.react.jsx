@@ -12,7 +12,7 @@ class Track extends Component {
       <div className="container">
         {props && props.track.state === "loading" ? (
           <div className="status loading">
-            <span className="icon loading"></span>
+            <span className="icon icon__loading"></span>
             <p>Loading Track</p>
           </div>
         ) : (
