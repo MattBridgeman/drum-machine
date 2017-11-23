@@ -5,6 +5,12 @@ import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
 
 class DropDownMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
   render(){
     let { props, state } = this;
     let { open } = state;
@@ -14,20 +20,23 @@ class DropDownMenu extends Component {
           { open ? "Close Menu" : "Open Menu"}
         </span>
       </button>
-      <div className="dropdown-menu-panel">
         {
-          props.auth.user && props.track.write ?
-            (
-              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
-            ) : null
-          <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
+          props.auth.user ? (
+            <div className="dropdown-menu-panel">
+              {
+                props.track.write ?
+                (
+                  <button className="dropdown-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
+                ) : null
+              }
+              <NavLink to="/user/logout" className="dropdown-link" activeClassName="active">Logout</NavLink>
+            </div>
           ) : (
-            <div className="tray">
-              <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
+            <div className="dropdown-menu-panel">
+              <NavLink to="/user/login" className="dropdown-link" activeClassName="active">Login</NavLink>
             </div>
           )
         }
-      </div>
     </div>
   }
 };

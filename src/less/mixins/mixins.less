@@ -26,3 +26,35 @@
     height: @height;
     width: @width;
 }
+
+.arrow-up(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-bottom: @size solid @color;
+}
+
+.arrow-down(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @color;
+}
+
+.arrow-right(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+    border-left: @size solid @color;
+}
+
+.arrow-left(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent; 
+    border-right: @size solid @color; 
+}

@@ -1,0 +1,21 @@
+.dropdown-menu {
+  position: relative;
+  .dropdown-menu-trigger {
+    border: 0 none;
+  }
+  .dropdown-menu-panel {
+    position: absolute;
+    background: @white;
+    padding: 5px;
+    top: 50px;
+    right: 0;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 40px;
+      top: -5px;
+      .arrow-up(5px, #000);
+    }
+  }
+}
