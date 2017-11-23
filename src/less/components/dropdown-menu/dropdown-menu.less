@@ -7,15 +7,32 @@
     position: absolute;
     background: @white;
     padding: 5px;
-    top: 50px;
+    width: 150px;
+    top: 58px;
     right: 0;
+    .broad-box-shadow();
     &:before {
       content: "";
       display: block;
       position: absolute;
-      right: 40px;
+      right: 19px;
       top: -5px;
-      .arrow-up(5px, #000);
+      .arrow-up(5px);
+    }
+    .dropdown-link {
+      font-size: 1.6em;
+    }
+  }
+  .dropdown-menu-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    clip: rect(0px, 0px, 0px, 0px);
+    background: #000;
+    &.show {
+      clip: rect(0px, 0px, 5000px, 5000px);
     }
   }
 }
