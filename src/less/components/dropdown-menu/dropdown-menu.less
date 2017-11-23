@@ -6,11 +6,11 @@
   .dropdown-menu-panel {
     position: absolute;
     background: @white;
-    padding: 5px;
+    padding: 0;
     width: 150px;
     top: 58px;
     right: 0;
-    .broad-box-shadow();
+    border: 1px solid @grey-transparency;
     display: flex;
     flex-direction: column;
     &:before {
@@ -27,6 +27,9 @@
       padding: 15px;
       color: @dark-grey;
       transition: background-color 300ms ease;
+      background: 0;
+      text-align: left;
+      text-decoration: none;
       &:hover,
       &:focus {
         background: @grey;
