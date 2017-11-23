@@ -4,7 +4,35 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
 
-export let Header = (props) => {
+class DropDownMenu extends Component {
+  render(){
+    let { props, state } = this;
+    let { open } = state;
+    return <div className="dropdown-menu">
+      <button className={"dropdown-menu-trigger icon__menu " + open ? "icon__menu-hover" : ""}>
+        <span className="assistive">
+          { open ? "Close Menu" : "Open Menu"}
+        </span>
+      </button>
+      <div className="dropdown-menu-panel">
+        {
+          props.auth.user && props.track.write ?
+            (
+              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
+            ) : null
+          <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
+          ) : (
+            <div className="tray">
+              <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  }
+};
+
+export let Header = props => {
   const { dispatch } = props;
   const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
   const metaActions = bindActionCreators(DrumMachineActions.meta, dispatch);
@@ -19,23 +47,8 @@ export let Header = (props) => {
         ) : null
       }
     </div>
-    {
-      props.auth.user ?
-      (
-        <div className="tray">
-          {
-            props.track.write ?
-            (
-              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
-            ) : null
-          }
-          <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
-        </div>
-      ) : (
-        <div className="tray">
-          <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
-        </div>
-      )
-    }
+    <div className="tray">
+      <DropDownMenu {...props}></DropDownMenu>
+    </div>
   </div>
 };
