@@ -11,6 +11,8 @@
     top: 58px;
     right: 0;
     .broad-box-shadow();
+    display: flex;
+    flex-direction: column;
     &:before {
       content: "";
       display: block;
@@ -21,6 +23,14 @@
     }
     .dropdown-link {
       font-size: 1.6em;
+      border: 0;
+      padding: 15px;
+      color: @dark-grey;
+      transition: background-color 300ms ease;
+      &:hover,
+      &:focus {
+        background: @grey;
+      }
     }
   }
   .dropdown-menu-panel-overlay {
