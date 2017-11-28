@@ -2,6 +2,7 @@
   position: relative;
   .dropdown-menu-trigger {
     border: 0 none;
+    cursor: pointer;
   }
   .dropdown-menu-panel {
     position: absolute;
@@ -50,7 +51,7 @@
     &.show {
       clip: rect(-10px, 500px, 500px, 0px);
       opacity: 1;
-      transition: opacity 300ms, clip 0ms linear 0;
+      transition: opacity 300ms, clip 0ms linear 0ms;
     }
   }
   .dropdown-menu-panel-overlay {

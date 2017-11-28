@@ -23,17 +23,23 @@ class DropDownMenu extends Component {
         open: false
       });
     }
+    
+    onToggle() {
+      this.setState({
+        open: !this.state.open
+      });
+    }
   
     render(){
       let { props, state } = this;
       let { open } = state;
       return <div className="dropdown-menu">
-        <button onClick={() => this.onOpen()} className={"dropdown-menu-trigger icon__menu " + (open ? "icon__menu-hover" : "")}>
+        <button onClick={() => this.onToggle()} className={"dropdown-menu-trigger icon__menu " + (open ? "icon__menu-hover" : "")}>
           <span className="assistive">
             { open ? "Close Menu" : "Open Menu"}
           </span>
         </button>
-        <div className={"dropdown-menu-panel-overlay " + (open ? "show" : "")}></div>
+        <div className={"dropdown-menu-panel-overlay " + (open ? "show" : "")} onClick={() => this.onClose()}></div>
         {
           props.auth.user ? (
             <div className={"dropdown-menu-panel " + (open ? "show" : "")}>
