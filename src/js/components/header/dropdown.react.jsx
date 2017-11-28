@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
+import { NavLink } from "react-router-dom";
 import DrumMachineActions from "../../actions/root.actions";
 
 class DropDownMenu extends Component {
@@ -35,7 +36,7 @@ class DropDownMenu extends Component {
         <div className={"dropdown-menu-panel-overlay " + (open ? "show" : "")}></div>
         {
           props.auth.user ? (
-            <div className="dropdown-menu-panel">
+            <div className={"dropdown-menu-panel " + (open ? "show" : "")}>
               {
                 props.track.write ?
                 (
