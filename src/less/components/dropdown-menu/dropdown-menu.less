@@ -3,6 +3,17 @@
   .dropdown-menu-trigger {
     border: 0 none;
     cursor: pointer;
+    position: relative;
+    padding: 0;
+    line-height: 0;
+    background: 0;
+    .icon__menu-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
   }
   .dropdown-menu-panel {
     position: absolute;
@@ -49,11 +60,6 @@
         background: @grey;
       }
     }
-    &.show {
-      clip: rect(-10px, 500px, 500px, 0px);
-      opacity: 1;
-      transition: opacity 300ms, clip 0ms linear 0ms;
-    }
   }
   .dropdown-menu-panel-overlay {
     position: fixed;
@@ -65,7 +71,19 @@
     z-index: 10;
     width: 100%;
     height: 100%;
-    &.show {
+  }
+  &.open {
+    .dropdown-menu-panel {
+      clip: rect(-10px, 500px, 500px, 0px);
+      opacity: 1;
+      transition: opacity 300ms, clip 0ms linear 0ms;
+    }
+    .dropdown-menu-trigger {
+      .icon__menu-hover {
+        opacity: 1;
+      }
+    }
+    .dropdown-menu-panel-overlay {
       clip: rect(0px, 5000px, 5000px, 0px);
     }
   }

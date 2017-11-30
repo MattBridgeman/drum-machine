@@ -33,7 +33,7 @@ class DropDownMenu extends Component {
     render(){
       let { props, state } = this;
       let { open } = state;
-      return <div className="dropdown-menu">
+      return <div className={"dropdown-menu " + (open ? "open" : "")}>
         <button onClick={() => this.onToggle()} className="dropdown-menu-trigger">
           <span className="icon__menu"></span>
           <span className="icon__menu-hover"></span>
@@ -41,10 +41,10 @@ class DropDownMenu extends Component {
             { open ? "Close Menu" : "Open Menu"}
           </span>
         </button>
-        <div className={"dropdown-menu-panel-overlay " + (open ? "show" : "")} onClick={() => this.onClose()}></div>
+        <div className="dropdown-menu-panel-overlay" onClick={() => this.onClose()}></div>
         {
           props.auth.user ? (
-            <div className={"dropdown-menu-panel " + (open ? "show" : "")}>
+            <div className="dropdown-menu-panel">
               {
                 props.track.write ?
                 (
