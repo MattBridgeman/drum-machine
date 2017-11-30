@@ -34,7 +34,9 @@ class DropDownMenu extends Component {
       let { props, state } = this;
       let { open } = state;
       return <div className="dropdown-menu">
-        <button onClick={() => this.onToggle()} className={"dropdown-menu-trigger icon__menu " + (open ? "icon__menu-hover" : "")}>
+        <button onClick={() => this.onToggle()} className="dropdown-menu-trigger">
+          <span className="icon__menu"></span>
+          <span className="icon__menu-hover"></span>
           <span className="assistive">
             { open ? "Close Menu" : "Open Menu"}
           </span>
