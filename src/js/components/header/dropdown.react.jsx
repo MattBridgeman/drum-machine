@@ -33,6 +33,7 @@ class DropDownMenu extends Component {
     render(){
       let { props, state } = this;
       let { open } = state;
+      let { items } = props;
       return <div className={"dropdown-menu " + (open ? "open" : "")}>
         <button onClick={() => this.onToggle()} className="dropdown-menu-trigger">
           <span className="icon__menu"></span>
@@ -42,23 +43,23 @@ class DropDownMenu extends Component {
           </span>
         </button>
         <div className="dropdown-menu-panel-overlay" onClick={() => this.onClose()}></div>
-        {
-          props.auth.user ? (
-            <div className="dropdown-menu-panel">
-              {
-                props.track.write ?
-                (
-                  <button className="dropdown-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
-                ) : null
-              }
-              <NavLink to="/user/logout" className="dropdown-link" activeClassName="active">Logout</NavLink>
-            </div>
-          ) : (
-            <div className="dropdown-menu-panel">
-              <NavLink to="/user/login" className="dropdown-link" activeClassName="active">Login</NavLink>
-            </div>
-          )
-        }
+        <div className="dropdown-menu-panel">
+          <ul>
+            {
+              items.map(item => {
+                if(item.callback) {
+                  return <li>
+                    <button className="dropdown-link" onClick={item.callback}>{item.name}</button>
+                  </li>;
+                } else {
+                  return <li>
+                    <NavLink to={item.link} className="dropdown-link" activeClassName="active">{item.name}</NavLink>
+                  </li>;
+                }
+              })
+            }
+          </ul>
+        </div>
       </div>
     }
   };

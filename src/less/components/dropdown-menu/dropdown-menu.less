@@ -23,8 +23,6 @@
     top: 61px;
     right: 0;
     border: 1px solid @grey;
-    display: flex;
-    flex-direction: column;
     clip: rect(0px, 0px, 0px, 0px);
     opacity: 0;
     transition: opacity 300ms, clip 0ms linear 300ms;
@@ -55,9 +53,20 @@
       text-align: left;
       text-decoration: none;
       cursor: pointer;
+      display: block;
+      width: 100%;
       &:hover,
       &:focus {
         background: @grey;
+      }
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
     }
   }
