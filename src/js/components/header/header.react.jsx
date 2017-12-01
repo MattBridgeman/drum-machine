@@ -20,26 +20,19 @@ export class Header extends Component {
   }
 
   getMenuItemsFromProps(props){
-    let items = [];
-    
-    if(props.auth && props.auth.user) {
-      if(props.track.write){
-        items.push({
-          name: "Save Track",
-          callback: () => trackActions.saveTrack()
-        });
-      }
-      items.push({
-        name: "Logout",
-        link: "/user/logout"
-      });
-    } else {
-      items.push({
-        name: "Login",
-        link: "/user/login"
-      });
-    }
-    return items;
+    return [{
+      name: "Save Track",
+      callback: () => trackActions.saveTrack(),
+      condition: () => props.auth && props.auth.user && props.track.write
+    }, {
+      name: "Logout",
+      link: "/user/logout",
+      condition: () => props.auth && props.auth.user
+    }, {
+      name: "Login",
+      link: "/user/login",
+      condition: () => !(props.auth && props.auth.user)
+    }];
   }
 
   render() {

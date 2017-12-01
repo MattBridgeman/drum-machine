@@ -46,7 +46,9 @@ class DropDownMenu extends Component {
         <div className="dropdown-menu-panel">
           <ul>
             {
-              items.map(item => {
+              items
+              .filter(item => !item.condition || item.condition())
+              .map(item => {
                 if(item.callback) {
                   return <li>
                     <button className="dropdown-link" onClick={item.callback}>{item.name}</button>
