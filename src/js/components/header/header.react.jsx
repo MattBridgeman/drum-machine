@@ -3,8 +3,25 @@ import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
+import { DropDownMenu } from "./dropdown.react.jsx";
 
-export let Header = (props) => {
+export let getMenuItemsFromProps = props => {
+  return [{
+    name: "Save Track",
+    callback: () => trackActions.saveTrack(),
+    condition: () => props.auth && props.auth.user && props.track.write
+  }, {
+    name: "Logout",
+    link: "/user/logout",
+    condition: () => props.auth && props.auth.user
+  }, {
+    name: "Login",
+    link: "/user/login",
+    condition: () => !(props.auth && props.auth.user)
+  }];
+};
+
+export let Header = props => {
   const { dispatch } = props;
   const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
   const metaActions = bindActionCreators(DrumMachineActions.meta, dispatch);
@@ -19,23 +36,8 @@ export let Header = (props) => {
         ) : null
       }
     </div>
-    {
-      props.auth.user ?
-      (
-        <div className="tray">
-          {
-            props.track.write ?
-            (
-              <button className="header-link" onClick={() => trackActions.saveTrack()}>Save<span className="assistive"> Track</span></button>
-            ) : null
-          }
-          <NavLink to="/user/logout" className="header-link" activeClassName="active">Logout</NavLink>
-        </div>
-      ) : (
-        <div className="tray">
-          <NavLink to="/user/login" className="header-link" activeClassName="active">Login</NavLink>
-        </div>
-      )
-    }
+    <div className="tray">
+      <DropDownMenu items={getMenuItemsFromProps(props)}></DropDownMenu>
+    </div>
   </div>
 };

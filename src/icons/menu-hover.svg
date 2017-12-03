@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-1474 0 47 47">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-menu_hover);
+      }
+
+      .cls-2 {
+        fill: #c3c3c3;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-menu_hover">
+      <rect x="-1474" width="47" height="47"/>
+    </clipPath>
+  </defs>
+  <g id="menu_hover" data-name="menu hover" class="cls-1">
+    <g id="Symbol_2_1" data-name="Symbol 2 – 1" transform="translate(-1790 -12)">
+      <circle id="Ellipse_2" data-name="Ellipse 2" class="cls-2" cx="23.5" cy="23.5" r="23.5" transform="translate(316 12)"/>
+      <circle id="Ellipse_3" data-name="Ellipse 3" class="cls-3" cx="3.261" cy="3.261" r="3.261" transform="translate(336 21)"/>
+      <circle id="Ellipse_4" data-name="Ellipse 4" class="cls-3" cx="3.261" cy="3.261" r="3.261" transform="translate(336 42.944)"/>
+      <circle id="Ellipse_5" data-name="Ellipse 5" class="cls-3" cx="3.261" cy="3.261" r="3.261" transform="translate(336 31.972)"/>
+    </g>
+  </g>
+</svg>

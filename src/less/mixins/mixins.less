@@ -23,6 +23,43 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    background-color: transparent;
     height: @height;
     width: @width;
+}
+
+.arrow-up(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-bottom: @size solid @color;
+}
+
+.arrow-down(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @color;
+}
+
+.arrow-right(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+    border-left: @size solid @color;
+}
+
+.arrow-left(@size, @color: @white) {
+    width: 0; 
+    height: 0; 
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent; 
+    border-right: @size solid @color; 
+}
+
+.broad-box-shadow(){
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,0.2),0 13px 19px 2px rgba(0,0,0,0.14),0 5px 24px 4px rgba(0,0,0,0.12);
 }

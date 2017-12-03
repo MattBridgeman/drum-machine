@@ -1,0 +1,107 @@
+.dropdown-menu {
+  position: relative;
+  .dropdown-menu-trigger {
+    border: 0 none;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    line-height: 0;
+    background: 0;
+    z-index: 11;
+    display: block;
+    .icon__menu-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+    &:hover,
+    &:focus {
+      .icon__menu-hover {
+        opacity: 1;
+      }
+    }
+  }
+  .dropdown-menu-panel {
+    position: absolute;
+    background: @white;
+    padding: 0;
+    width: 150px;
+    top: 61px;
+    right: 0;
+    border: 1px solid @grey;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+    transition: opacity 300ms, clip 0ms linear 300ms;
+    z-index: 11;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 13px;
+      top: -11px;
+      .arrow-up(10px, @grey);
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 13px;
+      top: -10px;
+      .arrow-up(10px);
+    }
+    .dropdown-link {
+      font-size: 1.6em;
+      border: 0;
+      padding: 12px 15px;
+      color: @dark-grey;
+      transition: background-color 300ms ease;
+      background: 0;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      &:hover,
+      &:focus {
+        background: @grey;
+      }
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+  .dropdown-menu-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    clip: rect(0px, 0px, 0px, 0px);
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+  }
+  &.open {
+    .dropdown-menu-panel {
+      clip: rect(-10px, 500px, 500px, 0px);
+      opacity: 1;
+      transition: opacity 300ms, clip 0ms linear 0ms;
+    }
+    .dropdown-menu-trigger {
+      .icon__menu-hover {
+        opacity: 1;
+      }
+    }
+    .dropdown-menu-panel-overlay {
+      clip: rect(0px, 5000px, 5000px, 0px);
+    }
+  }
+}
