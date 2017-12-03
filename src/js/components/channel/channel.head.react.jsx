@@ -25,16 +25,17 @@ class Modal extends Component {
 	render() {
 		let { props, state } = this;
 		return (
-			<div className="modal-container">
+			<div className={"modal-container" + ( state.open ? " open" : "" )}>
 				<button className="modal-button" onClick={() => this.onOpen()}>
 					<span className="assistive">Open Modal</span>
 				</button>
+				<div className="model-overlay"></div>
 				{
 					state.open ? (
 						<div className="modal">
 							<div className="modal-title">
 								<h3>{props.title}</h3>
-								<button className="modal-button">
+								<button className="modal-button" onClick={() => this.onClose()}>
 									<span className="assistive">Close Modal</span>
 								</button>
 							</div>

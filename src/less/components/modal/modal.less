@@ -1,0 +1,38 @@
+.modal-container {
+  text-align: left;
+  .modal-button {
+
+  }
+  .model-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    clip: rect(0px, 0px, 0px, 0px);
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    transition: opacity 300ms, clip 0ms linear 300ms;
+    background: @grey-transparency;
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 500px;
+    max-height: 700px;
+    background: @white;
+    z-index: 21;
+  }
+  &.open {
+    .model-overlay {
+      clip: rect(0px, 5000px, 5000px, 0px);
+      opacity: 1;
+      transition: opacity 300ms, clip 0ms linear 0ms;
+    }
+  }
+}
