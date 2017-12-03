@@ -1,7 +1,55 @@
-import React from "react";
+import React, { Component } from "react";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 
-class ChannelHead extends React.Component {
+class Modal extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			open: false
+		}
+	}
+  
+	onOpen() {
+		this.setState({
+			open: true
+		});
+	}
+	
+	onClose() {
+		this.setState({
+			open: false
+		});
+	}
+
+	render() {
+		let { props, state } = this;
+		return (
+			<div className="modal-container">
+				<button className="modal-button" onClick={() => this.onOpen()}>
+					<span className="assistive">Open Modal</span>
+				</button>
+				{
+					state.open ? (
+						<div className="modal">
+							<div className="modal-title">
+								<h3>{props.title}</h3>
+								<button className="modal-button">
+									<span className="assistive">Close Modal</span>
+								</button>
+							</div>
+							<div className="modal-body">
+								{ props.children }
+							</div>
+						</div>
+					) : null
+				}
+			</div>
+		);
+	}
+}
+
+class ChannelHead extends Component {
 
 	constructor(props) {
 		super(props);
@@ -11,7 +59,14 @@ class ChannelHead extends React.Component {
 		var { name, onSelectClick, onSoloClick, onMuteClick, selected, solo, muted } = this.props;
 		var title = name ? (
 			<div className="channel-item">
-				<h3 ref="name" className="item-title">{name}</h3>
+				<div className="item-title">
+					<h3 ref="name">
+						{ name }
+					</h3>
+					<Modal>
+						Some modal
+					</Modal>
+				</div>
 			</div>
 		) : null;
 
