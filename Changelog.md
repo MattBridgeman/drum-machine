@@ -1,3 +1,7 @@
+## 1.3.2
+
+- Added a dropdown menu for menu items
+
 ## 1.3.1
 
 - Added the ability to save tracks names
