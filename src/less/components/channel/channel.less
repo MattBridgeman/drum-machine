@@ -27,11 +27,16 @@
 		.item-value {
 			margin: 0 0 @baseline;
 		}
+
+		&.rotator {
+			max-width: 100px;
+		}
 	}
 	.channel-tray {
 		display: flex;
 		margin: @baseline * 5 0;
 		flex-wrap: wrap;
+		justify-content: space-between;
 		> * {
 			width: 25%;
 		}
