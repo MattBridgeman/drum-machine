@@ -64,7 +64,7 @@ class ChannelHead extends Component {
 					<h3 ref="name">
 						{ name }
 					</h3>
-					<Modal>
+					<Modal {...this.props} title="Change Sound">
 						Some modal
 					</Modal>
 				</div>
