@@ -26,8 +26,13 @@ class Modal extends Component {
 		let { props, state } = this;
 		return (
 			<div className={"modal-container" + ( state.open ? " open" : "" )}>
-				<button className="modal-button" onClick={() => this.onOpen()}>
+				<button className="modal-button open-button" onClick={() => this.onOpen()}>
 					<span className="assistive">Open Modal</span>
+					{
+						props.icon ? 
+						(<span className={"icon__" + props.icon}></span>)
+						: null
+					}
 				</button>
 				<div className="model-overlay"></div>
 				{
@@ -35,7 +40,7 @@ class Modal extends Component {
 						<div className="modal">
 							<div className="modal-title">
 								<h3>{props.title}</h3>
-								<button className="modal-button" onClick={() => this.onClose()}>
+								<button className="modal-button close-button" onClick={() => this.onClose()}>
 									<span className="assistive">Close Modal</span>
 									<span className="icon__close"></span>
 								</button>
@@ -65,7 +70,7 @@ class ChannelHead extends Component {
 					<h3 ref="name">
 						{ name }
 					</h3>
-					<Modal {...this.props} title="Change Sound">
+					<Modal {...this.props} title="Change Sound" icon="folder">
 						Some modal
 					</Modal>
 				</div>
