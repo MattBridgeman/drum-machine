@@ -66,7 +66,7 @@ class ChannelHead extends Component {
 		var { name, onSelectClick, onSoloClick, onMuteClick, selected, solo, muted } = this.props;
 		var title = name ? (
 			<div className="channel-item">
-				<div className="item-title">
+				<div className="channel-title">
 					<h3 ref="name">
 						{ name }
 					</h3>
