@@ -37,6 +37,7 @@ class Modal extends Component {
 								<h3>{props.title}</h3>
 								<button className="modal-button" onClick={() => this.onClose()}>
 									<span className="assistive">Close Modal</span>
+									<span className="icon__close"></span>
 								</button>
 							</div>
 							<div className="modal-body">
