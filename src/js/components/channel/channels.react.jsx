@@ -35,18 +35,20 @@ class Channels extends React.Component {
                       { name }
                     </h3>
                     <Modal {...this.props} title="Change Sound" icon="folder">
-                      <h4>Library Sounds</h4>
-                      <ul>
-                        {
-                          librarySoundsList.map(({
-                            key,
-                            value: { 
-                              name
-                            }
-                          }) => 
-                          <li>{ name + ("" + key === "" + soundId ? " - Selected" : "") }</li>
-                        )}
-                      </ul>
+                      <div className="sound-selector">
+                        <h4>Library Sounds</h4>
+                        <ul>
+                          {
+                            librarySoundsList.map(({
+                              key,
+                              value: { 
+                                name
+                              }
+                            }) => 
+                            <li>{ name + ("" + key === "" + soundId ? " - Selected" : "") }</li>
+                          )}
+                        </ul>
+                      </div>
                     </Modal>
                   </div>
                 </div>
