@@ -1,7 +1,7 @@
 import React from "react";
 import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
-import { ChannelHead } from "./channel.head.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
+import { Modal } from "../modal/modal.react.jsx";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 
@@ -19,15 +19,30 @@ class Channels extends React.Component {
     return (
       <div className="channels-container">
         <div className="channels">
-          {channels.map((channel, i) =>
-            <div className={"channel " + (channel.selected ? "selected" : "")} ref="channel">
-              <ChannelHead
-                name={sounds[channel.sound].name}
-                selected={channel.selected}
-                solo={channel.solo}
-                onSelectClick={() => actions.changeSelectedChannel(machineId, i)} 
-                onSoloClick={() => actions.toggleSoloChannel(machineId, i)}
-                onMuteClick={() => actions.toggleMuteChannel(machineId, i)} muted={channel.mute} />
+          {channels.map((channel, i) => {
+            let { name } = sounds[channel.sound];
+            let { selected, solo, mute } = channel;
+            let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
+            let onSoloClick = () => actions.toggleSoloChannel(machineId, i);
+            let onMuteClick = () => actions.toggleMuteChannel(machineId, i);
+            return <div className={"channel " + (channel.selected ? "selected" : "")} ref="channel">
+              <div className="channel-head">
+                <div className="channel-item">
+                  <div className="channel-title">
+                    <h3 ref="name">
+                      { name }
+                    </h3>
+                    <Modal {...this.props} title="Change Sound" icon="folder">
+                      Some modal
+                    </Modal>
+                  </div>
+                </div>
+                <ToggleButton ref="toggleButton" classes="channel-item select-button" selected={selected} name="Select" onClick={onSelectClick} />
+                <div className="channel-tray">
+                  <ToggleButton ref="soloButton" classes="channel-item green" selected={solo} name="Solo" onClick={onSoloClick} />
+                  <ToggleButton ref="muteButton" classes="channel-item red" selected={mute} name="Mute" onClick={onMuteClick} />
+                </div>
+              </div>
               <div className="channel-tray">
                 <Rotator name="Volume" value={channel.volume} onValueChange={ (value) => actions.changeVolumeToAmount(machineId, i, value) } />
                 <Rotator name="Pitch" value={channel.pitch} onValueChange={ (value) => actions.changePitchToAmount(machineId, i, value) } />
@@ -44,7 +59,7 @@ class Channels extends React.Component {
                 </div>
               </div>
             </div>
-          )}
+          })}
         </div>
       </div>
     )
