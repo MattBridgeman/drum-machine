@@ -4,6 +4,7 @@ import { Rotator } from "../rotator/rotator.react.jsx";
 import { Modal } from "../modal/modal.react.jsx";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
+import { objectToArrayWithKeyValue } from "../../library/natives/array";
 
 class Channels extends React.Component {
 
@@ -12,16 +13,17 @@ class Channels extends React.Component {
 	}
 
 	render() {
-    const { machine, machineId, playState, sounds, dispatch } = this.props;
+    const { machine, machineId, playState, sounds, librarySounds, dispatch } = this.props;
     const { channels } = machine;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
-		const actions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
+    const actions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
+    const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
     return (
       <div className="channels-container">
         <div className="channels">
           {channels.map((channel, i) => {
             let { name } = sounds[channel.sound];
-            let { selected, solo, mute } = channel;
+            let { selected, solo, mute, sound: soundId } = channel;
             let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
             let onSoloClick = () => actions.toggleSoloChannel(machineId, i);
             let onMuteClick = () => actions.toggleMuteChannel(machineId, i);
@@ -33,7 +35,18 @@ class Channels extends React.Component {
                       { name }
                     </h3>
                     <Modal {...this.props} title="Change Sound" icon="folder">
-                      Some modal
+                      <h4>Library Sounds</h4>
+                      <ul>
+                        {
+                          librarySoundsList.map(({
+                            key,
+                            value: { 
+                              name
+                            }
+                          }) => 
+                          <li>{ name + ("" + key === "" + soundId ? " - Selected" : "") }</li>
+                        )}
+                      </ul>
                     </Modal>
                   </div>
                 </div>
