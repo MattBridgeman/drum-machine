@@ -28,6 +28,8 @@
     color: @dark-grey;
     text-transform: none;
     font-weight: normal;
+    display: flex;
+    flex-direction: column;
     .modal-title {
       display: flex;
       justify-content: space-between;
@@ -42,6 +44,7 @@
     }
     .modal-body {
       padding: 0 20px 10px;
+      overflow-y: auto;
     }
     .close-button {
       background: 0;
