@@ -1,7 +1,32 @@
 .sound-selector {
+  position: absolute;
+  padding-bottom: 60px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
   h4 {
     font-size: 1.6em;
     font-weight: normal;
     margin: 0 0 20px;
+  }
+  .generic-list {
+    overflow-y: auto;
+  }
+  .button-tray {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: @white;
+    height: 60px;
+    padding: 10px 0;
+    .button {
+      padding: 20px;
+      height: auto;
+      width: auto;
+    }
   }
 }
