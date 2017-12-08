@@ -30,14 +30,16 @@ class ChangeChannelSound extends Component {
     const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
     return <Modal {...this.props} title="Change Sound" icon="folder">
       <div className="sound-selector">
-        <h4>Library Sounds</h4>
+        <div className="tabs">
+          <h4>Library Sounds</h4>
+        </div>
         <ul className="generic-list">
           {
             librarySoundsList.map(({
               key: id,
               value: { name }
             }) => {
-              let selected = "" + id === "" + soundId;
+              let selected = "" + id === "" + this.state.selectedId;
               return <li>
                 <label>
                   <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => this.onChange(event.target.value)} />

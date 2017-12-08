@@ -7,10 +7,21 @@
   right: 0;
   display: flex;
   flex-direction: column;
+  .tabs {
+    border-bottom: 1px solid @grey-transparency;
+  }
   h4 {
     font-size: 1.6em;
     font-weight: normal;
-    margin: 0 0 20px;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid @grey-transparency;
+    border-bottom: 0;
+    border-top-width: 2px;
+    display: inline-block;
+    width: auto;
+    margin-bottom: -1px;
+    background: @white;
   }
   .generic-list {
     overflow-y: auto;
@@ -24,7 +35,7 @@
     height: 60px;
     padding: 10px 0;
     .button {
-      padding: 20px;
+      padding: 10px;
       height: auto;
       width: auto;
     }
