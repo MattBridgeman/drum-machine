@@ -51,7 +51,7 @@ class ChangeChannelSound extends Component {
           )}
         </ul>
         <div className="button-tray">
-          <button className="button" onClick={() => onSoundChange(this.state.selectedId)} disabled={() => this.soundHasChanged()}>Update</button>
+          <button className="button" onClick={() => onSoundChange(this.state.selectedId)} disabled={!this.soundHasChanged()}>Update</button>
         </div>
       </div>
     </Modal>;
