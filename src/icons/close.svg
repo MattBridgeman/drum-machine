@@ -7,7 +7,7 @@
 
       .cls-2 {
         fill: none;
-        stroke: #2e2e2e;
+        stroke: #ffffff;
         stroke-width: 2px;
       }
 
@@ -20,7 +20,6 @@
     </clipPath>
   </defs>
   <g id="close" class="cls-1">
-    <rect class="cls-3" x="-890" y="127" width="47" height="47"/>
     <line id="Line_2" data-name="Line 2" class="cls-2" x2="22" y2="22" transform="translate(-877.5 139.5)"/>
     <line id="Line_3" data-name="Line 3" class="cls-2" x2="22" y2="22" transform="translate(-855.5 139.5) rotate(90)"/>
   </g>

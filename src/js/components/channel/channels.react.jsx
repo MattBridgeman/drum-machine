@@ -41,7 +41,7 @@ class ChangeChannelSound extends Component {
             }) => {
               let selected = "" + id === "" + this.state.selectedId;
               return <li>
-                <label>
+                <label className="choice-item">
                   <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => this.onChange(event.target.value)} />
                   <span>{name}</span>
                   <span className="assistive">{selected ? " - Selected" : ""}</span>
