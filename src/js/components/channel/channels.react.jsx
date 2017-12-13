@@ -33,7 +33,7 @@ class ChangeChannelSound extends Component {
         <div className="tabs">
           <h4>Library Sounds</h4>
         </div>
-        <ul className="generic-list">
+        <ul className="generic-list striped">
           {
             librarySoundsList.map(({
               key: id,
