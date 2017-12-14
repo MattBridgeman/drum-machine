@@ -32,7 +32,7 @@ class Channels extends Component {
                     <h3 ref="name">
                       { name }
                     </h3>
-                    <SoundSelector {...this.props} channel={channel} soundId={soundId} onSoundChange={(id) => console.log("sound change:", id)} />
+                    <SoundSelector {...this.props} channel={channel} soundId={soundId} onSoundChange={(id) => actions.changeSelectedSound(machineId, i, id)} />
                   </div>
                 </div>
                 <ToggleButton ref="toggleButton" classes="channel-item select-button" selected={selected} name="Select" onClick={onSelectClick} />
