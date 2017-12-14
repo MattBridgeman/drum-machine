@@ -11,7 +11,8 @@ import {
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
 	NEW_BANK_INDEX,
-	CHANGE_SWING_TO_AMOUNT
+	CHANGE_SWING_TO_AMOUNT,
+    CHANGE_SELECTED_SOUND
 } from "../../constants/drum.machine.constants";
 import {
 	NEW_TRACK_LOADING,
@@ -346,8 +347,6 @@ describe("Drum Machine reducer", function() {
 	});
 
 	it("loads the new track loaded state", function() {
-		const initialState = getInitialState();
-
 		const _drumMachine = {
 			0: {
 				currentBankIndex: 0,
@@ -363,5 +362,21 @@ describe("Drum Machine reducer", function() {
 		const nextState = drumMachine({}, action);
 
 		expect(nextState).to.deep.equal(_drumMachine);
+	});
+	
+	it("changes the selected sound", function() {
+		const initialState = getInitialState();
+
+		const action = {
+			type: CHANGE_SELECTED_SOUND,
+			machineId: 0,
+			channelId: 0,
+			value: 1234
+		};
+
+		const nextState = drumMachine(initialState, action);
+
+		expect(nextState[0].channels[0].sound).to.deep.equal(1234);
+		expect(nextState[0].channels[1].sound).to.deep.equal(1);
 	});
 });
