@@ -9,7 +9,8 @@ import {
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
 	NEW_BANK_INDEX,
-	CHANGE_SWING_TO_AMOUNT
+	CHANGE_SWING_TO_AMOUNT,
+	CHANGE_SELECTED_SOUND
 } from "../constants/drum.machine.constants";
 import {
 	NEW_TRACK_LOADING,
@@ -273,6 +274,20 @@ export default function drumMachine(state = initialState, action) {
 						({
 							...channel,
 							selected: action.value === i
+						})
+					)
+				}
+			};
+		case CHANGE_SELECTED_SOUND:
+			return {
+				...state,
+				[action.machineId]: {
+					...state[action.machineId],
+					channels: state[action.machineId].channels
+					.map((channel, i) =>
+						({
+							...channel,
+							sound: action.channelId === i ? action.value : channel.sound
 						})
 					)
 				}

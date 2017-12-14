@@ -1,0 +1,18 @@
+
+  .generic-list {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      font-size: 1.4em;
+      border-bottom: 1px solid @grey-transparency;
+    }
+    &.striped {
+      li {
+        border-bottom: 0 none;
+        &:nth-child(even) {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+  }

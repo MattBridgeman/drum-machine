@@ -4,12 +4,12 @@ import { getAudioContext } from "./context";
 export let cache = {};
 
 export let loadSounds = state => {
-  let { sounds } = state;
-  let soundKeys = Object.keys(sounds);
+  let { librarySounds } = state;
+  let soundKeys = Object.keys(librarySounds);
   return soundKeys.map(key => ({
     id: key,
-    path: sounds[key].path,
-    soundPromise: loadSound(sounds[key].path)
+    path: librarySounds[key].path,
+    soundPromise: loadSound(librarySounds[key].path)
   }));
 };
 
