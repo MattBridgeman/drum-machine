@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 import drumMachine from "./drum.machine.reducer";
 import tempo from "./tempo.reducer";
-import sounds from "./sounds.reducer";
 import librarySounds from "./library.sounds.reducer";
 import playState from "./play.state.reducer";
 import reverb from "./reverb.reducer";
@@ -16,7 +15,6 @@ import meta from "./meta.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
-	sounds,
 	librarySounds,
 	drumMachine,
 	playState,

@@ -12,7 +12,7 @@ class Channels extends Component {
 	}
 
 	render() {
-    const { machine, machineId, playState, sounds, dispatch } = this.props;
+    const { machine, machineId, playState, librarySounds, dispatch } = this.props;
     const { channels } = machine;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
     const actions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
@@ -20,7 +20,7 @@ class Channels extends Component {
       <div className="channels-container">
         <div className="channels">
           {channels.map((channel, i) => {
-            let { name } = sounds[channel.sound];
+            let { name } = librarySounds[channel.sound];
             let { selected, solo, mute, sound: soundId } = channel;
             let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
             let onSoloClick = () => actions.toggleSoloChannel(machineId, i);

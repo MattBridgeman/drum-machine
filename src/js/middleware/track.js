@@ -12,7 +12,6 @@ export const stateToSave = [
   "drumMachine",
   "instruments",
   "reverb",
-  "sounds",
   "tempo",
   "track",
   "meta"

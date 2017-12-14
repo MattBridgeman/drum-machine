@@ -298,7 +298,6 @@ describe("Track", () => {
       drumMachine: {0: {currentBankIndex: 0, swing: 0, channels: []}},
       instruments: [],
       reverb: {},
-      sounds: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
       track: {trackId: "12345678", state: "idle", userId: "1234"},
       meta: {
@@ -372,7 +371,6 @@ describe("Track", () => {
       drumMachine: {0: {currentBankIndex: 0, swing: 0, channels: []}},
       instruments: [],
       reverb: {},
-      sounds: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
       track: {trackId: "12345678", state: "idle", userId: "1234"},
       meta: {
