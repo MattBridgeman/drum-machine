@@ -45,7 +45,9 @@ class Modal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                { props.children }
+                { props.children({
+                  onClose: () => this.onClose()
+                }) }
               </div>
             </div>
           ) : null

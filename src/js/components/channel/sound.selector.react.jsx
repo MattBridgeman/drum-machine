@@ -25,31 +25,35 @@ class SoundSelector extends Component {
     const { librarySounds, channel, soundId, onSoundChange } = this.props;
     const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
     return <Modal {...this.props} title="Change Sound" icon="folder">
-      <div className="sound-selector">
-        <div className="tabs">
-          <h4>Library Sounds</h4>
-        </div>
-        <ul className="generic-list striped">
-          {
-            librarySoundsList.map(({
-              key: id,
-              value: { name }
-            }) => {
-              let selected = "" + id === "" + this.state.selectedId;
-              return <li>
-                <label className="choice-item">
-                  <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => this.onChange(event.target.value)} />
-                  <span>{name}</span>
-                  <span className="assistive">{selected ? " - Selected" : ""}</span>
-                </label>
-              </li>;
-            }
-          )}
-        </ul>
-        <div className="button-tray">
-          <button className="button" onClick={() => onSoundChange(this.state.selectedId)} disabled={!this.soundHasChanged()}>Update</button>
-        </div>
+      { ({ onClose }) => 
+        <div className="sound-selector">
+          <div className="tabs">
+            <h4>Library Sounds</h4>
+          </div>
+          <ul className="generic-list striped">
+            {
+              librarySoundsList.map(({
+                key: id,
+                value: { name }
+              }) => {
+                let selected = "" + id === "" + this.state.selectedId;
+                return <li>
+                  <label className="choice-item">
+                    <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => this.onChange(event.target.value)} />
+                    <span>{name}</span>
+                    <span className="assistive">{selected ? " - Selected" : ""}</span>
+                  </label>
+                </li>;
+              }
+            )}
+          </ul>
+          <div className="button-tray">
+            <button className="button" onClick={() => { onSoundChange(this.state.selectedId); onClose();}} disabled={!this.soundHasChanged()}>Update</button>
+          </div>
       </div>
+      }
     </Modal>;
   }
 }
+
+export { SoundSelector };
