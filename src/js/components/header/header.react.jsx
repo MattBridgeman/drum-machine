@@ -6,6 +6,8 @@ import { DefaultInput } from "../input/input.react.jsx";
 import { DropDownMenu } from "./dropdown.react.jsx";
 
 export let getMenuItemsFromProps = props => {
+  const { dispatch } = props;
+  const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
   return [{
     name: "Save Track",
     callback: () => trackActions.saveTrack(),
@@ -23,7 +25,6 @@ export let getMenuItemsFromProps = props => {
 
 export let Header = props => {
   const { dispatch } = props;
-  const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
   const metaActions = bindActionCreators(DrumMachineActions.meta, dispatch);
   return <div className="header">
     <div className="tray">
