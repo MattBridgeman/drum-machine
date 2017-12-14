@@ -10,7 +10,8 @@ import { changeSelectedChannel,
 	toggleMuteChannel,
 	toggleBeat,
 	newBankIndex,
-	changeSwingToAmount
+	changeSwingToAmount,
+    changeSelectedSound
 } from "../drum.machine.actions";
 
 import { CHANGE_SELECTED_CHANNEL,
@@ -23,7 +24,8 @@ import { CHANGE_SELECTED_CHANNEL,
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
 	NEW_BANK_INDEX,
-	CHANGE_SWING_TO_AMOUNT
+	CHANGE_SWING_TO_AMOUNT,
+	CHANGE_SELECTED_SOUND
 } from "../../constants/drum.machine.constants";
 
 describe("Channel actions", function() {
@@ -177,6 +179,19 @@ describe("Channel actions", function() {
 			type: CHANGE_SWING_TO_AMOUNT,
 			machineId,
 			value: 50
+		});
+	});
+	
+	it("Expect changeChannelSound to return correct action", function() {
+		let machineId = 0;
+		let channelId = 1;
+		let action = changeSelectedSound(machineId, channelId, 1234);
+
+		expect(action).to.deep.equal({
+			type: CHANGE_SELECTED_SOUND,
+			machineId,
+			channelId,
+			value: 1234
 		});
 	});
 });

@@ -9,7 +9,8 @@ import {
 	TOGGLE_REVERB,
 	TOGGLE_BEAT_STATE,
 	NEW_BANK_INDEX,
-	CHANGE_SWING_TO_AMOUNT
+	CHANGE_SWING_TO_AMOUNT,
+	CHANGE_SELECTED_SOUND
 } from "../constants/drum.machine.constants";
 
 export function changeVolumeToAmount(machineId, channelId, value){
@@ -62,6 +63,15 @@ export function changeSelectedChannel(machineId, newChannelId) {
 		type: CHANGE_SELECTED_CHANNEL,
 		machineId,
 		value: newChannelId
+	};
+}
+
+export function changeSelectedSound(machineId, channelId, newSoundId) {
+	return {
+		type: CHANGE_SELECTED_SOUND,
+		machineId,
+		channelId,
+		value: newSoundId
 	};
 }
 
