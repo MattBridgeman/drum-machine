@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import DrumMachineActions from "../../actions/root.actions";
-import { Instrument } from "../instrument/instrument.react.jsx";
-import { View } from "./view.react.jsx";
+import DrumMachineActions from "../../../actions/root.actions";
+import { View } from "../view.react.jsx";
 
-class Track extends Component {
+class Tracks extends Component {
   render(){
     let { props } = this;
-    return <View {...props} view={{ name: "track" }}>
+    return <View {...props} view={{ name: "tracks" }}>
       <div className="container">
-        {props && props.track.state === "loading" ? (
+        {props && props.tracks.state === "loading" ? (
           <div className="status loading">
             <span className="icon icon__loading"></span>
-            <p>Loading Track</p>
+            <p>Loading Tracks</p>
           </div>
         ) : (
-        <Instrument {...props} />
+        <div>here</div>
         )}
       </div>
     </View>;
@@ -27,4 +26,4 @@ function mapStateToProps(state) {
 	return state;
 }
 
-export default connect(mapStateToProps)(Track);
+export default connect(mapStateToProps)(Tracks);
