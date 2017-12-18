@@ -1,3 +1,8 @@
+## 1.4.0
+
+- Added ability to switch library sounds
+- Fixed bug with track save
+
 ## 1.3.2
 
 - Added a dropdown menu for menu items
