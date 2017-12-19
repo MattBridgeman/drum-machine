@@ -1,4 +1,5 @@
 import { matchesUserTracksRoute } from "../library/routing/routing";
+import rootReducer from "../reducers/root.reducer";
 
 export const tracks = store => next => {
 
