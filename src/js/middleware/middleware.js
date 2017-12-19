@@ -5,6 +5,7 @@ import { startNoise } from "./start.noise";
 import { supplyAuth } from "./auth";
 import { instruments } from "./instruments";
 import { track } from "./track";
+import { tracks } from "./tracks";
 import { historyMiddleware } from "./history";
 import { meta } from "./meta";
 
@@ -16,5 +17,6 @@ export default applyMiddleware(
   instruments,
   meta,
   track,
+  tracks,
   historyMiddleware
 );
