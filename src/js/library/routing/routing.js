@@ -6,7 +6,7 @@ export let matchesNewPath = (oldPath, newPath) => {
 
 export let matchesUserTrackRoute = path => matchPath(path, "/users/:userId/tracks/:trackId");
 
-export let matchesUserTracksRoute = path => matchPath(path, "/users/:userId/tracks/");
+export let matchesUserTracksRoute = path => !matchesUserTrackRoute(path) ? matchPath(path, "/users/:userId/tracks/") : false;
 
 export let matchesDefaultTrackRoute = path => matchPath(path, "/");
 
