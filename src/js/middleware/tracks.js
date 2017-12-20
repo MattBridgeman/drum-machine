@@ -1,4 +1,5 @@
 import { matchesUserTracksRoute } from "../library/routing/routing";
+import { loadUserTracks } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
 
 export const tracks = store => next => {
@@ -26,7 +27,9 @@ export const tracks = store => next => {
     let userTracksRoute = isNewUserTracksRoute(action);
     if(!!userTracksRoute) {
       //load tracks from db
-      console.log("load tracks");
+      let { userId } = userTracksRoute;
+      loadUserTracks(userId)
+        .then(tracks => console.log(tracks));
     }
   };
 
