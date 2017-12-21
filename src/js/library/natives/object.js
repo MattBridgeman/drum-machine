@@ -1,4 +1,4 @@
 export let getValueFromPath = (object, path) => {
   return path.split("/")
-    .reduce((obj, key) => obj[key], object);
+    .reduce((obj, key) => obj && obj[key], object);
 };

@@ -39,7 +39,6 @@ export const tracks = store => next => {
             next(userTracksLoaded(userId, tracks));
           })
           .catch(error => {
-            console.log(error);
             next(userTracksLoadError("There was an error loading tracks."));
           });
       });

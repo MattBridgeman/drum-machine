@@ -30,7 +30,7 @@ let loadTrack = (userId, trackId) => {
 let loadUserTracks = userId => {
   return init()
     .then(() => {
-      firebase.database().ref(`users/${userId}/tracks/`).orderByChild("meta/updatedDate").once("value")
+      return firebase.database().ref(`users/${userId}/tracks/`).orderByChild("meta/updatedDate").once("value")
       .then(function(snapshot) {
         let tracks = [];
         snapshot.forEach(shot => tracks.push(shot.val()));
