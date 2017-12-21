@@ -1,7 +1,7 @@
 import { matchesUserTracksRoute } from "../library/routing/routing";
 import { loadUserTracks } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
-import { userTracksLoading, userTracksLoaded } from "../actions/tracks.actions";
+import { userTracksLoading, userTracksLoaded, userTracksLoadError } from "../actions/tracks.actions";
 import { timeout } from "../library/audio-api/interval";
 
 export const tracks = store => next => {
@@ -36,11 +36,11 @@ export const tracks = store => next => {
       .then(_ => {
         loadUserTracks(userId)
           .then(tracks => {
-            userTracksLoaded(userId, tracks);
+            next(userTracksLoaded(userId, tracks));
           })
           .catch(error => {
             console.log(error);
-            
+            next(userTracksLoadError("There was an error loading tracks."));
           });
       });
     }
