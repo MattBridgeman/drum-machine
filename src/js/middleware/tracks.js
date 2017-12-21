@@ -1,6 +1,8 @@
 import { matchesUserTracksRoute } from "../library/routing/routing";
 import { loadUserTracks } from "../library/firebase/db";
 import rootReducer from "../reducers/root.reducer";
+import { userTracksLoading, userTracksLoaded } from "../actions/tracks.actions";
+import { timeout } from "../library/audio-api/interval";
 
 export const tracks = store => next => {
 
@@ -26,10 +28,17 @@ export const tracks = store => next => {
   let checkLoadUserTracks = action => {
     let userTracksRoute = isNewUserTracksRoute(action);
     if(!!userTracksRoute) {
-      //load tracks from db
       let { userId } = userTracksRoute;
-      loadUserTracks(userId)
-        .then(tracks => console.log(tracks));
+      //loading action
+      timeout.get().then(_ => {
+        next(userTracksLoading(userId));
+      })
+      .then(_ => {
+        loadUserTracks(userId)
+          .then(tracks => {
+            userTracksLoaded(userId, tracks);
+          });
+      });
     }
   };
 
