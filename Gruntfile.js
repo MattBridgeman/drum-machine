@@ -103,6 +103,15 @@ module.exports = function(grunt) {
           src: ['firebaseui.js'],
           dest: 'build/js/'
         }]
+      },
+      momentjs: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'node_modules/moment/min/',
+          src: ['moment.min.js'],
+          dest: 'build/js/'
+        }]
       }
     },
 
