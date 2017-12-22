@@ -33,7 +33,12 @@ let loadUserTracks = userId => {
       return firebase.database().ref(`users/${userId}/tracks/`).orderByChild("meta/updatedDate").once("value")
       .then(function(snapshot) {
         let tracks = [];
-        snapshot.forEach(shot => tracks.push(shot.val()));
+        snapshot.forEach(shot => {
+          tracks = [
+            ...tracks,
+            shot.val()
+          ]
+        });
         tracks.reverse();
         return tracks;
       });
