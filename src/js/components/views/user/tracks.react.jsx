@@ -5,6 +5,7 @@ import DrumMachineActions from "../../../actions/root.actions";
 import { View } from "../view.react.jsx";
 import { getValueFromPath } from "../../../library/natives/object";
 import { Link } from "react-router-dom";
+import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
 
 const TracksList = props => {
   let { tracks: { tracks }, match } = props;
@@ -22,6 +23,10 @@ const TracksList = props => {
           <Link to={`/users/${userId}/tracks/${trackId}`}>
             <span className="title">{ title }</span> - <span className="date">{ updatedDate }</span>
           </Link>
+          <DropDownMenu items={[{
+            name: "Delete Track",
+            callback: () => trackActions.deleteTrack()
+          }]} />
         </li>;
       })
     }
@@ -33,6 +38,7 @@ class Tracks extends Component {
     let { props } = this;
     return <View {...props} view={{ name: "tracks" }}>
       <div className="container">
+        <h2>Tracks</h2>
         {props && props.tracks.state === "loading" ? (
           <div className="status loading">
             <span className="icon icon__loading"></span>

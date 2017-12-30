@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
-import { DropDownMenu } from "./dropdown.react.jsx";
+import { DropDownMenu } from "../dropdown/dropdown.react.jsx";
 
 export let getMenuItemsFromProps = props => {
   const { dispatch } = props;
