@@ -6,6 +6,7 @@ import { View } from "../view.react.jsx";
 import { getValueFromPath } from "../../../library/natives/object";
 import { Link } from "react-router-dom";
 import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
+import moment from "moment";
 
 const TracksList = props => {
   let { tracks: { tracks }, match } = props;
@@ -18,10 +19,11 @@ const TracksList = props => {
         let title = getValueFromPath(track, "meta/title") || "Untitled Track";
         //TODO: set default date at db level
         let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
+        let updatedMoment = moment(updatedDate).fromNow();
         let trackId = getValueFromPath(track, "track/trackId");
         return <li>
           <Link to={`/users/${userId}/tracks/${trackId}`}>
-            <span className="title">{ title }</span> - <span className="date">{ updatedDate }</span>
+            <span className="title">{ title }</span> - <span className="meta date">{ updatedMoment }</span>
           </Link>
           <DropDownMenu items={[{
             name: "Select Track",
