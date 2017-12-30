@@ -7,9 +7,9 @@ import { DropDownMenu } from "../dropdown/dropdown.react.jsx";
 import { getValueFromPath } from "../../library/natives/object";
 
 export let getMenuItemsFromProps = props => {
-  const { dispatch, match } = props;
+  const { dispatch, auth } = props;
   const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
-  let userId = getValueFromPath(match, "params/userId");
+  let userId = getValueFromPath(auth, "user/uid");
   return [{
     name: "Save Track",
     callback: () => trackActions.saveTrack(),
