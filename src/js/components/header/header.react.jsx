@@ -4,14 +4,20 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
 import { DropDownMenu } from "../dropdown/dropdown.react.jsx";
+import { getValueFromPath } from "../../library/natives/object";
 
 export let getMenuItemsFromProps = props => {
-  const { dispatch } = props;
+  const { dispatch, match } = props;
   const trackActions = bindActionCreators(DrumMachineActions.track, dispatch);
+  let userId = getValueFromPath(match, "params/userId");
   return [{
     name: "Save Track",
     callback: () => trackActions.saveTrack(),
     condition: () => props.auth && props.auth.user && props.track.write
+  }, {
+    name: "My Tracks",
+    link: `/users/${userId}/tracks/`,
+    condition: () => props.auth && props.auth.user
   }, {
     name: "Logout",
     link: "/user/logout",

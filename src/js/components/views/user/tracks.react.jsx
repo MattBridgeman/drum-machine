@@ -24,6 +24,9 @@ const TracksList = props => {
             <span className="title">{ title }</span> - <span className="date">{ updatedDate }</span>
           </Link>
           <DropDownMenu items={[{
+            name: "Select Track",
+            link: `/users/${userId}/tracks/${trackId}`
+          },{
             name: "Delete Track",
             callback: () => trackActions.deleteTrack()
           }]} />
