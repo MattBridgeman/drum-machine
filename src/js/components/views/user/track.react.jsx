@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import DrumMachineActions from "../../actions/root.actions";
-import { Instrument } from "../instrument/instrument.react.jsx";
-import { View } from "./view.react.jsx";
+import DrumMachineActions from "../../../actions/root.actions";
+import { Instrument } from "../../instrument/instrument.react.jsx";
+import { View } from "../view.react.jsx";
 
 class Track extends Component {
   render(){

@@ -1,3 +1,8 @@
+## 1.4.1
+
+- Added /users/UID/tracks endpoint list a users tracks
+- Added a few new links for managing tracks
+
 ## 1.4.0
 
 - Added ability to switch library sounds
