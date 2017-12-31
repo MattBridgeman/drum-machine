@@ -12,18 +12,19 @@ const TracksList = props => {
   let { tracks: { tracks }, match } = props;
   let userId = getValueFromPath(match, "params/userId");
   let userTracks = getValueFromPath(tracks, userId) || [];
-  return <div className="tracks-list">
+  return userTracks.length ? 
+  (<div className="tracks-list">
     <h2>Tracks</h2>
     <ul>
       {
-        userTracks.map(track => {
+         userTracks.map(track => {
           //TODO: set default track title at db level
           let title = getValueFromPath(track, "meta/title") || "Untitled Track";
           //TODO: set default date at db level
           let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
           let updatedMoment = moment(updatedDate).fromNow();
           let trackId = getValueFromPath(track, "track/trackId");
-          return <li>
+          return <li key={trackId}>
             <Link to={`/users/${userId}/tracks/${trackId}`}>
               <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
             </Link>
@@ -39,12 +40,21 @@ const TracksList = props => {
       }
     </ul>
   </div>
+  ) : (
+    <TracksEmpty {...props} />
+  )
 }
 
 const TracksLoading = props => {
   return <div className="status loading">
     <span className="icon icon__loading"></span>
     <p>Loading Tracks</p>
+  </div>
+};
+
+const TracksEmpty = props => {
+  return <div className="status error">
+    <p>There were no tracks found for this user.</p>
   </div>
 };
 
@@ -62,6 +72,7 @@ class Tracks extends Component {
   getTrackStateFromProps(props) {
     let state = getValueFromPath(props, "tracks/state");
     switch(state) {
+      case "idle":
       case "loading":
         return TracksLoading;
       default:

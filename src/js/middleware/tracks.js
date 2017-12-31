@@ -36,6 +36,7 @@ export const tracks = store => next => {
       .then(_ => {
         loadUserTracks(userId)
           .then(tracks => {
+            console.log(tracks);
             next(userTracksLoaded(userId, tracks));
           })
           .catch(error => {
