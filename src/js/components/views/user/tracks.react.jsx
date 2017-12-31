@@ -12,30 +12,33 @@ const TracksList = props => {
   let { tracks: { tracks }, match } = props;
   let userId = getValueFromPath(match, "params/userId");
   let userTracks = getValueFromPath(tracks, userId) || [];
-  return <ul className="tracks-list">
-    {
-      userTracks.map(track => {
-        //TODO: set default track title at db level
-        let title = getValueFromPath(track, "meta/title") || "Untitled Track";
-        //TODO: set default date at db level
-        let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
-        let updatedMoment = moment(updatedDate).fromNow();
-        let trackId = getValueFromPath(track, "track/trackId");
-        return <li>
-          <Link to={`/users/${userId}/tracks/${trackId}`}>
-            <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
-          </Link>
-          <DropDownMenu items={[{
-            name: "Select Track",
-            link: `/users/${userId}/tracks/${trackId}`
-          },{
-            name: "Delete Track",
-            callback: () => trackActions.deleteTrack()
-          }]} />
-        </li>;
-      })
-    }
-  </ul>
+  return <div className="tracks-list">
+    <h2>Tracks</h2>
+    <ul>
+      {
+        userTracks.map(track => {
+          //TODO: set default track title at db level
+          let title = getValueFromPath(track, "meta/title") || "Untitled Track";
+          //TODO: set default date at db level
+          let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
+          let updatedMoment = moment(updatedDate).fromNow();
+          let trackId = getValueFromPath(track, "track/trackId");
+          return <li>
+            <Link to={`/users/${userId}/tracks/${trackId}`}>
+              <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
+            </Link>
+            <DropDownMenu items={[{
+              name: "Select Track",
+              link: `/users/${userId}/tracks/${trackId}`
+            },{
+              name: "Delete Track",
+              callback: () => trackActions.deleteTrack()
+            }]} />
+          </li>;
+        })
+      }
+    </ul>
+  </div>
 }
 
 class Tracks extends Component {
@@ -43,7 +46,6 @@ class Tracks extends Component {
     let { props } = this;
     return <View {...props} view={{ name: "tracks" }}>
       <div className="container">
-        <h2>Tracks</h2>
         {props && props.tracks.state === "loading" ? (
           <div className="status loading">
             <span className="icon icon__loading"></span>
