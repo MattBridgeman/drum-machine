@@ -27,7 +27,7 @@ describe("Tracks actions", () => {
 	it("userTracksLoadError returns action", () => {
     let userId = 123;
     let error = "Some useful error info";
-		var action = userTracksLoaded(error);
+		var action = userTracksLoadError(error);
     expect(action.type).to.equal(USER_TRACKS_LOAD_ERROR);
     expect(action.error).to.equal(error);
   });

@@ -39,7 +39,7 @@ describe("Tracks reducer", () => {
       userId
     });
     expect(state).to.deep.equal({
-      state: "idle",
+      state: "loaded",
       tracks: {
         "1234": _tracks
       }
