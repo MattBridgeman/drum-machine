@@ -33,7 +33,8 @@ const TracksList = props => {
               link: `/users/${userId}/tracks/${trackId}`
             },{
               name: "Delete Track",
-              callback: () => trackActions.deleteTrack()
+              callback: () => trackActions.deleteTrack(),
+              condition: () => false //TODO: implement track delete
             }]} />
           </li>;
         })
