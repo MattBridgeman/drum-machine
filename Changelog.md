@@ -1,3 +1,8 @@
+## 1.3.3
+
+- Added /users/UID/tracks endpoint list a users tracks
+- Added a few new links for managing tracks
+
 ## 1.3.2
 
 - Added a dropdown menu for menu items
