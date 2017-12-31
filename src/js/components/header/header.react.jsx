@@ -15,6 +15,9 @@ export let getMenuItemsFromProps = props => {
     callback: () => trackActions.saveTrack(),
     condition: () => props.auth && props.auth.user && props.track.write
   }, {
+    name: "New Track",
+    link: "/"
+  }, {
     name: "My Tracks",
     link: `/users/${userId}/tracks/`,
     condition: () => props.auth && props.auth.user
