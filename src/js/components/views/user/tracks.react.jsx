@@ -23,7 +23,7 @@ const TracksList = props => {
         let trackId = getValueFromPath(track, "track/trackId");
         return <li>
           <Link to={`/users/${userId}/tracks/${trackId}`}>
-            <span className="title">{ title }</span> - <span className="meta date">{ updatedMoment }</span>
+            <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
           </Link>
           <DropDownMenu items={[{
             name: "Select Track",
