@@ -41,21 +41,32 @@ const TracksList = props => {
   </div>
 }
 
+const TracksLoading = props => {
+  return <div className="status loading">
+    <span className="icon icon__loading"></span>
+    <p>Loading Tracks</p>
+  </div>
+};
+
 class Tracks extends Component {
   render(){
     let { props } = this;
+    let TrackState = this.getTrackStateFromProps(props);
     return <View {...props} view={{ name: "tracks" }}>
       <div className="container">
-        {props && props.tracks.state === "loading" ? (
-          <div className="status loading">
-            <span className="icon icon__loading"></span>
-            <p>Loading Tracks</p>
-          </div>
-        ) : (
-          <TracksList {...props} />
-        )}
+        <TrackState {...props} />
       </div>
     </View>;
+  }
+
+  getTrackStateFromProps(props) {
+    let state = getValueFromPath(props, "tracks/state");
+    switch(state) {
+      case "loading":
+        return TracksLoading;
+      default:
+        return TracksList;
+    }
   }
 };
 
