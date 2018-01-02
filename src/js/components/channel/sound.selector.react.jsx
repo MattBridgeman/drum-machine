@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Modal } from "../modal/modal.react.jsx";
 import { objectToArrayWithKeyValue } from "../../library/natives/array";
+import { getValueFromPath } from "../../library/natives/object";
 
 class Tabs extends Component {
   
@@ -25,7 +27,6 @@ class Tabs extends Component {
   }
 }
 
-
 const LibraryTab = props => {
   let { onChange, selectedId, librarySounds } = props;
   const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
@@ -45,6 +46,23 @@ const LibraryTab = props => {
         </li>;
       }
     )}
+  </ul>
+};
+
+const UploadsTab = props => {
+  let { onChange, selectedId, track, match } = props;
+  let userId = getValueFromPath(match, "params/userId");
+  return <ul className="generic-list striped">
+    <li>
+      {
+        track.write ?
+          (<Link to={`/users/${userId}/uploads/`}>
+            Upload more samples
+          </Link>)
+        : null
+      }
+    </li>
+    <li>Blahh</li>
   </ul>
 };
 
@@ -74,9 +92,19 @@ class SoundSelector extends Component {
     });
   }
 
+  getSelectedTab(){
+    switch(this.state.selectedTab){
+      case "library-sounds":
+        return LibraryTab;
+      case "uploads":
+        return UploadsTab;
+    }
+  }
+
   render(){
     const { librarySounds, channel, soundId, onSoundChange } = this.props;
     const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
+    const Tab = this.getSelectedTab();
     return <Modal {...this.props} title="Change Sound" icon="folder">
       { ({ onClose }) => 
         <div className="sound-selector">
@@ -87,7 +115,7 @@ class SoundSelector extends Component {
             name: "Uploads",
             id: "uploads"
           }]} />
-          <LibraryTab {...this.props} selectedId={this.state.selectedId} onChange={id => this.onChange(id)} />
+          <Tab {...this.props} selectedId={this.state.selectedId} onChange={id => this.onChange(id)} />
           <div className="button-tray">
             <button className="button" onClick={() => { onSoundChange(this.state.selectedId); onClose();}} disabled={!this.soundHasChanged()}>Update</button>
           </div>
