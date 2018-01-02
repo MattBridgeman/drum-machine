@@ -1,0 +1,27 @@
+
+  .tabs {
+    border-bottom: 1px solid @grey-transparency;
+    h4 {
+      font-size: 1.6em;
+      font-weight: normal;
+      margin: 0;
+      padding: 10px;
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-top-width: 2px;
+      display: inline-block;
+      width: auto;
+      margin-bottom: -1px;
+      background: transparent;
+      a {
+        color: @dark-grey;
+      }
+      &.selected {
+        border-color: @grey-transparency;
+        background: @white;
+        a {
+          color: @blue;
+        }
+      }
+    }
+  }

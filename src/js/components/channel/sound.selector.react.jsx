@@ -6,9 +6,6 @@ class Tabs extends Component {
   
   constructor(props){
     super(props);
-    this.state = {
-      selectedTab: props.initial
-    };
   }
 
   render() {
@@ -16,7 +13,7 @@ class Tabs extends Component {
     return <div className="tabs">
       {
         props.tabs.map(({ name, id }) => {
-          let selected = state.selectedTab === id;
+          let selected = props.selected === id;
           return <h4 class={selected ? "selected" : ""}><a onClick={() => this.changeTab(id)}>{name}</a></h4>
         })
       }
@@ -24,11 +21,32 @@ class Tabs extends Component {
   }
 
   changeTab(id) {
-    this.setState({
-      selectedTab: id
-    });
+    this.props.onTabChange(id);
   }
 }
+
+
+const LibraryTab = props => {
+  let { onChange, selectedId, librarySounds } = props;
+  const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
+  return <ul className="generic-list striped">
+    {
+      librarySoundsList.map(({
+        key: id,
+        value: { name }
+      }) => {
+        let selected = "" + id === "" + selectedId;
+        return <li>
+          <label className="choice-item">
+            <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => onChange(event.target.value)} />
+            <span>{name}</span>
+            <span className="assistive">{selected ? " - Selected" : ""}</span>
+          </label>
+        </li>;
+      }
+    )}
+  </ul>
+};
 
 class SoundSelector extends Component {
   
@@ -49,6 +67,12 @@ class SoundSelector extends Component {
       selectedId: value
     });
   }
+  
+  onTabChange(id) {
+    this.setState({
+      selectedTab: id
+    });
+  }
 
   render(){
     const { librarySounds, channel, soundId, onSoundChange } = this.props;
@@ -56,32 +80,14 @@ class SoundSelector extends Component {
     return <Modal {...this.props} title="Change Sound" icon="folder">
       { ({ onClose }) => 
         <div className="sound-selector">
-          <Tabs tabs={[{
+          <Tabs onTabChange={id => this.onTabChange(id)} selected={this.state.selectedTab} tabs={[{
             name: "Library Sounds",
             id: "library-sounds"
           }, {
             name: "Uploads",
             id: "uploads"
-          }]} initial="library-sounds">
-
-          </Tabs>
-          <ul className="generic-list striped">
-            {
-              librarySoundsList.map(({
-                key: id,
-                value: { name }
-              }) => {
-                let selected = "" + id === "" + this.state.selectedId;
-                return <li>
-                  <label className="choice-item">
-                    <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => this.onChange(event.target.value)} />
-                    <span>{name}</span>
-                    <span className="assistive">{selected ? " - Selected" : ""}</span>
-                  </label>
-                </li>;
-              }
-            )}
-          </ul>
+          }]} />
+          <LibraryTab {...this.props} selectedId={this.state.selectedId} onChange={id => this.onChange(id)} />
           <div className="button-tray">
             <button className="button" onClick={() => { onSoundChange(this.state.selectedId); onClose();}} disabled={!this.soundHasChanged()}>Update</button>
           </div>
