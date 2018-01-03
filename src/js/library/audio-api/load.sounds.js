@@ -1,16 +1,31 @@
 import { requestAndDecodeSound } from "./request";
 import { getAudioContext } from "./context";
+import { getValueFromPath } from "../natives/object";
 
 export let cache = {};
 
-export let loadSounds = state => {
-  let { librarySounds } = state;
-  let soundKeys = Object.keys(librarySounds);
-  return soundKeys.map(key => ({
-    id: key,
-    path: librarySounds[key].path,
-    soundPromise: loadSound(librarySounds[key].path)
-  }));
+export let getSound = (soundId, state) => {
+  let { librarySounds, match, samples } = state;
+  let userId = getValueFromPath(match, "params/userId");
+  let userSample = getValueFromPath(samples, `samples/${userId}/${soundId}`);
+  let librarySample = librarySounds[soundId];
+  let sound = userSample || librarySample;
+  if(sound) {
+    return {
+      id: soundId,
+      path: sound.path,
+      soundPromise: loadSound(sound.path)
+    };
+  }
+};
+
+export let loadSounds = (soundIds, state) => {
+  return soundIds
+    .map(soundId => getSound(soundId, state))
+    .map(sound => sound ? {
+      ...sound,
+      soundPromise: loadSound(sound.path)
+    } : undefined);
 };
 
 export let loadSound = path => {

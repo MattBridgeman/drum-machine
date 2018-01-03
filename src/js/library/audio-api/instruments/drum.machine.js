@@ -50,7 +50,11 @@ export let createDrumMachine = () => {
   };
 
   let updateSounds = (instrument, state) => {
-    sounds = loadSounds(state);
+    let { machineId } = instrument;
+    let { drumMachine } = state;
+    let { channels } = drumMachine[machineId];
+    let soundIds = channels.map(channel => channel.sound);
+    sounds = loadSounds(soundIds, state);
   };
 
   let updateGains = (instrument, state) => {
