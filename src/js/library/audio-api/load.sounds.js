@@ -21,11 +21,7 @@ export let getSound = (soundId, state) => {
 
 export let loadSounds = (soundIds, state) => {
   return soundIds
-    .map(soundId => getSound(soundId, state))
-    .map(sound => sound ? {
-      ...sound,
-      soundPromise: loadSound(sound.path)
-    } : undefined);
+    .map(soundId => getSound(soundId, state));
 };
 
 export let loadSound = path => {
