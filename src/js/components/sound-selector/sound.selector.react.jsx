@@ -28,16 +28,19 @@ const LibraryTab = props => {
 };
 
 const SamplesTab = props => {
-  let { onChange, selectedId, track, match } = props;
-  let userId = getValueFromPath(match, "params/userId");
+  let { onChange, selectedId, track, auth } = props;
+  let userId = getValueFromPath(auth, "user/uid");
+  let loggedIn = !!userId;
   return <ul className="generic-list striped">
     <li className="cta-item">
       {
-        track.write ?
+        loggedIn ?
           (<Link to={`/users/${userId}/samples/`}>
             Upload samples
           </Link>)
-        : null
+        : (<Link to={`/user/login/`}>
+          Login to upload samples
+        </Link>)
       }
     </li>
     <li>Blahh</li>
