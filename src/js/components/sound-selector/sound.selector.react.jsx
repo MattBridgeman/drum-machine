@@ -27,14 +27,14 @@ const LibraryTab = props => {
   </ul>
 };
 
-const UploadsTab = props => {
+const SamplesTab = props => {
   let { onChange, selectedId, track, match } = props;
   let userId = getValueFromPath(match, "params/userId");
   return <ul className="generic-list striped">
     <li className="cta-item">
       {
         track.write ?
-          (<Link to={`/users/${userId}/uploads/`}>
+          (<Link to={`/users/${userId}/samples/`}>
             Upload samples
           </Link>)
         : null
@@ -74,8 +74,8 @@ class SoundSelector extends Component {
     switch(this.state.selectedTab){
       case "library-sounds":
         return LibraryTab;
-      case "uploads":
-        return UploadsTab;
+      case "samples":
+        return SamplesTab;
     }
   }
 
@@ -89,8 +89,8 @@ class SoundSelector extends Component {
             name: "Library Sounds",
             id: "library-sounds"
           }, {
-            name: "Uploads",
-            id: "uploads"
+            name: "Samples",
+            id: "samples"
           }]} />
           <Tab {...this.props} selectedId={this.state.selectedId} onChange={id => this.onChange(id)} />
           <div className="button-tray">
