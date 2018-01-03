@@ -1,22 +1,22 @@
-import { USER_TRACKS_LOADING, USER_TRACKS_LOADED, USER_TRACKS_LOAD_ERROR } from "../constants/tracks.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR } from "../constants/samples.constants";
 
-//Tracks States: "idle", "loading", "loaded", "error"
+//Uploads States: "idle", "loading", "loaded", "error"
 
 let defaultState = {
   state: "idle",
-  tracks: {
+  samples: {
     //userId: []
   }
 };
 
-export default function tracks(state = defaultState, action) {
+export default function samples(state = defaultState, action) {
   switch (action.type) {
-    case USER_TRACKS_LOADING:
+    case SAMPLES_LOADING:
       return {
         ...state,
         state: "loading"
       }
-    case USER_TRACKS_LOADED:
+    case SAMPLES_LOADED:
       return {
         ...state,
         state: "loaded",
@@ -25,7 +25,7 @@ export default function tracks(state = defaultState, action) {
           [action.userId]: action.tracks
         }
       }
-    case USER_TRACKS_LOAD_ERROR:
+    case SAMPLES_LOAD_ERROR:
       return {
         ...state,
         state: "error",
