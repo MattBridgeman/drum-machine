@@ -3,29 +3,7 @@ import { Link } from "react-router-dom";
 import { Modal } from "../modal/modal.react.jsx";
 import { objectToArrayWithKeyValue } from "../../library/natives/array";
 import { getValueFromPath } from "../../library/natives/object";
-
-class Tabs extends Component {
-  
-  constructor(props){
-    super(props);
-  }
-
-  render() {
-    let { props, state } = this;
-    return <div className="tabs">
-      {
-        props.tabs.map(({ name, id }) => {
-          let selected = props.selected === id;
-          return <h4 class={selected ? "selected" : ""}><a onClick={() => this.changeTab(id)}>{name}</a></h4>
-        })
-      }
-    </div>
-  }
-
-  changeTab(id) {
-    this.props.onTabChange(id);
-  }
-}
+import { Tabs } from "../tabs/tabs.react.jsx";
 
 const LibraryTab = props => {
   let { onChange, selectedId, librarySounds } = props;
@@ -53,11 +31,11 @@ const UploadsTab = props => {
   let { onChange, selectedId, track, match } = props;
   let userId = getValueFromPath(match, "params/userId");
   return <ul className="generic-list striped">
-    <li>
+    <li className="cta-item">
       {
         track.write ?
           (<Link to={`/users/${userId}/uploads/`}>
-            Upload more samples
+            Upload samples
           </Link>)
         : null
       }
