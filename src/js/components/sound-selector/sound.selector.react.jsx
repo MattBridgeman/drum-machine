@@ -80,8 +80,7 @@ class SoundSelector extends Component {
   }
 
   render(){
-    const { librarySounds, channel, soundId, onSoundChange } = this.props;
-    const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
+    const { soundId, onSoundChange } = this.props;
     const Tab = this.getSelectedTab();
     return <Modal {...this.props} title="Change Sound" icon="folder">
       { ({ onClose }) => 

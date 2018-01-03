@@ -3,7 +3,7 @@ import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
-import { SoundSelector } from "./sound.selector.react.jsx";
+import { SoundSelector } from "../sound-selector/sound.selector.react.jsx";
 
 class Channels extends Component {
 
