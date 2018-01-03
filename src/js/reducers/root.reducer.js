@@ -13,7 +13,7 @@ import connections from "./connections.reducer";
 import track from "./track.reducer";
 import tracks from "./tracks.reducer";
 import meta from "./meta.reducer";
-import samples from "./meta.reducer";
+import samples from "./samples.reducer";
 
 const rootReducer = combineReducers({
 	tempo,

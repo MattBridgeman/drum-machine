@@ -5,7 +5,13 @@ import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR } from "../constant
 let defaultState = {
   state: "idle",
   samples: {
-    //userId: []
+    //userId: {}
+    //TODO: Remove dummy data
+    "WmXoGltJLeYoDMHJJEcSY6jo3Bz1": {
+      "sfdsfdsf": {
+        name: "random"
+      }
+    }
   }
 };
 

@@ -28,8 +28,10 @@ const LibraryTab = props => {
 };
 
 const SamplesTab = props => {
-  let { onChange, selectedId, track, auth } = props;
+  let { onChange, selectedId, track, auth, samples } = props;
   let userId = getValueFromPath(auth, "user/uid");
+  let userSamples = getValueFromPath(samples, `samples/${userId}`) || {};
+  let samplesList = objectToArrayWithKeyValue(userSamples);
   let loggedIn = !!userId;
   return <ul className="generic-list striped">
     <li className="cta-item">
@@ -43,7 +45,21 @@ const SamplesTab = props => {
         </Link>)
       }
     </li>
-    <li>Blahh</li>
+    {
+      samplesList.map(({
+        key: id,
+        value: { name }
+      }) => {
+        let selected = "" + id === "" + selectedId;
+        return <li>
+          <label className="choice-item">
+            <input type="radio" name="sound-choice" value={id} checked={selected} onChange={(event) => onChange(event.target.value)} />
+            <span>{name}</span>
+            <span className="assistive">{selected ? " - Selected" : ""}</span>
+          </label>
+        </li>;
+      })
+    }
   </ul>
 };
 
