@@ -4,6 +4,7 @@ import { Rotator } from "../rotator/rotator.react.jsx";
 import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { SoundSelector } from "../sound-selector/sound.selector.react.jsx";
+import { getSound } from "../../library/audio-api/load.sounds";
 
 class Channels extends Component {
 
@@ -20,7 +21,8 @@ class Channels extends Component {
       <div className="channels-container">
         <div className="channels">
           {channels.map((channel, i) => {
-            let { name } = librarySounds[channel.sound];
+            let sound = getSound(channel.sound, this.props);
+            let { name } = sound;
             let { selected, solo, mute, sound: soundId } = channel;
             let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
             let onSoloClick = () => actions.toggleSoloChannel(machineId, i);
