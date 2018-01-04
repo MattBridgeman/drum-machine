@@ -8,6 +8,7 @@ import { track } from "./track";
 import { tracks } from "./tracks";
 import { historyMiddleware } from "./history";
 import { meta } from "./meta";
+import { samples } from "./samples";
 
 export default applyMiddleware(
   supplyAuth,
@@ -18,5 +19,6 @@ export default applyMiddleware(
   meta,
   track,
   tracks,
+  samples,
   historyMiddleware
 );

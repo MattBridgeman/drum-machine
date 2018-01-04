@@ -31,6 +31,7 @@ export const tracks = store => next => {
       let { userId } = userTracksRoute;
       //loading action
       timeout.get().then(_ => {
+        console.log("user tracks loading");
         next(userTracksLoading(userId));
       })
       .then(_ => {

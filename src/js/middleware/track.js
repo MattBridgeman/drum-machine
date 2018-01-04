@@ -17,7 +17,7 @@ export const stateToSave = [
   "meta"
 ];
 
-export const isNewTrack = store => next => action => {
+export const isNewTrack = store => action => {
   let prevState = store.getState();
   let nextState = rootReducer(prevState, action);
 
@@ -48,7 +48,7 @@ export const userCanWrite = (userId, trackUserId) => {
 
 export const track = store => next => {
 
-  let checkNewTrack = isNewTrack(store)(next);
+  let checkNewTrack = isNewTrack(store);
 
   let shouldLoadNewTrack = action => {
     let newTrack = checkNewTrack(action);
