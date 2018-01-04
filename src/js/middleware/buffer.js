@@ -36,11 +36,15 @@ export const buffer = store => next => {
     let shouldContinue = () => isPlaying;
     createIntervalStream(shouldContinue, interval)
       .subscribe(() => {
-        let currentState = store.getState();
-        let segments = segmentsToSchedule(context.currentTime, currentState);
-        segments.forEach(({index, time}) => 
-          next(bufferActions.newBufferSegment(index, time))
-        );
+        try {
+          let currentState = store.getState();
+          let segments = segmentsToSchedule(context.currentTime, currentState);
+          segments.forEach(({index, time}) => 
+            next(bufferActions.newBufferSegment(index, time))
+          );
+        } catch(err) {
+          console.error(err);
+        }
       },
       (err) => console.error(err),
       () => next(bufferActions.clearBufferSegments()));

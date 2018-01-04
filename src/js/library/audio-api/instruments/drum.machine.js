@@ -1,8 +1,7 @@
 import { getAudioContext } from "../context";
-import { get } from "../load.sounds";
+import { get, getSound, loadSound, loadSounds } from "../load.sounds";
 import { numberToArrayLength, zip, last } from "../../natives/array";
 import { panPercentageToValue } from "../pan";
-import { loadSounds } from "../load.sounds";
 import { buffersSinceId } from "../buffer";
 import { pitchToPlaybackRate } from "../playback.rate";
 import { decayPercentageToValue } from "../decay";
@@ -97,7 +96,9 @@ export let createDrumMachine = () => {
         pitch = pitchToPlaybackRate(pitch);
         decay = decayPercentageToValue(decay);
         let pattern = patterns[currentBankIndex];
-        let { soundPromise, path } = sounds[sound];
+        let soundObject = loadSound(sound, state);
+        if(!soundObject) return;
+        let { soundPromise, path } = soundObject;
         if(!(pattern && pattern[index])) return;
         soundPromise.then(soundBuffer => {
           if(context.time > time) return;

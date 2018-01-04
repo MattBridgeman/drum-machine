@@ -5,8 +5,8 @@ import { getValueFromPath } from "../natives/object";
 export let cache = {};
 
 export let getSound = (soundId, state) => {
-  let { librarySounds, match, samples } = state;
-  let userId = getValueFromPath(match, "params/userId");
+  let { librarySounds, track, samples } = state;
+  let userId = getValueFromPath(track, "userId");
   let userSample = getValueFromPath(samples, `samples/${userId}/${soundId}`);
   let librarySample = librarySounds[soundId];
   let sound = userSample || librarySample;
