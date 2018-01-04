@@ -13,7 +13,7 @@ class Channels extends Component {
 	}
 
 	render() {
-    const { machine, machineId, playState, librarySounds, dispatch } = this.props;
+    const { machine, machineId, playState, dispatch } = this.props;
     const { channels } = machine;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
     const actions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);

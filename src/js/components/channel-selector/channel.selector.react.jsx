@@ -13,7 +13,7 @@ class ChannelSelector extends Component {
 	}
 
 	render() {
-    const { machine, machineId, librarySounds, dispatch } = this.props;
+    const { machine, machineId, dispatch } = this.props;
     const { channels } = machine;
 		const actions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
 		return (
