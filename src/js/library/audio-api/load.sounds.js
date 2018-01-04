@@ -10,21 +10,26 @@ export let getSound = (soundId, state) => {
   let userSample = getValueFromPath(samples, `samples/${userId}/${soundId}`);
   let librarySample = librarySounds[soundId];
   let sound = userSample || librarySample;
+  return sound;
+};
+
+export let loadSound = (soundId, state) => {
+  let sound = getSound(soundId, state);
   if(sound) {
     return {
       id: soundId,
       path: sound.path,
-      soundPromise: loadSound(sound.path)
+      soundPromise: requestSound(sound.path)
     };
   }
 };
 
 export let loadSounds = (soundIds, state) => {
   return soundIds
-    .map(soundId => getSound(soundId, state));
+    .map(soundId => loadSound(soundId, state));
 };
 
-export let loadSound = path => {
+export let requestSound = path => {
   let context = getAudioContext();
   if(!cache[path]){
     cache[path] = requestAndDecodeSound(context, path);
