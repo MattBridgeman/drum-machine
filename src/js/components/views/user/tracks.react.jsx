@@ -25,7 +25,7 @@ const TracksList = props => {
           let updatedMoment = moment(updatedDate).fromNow();
           let trackId = getValueFromPath(track, "track/trackId");
           return <li key={trackId}>
-            <Link to={`/users/${userId}/tracks/${trackId}`}>
+            <Link to={`/users/${userId}/tracks/${trackId}`} className="list-item-title">
               <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
             </Link>
             <DropDownMenu items={[{
