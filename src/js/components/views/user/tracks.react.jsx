@@ -13,7 +13,7 @@ const TracksList = props => {
   let userId = getValueFromPath(match, "params/userId");
   let userTracks = getValueFromPath(tracks, userId) || [];
   return userTracks.length ? 
-  (<div className="tracks-list">
+  (<div className="large-list">
     <h2>Tracks</h2>
     <ul>
       {
