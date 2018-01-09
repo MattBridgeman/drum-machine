@@ -6,6 +6,7 @@ import { getValueFromPath } from "../../../library/natives/object";
 import { Link } from "react-router-dom";
 import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
 import { objectToArrayWithKeyValue } from "../../../library/natives/array";
+import { Modal } from "../../modal/modal.react.jsx";
 
 class SamplesList extends Component {
   render(){
@@ -15,6 +16,15 @@ class SamplesList extends Component {
     let userSamplesList = objectToArrayWithKeyValue(userSamples);
     return <div className="large-list">
       <h2>Samples</h2>
+      <div className="upload-a-sample">
+        <Modal title="Upload a sample" text="Upload a sample">
+          {
+            props => (
+              <div>foo</div>
+            )
+          }
+        </Modal>
+      </div>
       <ul>
       {
         userSamplesList.length ? userSamplesList.map(({

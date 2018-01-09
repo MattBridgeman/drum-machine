@@ -26,7 +26,12 @@ class Modal extends Component {
     return (
       <div className={"modal-container" + ( state.open ? " open" : "" )}>
         <button className="modal-button open-button" onClick={() => this.onOpen()}>
-          <span className="assistive">Open Modal</span>
+          {
+            props.text ?
+            (<span>{props.text}</span>)
+            :
+            <span className="assistive">Open Modal</span>
+          }
           {
             props.icon ? 
             (<span className={"icon__" + props.icon}></span>)
