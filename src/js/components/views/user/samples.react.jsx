@@ -7,36 +7,42 @@ import { Link } from "react-router-dom";
 import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
 import { objectToArrayWithKeyValue } from "../../../library/natives/array";
 import { Modal } from "../../modal/modal.react.jsx";
+import { Maybe } from "../../maybe/maybe.react.jsx";
 
 class SamplesList extends Component {
   render(){
-    let { samples, match } = this.props;
+    let { samples, match, auth } = this.props;
     let userId = getValueFromPath(match, "params/userId");
     let userSamples = getValueFromPath(samples, `samples/${userId}`) || {};
+    let currentUserId = getValueFromPath(auth, "user/uid");
     let userSamplesList = objectToArrayWithKeyValue(userSamples);
     return <div className="large-list">
       <h2>Samples</h2>
-      <div className="upload-a-sample">
-        <Modal title="Upload a sample" text="Upload a sample">
+      <Maybe condition={userId === currentUserId}>
+        <div className="upload-a-sample">
+          <Modal title="Upload a sample" text="Upload a sample">
+            {
+              props => (
+                <div>foo</div>
+              )
+            }
+          </Modal>
+        </div>
+      </Maybe>
+      <Maybe condition={userSamplesList.length}>
+        <ul>
           {
-            props => (
-              <div>foo</div>
-            )
+            userSamplesList.map(({
+              key: id,
+              value: { name }
+            }) => {
+              return <li>
+                <span className="list-item-title">{name}</span>
+              </li>;
+            })
           }
-        </Modal>
-      </div>
-      <ul>
-      {
-        userSamplesList.length ? userSamplesList.map(({
-          key: id,
-          value: { name }
-        }) => {
-          return <li>
-            <span className="list-item-title">{name}</span>
-          </li>;
-        }) : null
-      }
-      </ul>
+        </ul>
+      </Maybe>
     </div>;
   }
 };
