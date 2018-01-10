@@ -17,6 +17,7 @@ class UploadSampleModal extends Component {
     };
   }
   onDragOver(e){
+    e.preventDefault(e);
     this.setState({
       dragover: true
     });
@@ -25,6 +26,10 @@ class UploadSampleModal extends Component {
     this.setState({
       dragover: false
     });
+  }
+  onDrop(e){
+    e.preventDefault(e);
+    console.log(e);
   }
   render(){
     let { samples, match, auth } = this.props;
@@ -37,7 +42,11 @@ class UploadSampleModal extends Component {
         <Modal title="Upload a sample" text="Upload a sample">
           {
             props => (
-              <div className={"upload" + ( dragover ? " highlight" : "")} onDragOver={e => this.onDragOver(e)} onDragLeave={e => this.onDragLeave(e)}>
+              <div className={"upload" + ( dragover ? " highlight" : "")}
+                onDragOver={e => this.onDragOver(e)}
+                onDragLeave={e => this.onDragLeave(e)}
+                onDrop={e => this.onDrop(e)}
+              >
                 <span className="upload-cta">Drag a file to upload here</span>
                 <label className="upload-label" htmlFor="upload">or upload a file</label>
                 <input  className="upload-input" type="file" id="upload" />
