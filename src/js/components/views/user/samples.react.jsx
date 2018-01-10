@@ -23,7 +23,11 @@ class SamplesList extends Component {
           <Modal title="Upload a sample" text="Upload a sample">
             {
               props => (
-                <div>foo</div>
+                <div className="uplaod">
+                  <span class="upload-cta">Drag a file to upload here or</span>
+                  <label htmlFor="upload">Test</label>
+                  <input type="text" id="upload" />
+                </div>
               )
             }
           </Modal>
