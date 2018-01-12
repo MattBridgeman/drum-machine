@@ -9,6 +9,9 @@ import { objectToArrayWithKeyValue } from "../../../library/natives/array";
 import { Modal } from "../../modal/modal.react.jsx";
 import { Maybe } from "../../maybe/maybe.react.jsx";
 
+const MAX_FILE_SIZE = 1 * 1024 * 1024;
+const acceptedMimeTypes = ["audio/x-wav"];
+
 class UploadSampleModal extends Component {
   constructor(props){
     super(props);
