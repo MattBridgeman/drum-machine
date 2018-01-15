@@ -1,6 +1,10 @@
 import rootReducer from "../reducers/root.reducer";
 import { matchesUserSamplesRoute } from "../library/routing/routing";
 import { isNewTrack } from "./track";
+import { UPLOAD_SAMPLE } from "../constants/samples.constants";
+import { getValueFromPath } from "../library/natives/object";
+import { getDateToISOString } from "../library/natives/date";
+import { uploadUserSample } from "../library/firebase/db";
 
 export const samples = store => next => {
   
@@ -33,9 +37,25 @@ export const samples = store => next => {
       console.log("Should load user samples");
     }
   };
+  
+  let uploadSample = action => {
+    let { name, shortName, file, auth } = action;
+    let state = store.getState();
+    let uploadState = getValueFromPath(state.samples, "upload/state");
+    let userId = getValueFromPath(auth, "user/uid");
+    if(uploadState !== "idle") return;
+    let createdDate = getDateToISOString();
+    uploadUserSample(userId, file, createdDate)
+      .then(snapshot => console.log(snapshot));
+  };
 
   return action => {
-    loadUserSamples(action);
+    switch(action.type){
+      case UPLOAD_SAMPLE:
+        uploadSample(action);
+      default:
+        loadUserSamples(action);
+    }
     return next(action);
   }
 };

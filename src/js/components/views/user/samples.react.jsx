@@ -61,6 +61,7 @@ class UploadSampleModal extends Component {
     let { samples, match, auth } = this.props;
     let userId = getValueFromPath(match, "params/userId");
     let currentUserId = getValueFromPath(auth, "user/uid");
+    let state = getValueFromPath(samples, "upload/state");
     let { dragover } = this.state;
 
     return <Maybe condition={userId === currentUserId}>
@@ -68,14 +69,18 @@ class UploadSampleModal extends Component {
         <Modal title="Upload a sample" text="Upload a sample">
           {
             props => (
-              <div className={"upload" + ( dragover ? " highlight" : "")}
-                onDragOver={e => this.onDragOver(e)}
-                onDragLeave={e => this.onDragLeave(e)}
-                onDrop={e => this.onDrop(e)}
-              >
-                <span className="upload-cta">Drag a file to upload here</span>
-                <label className="upload-label" htmlFor="upload">or upload a file</label>
-                <input className="upload-input" type="file" id="upload" onChange={e => this.onFileInput(e)} />
+              <div className="upload-container">
+                <Maybe condition={state === "idle"}>
+                  <div className={"upload" + ( dragover ? " highlight" : "")}
+                    onDragOver={e => this.onDragOver(e)}
+                    onDragLeave={e => this.onDragLeave(e)}
+                    onDrop={e => this.onDrop(e)}
+                  >
+                    <span className="upload-cta">Drag a file to upload here</span>
+                    <label className="upload-label" htmlFor="upload">or upload a file</label>
+                    <input className="upload-input" type="file" id="upload" onChange={e => this.onFileInput(e)} />
+                  </div>
+                </Maybe>
               </div>
             )
           }

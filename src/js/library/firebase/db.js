@@ -45,4 +45,17 @@ let loadUserTracks = userId => {
     });
 };
 
-export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks };
+let uploadUserSample = (userId, file, createdDate) => {
+  return init()
+    .then(() => {
+      let storage = firebase.storage().ref();
+      let filename = file.name + createdDate;
+      return uploadTask = storage.child(`user/${userId}/samples/${filename}`) 
+        .put(file)
+        .then(function(snapshot){
+          //snapshot.downloadURL
+        });
+    });
+};
+
+export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks, uploadUserSample };
