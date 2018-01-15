@@ -8,6 +8,7 @@ import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
 import { objectToArrayWithKeyValue } from "../../../library/natives/array";
 import { Modal } from "../../modal/modal.react.jsx";
 import { Maybe } from "../../maybe/maybe.react.jsx";
+import { uploadSample } from "../../../actions/samples.actions";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 const acceptedMimeTypes = ["audio/x-wav"];
@@ -32,28 +33,29 @@ class UploadSampleModal extends Component {
     });
   }
   onDrop(e){
+    let { dispatch } = this.props;
     e.preventDefault();
     var dt = e.dataTransfer;
     if (dt.items) {
-      console.log("Use DataTransferItemList interface to access the file(s)");
-      // Use DataTransferItemList interface to access the file(s)
-      for (var i=0; i < dt.items.length; i++) {
-        if (dt.items[i].kind == "file") {
-          var f = dt.items[i].getAsFile();
-          console.log(f);
-          console.log("... file[" + i + "].name = " + f.name);
-        }
+      if (dt.items[0].kind == "file") {
+        let file = dt.items[0].getAsFile();
+        let { name } = file;
+        let shortName = name.substring(0, 2).toUpperCase();
+        dispatch(uploadSample(name, shortName, file));
       }
     } else {
-      // Use DataTransfer interface to access the file(s)
-      for (var i=0; i < dt.files.length; i++) {
-        console.log("... file[" + i + "].name = " + dt.files[i].name);
-      }  
+      let file = dt.files[0];
+      let { name } = file;
+      let shortName = name.substring(0, 2).toUpperCase();
+      dispatch(uploadSample(name, shortName, file));
     }
   }
   onFileInput(e){
-    let files = e.target.files;
-    console.log(files[0]);
+    let { dispatch } = this.props;
+    let file = e.target.files[0];
+    let { name } = file;
+    let shortName = name.substring(0, 2).toUpperCase();
+    dispatch(uploadSample(name, shortName, file));
   }
   render(){
     let { samples, match, auth } = this.props;
@@ -69,7 +71,7 @@ class UploadSampleModal extends Component {
               <div className={"upload" + ( dragover ? " highlight" : "")}
                 onDragOver={e => this.onDragOver(e)}
                 onDragLeave={e => this.onDragLeave(e)}
-                onDrop={this.onDrop}
+                onDrop={e => this.onDrop(e)}
               >
                 <span className="upload-cta">Drag a file to upload here</span>
                 <label className="upload-label" htmlFor="upload">or upload a file</label>
