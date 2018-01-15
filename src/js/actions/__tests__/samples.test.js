@@ -1,5 +1,6 @@
 import { uploadSample } from "../samples.actions";
 import { UPLOAD_SAMPLE } from "../../constants/samples.constants";
+import { expect } from "chai";
 
 describe("Samples actions", function() {
 	it("returns the corresponding upload action", () => {
