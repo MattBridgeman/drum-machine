@@ -4,6 +4,10 @@ import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR } from "../constant
 
 let defaultState = {
   state: "idle",
+  upload: {
+    state: "idle",
+    file: undefined
+  },
   samples: {
     //userId: {}
     //TODO: Remove dummy data
