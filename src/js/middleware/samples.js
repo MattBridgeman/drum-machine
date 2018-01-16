@@ -4,7 +4,7 @@ import { isNewTrack } from "./track";
 import { UPLOAD_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
-import { uploadUserSample } from "../library/firebase/db";
+import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
 
 export const samplesMiddleware = store => next => {
   
@@ -31,14 +31,19 @@ export const samplesMiddleware = store => next => {
     return newUserTrack || samplesRoute;
   };
 
-  let loadUserSamples = action => {
+  let onLoadUserSamples = action => {
     let shouldLoadUserSamples = checkLoadUserSamples(action);
     if(shouldLoadUserSamples) {
-      console.log("Should load user samples");
+      let { userId } = shouldLoadUserSamples;
+      loadUserSamples(userId)
+        .then(samples => {
+          //TODO: dispatch samples loaded action
+          //next();
+        });
     }
   };
   
-  let uploadSample = action => {
+  let onUploadSample = action => {
     let { name, shortName, file } = action;
     let { samples, auth } = store.getState();
     let uploadState = getValueFromPath(samples, "upload/state");
@@ -46,15 +51,17 @@ export const samplesMiddleware = store => next => {
     if(uploadState !== "idle") return;
     let createdDate = getDateToISOString();
     uploadUserSample(userId, file, name, shortName, createdDate)
-      .then(snapshot => console.log(snapshot));
+      .then(_ => {
+        //TODO: dispatch new sample action
+      });
   };
 
   return action => {
     switch(action.type){
       case UPLOAD_SAMPLE:
-        uploadSample(action);
+        onUploadSample(action);
       default:
-        loadUserSamples(action);
+        onLoadUserSamples(action);
     }
     return next(action);
   }

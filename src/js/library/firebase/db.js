@@ -45,6 +45,24 @@ let loadUserTracks = userId => {
     });
 };
 
+let loadUserSamples = userId => {
+  return init()
+    .then(() => {
+      return firebase.database().ref(`users/${userId}/samples/`).orderByChild("createdDate").once("value")
+      .then(function(snapshot) {
+        let samples = [];
+        snapshot.forEach(shot => {
+          samples = [
+            ...samples,
+            shot.val()
+          ]
+        });
+        samples.reverse();
+        return samples;
+      });
+    });
+};
+
 let uploadUserSample = (userId, file, name, shortName, createdDate) => {
   return init()
     .then(() => {
