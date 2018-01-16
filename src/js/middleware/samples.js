@@ -6,7 +6,7 @@ import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { uploadUserSample } from "../library/firebase/db";
 
-export const samples = store => next => {
+export const samplesMiddleware = store => next => {
   
   let isSamplesRoute = action => {
     let prevState = store.getState();
@@ -39,9 +39,9 @@ export const samples = store => next => {
   };
   
   let uploadSample = action => {
-    let { name, shortName, file, auth } = action;
-    let state = store.getState();
-    let uploadState = getValueFromPath(state.samples, "upload/state");
+    let { name, shortName, file } = action;
+    let { samples, auth } = store.getState();
+    let uploadState = getValueFromPath(samples, "upload/state");
     let userId = getValueFromPath(auth, "user/uid");
     if(uploadState !== "idle") return;
     let createdDate = getDateToISOString();

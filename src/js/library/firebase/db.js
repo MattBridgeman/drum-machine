@@ -50,11 +50,8 @@ let uploadUserSample = (userId, file, createdDate) => {
     .then(() => {
       let storage = firebase.storage().ref();
       let filename = file.name + createdDate;
-      return uploadTask = storage.child(`user/${userId}/samples/${filename}`) 
-        .put(file)
-        .then(function(snapshot){
-          //snapshot.downloadURL
-        });
+      return storage.child(`user/${userId}/samples/${filename}`) 
+        .put(file);
     });
 };
 
