@@ -45,7 +45,7 @@ export const samplesMiddleware = store => next => {
     let userId = getValueFromPath(auth, "user/uid");
     if(uploadState !== "idle") return;
     let createdDate = getDateToISOString();
-    uploadUserSample(userId, file, createdDate)
+    uploadUserSample(userId, file, name, shortName, createdDate)
       .then(snapshot => console.log(snapshot));
   };
 

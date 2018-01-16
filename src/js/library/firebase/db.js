@@ -12,7 +12,7 @@ let saveTrack = (userId, trackId, json) => {
   return init()
     .then(() => {
       var database = firebase.database();
-      return database.ref(`users/${userId}/tracks/` + trackId)
+      return database.ref(`users/${userId}/tracks/${trackId}`)
         .set(json);
     });
 };
@@ -21,7 +21,7 @@ let loadTrack = (userId, trackId) => {
   return init()
     .then(() => {
       var database = firebase.database();
-      return database.ref(`users/${userId}/tracks/` + trackId)
+      return database.ref(`users/${userId}/tracks/${trackId}`)
         .once("value")
         .then(snapshot => snapshot.val());
     });
@@ -45,13 +45,22 @@ let loadUserTracks = userId => {
     });
 };
 
-let uploadUserSample = (userId, file, createdDate) => {
+let uploadUserSample = (userId, file, name, shortName, createdDate) => {
   return init()
     .then(() => {
       let storage = firebase.storage().ref();
-      let filename = file.name + createdDate;
+      let filename = name + createdDate;
       return storage.child(`user/${userId}/samples/${filename}`) 
-        .put(file);
+        .put(file)
+        .then(snapshot => {
+          let sampleId = firebase.database().ref(`users/${userId}/samples/`).push().key 
+          return firebase.database().ref(`users/${userId}/samples/${sampleId}`).set({
+            name,
+            shortName,
+            createdDate,
+            path: snapshot.downloadURL
+          });
+        });
     });
 };
 
