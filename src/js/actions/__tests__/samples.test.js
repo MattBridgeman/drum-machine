@@ -1,5 +1,5 @@
-import { uploadSample, newSampleUploaded } from "../samples.actions";
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED } from "../../constants/samples.constants";
+import { uploadSample, newSampleUploaded, samplesLoaded } from "../samples.actions";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED } from "../../constants/samples.constants";
 import { expect } from "chai";
 
 describe("Samples actions", function() {
@@ -18,18 +18,43 @@ describe("Samples actions", function() {
   });
 
 	it("returns the corresponding uploaded action", () => {
-		let name = "Sample";
-		let shortName = "SM";
-    let path = "https://foo.com";
-    let createdDate = "2018-10-10";
-		let action = newSampleUploaded(name, shortName, path, createdDate);
+		let sample = {
+      name: "Sample",
+      shortName: "SM",
+      path: "https://foo.com",
+      createdDate: "2018-10-10",
+      sampleId: "asdsaASDdadsd",
+      userId: 1234
+    };
+		let action = newSampleUploaded(sample);
 
 		expect(action).to.deep.equal({
 			type: SAMPLE_UPLOADED,
-			name,
-      shortName,
-      path,
-      createdDate
+			name: sample.name,
+      shortName: sample.shortName,
+      path: sample.path,
+      createdDate: sample.createdDate,
+      sampleId: sample.sampleId,
+      userId: sample.userId
 		});
+  });
+  
+  it("returns the corresponding loaded action", () => {
+    let samples = {
+      asdLAJadsdsADL: {
+        name: "Sample",
+        shortName: "SM",
+        path: "https://foo.com",
+        createdDate: "2018-10-10"
+      }
+    };
+    let userId = 1234;
+    let action = samplesLoaded(userId, samples);
+
+    expect(action).to.deep.equal({
+      type: SAMPLES_LOADED,
+      userId,
+      samples
+    });
   });
 });

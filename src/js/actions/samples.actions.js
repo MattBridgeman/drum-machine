@@ -1,4 +1,4 @@
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED } from "../constants/samples.constants";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED } from "../constants/samples.constants";
 
 export function uploadSample(name, shortName, file){
 	return {
@@ -26,4 +26,12 @@ export function newSampleUploaded({
     sampleId,
     userId
 	};
+};
+
+export function samplesLoaded(userId, samples){
+  return {
+    type: SAMPLES_LOADED,
+    userId,
+    samples
+  };
 };
