@@ -80,9 +80,13 @@ let uploadUserSample = (userId, file, name, shortName, createdDate) => {
           };
           return firebase.database().ref(`users/${userId}/samples/${sampleId}`)
             .set(sample)
-            .then(sample);
+            .then(() => ({
+              ...sample,
+              userId,
+              sampleId
+            }));
         });
     });
 };
 
-export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks, uploadUserSample };
+export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks, uploadUserSample, loadUserSamples };

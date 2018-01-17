@@ -9,12 +9,21 @@ export function uploadSample(name, shortName, file){
 	};
 };
 
-export function newSampleUploaded(name, shortName, path, createdDate){
+export function newSampleUploaded({
+  name,
+  shortName,
+  path,
+  createdDate,
+  sampleId,
+  userId
+}){
 	return {
 		type: SAMPLE_UPLOADED,
 		name,
     shortName,
     path,
-    createdDate
+    createdDate,
+    sampleId,
+    userId
 	};
 };

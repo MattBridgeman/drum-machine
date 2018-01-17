@@ -1,4 +1,4 @@
-import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE } from "../constants/samples.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED } from "../constants/samples.constants";
 
 //Uploads States: "idle", "loading", "loaded", "error"
 
@@ -35,6 +35,23 @@ export default function samples(state = defaultState, action) {
         samples: {
           ...state.samples,
           [action.userId]: action.samples
+        }
+      }
+    case SAMPLE_UPLOADED:
+      let sample = {
+        [action.name]: action.name,
+        [action.shortName]: action.shortName,
+        [action.path]: action.path,
+        [action.createdDate]: action.createdDate,
+      };
+      return {
+        ...state,
+        samples: {
+          ...state.samples,
+          [action.userId]: {
+            ...state[action.userId].samples,
+            [action.sampleId]: sample
+          }
         }
       }
     case SAMPLES_LOAD_ERROR:

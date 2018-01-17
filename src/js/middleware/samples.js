@@ -53,7 +53,7 @@ export const samplesMiddleware = store => next => {
     let createdDate = getDateToISOString();
     uploadUserSample(userId, file, name, shortName, createdDate)
       .then(sample => {
-        next(newSampleUploaded(...sample));
+        next(newSampleUploaded(sample));
       });
   };
 
