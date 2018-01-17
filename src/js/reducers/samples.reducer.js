@@ -39,18 +39,18 @@ export default function samples(state = defaultState, action) {
       }
     case SAMPLE_UPLOADED:
       let sample = {
-        [action.name]: action.name,
-        [action.shortName]: action.shortName,
-        [action.path]: action.path,
-        [action.createdDate]: action.createdDate,
+        name: action.name,
+        shortName: action.shortName,
+        path: action.path,
+        createdDate: action.createdDate,
       };
       return {
         ...state,
         samples: {
           ...state.samples,
           [action.userId]: {
-            ...state[action.userId].samples,
-            [action.sampleId]: sample
+            [action.sampleId]: sample,
+            ...state.samples[action.userId]
           }
         }
       }
