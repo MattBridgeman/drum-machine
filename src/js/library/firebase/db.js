@@ -72,12 +72,15 @@ let uploadUserSample = (userId, file, name, shortName, createdDate) => {
         .put(file)
         .then(snapshot => {
           let sampleId = firebase.database().ref(`users/${userId}/samples/`).push().key 
-          return firebase.database().ref(`users/${userId}/samples/${sampleId}`).set({
+          let sample = {
             name,
             shortName,
             createdDate,
             path: snapshot.downloadURL
-          });
+          };
+          return firebase.database().ref(`users/${userId}/samples/${sampleId}`)
+            .set(sample)
+            .then(sample);
         });
     });
 };

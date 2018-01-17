@@ -32,9 +32,9 @@ export default function samples(state = defaultState, action) {
       return {
         ...state,
         state: "loaded",
-        tracks: {
-          ...state.tracks,
-          [action.userId]: action.tracks
+        samples: {
+          ...state.samples,
+          [action.userId]: action.samples
         }
       }
     case SAMPLES_LOAD_ERROR:

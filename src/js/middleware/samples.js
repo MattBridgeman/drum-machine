@@ -5,6 +5,7 @@ import { UPLOAD_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
+import { newSampleUploaded } from "../actions/samples.actions";
 
 export const samplesMiddleware = store => next => {
   
@@ -51,8 +52,8 @@ export const samplesMiddleware = store => next => {
     if(uploadState !== "idle") return;
     let createdDate = getDateToISOString();
     uploadUserSample(userId, file, name, shortName, createdDate)
-      .then(_ => {
-        //TODO: dispatch new sample action
+      .then(sample => {
+        next(newSampleUploaded(...sample));
       });
   };
 
