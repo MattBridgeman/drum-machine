@@ -6,6 +6,7 @@ import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
 import { newSampleUploaded, samplesLoaded } from "../actions/samples.actions";
+import { newNotification } from "../actions/notifications.actions";
 
 export const samplesMiddleware = store => next => {
   
@@ -39,7 +40,10 @@ export const samplesMiddleware = store => next => {
       loadUserSamples(userId)
         .then(({ userId, samples }) => {
           next(samplesLoaded(userId, samples));
-        });
+        })
+        .catch(error => {
+          next(newNotification("There was an error loading the samples."));
+        });;
     }
   };
   
@@ -53,6 +57,9 @@ export const samplesMiddleware = store => next => {
     uploadUserSample(userId, file, name, shortName, createdDate)
       .then(sample => {
         next(newSampleUploaded(sample));
+      })
+      .catch(error => {
+        next(newNotification("There was an error uploading the sample."));
       });
   };
 
