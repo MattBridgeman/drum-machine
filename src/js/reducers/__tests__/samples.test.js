@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import samples from "../samples.reducer";
-import { uploadSample } from "../../actions/samples.actions";
+import { uploadSample, samplesLoaded } from "../../actions/samples.actions";
 
 describe("Samples reducer", () => {
   it("returns an idle upload state given a file", () => {
@@ -15,6 +15,27 @@ describe("Samples reducer", () => {
         shortName: "SN",
         file: {
           foo: "bar"
+        }
+      }
+    });
+  });
+
+  it("returns loaded samples", () => {
+    let userId = "asdasdASDSDdasd";
+    let _samples = {
+      "ertreERTRT": {
+        name: "Sample",
+        shortName: "SP"
+      }
+    };
+    let action = samplesLoaded(userId, _samples);
+    let state = samples(undefined, action);
+    expect(state.state).to.equal("loaded");
+    expect(state.samples).to.deep.equal({
+      "asdasdASDSDdasd": {
+        "ertreERTRT": {
+          name: "Sample",
+          shortName: "SP"
         }
       }
     });

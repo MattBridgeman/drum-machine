@@ -5,7 +5,7 @@ import { UPLOAD_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
-import { newSampleUploaded } from "../actions/samples.actions";
+import { newSampleUploaded, samplesLoaded } from "../actions/samples.actions";
 
 export const samplesMiddleware = store => next => {
   
@@ -37,9 +37,8 @@ export const samplesMiddleware = store => next => {
     if(shouldLoadUserSamples) {
       let { userId } = shouldLoadUserSamples;
       loadUserSamples(userId)
-        .then(samples => {
-          //TODO: dispatch samples loaded action
-          //next();
+        .then(({ userId, samples }) => {
+          next(samplesLoaded(userId, samples));
         });
     }
   };
