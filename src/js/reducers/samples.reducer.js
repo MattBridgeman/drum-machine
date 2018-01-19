@@ -1,4 +1,4 @@
-import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR } from "../constants/samples.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET } from "../constants/samples.constants";
 
 //Uploads States: "idle", "loading", "loaded", "error"
 

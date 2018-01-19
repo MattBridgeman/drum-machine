@@ -9,6 +9,7 @@ import { objectToArrayWithKeyValue } from "../../../library/natives/array";
 import { Modal } from "../../modal/modal.react.jsx";
 import { Maybe } from "../../maybe/maybe.react.jsx";
 import { uploadSample } from "../../../actions/samples.actions";
+import DrumMachineActions from "../../../actions/root.actions";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 const acceptedMimeTypes = ["audio/x-wav"];
@@ -58,11 +59,12 @@ class UploadSampleModal extends Component {
     dispatch(uploadSample(name, shortName, file));
   }
   render(){
-    let { samples, match, auth } = this.props;
+    let { samples, match, auth, dispatch } = this.props;
     let userId = getValueFromPath(match, "params/userId");
     let currentUserId = getValueFromPath(auth, "user/uid");
     let state = getValueFromPath(samples, "upload/state");
     let { dragover } = this.state;
+		let samplesActions = bindActionCreators(DrumMachineActions.samples, dispatch);
 
     return <Maybe condition={userId === currentUserId}>
       <div className="upload-a-sample">
@@ -88,12 +90,13 @@ class UploadSampleModal extends Component {
                 <Maybe condition={state === "error"}>
                   <div className="upload error">
                     <span className="upload-cta">There was an error uploading the file</span>
-                    <span className="upload-label" htmlFor="upload">the following issues may have occured</span>
+                    <span className="upload-label">the following issues may have occured</span>
                     <ul>
                       <li>File was too big (1MB max)</li>
                       <li>File wasn't a WAV audio file</li>
                     </ul>
                   </div>
+                  <a className="upload-label" onClick={() => samplesActions.samplesUploadReset()}>Try again</a>
                 </Maybe>
               </div>
             )

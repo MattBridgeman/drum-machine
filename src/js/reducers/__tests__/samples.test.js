@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import samples from "../samples.reducer";
-import { uploadSample, samplesLoaded, samplesUploadError } from "../../actions/samples.actions";
+import { uploadSample, samplesLoaded, samplesUploadError, samplesUploadReset } from "../../actions/samples.actions";
 
 describe("Samples reducer", () => {
   it("returns an idle upload state given a file", () => {
@@ -48,8 +48,8 @@ describe("Samples reducer", () => {
   });
 
   it("returns upload reset", () => {
-    let action = samplesUploadError();
+    let action = samplesUploadReset();
     let state = samples(undefined, action);
-    expect(state.upload.state).to.equal("error");
+    expect(state.upload.state).to.equal("idle");
   });
 });
