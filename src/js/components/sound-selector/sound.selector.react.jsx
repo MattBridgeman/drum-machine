@@ -4,6 +4,7 @@ import { Modal } from "../modal/modal.react.jsx";
 import { objectToArrayWithKeyValue } from "../../library/natives/array";
 import { getValueFromPath } from "../../library/natives/object";
 import { Tabs } from "../tabs/tabs.react.jsx";
+import { buildUserSamplesRoute } from "../../library/routing/routing";
 
 const LibraryTab = props => {
   let { onChange, selectedId, librarySounds } = props;
@@ -37,7 +38,7 @@ const SamplesTab = props => {
     <li className="cta-item">
       {
         loggedIn ?
-          (<Link to={`/users/${userId}/samples/`}>
+          (<Link to={buildUserSamplesRoute(userId)}>
             Upload samples
           </Link>)
         : (<Link to={`/user/login/`}>
