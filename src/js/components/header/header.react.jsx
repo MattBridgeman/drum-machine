@@ -5,6 +5,7 @@ import DrumMachineActions from "../../actions/root.actions";
 import { DefaultInput } from "../input/input.react.jsx";
 import { DropDownMenu } from "../dropdown/dropdown.react.jsx";
 import { getValueFromPath } from "../../library/natives/object";
+import { buildUserTracksRoute, buildUserSamplesRoute } from "../../library/routing/routing";
 
 export let getMenuItemsFromProps = props => {
   const { dispatch, auth } = props;
@@ -19,7 +20,11 @@ export let getMenuItemsFromProps = props => {
     link: "/"
   }, {
     name: "My Tracks",
-    link: `/users/${userId}/tracks/`,
+    link: buildUserTracksRoute(userId),
+    condition: () => props.auth && props.auth.user
+  }, {
+    name: "My Samples",
+    link: buildUserSamplesRoute(userId),
     condition: () => props.auth && props.auth.user
   }, {
     name: "Logout",

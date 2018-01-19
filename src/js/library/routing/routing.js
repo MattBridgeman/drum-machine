@@ -27,4 +27,6 @@ export let matchesTrackRoute = path => matchesUserTrackRoute(path) || matchesDef
 
 export let buildTrackRoute = (userId, trackId) => `/users/${userId}/tracks/${trackId}`;
 
+export let buildUserTracksRoute = userId => `/users/${userId}/tracks/`;
+
 export let buildUserSamplesRoute = userId => `/users/${userId}/samples/`;
