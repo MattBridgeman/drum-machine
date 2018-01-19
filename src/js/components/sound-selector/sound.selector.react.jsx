@@ -102,7 +102,12 @@ class SoundSelector extends Component {
   render(){
     const { soundId, onSoundChange } = this.props;
     const Tab = this.getSelectedTab();
-    return <Modal {...this.props} title="Change Sound" icon="folder">
+    return <Modal {...this.props} title="Change Sound" icon="folder" trigger={({ onOpen }) => 
+      <button className="sound-change-button" onClick={onOpen}>
+        <span className="assistive">Change Sound</span>
+        <span className="icon__folder"></span>
+      </button>
+    }>
       { ({ onClose }) => 
         <div className="sound-selector">
           <Tabs onTabChange={id => this.onTabChange(id)} selected={this.state.selectedTab} tabs={[{
