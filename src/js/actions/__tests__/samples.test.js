@@ -1,5 +1,5 @@
-import { uploadSample, newSampleUploaded, samplesLoaded } from "../samples.actions";
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED } from "../../constants/samples.constants";
+import { uploadSample, newSampleUploaded, samplesLoaded, samplesUploadError } from "../samples.actions";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR } from "../../constants/samples.constants";
 import { expect } from "chai";
 
 describe("Samples actions", function() {
@@ -55,6 +55,14 @@ describe("Samples actions", function() {
       type: SAMPLES_LOADED,
       userId,
       samples
+    });
+  });
+  
+  it("upload error action", () => {
+    let action = samplesUploadError();
+
+    expect(action).to.deep.equal({
+      type: SAMPLE_UPLOAD_ERROR
     });
   });
 });

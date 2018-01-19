@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import samples from "../samples.reducer";
-import { uploadSample, samplesLoaded } from "../../actions/samples.actions";
+import { uploadSample, samplesLoaded, samplesUploadError } from "../../actions/samples.actions";
 
 describe("Samples reducer", () => {
   it("returns an idle upload state given a file", () => {
@@ -39,5 +39,11 @@ describe("Samples reducer", () => {
         }
       }
     });
+  });
+
+  it("returns upload error", () => {
+    let action = samplesUploadError();
+    let state = samples(undefined, action);
+    expect(state.upload.state).to.equal("error");
   });
 });
