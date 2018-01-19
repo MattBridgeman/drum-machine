@@ -71,6 +71,14 @@ export default function samples(state = defaultState, action) {
           state: "error"
         }
       }
+    case SAMPLE_UPLOAD_RESET:
+      return {
+        ...state,
+        upload: {
+          state: "idle",
+          file: undefined
+        }
+      }
     default:
       return state;
   }

@@ -1,5 +1,5 @@
-import { uploadSample, newSampleUploaded, samplesLoaded, samplesUploadError } from "../samples.actions";
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR } from "../../constants/samples.constants";
+import { uploadSample, newSampleUploaded, samplesLoaded, samplesUploadError, samplesUploadReset } from "../samples.actions";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET } from "../../constants/samples.constants";
 import { expect } from "chai";
 
 describe("Samples actions", function() {
@@ -63,6 +63,14 @@ describe("Samples actions", function() {
 
     expect(action).to.deep.equal({
       type: SAMPLE_UPLOAD_ERROR
+    });
+  });
+  
+  it("upload reset action", () => {
+    let action = samplesUploadReset();
+
+    expect(action).to.deep.equal({
+      type: SAMPLE_UPLOAD_RESET
     });
   });
 });

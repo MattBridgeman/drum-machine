@@ -46,4 +46,10 @@ describe("Samples reducer", () => {
     let state = samples(undefined, action);
     expect(state.upload.state).to.equal("error");
   });
+
+  it("returns upload reset", () => {
+    let action = samplesUploadError();
+    let state = samples(undefined, action);
+    expect(state.upload.state).to.equal("error");
+  });
 });
