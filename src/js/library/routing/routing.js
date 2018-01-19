@@ -13,13 +13,13 @@ export let exactMatchPath = (path, pattern) => {
   }
 };
 
-export let matchesUserSamplesRoute = path => matchPath(path, "/users/:userId/samples/");
+export let matchesUserSamplesRoute = path => exactMatchPath(path, "/users/:userId/samples/");
 
-export let matchesUserTrackRoute = path => matchPath(path, "/users/:userId/tracks/:trackId");
+export let matchesUserTrackRoute = path => exactMatchPath(path, "/users/:userId/tracks/:trackId");
 
-export let matchesUserTracksRoute = path => !matchesUserTrackRoute(path) ? matchPath(path, "/users/:userId/tracks/") : false;
+export let matchesUserTracksRoute = path => exactMatchPath(path, "/users/:userId/tracks/");
 
-export let matchesDefaultTrackRoute = path => matchPath(path, "/");
+export let matchesDefaultTrackRoute = path => exactMatchPath(path, "/");
 
 export let matchesNewTrack = (oldId, newId) => newId !== oldId;
 
