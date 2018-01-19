@@ -5,7 +5,7 @@ import { UPLOAD_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
-import { newSampleUploaded, samplesLoaded } from "../actions/samples.actions";
+import { newSampleUploaded, samplesLoaded, samplesUploadError } from "../actions/samples.actions";
 import { newNotification } from "../actions/notifications.actions";
 
 export const samplesMiddleware = store => next => {
@@ -59,6 +59,7 @@ export const samplesMiddleware = store => next => {
         next(newSampleUploaded(sample));
       })
       .catch(error => {
+        next(samplesUploadError());
         next(newNotification("There was an error uploading the sample."));
       });
   };

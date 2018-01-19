@@ -85,6 +85,16 @@ class UploadSampleModal extends Component {
                     <input className="upload-input" type="file" id="upload" onChange={e => this.onFileInput(e)} />
                   </div>
                 </Maybe>
+                <Maybe condition={state === "error"}>
+                  <div className="upload error">
+                    <span className="upload-cta">There was an error uploading the file</span>
+                    <span className="upload-label" htmlFor="upload">the following issues may have occured</span>
+                    <ul>
+                      <li>File was too big (1MB max)</li>
+                      <li>File wasn't a WAV audio file</li>
+                    </ul>
+                  </div>
+                </Maybe>
               </div>
             )
           }
