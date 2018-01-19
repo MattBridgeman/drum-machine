@@ -67,7 +67,7 @@ class UploadSampleModal extends Component {
     return <Maybe condition={userId === currentUserId}>
       <div className="upload-a-sample">
         <Modal title="Upload a sample" text="Upload a sample" trigger={({ onOpen }) => 
-          <a className="upload-a-sample-link" onClick={onOpen}>
+          <a className="cta-link" onClick={onOpen}>
             Upload a sample
           </a>
         }>
