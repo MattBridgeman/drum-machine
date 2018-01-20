@@ -25,7 +25,7 @@ const TracksList = props => {
           let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
           let updatedMoment = moment(updatedDate).fromNow();
           let trackId = getValueFromPath(track, "track/trackId");
-          return <li key={trackId}>
+          return <li key={trackId} className="highlight">
             <Link to={buildTrackRoute(userId, trackId)} className="list-item-title">
               <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
             </Link>

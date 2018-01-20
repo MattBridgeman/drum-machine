@@ -11,8 +11,10 @@
       border-bottom: 1px solid @grey-transparency;
       background: @white;
       transition: background-color 300ms ease;
-      &:hover {
-        background: @light-grey;
+      &.highlight {
+        &:hover {
+          background: @light-grey;
+        }
       }
       &:first-child {
         border-top: 1px solid @grey-transparency;
