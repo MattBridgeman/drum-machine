@@ -1,4 +1,4 @@
-import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET } from "../constants/samples.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING } from "../constants/samples.constants";
 
 //Uploads States: "idle", "loading", "loaded", "error"
 
@@ -69,6 +69,14 @@ export default function samples(state = defaultState, action) {
         upload: {
           ...state.upload,
           state: "error"
+        }
+      }
+    case SAMPLE_UPLOADING:
+      return {
+        ...state,
+        upload: {
+          ...state.upload,
+          state: "uploading"
         }
       }
     case SAMPLE_UPLOAD_RESET:

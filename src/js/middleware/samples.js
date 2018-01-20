@@ -4,8 +4,9 @@ import { isNewTrack } from "./track";
 import { UPLOAD_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
+import { timeout } from "../library/audio-api/interval";
 import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
-import { newSampleUploaded, samplesLoaded, samplesUploadError } from "../actions/samples.actions";
+import { newSampleUploaded, samplesLoaded, samplesUploadError, sampleUploading } from "../actions/samples.actions";
 import { newNotification } from "../actions/notifications.actions";
 
 export const samplesMiddleware = store => next => {
@@ -54,6 +55,9 @@ export const samplesMiddleware = store => next => {
     let userId = getValueFromPath(auth, "user/uid");
     if(uploadState !== "idle") return;
     let createdDate = getDateToISOString();
+    timeout.get().then(_ => {
+      next(sampleUploading());
+    });
     uploadUserSample(userId, file, name, shortName, createdDate)
       .then(sample => {
         next(newSampleUploaded(sample));
