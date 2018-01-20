@@ -122,10 +122,12 @@ class UploadSampleModal extends Component {
 
 class SamplesList extends Component {
   render(){
-    let { samples, match, auth } = this.props;
+    let { samples, match, auth, dispatch } = this.props;
     let userId = getValueFromPath(match, "params/userId");
+    let currentUserId = getValueFromPath(auth, "user/uid");
     let userSamples = getValueFromPath(samples, `samples/${userId}`) || {};
     let userSamplesList = objectToArrayWithKeyValue(userSamples);
+		let samplesActions = bindActionCreators(DrumMachineActions.samples, dispatch);
     return <div className="large-list">
       <h2>Samples</h2>
       <UploadSampleModal {...this.props} />
@@ -136,8 +138,13 @@ class SamplesList extends Component {
               key: id,
               value: { name }
             }) => {
-              return <li>
+              return <li key={id}>
                 <span className="list-item-title">{name}</span>
+                <DropDownMenu items={[{
+                  name: "Delete Sample",
+                  callback: () => samplesActions.deleteSample(id),
+                  condition: () => userId === currentUserId
+                }]} />
               </li>;
             })
           }
