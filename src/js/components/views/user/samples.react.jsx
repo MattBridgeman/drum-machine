@@ -104,6 +104,13 @@ class UploadSampleModal extends Component {
                     <span className="icon icon__loading"></span>
                   </div>
                 </Maybe>
+                <Maybe condition={state === "uplaoded"}>
+                  <div className="upload uplaoded">
+                    <span className="upload-cta">File Uploaded Successfully</span>
+                    <span className="icon icon__tick"></span>
+                    <a className="upload-label" onClick={() => samplesActions.samplesUploadReset()}>Try again</a>
+                  </div>
+                </Maybe>
               </div>
             )
           }

@@ -37,6 +37,9 @@ export default function samples(state = defaultState, action) {
       };
       return {
         ...state,
+        upload: {
+          state: "uploaded"
+        },
         samples: {
           ...state.samples,
           [action.userId]: {

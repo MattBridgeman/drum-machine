@@ -32,3 +32,4 @@ Libraries
 
 Iconography
 - Loading Icon - https://thenounproject.com/search/?q=loading&i=999838
+- Tick Icon - https://thenounproject.com/search/?q=tick&i=1273242
