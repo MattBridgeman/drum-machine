@@ -84,4 +84,17 @@ let uploadUserSample = (userId, file, name, shortName, createdDate) => {
     });
 };
 
-export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks, uploadUserSample, loadUserSamples };
+let deleteUserSample = (userId, sampleId, url) => {
+  console.log(userId, sampleId, url);
+  return init()
+    .then(() => {
+      let storage = firebase.storage();
+      return storage.refFromURL(url) 
+        .delete()
+        .then(_ => firebase.database().ref(`users/${userId}/samples/${sampleId}`)
+          .remove()
+        );
+    });
+};
+
+export { getNewTrackKey, saveTrack, loadTrack, loadUserTracks, uploadUserSample, loadUserSamples, deleteUserSample };

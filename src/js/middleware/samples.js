@@ -1,11 +1,11 @@
 import rootReducer from "../reducers/root.reducer";
 import { matchesUserSamplesRoute } from "../library/routing/routing";
 import { isNewTrack } from "./track";
-import { UPLOAD_SAMPLE } from "../constants/samples.constants";
+import { UPLOAD_SAMPLE, DELETE_SAMPLE } from "../constants/samples.constants";
 import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { timeout } from "../library/audio-api/interval";
-import { uploadUserSample, loadUserSamples } from "../library/firebase/db";
+import { uploadUserSample, loadUserSamples, deleteUserSample } from "../library/firebase/db";
 import { newSampleUploaded, samplesLoaded, samplesUploadError, sampleUploading } from "../actions/samples.actions";
 import { newNotification } from "../actions/notifications.actions";
 
@@ -68,10 +68,30 @@ export const samplesMiddleware = store => next => {
       });
   };
 
+  let onDeleteSample = action => {
+    let { id } = action;
+    let { samples, auth } = store.getState();
+    let userId = getValueFromPath(auth, "user/uid");
+    let sampleUrl = getValueFromPath(samples, `samples/${userId}/${id}/path`);
+    console.log(userId, id, sampleUrl);
+    deleteUserSample(userId, id, sampleUrl)
+      .then(_ => {
+        //TODO: fire sample deleted action
+        next(newNotification("Sample deleted."));
+      })
+      .catch(error => {
+        //TODO: fire sample delete error action
+        console.log(error);
+        next(newNotification("There was an error deleting the sample."));
+      });
+  };
+
   return action => {
     switch(action.type){
       case UPLOAD_SAMPLE:
         onUploadSample(action);
+      case DELETE_SAMPLE:
+        onDeleteSample(action);
       default:
         onLoadUserSamples(action);
     }
