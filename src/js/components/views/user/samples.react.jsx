@@ -95,8 +95,8 @@ class UploadSampleModal extends Component {
                       <li>File was too big (1MB max)</li>
                       <li>File wasn't a WAV audio file</li>
                     </ul>
+                    <a className="upload-label" onClick={() => samplesActions.samplesUploadReset()}>Try again</a>
                   </div>
-                  <a className="upload-label" onClick={() => samplesActions.samplesUploadReset()}>Try again</a>
                 </Maybe>
               </div>
             )
