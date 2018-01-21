@@ -6,7 +6,7 @@ import { getValueFromPath } from "../library/natives/object";
 import { getDateToISOString } from "../library/natives/date";
 import { timeout } from "../library/audio-api/interval";
 import { uploadUserSample, loadUserSamples, deleteUserSample } from "../library/firebase/db";
-import { newSampleUploaded, samplesLoaded, samplesUploadError, sampleUploading } from "../actions/samples.actions";
+import { newSampleUploaded, samplesLoaded, samplesUploadError, sampleUploading, sampleDeleted } from "../actions/samples.actions";
 import { newNotification } from "../actions/notifications.actions";
 
 export const samplesMiddleware = store => next => {
@@ -76,6 +76,7 @@ export const samplesMiddleware = store => next => {
     deleteUserSample(userId, id, sampleUrl)
       .then(_ => {
         //TODO: fire sample deleted action
+        next(sampleDeleted(userId, id));
         next(newNotification("Sample deleted."));
       })
       .catch(error => {
