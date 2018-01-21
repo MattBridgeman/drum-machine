@@ -128,7 +128,6 @@ class SamplesList extends Component {
     let userSamples = getValueFromPath(samples, `samples/${userId}`) || {};
     let userSamplesList = objectToArrayWithKeyValue(userSamples);
     let samplesActions = bindActionCreators(DrumMachineActions.samples, dispatch);
-    console.log(userSamplesList);
     return <div className="large-list">
       <h2>Samples</h2>
       <UploadSampleModal {...this.props} />

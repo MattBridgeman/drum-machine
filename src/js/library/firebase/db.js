@@ -85,7 +85,6 @@ let uploadUserSample = (userId, file, name, shortName, createdDate) => {
 };
 
 let deleteUserSample = (userId, sampleId, url) => {
-  console.log(userId, sampleId, url);
   return init()
     .then(() => {
       let storage = firebase.storage();

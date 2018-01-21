@@ -73,7 +73,6 @@ export const samplesMiddleware = store => next => {
     let { samples, auth } = store.getState();
     let userId = getValueFromPath(auth, "user/uid");
     let sampleUrl = getValueFromPath(samples, `samples/${userId}/${id}/path`);
-    console.log(userId, id, sampleUrl);
     deleteUserSample(userId, id, sampleUrl)
       .then(_ => {
         //TODO: fire sample deleted action
@@ -81,7 +80,6 @@ export const samplesMiddleware = store => next => {
       })
       .catch(error => {
         //TODO: fire sample delete error action
-        console.log(error);
         next(newNotification("There was an error deleting the sample."));
       });
   };
