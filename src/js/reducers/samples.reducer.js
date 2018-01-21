@@ -1,4 +1,5 @@
-import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING } from "../constants/samples.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, SAMPLE_DELETED } from "../constants/samples.constants";
+import { filter } from "../library/natives/object";
 
 //Uploads States: "idle", "loading", "loaded", "error"
 
@@ -45,6 +46,18 @@ export default function samples(state = defaultState, action) {
           [action.userId]: {
             [action.sampleId]: sample,
             ...state.samples[action.userId]
+          }
+        }
+      }
+    case SAMPLE_DELETED:
+      return {
+        ...state,
+        samples: {
+          ...state.samples,
+          [action.userId]: {
+            ...filter(state.samples[action.userId], ({
+              key, value
+            }) => key !== action.id)
           }
         }
       }

@@ -41,3 +41,14 @@ export function objectToArrayWithKeyValue(object) {
 		value: object[key]
 	}));
 }
+
+export function keyValueArrayToObject(objectList) {
+	let object = {};
+	objectList.forEach(({
+		key,
+		value
+	}) => {
+		object[key] = value;
+	});
+	return object;
+}
