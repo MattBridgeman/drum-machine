@@ -1,4 +1,4 @@
-import { objectToArrayWithKeyValue } from "./array";
+import { objectToArrayWithKeyValue, keyValueArrayToObject } from "./array";
 
 export let getValueFromPath = (object, path) => {
   return path.split("/")

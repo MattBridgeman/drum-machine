@@ -64,6 +64,7 @@ export function deleteSample(id){
 export function sampleDeleted(userId, id){
   return {
     type: SAMPLE_DELETED,
+    userId,
     id
   };
 };

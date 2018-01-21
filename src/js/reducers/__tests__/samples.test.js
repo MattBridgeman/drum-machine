@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import samples from "../samples.reducer";
-import { uploadSample, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading } from "../../actions/samples.actions";
+import { uploadSample, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading, sampleDeleted } from "../../actions/samples.actions";
 
 describe("Samples reducer", () => {
   it("returns an idle upload state given a file", () => {
@@ -57,5 +57,22 @@ describe("Samples reducer", () => {
     let action = sampleUploading();
     let state = samples(undefined, action);
     expect(state.upload.state).to.equal("uploading");
+  });
+
+  it("returns list of samples without deleted sample", () => {
+    let action = sampleDeleted("123", "1234");
+    let state = samples({
+      samples: {
+        "123": {
+          "1234": { name: "foo" },
+          "12345": { name: "bar" }
+        }
+      }
+    }, action);
+    expect(state.samples).to.deep.equal({
+      "123": {
+        "12345": { name: "bar" }
+      }
+    });
   });
 });
