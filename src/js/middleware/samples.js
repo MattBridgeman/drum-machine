@@ -88,8 +88,10 @@ export const samplesMiddleware = store => next => {
     switch(action.type){
       case UPLOAD_SAMPLE:
         onUploadSample(action);
+        break;
       case DELETE_SAMPLE:
         onDeleteSample(action);
+        break;
       default:
         onLoadUserSamples(action);
     }
