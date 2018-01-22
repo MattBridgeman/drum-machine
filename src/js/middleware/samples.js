@@ -69,13 +69,11 @@ export const samplesMiddleware = store => next => {
   };
 
   let onDeleteSample = action => {
-    let { id } = action;
+    let { id, userId } = action;
     let { samples, auth } = store.getState();
-    let userId = getValueFromPath(auth, "user/uid");
     let sampleUrl = getValueFromPath(samples, `samples/${userId}/${id}/path`);
     deleteUserSample(userId, id, sampleUrl)
       .then(_ => {
-        //TODO: fire sample deleted action
         next(sampleDeleted(userId, id));
         next(newNotification("Sample deleted."));
       })

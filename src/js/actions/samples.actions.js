@@ -1,4 +1,4 @@
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, DELETE_SAMPLE, SAMPLE_DELETED } from "../constants/samples.constants";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, DELETE_SAMPLE, SAMPLE_DELETED, SAMPLE_DELETE_ERROR } from "../constants/samples.constants";
 
 export function uploadSample(name, shortName, file){
 	return {
@@ -54,9 +54,10 @@ export function samplesUploadReset(){
   };
 };
 
-export function deleteSample(id){
+export function deleteSample(userId, id){
   return {
     type: DELETE_SAMPLE,
+    userId,
     id
   };
 };
@@ -64,6 +65,14 @@ export function deleteSample(id){
 export function sampleDeleted(userId, id){
   return {
     type: SAMPLE_DELETED,
+    userId,
+    id
+  };
+};
+
+export function sampleDeleteError(userId, id){
+  return {
+    type: SAMPLE_DELETE_ERROR,
     userId,
     id
   };

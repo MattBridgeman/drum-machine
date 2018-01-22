@@ -1,4 +1,4 @@
-import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, SAMPLE_DELETED } from "../constants/samples.constants";
+import { SAMPLES_LOADING, SAMPLES_LOADED, SAMPLES_LOAD_ERROR, UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, SAMPLE_DELETED, SAMPLE_DELETE_ERROR, DELETE_SAMPLE } from "../constants/samples.constants";
 import { filter } from "../library/natives/object";
 
 //Uploads States: "idle", "loading", "loaded", "error"
@@ -14,6 +14,7 @@ let defaultState = {
 };
 
 export default function samples(state = defaultState, action) {
+  let sample;
   switch (action.type) {
     case SAMPLES_LOADING:
       return {
@@ -30,7 +31,7 @@ export default function samples(state = defaultState, action) {
         }
       }
     case SAMPLE_UPLOADED:
-      let sample = {
+      sample = {
         name: action.name,
         shortName: action.shortName,
         path: action.path,
@@ -58,6 +59,36 @@ export default function samples(state = defaultState, action) {
             ...filter(state.samples[action.userId], ({
               key, value
             }) => key !== action.id)
+          }
+        }
+      }
+    case DELETE_SAMPLE:
+      sample = {
+        ...state.samples[action.userId][action.id],
+        deleted: true
+      };
+      return {
+        ...state,
+        samples: {
+          ...state.samples,
+          [action.userId]: {
+            ...state.samples[action.userId],
+            [action.id]: sample
+          }
+        }
+      }
+    case SAMPLE_DELETE_ERROR:
+      sample = {
+        ...state.samples[action.userId][action.id],
+        deleted: false
+      };
+      return {
+        ...state,
+        samples: {
+          ...state.samples,
+          [action.userId]: {
+            ...state.samples[action.userId],
+            [action.id]: sample
           }
         }
       }

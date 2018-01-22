@@ -10,11 +10,14 @@
       padding: 0 10px;
       border-bottom: 1px solid @grey-transparency;
       background: @white;
-      transition: background-color 300ms ease;
+      transition: background-color 300ms ease, opacity 300ms ease;
       &.highlight {
         &:hover {
           background: @light-grey;
         }
+      }
+      &.disabled {
+        opacity: 0.5;
       }
       &:first-child {
         border-top: 1px solid @grey-transparency;

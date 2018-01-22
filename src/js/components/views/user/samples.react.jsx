@@ -136,13 +136,13 @@ class SamplesList extends Component {
           {
             userSamplesList.map(({
               key: id,
-              value: { name }
+              value: { name, deleted }
             }) => {
-              return <li key={id}>
+              return <li key={id} className={deleted ? "disabled" : ""}>
                 <span className="list-item-title">{name}</span>
                 <DropDownMenu items={[{
                   name: "Delete Sample",
-                  callback: () => samplesActions.deleteSample(id),
+                  callback: () => samplesActions.deleteSample(userId, id),
                   condition: () => userId === currentUserId
                 }]} />
               </li>;

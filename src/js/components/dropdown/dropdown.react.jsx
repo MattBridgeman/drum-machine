@@ -51,7 +51,7 @@ class DropDownMenu extends Component {
               .map(item => {
                 if(item.callback) {
                   return <li>
-                    <button className="dropdown-link" onClick={item.callback}>{item.name}</button>
+                    <button className="dropdown-link" onClick={() => item.callback() && this.onClose()}>{item.name}</button>
                   </li>;
                 } else {
                   return <li>

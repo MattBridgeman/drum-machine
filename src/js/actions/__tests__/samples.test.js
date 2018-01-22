@@ -1,5 +1,5 @@
-import { uploadSample, newSampleUploaded, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading } from "../samples.actions";
-import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, SAMPLE_DELETED } from "../../constants/samples.constants";
+import { uploadSample, newSampleUploaded, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading, sampleDeleteError, deleteSample, sampleDeleted } from "../samples.actions";
+import { UPLOAD_SAMPLE, SAMPLE_UPLOADED, SAMPLES_LOADED, SAMPLE_UPLOAD_ERROR, SAMPLE_UPLOAD_RESET, SAMPLE_UPLOADING, SAMPLE_DELETED, SAMPLE_DELETE_ERROR, DELETE_SAMPLE } from "../../constants/samples.constants";
 import { expect } from "chai";
 
 describe("Samples actions", function() {
@@ -66,6 +66,16 @@ describe("Samples actions", function() {
     });
   });
   
+  it("returns delete sample action", () => {
+    let action = deleteSample("123", "1234");
+
+    expect(action).to.deep.equal({
+      type: DELETE_SAMPLE,
+      userId: "123",
+      id: "1234"
+    });
+  });
+  
   it("returns upload reset action", () => {
     let action = samplesUploadReset();
 
@@ -75,11 +85,10 @@ describe("Samples actions", function() {
   });
   
   it("returns uploading action", () => {
-    let action = sampleUploading(1234);
+    let action = sampleUploading();
 
     expect(action).to.deep.equal({
-      type: SAMPLE_UPLOADING,
-      id: 1234
+      type: SAMPLE_UPLOADING
     });
   });
   
@@ -88,6 +97,16 @@ describe("Samples actions", function() {
 
     expect(action).to.deep.equal({
       type: SAMPLE_DELETED,
+      userId: 123,
+      id: 1234
+    });
+  });
+
+  it("returns sample delete error action", () => {
+    let action = sampleDeleteError(123, 1234);
+
+    expect(action).to.deep.equal({
+      type: SAMPLE_DELETE_ERROR,
       userId: 123,
       id: 1234
     });

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import samples from "../samples.reducer";
-import { uploadSample, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading, sampleDeleted } from "../../actions/samples.actions";
+import { uploadSample, samplesLoaded, samplesUploadError, samplesUploadReset, sampleUploading, sampleDeleted, sampleDeleteError, deleteSample } from "../../actions/samples.actions";
 
 describe("Samples reducer", () => {
   it("returns an idle upload state given a file", () => {
@@ -71,6 +71,42 @@ describe("Samples reducer", () => {
     }, action);
     expect(state.samples).to.deep.equal({
       "123": {
+        "12345": { name: "bar" }
+      }
+    });
+  });
+  
+  it("switches out 'deleted: true' to false if delete fails", () => {
+    let action = sampleDeleteError("123", "1234");
+    let state = samples({
+      samples: {
+        "123": {
+          "1234": { name: "foo", deleted: true },
+          "12345": { name: "bar" }
+        }
+      }
+    }, action);
+    expect(state.samples).to.deep.equal({
+      "123": {
+        "1234": { name: "foo", deleted: false },
+        "12345": { name: "bar" }
+      }
+    });
+  });
+  
+  it("marks a sample as deleted", () => {
+    let action = deleteSample("123", "1234");
+    let state = samples({
+      samples: {
+        "123": {
+          "1234": { name: "foo" },
+          "12345": { name: "bar" }
+        }
+      }
+    }, action);
+    expect(state.samples).to.deep.equal({
+      "123": {
+        "1234": { name: "foo", deleted: true },
         "12345": { name: "bar" }
       }
     });
