@@ -10,7 +10,10 @@ export let getSound = (soundId, state) => {
   let userSample = getValueFromPath(samples, `samples/${userId}/${soundId}`);
   let librarySample = librarySounds[soundId];
   let sound = userSample || librarySample;
-  return sound;
+  return sound || {
+    name: '---',
+    shortName: '---'
+  };
 };
 
 export let loadSound = (soundId, state) => {
