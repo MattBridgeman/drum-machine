@@ -20,9 +20,9 @@ class ChannelSelector extends Component {
       <div className="channel-selector">
         <h3 ref="name" className="item-title">Sound Selector</h3>
         <div className="item-tray">
-          {channels.map((channel, i) => {
+          {channels.map((channel, i) => { 
             let sound = getSound(channel.sound, this.props);
-            <div className="selector-button">
+            return <div className="selector-button">
               <ToggleButton onClick={() => actions.changeSelectedChannel(machineId, i)} name={sound.shortName} selected={channel.selected} classes="red" />
             </div>
           })}
