@@ -19,7 +19,8 @@ describe("Samples", () => {
   it("calls sampleUploading, uploadUserSample then newSampleUploaded on UPLOAD_SAMPLE action", () => {
     let sample = {
       name: "sample name",
-      shortName: "SN"
+      shortName: "SN",
+      userId: "123"
     };
     let { promise, flush } = getPromiseMock(sample);
     let get = cb => {
@@ -34,7 +35,7 @@ describe("Samples", () => {
 
     //mocks
     let uploadUserSample = td.function();
-    td.when(uploadUserSample(td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
+    td.when(uploadUserSample(td.matchers.anything(), td.matchers.anything(), td.matchers.anything(), td.matchers.anything(), td.matchers.anything())).thenReturn(promise);
 
     td.replace(timeout, "get", get);
     td.replace(db, "uploadUserSample", uploadUserSample);
@@ -49,7 +50,14 @@ describe("Samples", () => {
         state: "idle"
       },
       auth: {
-        user: null
+        user: {
+          uid: "123"
+        }
+      },
+      samples: {
+        upload: {
+          state: "idle"
+        }
       }
     };
     let store = {
@@ -67,7 +75,9 @@ describe("Samples", () => {
       }
     });
     flush();
-
+    td.verify(next({
+      type: SAMPLE_UPLOADING
+    }));
     td.verify(next({
       type: UPLOAD_SAMPLE,
       name: "sample name",
@@ -77,11 +87,13 @@ describe("Samples", () => {
       }
     }));
     td.verify(next({
-      type: SAMPLE_UPLOADING
-    }));
-    td.verify(next({
       type: SAMPLE_UPLOADED,
-      ...sample
+      name: "sample name",
+      shortName: "SN",
+      path: undefined,
+      createdDate: undefined,
+      sampleId: undefined,
+      userId: "123"
     }));
     td.reset();
   });
