@@ -1,3 +1,9 @@
+## 1.5.0
+
+- Added the ability to upload samples and use them in the Drum Machine
+- Added ability that sounds can be null (if deleted)
+- Various bug fixes and improvements
+
 ## 1.4.1
 
 - Added /users/UID/tracks endpoint list a users tracks

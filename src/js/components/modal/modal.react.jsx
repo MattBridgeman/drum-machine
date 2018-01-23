@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Maybe } from "../maybe/maybe.react.jsx";
 
 class Modal extends Component {
 
@@ -25,14 +26,16 @@ class Modal extends Component {
     let { props, state } = this;
     return (
       <div className={"modal-container" + ( state.open ? " open" : "" )}>
-        <button className="modal-button open-button" onClick={() => this.onOpen()}>
-          <span className="assistive">Open Modal</span>
-          {
-            props.icon ? 
-            (<span className={"icon__" + props.icon}></span>)
-            : null
-          }
-        </button>
+        <Maybe condition={!props.trigger}>
+          <button className="modal-button open-button" onClick={() => this.onOpen()}>
+            Open Modal
+          </button>
+        </Maybe>
+        <Maybe condition={props.trigger}>
+          {props.trigger({
+            onOpen: () => this.onOpen()
+          })}
+        </Maybe>
         <div className="model-overlay"></div>
         {
           state.open ? (

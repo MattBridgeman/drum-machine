@@ -7,6 +7,7 @@ import { segmentsToSchedule } from "../library/audio-api/buffer";
 import { getAudioContext } from "../library/audio-api/context";
 import { intervalGenerator, timeout } from "../library/audio-api/interval";
 import DrumMachineActions from "../actions/root.actions";
+import rootReducer from "../reducers/root.reducer";
 
 export const buffer = store => next => {
     
@@ -15,11 +16,12 @@ export const buffer = store => next => {
   let createIntervalStream = ogen(intervalGenerator);
   let bufferActions = DrumMachineActions.buffer;
 
-  let playPause = () => {
-    let { playState } = store.getState();
-    if(!playState.isPlaying && !isPlaying){
+  let playPause = (action) => {
+    let prevState = store.getState();
+    let { playState } = rootReducer(prevState, action);
+    if(playState.isPlaying && !isPlaying){
       start();
-    } else if(playState.isPlaying && isPlaying) {
+    } else if(!playState.isPlaying && isPlaying) {
       stop();
     }
     return null;
@@ -36,11 +38,15 @@ export const buffer = store => next => {
     let shouldContinue = () => isPlaying;
     createIntervalStream(shouldContinue, interval)
       .subscribe(() => {
-        let currentState = store.getState();
-        let segments = segmentsToSchedule(context.currentTime, currentState);
-        segments.forEach(({index, time}) => 
-          next(bufferActions.newBufferSegment(index, time))
-        );
+        try {
+          let currentState = store.getState();
+          let segments = segmentsToSchedule(context.currentTime, currentState);
+          segments.forEach(({index, time}) => 
+            next(bufferActions.newBufferSegment(index, time))
+          );
+        } catch(err) {
+          console.error(err);
+        }
       },
       (err) => console.error(err),
       () => next(bufferActions.clearBufferSegments()));
@@ -51,13 +57,7 @@ export const buffer = store => next => {
   };
 
 	return action => {
-    //do stuff
-    switch(action.type) {
-      case TOGGLE_PLAY_PAUSE:
-        playPause();
-        return next(action);
-      default:
-        return next(action);
-    }
+    playPause(action);
+    return next(action);
   };
 };

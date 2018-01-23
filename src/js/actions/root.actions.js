@@ -7,6 +7,7 @@ import * as auth from "./auth.actions";
 import * as drumMachine from "./drum.machine.actions";
 import * as track from "./track.actions";
 import * as meta from "./meta.actions";
+import * as samples from "./samples.actions";
 
 export default {
   playState,
@@ -17,5 +18,6 @@ export default {
   auth,
   drumMachine,
   track,
-  meta
+  meta,
+  samples
 }

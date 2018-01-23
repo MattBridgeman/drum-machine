@@ -7,13 +7,14 @@ import { getValueFromPath } from "../../../library/natives/object";
 import { Link } from "react-router-dom";
 import { DropDownMenu } from "../../dropdown/dropdown.react.jsx";
 import moment from "moment";
+import { buildTrackRoute } from "../../../library/routing/routing";
 
 const TracksList = props => {
   let { tracks: { tracks }, match } = props;
   let userId = getValueFromPath(match, "params/userId");
   let userTracks = getValueFromPath(tracks, userId) || [];
   return userTracks.length ? 
-  (<div className="tracks-list">
+  (<div className="large-list">
     <h2>Tracks</h2>
     <ul>
       {
@@ -24,13 +25,13 @@ const TracksList = props => {
           let updatedDate = getValueFromPath(track, "meta/updatedDate") || "2017-12-01T00:00:00.000Z";
           let updatedMoment = moment(updatedDate).fromNow();
           let trackId = getValueFromPath(track, "track/trackId");
-          return <li key={trackId}>
-            <Link to={`/users/${userId}/tracks/${trackId}`}>
+          return <li key={trackId} className="highlight">
+            <Link to={buildTrackRoute(userId, trackId)} className="list-item-title">
               <div className="title">{ title }</div> <div className="meta date">{ updatedMoment }</div>
             </Link>
             <DropDownMenu items={[{
               name: "Select Track",
-              link: `/users/${userId}/tracks/${trackId}`
+              link: buildTrackRoute(userId, trackId)
             },{
               name: "Delete Track",
               callback: () => trackActions.deleteTrack(),
