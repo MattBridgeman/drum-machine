@@ -414,7 +414,7 @@ describe("Track", () => {
         type: "RANDOM"
       };
   
-      let newTrack = isNewTrack(store)(next)(action);
+      let newTrack = isNewTrack(store)(action);
       
       expect(newTrack.trackId).to.equal("default");
       expect(newTrack.userId).to.equal(undefined);
@@ -453,7 +453,7 @@ describe("Track", () => {
         type: "RANDOM"
       };
   
-      let newTrack = isNewTrack(store)(next)(action);
+      let newTrack = isNewTrack(store)(action);
       
       expect(newTrack).to.equal(undefined);
     });
@@ -494,7 +494,7 @@ describe("Track", () => {
         }
       };
       
-      let newTrack = isNewTrack(store)(next)(action);
+      let newTrack = isNewTrack(store)(action);
       
       expect(newTrack.trackId).to.equal("1234");
       expect(newTrack.userId).to.equal("123");
