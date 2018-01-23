@@ -13,6 +13,14 @@ import DrumMachineActions from "../../../actions/root.actions";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 const acceptedMimeTypes = ["audio/x-wav"];
+const generateSampleName = name => {
+  name = name.split(".")[0];
+  let shortName = name.substring(0, 2).toUpperCase();
+  return {
+    name,
+    shortName
+  }
+};
 
 class UploadSampleModal extends Component {
   constructor(props){
@@ -40,22 +48,19 @@ class UploadSampleModal extends Component {
     if (dt.items) {
       if (dt.items[0].kind == "file") {
         let file = dt.items[0].getAsFile();
-        let { name } = file;
-        let shortName = name.substring(0, 2).toUpperCase();
+        let { name, shortName } = generateSampleName(file.name);
         dispatch(uploadSample(name, shortName, file));
       }
     } else {
       let file = dt.files[0];
-      let { name } = file;
-      let shortName = name.substring(0, 2).toUpperCase();
+      let { name, shortName } = generateSampleName(file.name);
       dispatch(uploadSample(name, shortName, file));
     }
   }
   onFileInput(e){
     let { dispatch } = this.props;
     let file = e.target.files[0];
-    let { name } = file;
-    let shortName = name.substring(0, 2).toUpperCase();
+    let { name, shortName } = generateSampleName(file.name);
     dispatch(uploadSample(name, shortName, file));
   }
   render(){
