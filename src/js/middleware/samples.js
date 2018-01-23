@@ -78,28 +78,22 @@ export const samplesMiddleware = store => next => {
         next(newNotification("Sample deleted."));
       })
       .catch(error => {
-        //TODO: fire sample delete error action
         next(sampleDeleteError(userId, id));
         next(newNotification("There was an error deleting the sample."));
       });
   };
 
   return action => {
-    console.log("here 1");
     switch(action.type){
       case UPLOAD_SAMPLE:
-        console.log("here 2");
         onUploadSample(action);
         break;
       case DELETE_SAMPLE:
-        console.log("here 3");
         onDeleteSample(action);
         break;
       default:
-        console.log("here 4");
         onLoadUserSamples(action);
     }
-    console.log("here 5");
     return next(action);
   }
 };
