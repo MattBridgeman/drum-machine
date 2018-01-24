@@ -14,6 +14,7 @@ import track from "./track.reducer";
 import tracks from "./tracks.reducer";
 import meta from "./meta.reducer";
 import samples from "./samples.reducer";
+import preview from "./preview.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
 	tracks,
 	meta,
 	samples,
+	preview,
 	router: routerReducer
 });
 
