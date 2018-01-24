@@ -14,8 +14,8 @@ export default function preview(state = initialState, action) {
       };
     case PAUSE_PREVIEW:
       return {
-        isPlaying: false,
-        ...state
+        ...state,
+        isPlaying: false
       };
     default:
       return state;
