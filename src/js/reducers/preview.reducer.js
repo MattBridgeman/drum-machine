@@ -1,5 +1,5 @@
 const initialState = {
-  playing: true,
+  isPlaying: true,
   soundId: "asdsADSDasdsd"
 };
 
