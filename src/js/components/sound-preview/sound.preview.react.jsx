@@ -9,7 +9,8 @@ const SoundPreview = props => {
     preview: {
       soundId,
       isPlaying
-    }
+    },
+    dispatch
   } = props;
   let previewActions = bindActionCreators(DrumMachineActions.preview, dispatch);
   let currentSoundIsPlaying = soundId === id && isPlaying;
