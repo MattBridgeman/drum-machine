@@ -2,7 +2,7 @@ import { PLAY_PREVIEW } from "../constants/preview.constants";
 import { loadSound } from "../library/audio-api/load.sounds";
 import { triggerBuffer } from "../library/audio-api/instruments/trigger.buffer";
 import { getAudioContext } from "../library/audio-api/context";
-import { loadingPreview, playPreview } from "../actions/preview.actions";
+import { loadingPreview, playPreview, pausePreview } from "../actions/preview.actions";
 
 export const preview = store => next => {
 
@@ -18,7 +18,9 @@ export const preview = store => next => {
       next(playPreview(userId, id));
       bufferNode = triggerBuffer(context, soundBuffer);
       bufferNode.connect(context.destination);
-      console.log(bufferNode);
+      bufferNode.onended = function(){
+        next(pausePreview());
+      };
     });
   };
 
