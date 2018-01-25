@@ -1,24 +1,37 @@
 import { expect } from "chai";
 import preview from "../preview.reducer";
-import { PLAY_PREVIEW, PAUSE_PREVIEW } from "../../constants/preview.constants";
+import { PLAY_PREVIEW, PAUSE_PREVIEW, LOADING_PREVIEW } from "../../constants/preview.constants";
 
 describe("Preview reducer", () => {
-	it("switches isPlaying to true if play action", () => {
+	it("switches state to playing if play action", () => {
     let initialState = {
-      isPlaying: false,
+      state: "idle",
       soundId: undefined
     };
     let nextState = preview(initialState, {
       type: PLAY_PREVIEW,
       id: 123
     });
-    expect(nextState.isPlaying).to.equal(true);
+    expect(nextState.state).to.equal("playing");
     expect(nextState.soundId).to.equal(123);
   });
 
-  it("switches isPlaying to false if paused action", () => {
+  it("switches state to loading if play action", () => {
     let initialState = {
-      isPlaying: true,
+      state: "idle",
+      soundId: undefined
+    };
+    let nextState = preview(initialState, {
+      type: LOADING_PREVIEW,
+      id: 123
+    });
+    expect(nextState.state).to.equal("loading");
+    expect(nextState.soundId).to.equal(123);
+  });
+
+  it("switches state to idle if paused action", () => {
+    let initialState = {
+      state: "playing",
       soundId: 123
     };
 
@@ -26,7 +39,7 @@ describe("Preview reducer", () => {
       type: PAUSE_PREVIEW
     });
 
-    expect(nextState.isPlaying).to.equal(false);
+    expect(nextState.state).to.equal("idle");
     expect(nextState.soundId).to.equal(123);
   });
 });

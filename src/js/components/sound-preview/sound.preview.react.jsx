@@ -8,12 +8,13 @@ const SoundPreview = props => {
     id,
     preview: {
       soundId,
-      isPlaying
+      state
     },
     dispatch
   } = props;
   let previewActions = bindActionCreators(DrumMachineActions.preview, dispatch);
-  let currentSoundIsPlaying = soundId === id && isPlaying;
+  let currentSoundIsPlaying = soundId === id && state === "playing";
+  let currentSoundIsLoading = soundId === id && state === "loading";
   return <button className="preview-sound" onClick={() => {
     if(currentSoundIsPlaying){
       previewActions.pausePreview();
@@ -24,7 +25,10 @@ const SoundPreview = props => {
     <Maybe condition={currentSoundIsPlaying}>
       Pause Preview
     </Maybe>
-    <Maybe condition={!currentSoundIsPlaying}>
+    <Maybe condition={currentSoundIsLoading}>
+      Preview Loading
+    </Maybe>
+    <Maybe condition={!currentSoundIsPlaying && !currentSoundIsPlaying}>
       Play Preview
     </Maybe>
   </button>;

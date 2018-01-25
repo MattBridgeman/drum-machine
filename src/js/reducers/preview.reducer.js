@@ -1,7 +1,9 @@
-import { PLAY_PREVIEW, PAUSE_PREVIEW } from "../constants/preview.constants";
+import { PLAY_PREVIEW, PAUSE_PREVIEW, LOADING_PREVIEW } from "../constants/preview.constants";
+
+//state: idle, loading, playing
 
 const initialState = {
-  isPlaying: false,
+  state: "idle",
   soundId: undefined
 };
 
@@ -9,13 +11,18 @@ export default function preview(state = initialState, action) {
   switch(action.type){
     case PLAY_PREVIEW:
       return {
-        isPlaying: true,
+        state: "playing",
         soundId: action.id
       };
     case PAUSE_PREVIEW:
       return {
         ...state,
-        isPlaying: false
+        state: "idle"
+      };
+    case LOADING_PREVIEW:
+      return {
+        state: "loading",
+        soundId: action.id
       };
     default:
       return state;

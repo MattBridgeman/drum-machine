@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { playPreview, pausePreview } from "../preview.actions";
-import { PLAY_PREVIEW, PAUSE_PREVIEW } from "../../constants/preview.constants";
+import { playPreview, pausePreview, loadingPreview } from "../preview.actions";
+import { PLAY_PREVIEW, PAUSE_PREVIEW, LOADING_PREVIEW } from "../../constants/preview.constants";
 
 describe("Preview actions", function() {
 
@@ -10,6 +10,15 @@ describe("Preview actions", function() {
     });
 
     expect(action.type).to.equal(PLAY_PREVIEW);
+    expect(action.id).to.equal(123);
+  });
+
+	it("loadingPreview returns corresponding action", function() {
+		var action = loadingPreview({
+			id: 123
+    });
+
+    expect(action.type).to.equal(LOADING_PREVIEW);
     expect(action.id).to.equal(123);
   });
 

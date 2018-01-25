@@ -8,6 +8,7 @@ import * as drumMachine from "./drum.machine.actions";
 import * as track from "./track.actions";
 import * as meta from "./meta.actions";
 import * as samples from "./samples.actions";
+import * as preview from "./preview.actions";
 
 export default {
   playState,
@@ -19,5 +20,6 @@ export default {
   drumMachine,
   track,
   meta,
-  samples
+  samples,
+  preview
 }

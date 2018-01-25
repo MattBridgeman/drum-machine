@@ -1,2 +1,3 @@
 export const PLAY_PREVIEW = "PLAY_PREVIEW";
 export const PAUSE_PREVIEW = "PAUSE_PREVIEW";
+export const LOADING_PREVIEW = "LOADING_PREVIEW";
