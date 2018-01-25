@@ -24,13 +24,15 @@ const SoundPreview = props => {
     }
   }}>
     <Maybe condition={currentSoundIsPlaying}>
-      Pause Preview
+      <span className="assistive">Pause Preview</span>
+      <span className="icon icon__pause"></span>
     </Maybe>
     <Maybe condition={currentSoundIsLoading}>
-      Preview Loading
+      <span className="assistive">Preview Loading</span>
     </Maybe>
     <Maybe condition={!currentSoundIsPlaying && !currentSoundIsLoading}>
-      Play Preview
+      <span className="assistive">Play Preview</span>
+      <span className="icon icon__play"></span>      
     </Maybe>
   </button>;
 };
