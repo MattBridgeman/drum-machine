@@ -2,7 +2,7 @@ import { PLAY_PREVIEW } from "../constants/preview.constants";
 import { loadSound } from "../library/audio-api/load.sounds";
 import { triggerBuffer } from "../library/audio-api/instruments/trigger.buffer";
 import { getAudioContext } from "../library/audio-api/context";
-import { loadingPreview } from "../actions/preview.actions";
+import { loadingPreview, playPreview } from "../actions/preview.actions";
 
 export const preview = store => next => {
 
@@ -10,13 +10,15 @@ export const preview = store => next => {
   let context = getAudioContext();
 
   let onPlayPreview = action => {
-    let { id } = action;
+    let { userId, id } = action;
     let state = store.getState();
-    let { soundPromise } = loadSound(id, state);
+    let { soundPromise } = loadSound(id, state, userId);
     next(loadingPreview(id));
     soundPromise.then(soundBuffer => {
+      next(playPreview(userId, id));
       bufferNode = triggerBuffer(context, soundBuffer);
       bufferNode.connect(context.destination);
+      console.log(bufferNode);
     });
   };
 

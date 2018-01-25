@@ -4,9 +4,9 @@ import { getValueFromPath } from "../natives/object";
 
 export let cache = {};
 
-export let getSound = (soundId, state) => {
+export let getSound = (soundId, state, userId) => {
   let { librarySounds, track, samples } = state;
-  let userId = getValueFromPath(track, "userId");
+  userId = userId || getValueFromPath(track, "userId");
   let userSample = getValueFromPath(samples, `samples/${userId}/${soundId}`);
   let librarySample = librarySounds[soundId];
   let sound = userSample || librarySample;
@@ -16,8 +16,8 @@ export let getSound = (soundId, state) => {
   };
 };
 
-export let loadSound = (soundId, state) => {
-  let sound = getSound(soundId, state);
+export let loadSound = (soundId, state, userId) => {
+  let sound = getSound(soundId, state, userId);
   if(sound) {
     return {
       id: soundId,

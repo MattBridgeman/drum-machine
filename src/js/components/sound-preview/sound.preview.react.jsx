@@ -6,6 +6,7 @@ import { Maybe } from "../maybe/maybe.react.jsx";
 const SoundPreview = props => {
   let {
     id,
+    userId,
     preview: {
       soundId,
       state
@@ -19,7 +20,7 @@ const SoundPreview = props => {
     if(currentSoundIsPlaying){
       previewActions.pausePreview();
     } else {
-      previewActions.playPreview(id);
+      previewActions.playPreview(userId, id);
     }
   }}>
     <Maybe condition={currentSoundIsPlaying}>
@@ -28,7 +29,7 @@ const SoundPreview = props => {
     <Maybe condition={currentSoundIsLoading}>
       Preview Loading
     </Maybe>
-    <Maybe condition={!currentSoundIsPlaying && !currentSoundIsPlaying}>
+    <Maybe condition={!currentSoundIsPlaying && !currentSoundIsLoading}>
       Play Preview
     </Maybe>
   </button>;

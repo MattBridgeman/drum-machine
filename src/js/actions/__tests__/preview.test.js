@@ -5,18 +5,15 @@ import { PLAY_PREVIEW, PAUSE_PREVIEW, LOADING_PREVIEW } from "../../constants/pr
 describe("Preview actions", function() {
 
 	it("playPreview returns corresponding action", function() {
-		var action = playPreview({
-			id: 123
-    });
+		var action = playPreview(234, 123);
 
     expect(action.type).to.equal(PLAY_PREVIEW);
     expect(action.id).to.equal(123);
+    expect(action.userId).to.equal(234);
   });
 
 	it("loadingPreview returns corresponding action", function() {
-		var action = loadingPreview({
-			id: 123
-    });
+		var action = loadingPreview(123);
 
     expect(action.type).to.equal(LOADING_PREVIEW);
     expect(action.id).to.equal(123);
