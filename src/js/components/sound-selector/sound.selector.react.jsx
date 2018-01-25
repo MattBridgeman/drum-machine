@@ -5,6 +5,7 @@ import { objectToArrayWithKeyValue } from "../../library/natives/array";
 import { getValueFromPath } from "../../library/natives/object";
 import { Tabs } from "../tabs/tabs.react.jsx";
 import { buildUserSamplesRoute } from "../../library/routing/routing";
+import { SoundPreview } from "../sound-preview/sound.preview.react.jsx";
 
 const LibraryTab = props => {
   let { onChange, selectedId, librarySounds } = props;
@@ -22,6 +23,7 @@ const LibraryTab = props => {
             <span>{name}</span>
             <span className="assistive">{selected ? " - Selected" : ""}</span>
           </label>
+          <SoundPreview {...props} id={id} />
         </li>;
       }
     )}
@@ -58,6 +60,7 @@ const SamplesTab = props => {
             <span>{name}</span>
             <span className="assistive">{selected ? " - Selected" : ""}</span>
           </label>
+          <SoundPreview {...props} id={id} userId={userId} />
         </li>;
       })
     }
