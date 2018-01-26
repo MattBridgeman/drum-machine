@@ -1,5 +1,22 @@
-button.preview-sound {
+.preview-sound {
   border: 0 none;
   background: 0;
   padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 47px;
+  height: 47px;
+  .icon {
+    margin-top: 4px;
+  }
+  &__label {
+    color: @dark-grey;
+    text-transform: uppercase;
+    font-size: 0.6em;
+    margin-top: 3px;
+  }
 }
