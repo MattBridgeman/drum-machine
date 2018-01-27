@@ -1,3 +1,7 @@
+## 1.5.1
+
+- Added the ability to preview samples
+
 ## 1.5.0
 
 - Added the ability to upload samples and use them in the Drum Machine
