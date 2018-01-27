@@ -10,7 +10,7 @@ import { SoundPreview } from "../sound-preview/sound.preview.react.jsx";
 const LibraryTab = props => {
   let { onChange, selectedId, librarySounds } = props;
   const librarySoundsList = objectToArrayWithKeyValue(librarySounds);
-  return <ul className="generic-list striped">
+  return <ul className="generic-list">
     {
       librarySoundsList.map(({
         key: id,
@@ -36,7 +36,7 @@ const SamplesTab = props => {
   let userSamples = getValueFromPath(samples, `samples/${userId}`) || {};
   let samplesList = objectToArrayWithKeyValue(userSamples);
   let loggedIn = !!userId;
-  return <ul className="generic-list striped">
+  return <ul className="generic-list">
     <li className="cta-item">
       {
         loggedIn ?

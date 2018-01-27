@@ -5,20 +5,14 @@
     li {
       list-style: none;
       font-size: 1.4em;
+      line-height: 1.4;
       border-bottom: 1px solid @grey-transparency;
       display: flex;
       flex-direction: row;
+      align-items: center;
       &.cta-item {
         padding: 15px 10px;
         text-align: center;
-      }
-    }
-    &.striped {
-      li {
-        border-bottom: 0 none;
-        &:nth-child(even) {
-          background-color: rgba(0, 0, 0, 0.05);
-        }
       }
     }
   }
