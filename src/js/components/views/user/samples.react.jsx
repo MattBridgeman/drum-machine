@@ -147,11 +147,13 @@ class SamplesList extends Component {
               return <li key={id} className={deleted ? "disabled" : ""}>
                 <span className="list-item-title">{name}</span>
                 <SoundPreview {...this.props} id={id} userId={userId} />
-                <DropDownMenu items={[{
-                  name: "Delete Sample",
-                  callback: () => samplesActions.deleteSample(userId, id),
-                  condition: () => userId === currentUserId
-                }]} />
+                <Maybe condition={userId === currentUserId}>
+                  <DropDownMenu items={[{
+                    name: "Delete Sample",
+                    callback: () => samplesActions.deleteSample(userId, id),
+                    condition: () => userId === currentUserId
+                  }]} />
+                </Maybe>
               </li>;
             })
           }
