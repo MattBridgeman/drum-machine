@@ -10,6 +10,7 @@ import { Modal } from "../../modal/modal.react.jsx";
 import { Maybe } from "../../maybe/maybe.react.jsx";
 import { uploadSample } from "../../../actions/samples.actions";
 import DrumMachineActions from "../../../actions/root.actions";
+import { SoundPreview } from "../../sound-preview/sound.preview.react.jsx";
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 const acceptedMimeTypes = ["audio/x-wav"];
@@ -145,11 +146,14 @@ class SamplesList extends Component {
             }) => {
               return <li key={id} className={deleted ? "disabled" : ""}>
                 <span className="list-item-title">{name}</span>
-                <DropDownMenu items={[{
-                  name: "Delete Sample",
-                  callback: () => samplesActions.deleteSample(userId, id),
-                  condition: () => userId === currentUserId
-                }]} />
+                <SoundPreview {...this.props} id={id} userId={userId} />
+                <Maybe condition={userId === currentUserId}>
+                  <DropDownMenu items={[{
+                    name: "Delete Sample",
+                    callback: () => samplesActions.deleteSample(userId, id),
+                    condition: () => userId === currentUserId
+                  }]} />
+                </Maybe>
               </li>;
             })
           }

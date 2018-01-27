@@ -9,6 +9,7 @@ import { tracks } from "./tracks";
 import { historyMiddleware } from "./history";
 import { meta } from "./meta";
 import { samplesMiddleware } from "./samples";
+import { preview } from "./preview";
 
 export default applyMiddleware(
   supplyAuth,
@@ -19,6 +20,7 @@ export default applyMiddleware(
   meta,
   track,
   tracks,
+  preview,
   samplesMiddleware,
   historyMiddleware
 );
