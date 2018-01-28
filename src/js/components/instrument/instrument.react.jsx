@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
+import { Synth } from "../synth/synth.react.jsx";
 
 class Instrument extends Component {
   render(){
@@ -11,6 +12,8 @@ class Instrument extends Component {
       switch(type){
         case "drumMachine":
           return <DrumMachine {...this.props} machineId={machineId} />
+        case "synth":
+          return <Synth {...this.props} />
         default:
           return null;
       }
