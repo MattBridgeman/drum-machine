@@ -1,5 +1,16 @@
 .synth-machine {
 	padding: @baseline * 6;
 	background: @white;
-	border: 1px solid @grey-transparency;
+  border: 1px solid @grey-transparency;
+  .oscillator {
+    .oscillator-controls {
+      display: flex;
+      .slider-container {
+        width: 90px;
+      }
+      .rotator {
+        width: 45px;
+      }
+    }
+  }
 }
