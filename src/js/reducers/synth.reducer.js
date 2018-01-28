@@ -14,8 +14,8 @@ let defaultSynth = {
     cent: 0,
     velocity: 0
   }],
-  asdr: {
-    velocity: {
+  envelopes: {
+    amp: {
       attack: 0,
       decay: 0,
       sustain: 0,
@@ -33,6 +33,21 @@ let defaultSynth = {
     q: 0,
     type: "lowcut"
   },
+  lfos: {
+    lfo1: {
+      rate: 0,
+      amount: 0,
+      waveType: 0,
+      connections: ["osc12"]
+    },
+    lfo2: {
+      rate: 0,
+      amount: 0,
+      waveType: 0,
+      connections: ["ffreq"]
+    }
+  },
+  voices: 1,
   sends: {
     send1: 0,
     send2: 0
