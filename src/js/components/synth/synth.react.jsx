@@ -8,6 +8,8 @@ let Synth = props => {
       <Slider name="Voices" min={1} max={8} step={1} value={1} onValueChange={ value => false } />
       <Rotator name="Volume" value={0} onValueChange={ value => false } />
       <Rotator name="Pan" value={0} onValueChange={ value => false } />
+      <Rotator name="Send 1" value={0} onValueChange={ value => false } />
+      <Rotator name="Send 2" value={0} onValueChange={ value => false } />
     </div>
     <div className="oscillator-container">
       <div className="oscillator">
