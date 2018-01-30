@@ -37,20 +37,41 @@ let Synth = props => {
         <h3>Amp Envelope</h3>
         <div className="envelope-controls">
           <div className="vertical-range">
-            <label htmlFor="" className="item-label">Attack</label>
-            <input id="" type="range" min="0" max="100" value="0" step="1" />
+            <label htmlFor="amp-attack" className="item-label">Attack</label>
+            <input id="amp-attack" type="range" min="0" max="100" value="0" step="1" />
           </div>
           <div className="vertical-range">
-            <label htmlFor="" className="item-label">Decay</label>
-            <input id="" type="range" min="0" max="100" value="0" step="1" />
+            <label htmlFor="amp-decay" className="item-label">Decay</label>
+            <input id="amp-decay" type="range" min="0" max="100" value="0" step="1" />
           </div>
           <div className="vertical-range">
-            <label htmlFor="" className="item-label">Sustain</label>
-            <input id="" type="range" min="0" max="100" value="0" step="1" />
+            <label htmlFor="amp-sustain" className="item-label">Sustain</label>
+            <input id="amp-sustain" type="range" min="0" max="100" value="0" step="1" />
           </div>
           <div className="vertical-range">
-            <label htmlFor="" className="item-label">Release</label>
-            <input id="" type="range" min="0" max="100" value="0" step="1" />
+            <label htmlFor="amp-release" className="item-label">Release</label>
+            <input id="amp-release" type="range" min="0" max="100" value="0" step="1" />
+          </div>
+        </div>
+      </div>
+      <div className="envelope">
+        <h3>Filter Envelope</h3>
+        <div className="envelope-controls">
+          <div className="vertical-range">
+            <label htmlFor="filter-attack" className="item-label">Attack</label>
+            <input id="filter-attack" type="range" min="0" max="100" value="0" step="1" />
+          </div>
+          <div className="vertical-range">
+            <label htmlFor="filter-decay" className="item-label">Decay</label>
+            <input id="filter-decay" type="range" min="0" max="100" value="0" step="1" />
+          </div>
+          <div className="vertical-range">
+            <label htmlFor="filter-sustain" className="item-label">Sustain</label>
+            <input id="filter-sustain" type="range" min="0" max="100" value="0" step="1" />
+          </div>
+          <div className="vertical-range">
+            <label htmlFor="filter-release" className="item-label">Release</label>
+            <input id="filter-release" type="range" min="0" max="100" value="0" step="1" />
           </div>
         </div>
       </div>
