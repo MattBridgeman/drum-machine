@@ -37,13 +37,13 @@ let defaultSynth = {
     lfo1: {
       rate: 0,
       amount: 0,
-      waveType: 0,
+      waveType: "sine",
       connections: ["osc12"]
     },
     lfo2: {
       rate: 0,
       amount: 0,
-      waveType: 0,
+      waveType: "square",
       connections: ["ffreq"]
     }
   },

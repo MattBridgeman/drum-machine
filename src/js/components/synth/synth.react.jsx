@@ -93,7 +93,38 @@ let Synth = props => {
           </div>
         </div>
       </div>
-
+      <div className="lfo-container">
+        <div className="lfo">
+          <h3>LFO 1</h3>
+          <div className="lfo-controls">
+            <Rotator name="Rate" value={0} onValueChange={ value => false } />
+            <Rotator name="Amount" value={0} onValueChange={ value => false } />
+            <div className="radio-slider">
+              <h3 className="item-label">Type</h3>
+              Square
+            </div>
+            <div className="radio-slider">
+              <h3 className="item-label">Destination</h3>
+              Oscilator 1,2
+            </div>
+          </div>
+        </div>
+        <div className="lfo">
+          <h3>LFO 2</h3>
+          <div className="lfo-controls">
+            <Rotator name="Rate" value={0} onValueChange={ value => false } />
+            <Rotator name="Amount" value={0} onValueChange={ value => false } />
+            <div className="radio-slider">
+              <h3 className="item-label">Type</h3>
+              Square
+            </div>
+            <div className="radio-slider">
+              <h3 className="item-label">Destination</h3>
+              Oscilator 1,2
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 };
