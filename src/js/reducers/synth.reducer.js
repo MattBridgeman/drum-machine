@@ -1,19 +1,23 @@
 let initialState = {};
 
 let defaultSynth = {
-  oscilators: [{
-    waveType: "sine",
-    octave: 0,
-    semitone: 0,
-    cent: 0,
-    velocity: 0
-  },{
-    waveType: "square",
-    octave: 0,
-    semitone: 0,
-    cent: 0,
-    velocity: 0
-  }],
+  oscilators: {
+    osc1: {
+      waveType: "sine",
+      octave: 0,
+      semitone: 0,
+      cent: 0,
+      velocity: 0
+    },
+    osc2: {
+      waveType: "square",
+      octave: 0,
+      semitone: 0,
+      cent: 0,
+      velocity: 0
+    }
+  },
+  fm: true,
   envelopes: {
     amp: {
       attack: 0,

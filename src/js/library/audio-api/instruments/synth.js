@@ -6,13 +6,20 @@ export let createSynth = () => {
   let output = context.createGain();
   let voices = [];
   let tmpVoice = null;
+  let tmpFM = null;
 
   let init = () => {
     tmpVoice = context.createOscillator();
     tmpVoice.type = 'square';
-    tmpVoice.frequency.setValueAtTime(220, 0);
+    tmpVoice.frequency.setValueAtTime(110, 0);
     tmpVoice.connect(output);
     //tmpVoice.start();
+
+    tmpFM = context.createOscillator();
+    tmpFM.type = 'triangle';
+    tmpFM.frequency.setValueAtTime(110, 0);
+    //tmpFM.connect(output.gain);
+    tmpFM.start();
   };
 
   let update = (instrument, state) => {
