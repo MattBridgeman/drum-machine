@@ -32,12 +32,23 @@ export let createSynth = () => {
     panNode = context.createPanner();
     send1 = context.createGain();
     send2 = context.createGain();
+
+    setInitialNodeState();
+  };
+
+  let setInitialNodeState = () => {
+    voiceNodes.forEach()
   };
 
   let update = (instrument, state) => {
     let { machineId } = instrument;
     let { synth } = state;
     let currentSynth = synth[machineId];
+    updateConnections(instrument, state);
+  };
+
+  let updateConnections = (instrument, state) => {
+    //TODO: connect FM etc
   };
   
   let remove = () => {
