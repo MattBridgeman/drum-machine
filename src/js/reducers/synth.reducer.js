@@ -7,14 +7,14 @@ let defaultSynth = {
       octave: 0,
       semitone: 0,
       cent: 0,
-      velocity: 0
+      amount: 0
     },
     osc2: {
       waveType: "square",
       octave: 0,
       semitone: 0,
       cent: 0,
-      velocity: 0
+      amount: 0
     }
   },
   fm: true,
