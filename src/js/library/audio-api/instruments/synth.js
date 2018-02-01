@@ -2,6 +2,55 @@ import { getAudioContext } from "../context";
 
 export const MAX_VOICES = 16;
 
+// Represents the state of the synth as a snapshot in time
+// which will change over time
+let initialState = {
+  oscilators: {
+    osc1: {
+      waveType: "sine",
+      octave: 0,
+      semitone: 0,
+      cent: 0,
+      amount: 0
+    },
+    osc2: {
+      waveType: "square",
+      octave: 0,
+      semitone: 0,
+      cent: 0,
+      amount: 0
+    }
+  },
+  fm: true,
+  envelopes: {
+    amp: {
+      attack: 0,
+      decay: 0,
+      sustain: 0,
+      release: 0
+    },
+    filter: {
+      attack: 0,
+      decay: 0,
+      sustain: 0,
+      release: 0
+    }
+  }
+};
+
+//TODO: action will represent keys pressed state and a time
+//keys should be filtered by the max voices and ordered by startTime
+//keys should persist even after key up
+//the resolution at which the fn is called will determine the "responsiveness" / quality of the envlopes
+//action = {
+//  time: 1234
+//  keys: [{ key: "a0", startTime: 0, endTime: 1111 }]
+//}
+
+let synthReducer = (state = initialState, action) => {
+
+};
+
 export let createSynth = () => {
 
   let context = getAudioContext();
@@ -32,8 +81,6 @@ export let createSynth = () => {
     panNode = context.createPanner();
     send1 = context.createGain();
     send2 = context.createGain();
-
-    setInitialNodeState();
   };
 
   let setInitialNodeState = () => {
