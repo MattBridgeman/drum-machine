@@ -10,38 +10,25 @@ import { createStore } from "redux";
 //action = {
 //  time: 1234
 //  keys: [{ key: "a0", startTime: 0, endTime: 1111 }]
+//  sytth: 
 //}
 let initialState = {
   time: 0,
   oscilators: {
     osc1: {
       waveType: "sine",
-      octave: 0,
-      semitone: 0,
-      cent: 0,
+      frequency: 110,
       amount: 0
     },
     osc2: {
       waveType: "square",
-      octave: 0,
-      semitone: 0,
-      cent: 0,
+      frequency: 220,
       amount: 0
     }
   },
   envelopes: {
-    amp: {
-      attack: 0,
-      decay: 0,
-      sustain: 0,
-      release: 0
-    },
-    filter: {
-      attack: 0,
-      decay: 0,
-      sustain: 0,
-      release: 0
-    }
+    amp: 0,
+    filter: 0
   }
 };
 
@@ -50,7 +37,11 @@ export let synthReducer = (state = initialState, action) => {
     case "TIME_PASSED":
       return {
         ...state,
-        time: action.time
+        time: action.time,
+        envelopes: {
+          ...state.envelopes,
+          amp: Math.max(100, state.envelopes.amp + 1)
+        }
       };
   }
   return state;
