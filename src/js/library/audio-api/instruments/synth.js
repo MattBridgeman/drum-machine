@@ -1,4 +1,5 @@
 import { getAudioContext } from "../context";
+import { timeout } from "../interval";
 
 export const MAX_VOICES = 16;
 
@@ -62,6 +63,7 @@ export let createSynth = () => {
   let panNode = null;
   let send1 = null;
   let send2 = null;
+  let looping = false;
 
   let init = () => {
     voiceNodes = voices.map(_ => {
@@ -82,10 +84,18 @@ export let createSynth = () => {
     panNode = context.createPanner();
     send1 = context.createGain();
     send2 = context.createGain();
+
+    startLoop();
   };
 
-  let setInitialNodeState = () => {
-    voiceNodes.forEach()
+  let startLoop = () => {
+    if(!looping) loop();
+  };
+
+  let loop = () => {
+    //do stuff
+    timeout.get().then(loop);
+    looping = true;
   };
 
   let update = (instrument, state) => {

@@ -18,7 +18,6 @@ export let updateConnections = (instrumentNodes, state) => {
     let toMachine = getMachineFromConnection(to, instrumentNodes);
     let toNodePath = to.nodePath;
     let toNode = getValueFromPath(toMachine, toNodePath);
-    console.log(fromNodePath, fromNode, toNodePath, toNode);
     fromNode.connect(toNode);
 
     cache = {
