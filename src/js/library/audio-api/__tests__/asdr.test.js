@@ -117,7 +117,7 @@ describe("ASDR", () => {
   });
   
   describe("release", () => {
-    it("returns value of 99 if key is release and previous was sustain", () => {
+    it("returns value of 99 given high release and if key is release and previous was sustain", () => {
       let keyPressed = false;
       let elapsed = 10;
       let asdrValues = {
@@ -133,6 +133,24 @@ describe("ASDR", () => {
       };
       let { phase, value, time } = asdr(keyPressed, elapsed, asdrValues, previous);
       expect(value).to.equal(98);
+      expect(phase).to.equal("release");
+    });
+    it("returns value of 0 given low release", () => {
+      let keyPressed = false;
+      let elapsed = 10;
+      let asdrValues = {
+        attack: 0,
+        decay: 100,
+        sustain: 50,
+        release: 0
+      };
+      let previous = {
+        phase: "release",
+        value: 100,
+        time: 10
+      };
+      let { phase, value, time } = asdr(keyPressed, elapsed, asdrValues, previous);
+      expect(value).to.equal(0);
       expect(phase).to.equal("release");
     });
   });
