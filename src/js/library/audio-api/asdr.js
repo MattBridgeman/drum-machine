@@ -17,7 +17,7 @@ export let asdr = (keyPressed, elapsedTime, {
   }) => {
   switch(phase) {
     case "attack":
-    value += 0.01 * (attack * elapsedTime)
+    value += 0.01 * ((100 - attack) * elapsedTime)
     if(value >= MAX_VALUE) {
       phase = "decay"
     }
@@ -26,13 +26,12 @@ export let asdr = (keyPressed, elapsedTime, {
   return {
     phase,
     value,
-    time
+    time: time + elapsedTime
   };
-  //elapsed time: 0
-  //attack 0 -> gain = 100
-  //attack 100 -> gain = 0
-
-  //elapsed time: 2000ms
-  //attack 0 -> gain = 100
-  //attack 100 -> gain = 100
 };
+
+// [1,1,1,1,1,1,1,1].reduce(({ phase, value, time }, elapsed) => {
+//   let next = asdr(true, elapsed, { attack: 0.1 }, { phase, value, time });
+//   console.log(next);
+//   return next;
+// });
