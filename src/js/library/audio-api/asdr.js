@@ -1,9 +1,5 @@
-//TODO:
-//what resolution do we want to call this at? 10ms intervals?
-//output
-//{ phase: "attack", value: 100, time: 1234 }
-//should this yeild intermediate values?
-export const MAX_VALUE = 100;
+export const MAX_OUTPUT = 100;
+export const MIN_INPUT = 1;
 
 export let asdr = (keyPressed, elapsedTime, {
     attack,
@@ -15,13 +11,25 @@ export let asdr = (keyPressed, elapsedTime, {
     value = 0,
     time = 0
   }) => {
+    attack = Math.max(MIN_INPUT, attack);
+    decay = Math.max(MIN_INPUT, decay);
+    sustain = Math.max(MIN_INPUT, sustain);
+    release = Math.max(MIN_INPUT, release);
   switch(phase) {
     case "attack":
-    value += 0.01 * ((100 - attack) * elapsedTime)
-    if(value >= MAX_VALUE) {
-      phase = "decay"
-    }
-    break;
+      value += 0.1 * ((101 - attack) * elapsedTime)
+      if(value >= MAX_OUTPUT) {
+        value = MAX_OUTPUT;
+        phase = "decay"
+      }
+      break;
+    case "decay":
+      value -= 0.1 * (decay * elapsedTime)
+      if(value <= sustain) {
+        value = sustain;
+        phase = "sustain"
+      }
+      break;
   }
   return {
     phase,
