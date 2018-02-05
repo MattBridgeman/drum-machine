@@ -30,6 +30,12 @@ export let asdr = (keyPressed, elapsedTime, {
         phase = "sustain"
       }
       break;
+    case "release":
+      value -= 0.1 * ((101 - release) * elapsedTime)
+      if(value <= 0) {
+        value = 0;
+      }
+      break;
   }
   return {
     phase,
