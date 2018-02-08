@@ -1,7 +1,7 @@
 export const MAX_OUTPUT = 100;
 export const MIN_INPUT = 1;
 
-export let asdr = (keyPressed, elapsedTime, {
+export let adsr = (keyPressed, elapsedTime, {
     attack,
     decay,
     sustain,
@@ -51,7 +51,7 @@ export let asdr = (keyPressed, elapsedTime, {
 // var i = 0;
 // while(i < 1000) {
 //   keyPressed = i < 500;
-//   curr = asdr(keyPressed, 10, { attack: 0, decay: 100, sustain: 100, release: 10 }, curr);
+//   curr = adsr(keyPressed, 10, { attack: 0, decay: 100, sustain: 100, release: 10 }, curr);
 //   items.push(curr);
 //   i++;
 // }
