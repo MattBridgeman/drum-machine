@@ -10,7 +10,7 @@ import { createStore } from "redux";
 //action = {
 //  time: 1234
 //  keys: [{ key: "a0", startTime: 0, endTime: 1111 }]
-//  sytth: 
+//  synth: 
 //}
 let initialState = {
   time: 0,
@@ -18,12 +18,12 @@ let initialState = {
     osc1: {
       waveType: "sine",
       frequency: 110,
-      amount: 0
+      amp: 0
     },
     osc2: {
       waveType: "square",
       frequency: 220,
-      amount: 0
+      amp: 0
     }
   },
   envelopes: {
@@ -47,4 +47,4 @@ export let synthReducer = (state = initialState, action) => {
   return state;
 };
 
-export let synthStore = createStore(synthReducer, initialState);
+export let synthStore = () => createStore(synthReducer, initialState);

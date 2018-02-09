@@ -3,6 +3,8 @@ import { timeout } from "../interval";
 import { synthStore } from "./store/synth.store";
 import { panPercentageToValue } from "../pan";
 import { numberToArrayLength } from "../../natives/array";
+import ogen from "../../generator/ogen";
+import { Observable } from "rxjs/Observable";
 
 export const MAX_VOICES = 16;
 
@@ -15,11 +17,11 @@ export let createSynth = () => {
   let panNode = null;
   let send1 = null;
   let send2 = null;
-  let looping = false;
+  let loopSubscription = false;
+  let store = synthStore();
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
-      console.log("here");
       return {
         oscillators: {
           osc1: context.createOscillator(),
@@ -51,11 +53,11 @@ export let createSynth = () => {
         output
       }
     }) => {
-      osc1.type = 'sine';
+      osc1.type = "sine";
       osc1.frequency.setValueAtTime(220, context.currentTime);
       osc1.start();
       osc1.connect(amp);
-      osc2.type = 'sine';
+      osc2.type = "sine";
       osc2.frequency.setValueAtTime(110, context.currentTime);
       osc2.start();
       osc2.connect(amp);
@@ -73,27 +75,18 @@ export let createSynth = () => {
     panNode.connect(output);
 
     createStoreSubscription();
-    startLoop();
+    createIntervalLoop();
   };
 
   let createStoreSubscription = () => {
-    synthStore.subscribe(() => {
-      let state = synthStore.getState();
+    store.subscribe(() => {
+      let state = store.getState();
     });
   };
 
-  let startLoop = () => {
-    if(!looping) loop();
-  };
-
-  let loop = () => {
-    //do stuff
-    synthStore.dispatch({
-      type: "TIME_PASSED",
-      time: context.currentTime
-    });
-    timeout.get().then(loop);
-    looping = true;
+  let createIntervalLoop = () => {
+    loopSubscription = Observable.interval(20)
+      .subscribe(data => null);
   };
 
   let update = (instrument, state) => {
@@ -109,6 +102,7 @@ export let createSynth = () => {
   
   let remove = () => {
     context = null;
+    loopSubscription.unsubscribe();
   };
 
   init();
