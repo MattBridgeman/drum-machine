@@ -4,7 +4,8 @@ import { synthStore } from "./store/synth.store";
 import { panPercentageToValue } from "../pan";
 import { numberToArrayLength } from "../../natives/array";
 import ogen from "../../generator/ogen";
-import { Observable } from "rxjs/Observable";
+import { createLookAheadStream } from "../lookahead.stream";
+import { adsr } from "../adsr";
 
 export const MAX_VOICES = 16;
 
@@ -75,7 +76,7 @@ export let createSynth = () => {
     panNode.connect(output);
 
     createStoreSubscription();
-    createIntervalLoop();
+    createLookAheadSubscription();
   };
 
   let createStoreSubscription = () => {
@@ -84,9 +85,18 @@ export let createSynth = () => {
     });
   };
 
-  let createIntervalLoop = () => {
-    loopSubscription = Observable.interval(20)
-      .subscribe(data => null);
+  let createLookAheadSubscription = () => {
+    //todo tidy the way current time is accessed and adsr is changed
+    let _adsr = {},
+        keyPressed,
+        time = context.currentTime;
+    loopSubscription = createLookAheadStream(50, 10)
+      .subscribe(i => {
+        //test, set the first voice node amp over time
+        keyPressed = i < 500;
+        _adsr = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _adsr);
+        voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time + (i * 0.01));
+      });
   };
 
   let update = (instrument, state) => {
