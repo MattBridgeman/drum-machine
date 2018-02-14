@@ -8,7 +8,7 @@ export let createLookAheadStream = (lookAheadInMs, resolutionInMs) => {
   let bufferStream = interval(lookAheadInMs)
     .pipe(map(val => val + 1))
     .concatMap(val =>
-      range(1,steps).pipe(map(i => (val * 5) + i))
+      range(1,steps).pipe(map(i => (val * steps) + i))
     );
   
   return merge(lookAheadStream, bufferStream);
