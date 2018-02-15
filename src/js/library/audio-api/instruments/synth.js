@@ -94,7 +94,6 @@ export let createSynth = () => {
       .subscribe(i => {
         //test, set the first voice node amp over time
         let valueChangeTime = time + (i * 0.01);
-        console.log(valueChangeTime - context.currentTime);
         keyPressed = i < 500;
         _adsr = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _adsr);
         voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, valueChangeTime);
