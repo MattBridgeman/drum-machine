@@ -1,4 +1,4 @@
-import { KEYDOWN } from "../constants/keys.constants";
+import { KEYDOWN, KEYUP } from "../constants/keys.constants";
 
 //example entry
 // {

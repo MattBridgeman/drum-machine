@@ -46,6 +46,7 @@ export const tracks = store => next => {
   };
 
   return action => {
+    console.log(store.getState().keys)
     checkLoadUserTracks(action);
     return next(action);
   };
