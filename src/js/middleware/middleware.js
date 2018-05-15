@@ -10,6 +10,7 @@ import { historyMiddleware } from "./history";
 import { meta } from "./meta";
 import { samplesMiddleware } from "./samples";
 import { preview } from "./preview";
+import { keys } from "./keys";
 
 export default applyMiddleware(
   supplyAuth,
@@ -18,6 +19,7 @@ export default applyMiddleware(
   startNoise,
   meta,
   track,
+  keys,
   instruments,
   tracks,
   preview,

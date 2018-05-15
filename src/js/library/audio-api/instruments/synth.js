@@ -86,17 +86,41 @@ export let createSynth = () => {
   };
 
   let createLookAheadSubscription = () => {
-    //todo tidy the way current time is accessed and adsr is changed
+    //TODO: tidy the way current time is accessed and adsr is changed
+    //TODO: Only need to change the controls when the app is playing
     let _adsr = {},
         keyPressed,
         time = context.currentTime;
     loopSubscription = createLookAheadStream(50, 10)
-      .subscribe(i => {
-        //test, set the first voice node amp over time
-        let valueChangeTime = time + (i * 0.01);
-        keyPressed = i < 500;
+      .map(i => time + (i * 0.01))
+      .subscribe(time => {
+
+        let {
+          oscillators: {
+            osc1,
+            osc2
+          },
+          gains: {
+            amount,
+            amp,
+            filter,
+            output
+          }
+        } = voiceNodes[0];
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(220, time);
+        amount.gain.setValueAtTime(1, time);
+        amp.gain.setValueAtTime(1, time);
+        volumeNode.gain.setValueAtTime(1, time);
+        
+        // send1.setValueAtTime(1, time);
+        // send2.setValueAtTime(1, time);
+
+        // setPosition cannot be set ahead of time
+        //panNode;
+
         _adsr = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _adsr);
-        voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, valueChangeTime);
+        voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
       });
   };
 
