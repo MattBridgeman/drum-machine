@@ -20,6 +20,8 @@ export let createSynth = () => {
   let send2 = null;
   let loopSubscription = false;
   let store = synthStore();
+  let voiceKey = [];
+  let asdrs = [];
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -78,11 +80,11 @@ export let createSynth = () => {
     createLookAheadSubscription();
   };
 
-  let createStoreSubscription = () => {
-    store.subscribe(() => {
-      let state = store.getState();
-    });
-  };
+  // let createStoreSubscription = () => {
+  //   store.subscribe(() => {
+  //     let state = store.getState();
+  //   });
+  // };
 
   let createLookAheadSubscription = () => {
     //TODO: tidy the way current time is accessed and adsr is changed
@@ -94,32 +96,29 @@ export let createSynth = () => {
       .map(i => time + (i * 0.01))
       .subscribe(time => {
 
-        let {
-          oscillators: {
-            osc1,
-            osc2
-          },
-          gains: {
-            amount,
-            amp,
-            filter,
-            output
-          }
-        } = voiceNodes[0];
-        osc1.type = "sine";
-        osc1.frequency.setValueAtTime(220, time);
-        amount.gain.setValueAtTime(1, time);
-        amp.gain.setValueAtTime(1, time);
-        volumeNode.gain.setValueAtTime(1, time);
-        
-        // send1.setValueAtTime(1, time);
-        // send2.setValueAtTime(1, time);
-
-        // setPosition cannot be set ahead of time
-        //panNode;
-
-        _adsr = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _adsr);
-        voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
+        voiceNodes.forEach((voiceNode, i) => {
+          let {
+            oscillators: {
+              osc1,
+              osc2
+            },
+            gains: {
+              amount,
+              amp,
+              filter,
+              output
+            }
+          } = voiceNode;
+          let _asdr = asdrs[i] || {};
+          osc1.type = "sine";
+          osc1.frequency.setValueAtTime(220, time);
+          amount.gain.setValueAtTime(1, time);
+          amp.gain.setValueAtTime(1, time);
+          volumeNode.gain.setValueAtTime(1, time);
+          
+          asdrs[i] = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _asdr);
+          voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
+        });
       });
   };
 
