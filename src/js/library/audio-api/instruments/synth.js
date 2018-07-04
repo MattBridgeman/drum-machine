@@ -69,7 +69,6 @@ export let createSynth = () => {
       output.connect(volumeNode);
     });
 
-    console.log("voiceNodes", voiceNodes);
     volumeNode.connect(panNode);
     panNode.panningModel = "equalpower";
     panNode.setPosition(...panPercentageToValue(50));

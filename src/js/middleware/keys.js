@@ -10,10 +10,11 @@ export const keys = store => next => {
       let time = new Date().getTime();
       next(onKeyDown(keyCode, keyName, time));
     });
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keyup", (event) => {
       let { keyCode } = event;
       let keyName = keymap[keyCode];
       let time = new Date().getTime();
+      console.log(store.getState());
       next(onKeyUp(keyCode, keyName, time));
     });
   };
