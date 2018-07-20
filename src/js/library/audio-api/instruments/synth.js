@@ -2,10 +2,11 @@ import { getAudioContext } from "../context";
 import { timeout } from "../interval";
 import { synthStore } from "./store/synth.store";
 import { panPercentageToValue } from "../pan";
-import { numberToArrayLength } from "../../natives/array";
+import { numberToArrayLength, numberToArrayLengthWithValue } from "../../natives/array";
 import ogen from "../../generator/ogen";
 import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
+import keyboardMap from "../../keyboard/keyboard.map";
 
 export const MAX_VOICES = 16;
 
@@ -20,8 +21,9 @@ export let createSynth = () => {
   let send2 = null;
   let loopSubscription = false;
   let store = synthStore();
-  let voiceKey = [];
+  let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
   let asdrs = [];
+  let keysPressed = [];
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -76,7 +78,7 @@ export let createSynth = () => {
     panNode.setPosition(...panPercentageToValue(50));
     panNode.connect(output);
 
-    createStoreSubscription();
+    //createStoreSubscription();
     createLookAheadSubscription();
   };
 
@@ -90,13 +92,12 @@ export let createSynth = () => {
     //TODO: tidy the way current time is accessed and adsr is changed
     //TODO: Only need to change the controls when the app is playing
     let _adsr = {},
-        keyPressed,
         time = context.currentTime;
     loopSubscription = createLookAheadStream(50, 10)
       .map(i => time + (i * 0.01))
       .subscribe(time => {
-
         voiceNodes.forEach((voiceNode, i) => {
+          let keyPressed = voiceToKeyMap[i];
           let {
             oscillators: {
               osc1,
@@ -117,7 +118,7 @@ export let createSynth = () => {
           volumeNode.gain.setValueAtTime(1, time);
           
           asdrs[i] = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _asdr);
-          voiceNodes[0].gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
+          voiceNode.gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
         });
       });
   };
@@ -127,10 +128,53 @@ export let createSynth = () => {
     let { synth } = state;
     let currentSynth = synth[machineId];
     updateConnections(instrument, state);
+    updateKeys(instrument, state);
   };
 
   let updateConnections = (instrument, state) => {
     //TODO: connect FM etc
+  };
+
+  let updateKeys = (instrument, state) => {
+    let { keys } = state;
+    let { machineId } = instrument;
+    let { synth } = state;
+    let { voices } = synth[machineId];
+    keysPressed = keys
+      .map(key => keyboardMap[key.keyName])
+      .filter(key => !!key)
+      .sort((prev, curr) => prev.time - curr.time)
+      .filter((key, i) => i < voices);
+
+    //leave all assigned
+    voiceToKeyMap
+    .filter((key, i) => i < voices)
+    .forEach((item, key) => {
+      let match = keysPressed.filter(key => item.note === key.note && item.octave === key.octave);
+      if(!match.length) {
+        voiceToKeyMap[key] = 0;
+      };
+    });
+    keysPressed.forEach(keyPressedItem => {
+      let match;
+      let availableVoices = [];
+      voiceToKeyMap
+      .filter((key, i) => i < voices)
+      .forEach((item, i) => {
+        if(!item) {
+          availableVoices = [...availableVoices, i];
+        } else {
+          let keyMatch = keysPressed.filter(key => item.note === keyPressedItem.note && item.octave === keyPressedItem.octave);
+          if(keyMatch.length) {
+            match = keyMatch;
+          }
+        }
+      });
+      if(!match) {
+        voiceToKeyMap[availableVoices[0]] = keyPressedItem;
+      }
+    });
+    console.log(voiceToKeyMap);
   };
   
   let remove = () => {

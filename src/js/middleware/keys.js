@@ -14,7 +14,6 @@ export const keys = store => next => {
       let { keyCode } = event;
       let keyName = keymap[keyCode];
       let time = new Date().getTime();
-      console.log(store.getState());
       next(onKeyUp(keyCode, keyName, time));
     });
   };
