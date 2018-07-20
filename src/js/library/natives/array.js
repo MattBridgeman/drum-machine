@@ -60,3 +60,9 @@ export function keyValueArrayToObject(objectList) {
 	});
 	return object;
 }
+
+export function updateValue(array, index, value) {
+	return array.map((item, i) => {
+		return i === index ? value : item;
+	});
+}

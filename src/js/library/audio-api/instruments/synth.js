@@ -2,7 +2,7 @@ import { getAudioContext } from "../context";
 import { timeout } from "../interval";
 import { synthStore } from "./store/synth.store";
 import { panPercentageToValue } from "../pan";
-import { numberToArrayLength, numberToArrayLengthWithValue } from "../../natives/array";
+import { numberToArrayLength, numberToArrayLengthWithValue, updateValue } from "../../natives/array";
 import ogen from "../../generator/ogen";
 import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
@@ -143,17 +143,19 @@ export let createSynth = () => {
     keysPressed = keys
       .map(key => keyboardMap[key.keyName])
       .filter(key => !!key)
-      .sort((prev, curr) => prev.time - curr.time)
+      .sort((prev, curr) => curr.time - prev.time)
       .filter((key, i) => i < voices);
 
     //leave all assigned
-    voiceToKeyMap
+    voiceToKeyMap = voiceToKeyMap
     .filter((key, i) => i < voices)
-    .forEach((item, key) => {
+    .map((item, key) => {
       let match = keysPressed.filter(key => item.note === key.note && item.octave === key.octave);
       if(!match.length) {
-        voiceToKeyMap[key] = 0;
-      };
+       return 0;
+      } else {
+        return item;
+      }
     });
     keysPressed.forEach(keyPressedItem => {
       let match;
@@ -171,10 +173,10 @@ export let createSynth = () => {
         }
       });
       if(!match) {
-        voiceToKeyMap[availableVoices[0]] = keyPressedItem;
+        voiceToKeyMap = updateValue(voiceToKeyMap, availableVoices[0], keyPressedItem);
       }
     });
-    console.log(voiceToKeyMap);
+    console.log(voiceToKeyMap.map(item => item ? item.note : 0));
   };
   
   let remove = () => {
