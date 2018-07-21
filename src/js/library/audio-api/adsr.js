@@ -44,14 +44,3 @@ export let adsr = (keyPressed, elapsedTime, {
     time: time + elapsedTime
   };
 };
-
-// var items = [];
-// var curr = {};
-// var keyPressed = true;
-// var i = 0;
-// while(i < 1000) {
-//   keyPressed = i < 500;
-//   curr = adsr(keyPressed, 10, { attack: 0, decay: 100, sustain: 100, release: 10 }, curr);
-//   items.push(curr);
-//   i++;
-// }

@@ -129,7 +129,6 @@ export let createSynth = () => {
     let currentSynth = synth[machineId];
     updateConnections(instrument, state);
     updateKeys(instrument, state);
-    updateVoices(instrument, state);
   };
 
   let updateConnections = (instrument, state) => {
@@ -174,18 +173,17 @@ export let createSynth = () => {
         }
       });
       if(!match) {
-        voiceToKeyMap = updateValue(voiceToKeyMap, availableVoices[0], keyPressedItem);
+        let voiceIndex = availableVoices[0];
+        voiceToKeyMap = updateValue(voiceToKeyMap, voiceIndex, keyPressedItem);
+        //reset phase to attack for any new keys
+        asdrs = updateValue(asdrs, voiceIndex, {
+          ...asdrs[voiceIndex],
+          phase: 'attack'
+        });
+        console.log('asdrs updated', voiceIndex, asdrs);
       }
     });
   };
-
-  let updateVoices = (instrument, state) => {
-    let { keys } = state;
-    let { machineId } = instrument;
-    let { synth } = state;
-    let { voices } = synth[machineId];
-
-  }
   
   let remove = () => {
     context = null;
