@@ -7,6 +7,8 @@ import ogen from "../../generator/ogen";
 import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
 import keyboardMap from "../../keyboard/keyboard.map";
+import keyboardArray from "../../keyboard/keyboard.array";
+import keyboardFrequencies from "../../keyboard/keyboard.frequencies";
 
 export const MAX_VOICES = 16;
 
@@ -113,7 +115,14 @@ export let createSynth = () => {
             }
           } = voiceNode;
           // osc1.type = "sine";
-          osc1.frequency.setValueAtTime(220, time);
+
+          if(keyPressed) {
+            let { note, octave } = keyPressed;
+            let noteIndex = keyboardArray.indexOf(note);
+            let keyIndex = noteIndex + (noteIndex * octave);
+            let frequency = keyboardFrequencies[keyIndex];
+            osc1.frequency.setValueAtTime(frequency, time);
+          }
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
