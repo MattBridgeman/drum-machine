@@ -120,7 +120,8 @@ export let createSynth = () => {
           if(keyPressed) {
             let { note, octave } = keyPressed;
             let noteIndex = keyboardArray.indexOf(note);
-            let keyIndex = noteIndex + (keyboardArray.length * 3 + noteIndex);
+            let TEST_OCTAVE_OFFSET = 3;
+            let keyIndex = (keyboardArray.length * (octave + TEST_OCTAVE_OFFSET) + noteIndex);
             let frequency = keyboardFrequencies[keyIndex];
             osc1.frequency.setValueAtTime(frequency, time);
           }
