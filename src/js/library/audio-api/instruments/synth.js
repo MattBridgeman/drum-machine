@@ -22,8 +22,9 @@ export let createSynth = () => {
   let loopSubscription = false;
   let store = synthStore();
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
-  let asdrs = [];
+  let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {});
   let keysPressed = [];
+  let voices = MAX_VOICES;
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -96,7 +97,8 @@ export let createSynth = () => {
     loopSubscription = createLookAheadStream(50, 10)
       .map(i => time + (i * 0.01))
       .subscribe(time => {
-        voiceNodes.forEach((voiceNode, i) => {
+        voiceNodes
+        .forEach((voiceNode, i) => {
           let keyPressed = voiceToKeyMap[i];
           let {
             oscillators: {
@@ -110,15 +112,13 @@ export let createSynth = () => {
               output
             }
           } = voiceNode;
-          let _asdr = asdrs[i] || {};
           osc1.type = "sine";
           osc1.frequency.setValueAtTime(220, time);
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
-          
-          asdrs[i] = adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, _asdr);
-          voiceNode.gains.amp.gain.linearRampToValueAtTime(_adsr.value * 0.01, time);
+          asdrs = updateValue(asdrs, i, adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, asdrs[i]));
+          voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
       });
   };
@@ -129,6 +129,7 @@ export let createSynth = () => {
     let currentSynth = synth[machineId];
     updateConnections(instrument, state);
     updateKeys(instrument, state);
+    updateVoices(instrument, state);
   };
 
   let updateConnections = (instrument, state) => {
@@ -176,8 +177,15 @@ export let createSynth = () => {
         voiceToKeyMap = updateValue(voiceToKeyMap, availableVoices[0], keyPressedItem);
       }
     });
-    console.log(voiceToKeyMap.map(item => item ? item.note : 0));
   };
+
+  let updateVoices = (instrument, state) => {
+    let { keys } = state;
+    let { machineId } = instrument;
+    let { synth } = state;
+    let { voices } = synth[machineId];
+
+  }
   
   let remove = () => {
     context = null;
