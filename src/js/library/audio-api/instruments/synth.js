@@ -27,6 +27,7 @@ export let createSynth = () => {
   let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {});
   let keysPressed = [];
   let voices = MAX_VOICES;
+  let availableVoice = 0;
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -168,13 +169,10 @@ export let createSynth = () => {
     });
     keysPressed.forEach(keyPressedItem => {
       let match;
-      let availableVoices = [];
       voiceToKeyMap
       .filter((key, i) => i < voices)
       .forEach((item, i) => {
-        if(!item) {
-          availableVoices = [...availableVoices, i];
-        } else {
+        if(item) {
           let keyMatch = keysPressed.filter(key => item.note === keyPressedItem.note && item.octave === keyPressedItem.octave);
           if(keyMatch.length) {
             match = keyMatch;
@@ -182,11 +180,14 @@ export let createSynth = () => {
         }
       });
       if(!match) {
-        let voiceIndex = availableVoices[0];
-        voiceToKeyMap = updateValue(voiceToKeyMap, voiceIndex, keyPressedItem);
+        ++availableVoice;
+        if(availableVoice >= voices) {
+          availableVoice = 0;
+        }
+        voiceToKeyMap = updateValue(voiceToKeyMap, availableVoice, keyPressedItem);
         //reset phase to attack for any new keys
-        asdrs = updateValue(asdrs, voiceIndex, {
-          ...asdrs[voiceIndex],
+        asdrs = updateValue(asdrs, availableVoice, {
+          ...asdrs[availableVoice],
           phase: 'attack'
         });
       }
