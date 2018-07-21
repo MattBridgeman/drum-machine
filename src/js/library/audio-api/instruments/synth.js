@@ -82,19 +82,11 @@ export let createSynth = () => {
     panNode.setPosition(...panPercentageToValue(50));
     panNode.connect(output);
 
-    //createStoreSubscription();
     createLookAheadSubscription();
   };
 
-  // let createStoreSubscription = () => {
-  //   store.subscribe(() => {
-  //     let state = store.getState();
-  //   });
-  // };
-
   let createLookAheadSubscription = () => {
     //TODO: tidy the way current time is accessed and adsr is changed
-    //TODO: Only need to change the controls when the app is playing
     let _adsr = {},
         time = context.currentTime;
     loopSubscription = createLookAheadStream(50, 10)
@@ -161,7 +153,9 @@ export let createSynth = () => {
       .sort((prev, curr) => curr.time - prev.time)
       .filter((key, i) => i < voices);
 
-    //leave all assigned
+    //update voice key map
+    //remove keys which are no longer pressed
+    //leave all assigned pressed keys alone
     voiceToKeyMap = voiceToKeyMap
     .filter((key, i) => i < voices)
     .map((item, key) => {
@@ -172,6 +166,8 @@ export let createSynth = () => {
         return item;
       }
     });
+
+    //assign new keys to a voice
     keysPressed.forEach(keyPressedItem => {
       let match;
       voiceToKeyMap
