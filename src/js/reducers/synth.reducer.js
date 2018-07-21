@@ -51,7 +51,7 @@ let defaultSynth = {
       connections: ["ffreq"]
     }
   },
-  voices: 1,
+  voices: 4,
   sends: {
     send1: 0,
     send2: 0
