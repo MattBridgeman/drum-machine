@@ -68,7 +68,7 @@ export let createSynth = () => {
       osc1.connect(amp);
       osc2.type = "sine";
       osc2.frequency.setValueAtTime(110, context.currentTime);
-      //osc2.start();
+      osc2.start();
       osc2.connect(amp);
       amp.connect(filter);
       amp.gain.value = 0;
@@ -120,10 +120,14 @@ export let createSynth = () => {
           if(keyPressed) {
             let { note, octave } = keyPressed;
             let noteIndex = keyboardArray.indexOf(note);
-            let TEST_OCTAVE_OFFSET = 3;
-            let keyIndex = (keyboardArray.length * (octave + TEST_OCTAVE_OFFSET) + noteIndex);
-            let frequency = keyboardFrequencies[keyIndex];
-            osc1.frequency.setValueAtTime(frequency, time);
+            let OSC1_TEST_OCTAVE_OFFSET = 3;
+            let OSC2_TEST_OCTAVE_OFFSET = 4;
+            let osc1keyIndex = (keyboardArray.length * (octave + OSC1_TEST_OCTAVE_OFFSET) + noteIndex);
+            let osc2keyIndex = (keyboardArray.length * (octave + OSC2_TEST_OCTAVE_OFFSET) + noteIndex);
+            let osc1frequency = keyboardFrequencies[osc1keyIndex];
+            let osc2frequency = keyboardFrequencies[osc2keyIndex];
+            osc1.frequency.setValueAtTime(osc1frequency, time);
+            osc2.frequency.setValueAtTime(osc2frequency, time);
           }
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
