@@ -112,12 +112,12 @@ export let createSynth = () => {
               output
             }
           } = voiceNode;
-          osc1.type = "sine";
+          // osc1.type = "sine";
           osc1.frequency.setValueAtTime(220, time);
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
-          asdrs = updateValue(asdrs, i, adsr(keyPressed, 10, { attack: 100, decay: 100, sustain: 10, release: 100 }, asdrs[i]));
+          asdrs = updateValue(asdrs, i, adsr(keyPressed, 10, { attack: 0, decay: 0, sustain: 100, release: 100 }, asdrs[i]));
           voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
       });
@@ -180,7 +180,6 @@ export let createSynth = () => {
           ...asdrs[voiceIndex],
           phase: 'attack'
         });
-        console.log('asdrs updated', voiceIndex, asdrs);
       }
     });
   };
