@@ -4,7 +4,7 @@
   "description": "drum machine",
   "main": "src/js/main.js",
   "scripts": {
-    "test": "grunt test",
+    "test": "./node_modules/mocha/bin/mocha \"src/**/__tests__/*.@(js|jsx)\" --compilers js:babel-core/register --require \"src/js/library/test-helpers/mock.browser.js\"",
     "build": "grunt build",
     "serve": "grunt",
     "start": "grunt",

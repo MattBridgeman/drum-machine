@@ -40,10 +40,6 @@ module.exports = function(grunt) {
         files: ['src/icons/*'],
         tasks: ['copy:icons']
       },
-      tests: {
-        files: ['src/**/__tests__/*.@(js|jsx)'],
-        tasks: ['mochaTest']
-      },
       lint: {
         files: ['src/**/*.@(js|jsx)'],
         tasks: ['eslint']
@@ -133,20 +129,6 @@ module.exports = function(grunt) {
     eslint: {
       target: ['src/js/']
     },
-    
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec',
-          clearRequireCache: true,
-          require: [
-            'src/js/library/test-helpers/babel.include.js',
-            'src/js/library/test-helpers/mock.browser.js'
-          ]
-        },
-        src: ['src/**/__tests__/*.@(js|jsx)']
-      }
-    },
 
     uglify: {
       build: {
@@ -167,15 +149,6 @@ module.exports = function(grunt) {
   // Project configuration
   grunt.initConfig(config);
   
-  //only test the path that's been saved
-  var defaultTestSrc = grunt.config('mochaTest.test.src');
-  grunt.event.on('watch', function(action, filepath) {
-    grunt.config('mochaTest.test.src', defaultTestSrc);
-    if (grunt.file.isMatch('src/**/__tests__/*.@(js|jsx)', filepath)) {
-      grunt.config('mochaTest.test.src', filepath);
-    }
-  });
-  
   //only lint the path that's been saved
   var defaultLintSrc = grunt.config('eslint.target');
   grunt.event.on('watch', function(action, filepath) {
@@ -194,7 +167,6 @@ module.exports = function(grunt) {
   });
 
   //tasks
-  grunt.registerTask('test', ['mochaTest']);
   grunt.registerTask('build', ['clean', 'less', 'copy', 'browserify', 'uglify']);
   grunt.registerTask('default', ['build', 'server', 'watch']);
 
