@@ -33,7 +33,7 @@ describe("Instrument reducer", () => {
       id: 0,
       type: "drumMachine",
       machineId: 0,
-      selected: true
+      selected: false
     });
   });
   

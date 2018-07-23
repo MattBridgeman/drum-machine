@@ -31,7 +31,9 @@ describe("Instruments", () => {
     newAction({type: "A_RANDOM_ACTION"});
     td.verify(next({type: "A_RANDOM_ACTION"}));
     
-    td.verify(updateInstrumentAudio(store.getState()));
+    td.verify(updateInstrumentAudio(td.matchers.contains({
+      instruments: []
+    })));
 
     td.reset();
   });
@@ -54,7 +56,9 @@ describe("Instruments", () => {
     newAction({type: "A_RANDOM_ACTION"});
     td.verify(next({type: "A_RANDOM_ACTION"}));
     
-    td.verify(updateConnections(nodes, store.getState()));
+    td.verify(updateConnections(nodes, td.matchers.contains({
+      instruments: []
+    })));
 
     td.reset();
   });
