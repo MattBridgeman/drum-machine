@@ -1,7 +1,8 @@
 import TestUtils from "react-dom/test-utils";
 import React from "react";
-import { segmentsToSchedule, segmentsToClear } from "../buffer";
+import { segmentsToSchedule, segmentsToClear, buffersSinceId } from "../buffer";
 import { expect } from "chai";
+import { buffer } from "rxjs/internal/operators/buffer";
 
 const { renderIntoDocument, Simulate } = TestUtils;
 
@@ -129,5 +130,17 @@ describe("Segments to clear", () => {
       time: 1234.35,
       index: 2
     }]);
+  });
+});
+
+describe("Buffers Since Id", () => {
+  it("determines buffers since a given ID", () => {
+    let buffer = [{ id: 1 },{ id: 2 },{ id: 3 },{ id: 4 },{ id: 5 },{ id: 6 },{ id: 7 }];
+    let lastId = 3;
+    expect(buffersSinceId(3,buffer)).to.deep.equal([{ id: 4 },{ id: 5 },{ id: 6 },{ id:  7}]);
+  });
+  it("return original buffer if Id is undefined", () => {
+    let buffer = [{ id: 1 },{ id: 2 },{ id: 3 },{ id: 4 },{ id: 5 },{ id: 6 },{ id: 7 }];
+    expect(buffersSinceId(undefined,buffer)).to.equal(buffer);
   });
 });
