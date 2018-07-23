@@ -10,3 +10,5 @@ npm-debug.log
 .AppleDouble
 .LSOverride
 deploy_key
+.nyc_output
+package-lock.json
