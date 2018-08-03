@@ -8,7 +8,9 @@
     "build": "grunt build",
     "serve": "grunt",
     "start": "grunt",
-    "disk": "browserify --extension=\".jsx\" --full-paths -t babelify src/js/main.jsx | discify --open"
+    "disk": "browserify --extension=\".jsx\" --full-paths -t babelify src/js/main.jsx | discify --open",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -54,7 +56,11 @@
     "rxjs": "^6.0.0-alpha.3",
     "serve-static": "^1.12.3",
     "testdouble": "^3.2.1",
-    "uglify-js": "~3.0.15"
+    "uglify-js": "~3.0.15",
+    "@storybook/react": "^3.4.10",
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10"
   },
   "author": "",
   "license": "ISC",
