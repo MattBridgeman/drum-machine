@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import DrumMachineActions from "../../actions/root.actions";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
 
 let Synth = props => {
+  const { machine, machineId, dispatch } = this.props;
+  const { channels, currentBankIndex } = machine;
+  const drumMachineActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
       <Slider name="Voices" min={1} max={8} step={1} value={1} onValueChange={ value => false } />
