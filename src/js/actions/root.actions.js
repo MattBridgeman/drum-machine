@@ -9,6 +9,7 @@ import * as track from "./track.actions";
 import * as meta from "./meta.actions";
 import * as samples from "./samples.actions";
 import * as preview from "./preview.actions";
+import * as synth from "./synth.actions";
 
 export default {
   playState,
@@ -21,5 +22,6 @@ export default {
   track,
   meta,
   samples,
-  preview
+  preview,
+  synth
 }
