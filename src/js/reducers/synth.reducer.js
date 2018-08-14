@@ -1,3 +1,9 @@
+import { fromJS } from "immutable"; 
+
+import {
+	CHANGE_SYNTH_PARAM
+} from "../constants/synth.constants";
+
 let initialState = {};
 
 let defaultSynth = {
@@ -65,5 +71,19 @@ let defaultState = {
 };
 
 export default function synth(state = defaultState, action){
+  let { type, machineId, param, paramItem, value } = action;
+  let $state = fromJS(state);
+  switch(type) {
+    case CHANGE_SYNTH_PARAM:
+      switch(param) {
+        case "osc1":
+        case "osc2":
+          return $state.updateIn([machineId, "oscilators", param, paramItem], oldValue => value).toJS(); 
+        default:
+        return state;
+      }
+    default:
+      return state;
+  }
   return state;
 };

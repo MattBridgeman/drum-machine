@@ -7,7 +7,12 @@ describe("Synth reducer", () => {
     let action = {
       type: "RANDOM"
     };
-    let state = samples(undefined, action);
+    let state = synth(undefined, action);
     expect(state[0].oscilators.osc1.waveType).to.equal("sine");
+  });
+  it("changes the oscilator wave type", () => {
+    let action = changeSynthParam(0, "osc1", "waveType", "square");
+    let state = synth(undefined, action);
+    expect(state[0].oscilators.osc1.waveType).to.equal("square");
   });
 });
