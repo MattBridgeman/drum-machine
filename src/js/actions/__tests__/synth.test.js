@@ -4,7 +4,7 @@ import {
 } from "../synth.actions";
 
 import {
-  CHANGE_SYNTH_PARAMS
+  CHANGE_SYNTH_PARAM
 } from "../../constants/synth.constants";
 
 describe("Synth actions", () => {
@@ -17,7 +17,7 @@ describe("Synth actions", () => {
 		let action = changeSynthParam(machineId, param, paramItem, value);
 
 		expect(action).to.deep.equal({
-			type: CHANGE_SYNTH_PARAMS,
+			type: CHANGE_SYNTH_PARAM,
       machineId,
       param,
       paramItem,

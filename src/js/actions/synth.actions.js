@@ -4,7 +4,8 @@ import {
 
 export function changeSynthParam(machineId, param, paramItem, value){
 	return {
-		type: CHANGE_SYNTH_PARAM,
+    type: CHANGE_SYNTH_PARAM,
+    machineId,
 		param,
 		paramItem,
 		value
