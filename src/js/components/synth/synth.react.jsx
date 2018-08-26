@@ -19,8 +19,12 @@ let Synth = props => {
       <Rotator name="Pan" value={synthParams.pan} onValueChange={ value => 
         synthActions.changeSynthParam(machineId, "pan", null, value)
       } />
-      <Rotator name="Send 1" value={0} onValueChange={ value => false } />
-      <Rotator name="Send 2" value={0} onValueChange={ value => false } />
+      <Rotator name="Send 1" value={synthParams.send1} onValueChange={ value => 
+        synthActions.changeSynthParam(machineId, "sends", "send1", value)
+      } />
+      <Rotator name="Send 2" value={synthParams.send2} onValueChange={ value => 
+        synthActions.changeSynthParam(machineId, "sends", "send2", value)
+      } />
     </div>
     <div className="oscillator-container">
       <div className="oscillator">

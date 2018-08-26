@@ -45,4 +45,14 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].pan).to.equal(7);
   });
+  it("changes the send1", () => {
+    let action = changeSynthParam(0, "sends", "send1", 7);
+    let state = synth(undefined, action);
+    expect(state[0].sends.send1).to.equal(7);
+  });
+  it("changes the send2", () => {
+    let action = changeSynthParam(0, "sends", "send2", 7);
+    let state = synth(undefined, action);
+    expect(state[0].sends.send2).to.equal(7);
+  });
 });

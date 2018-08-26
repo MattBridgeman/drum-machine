@@ -81,6 +81,9 @@ export default function synth(state = defaultState, action){
         case "volume":
         case "pan":
           return $state.updateIn([machineId, param], oldValue => value).toJS();
+        case "send1":
+        case "send2":
+          return $state.updateIn([machineId, "sends", param], oldValue => value).toJS();
         case "osc1":
         case "osc2":
           return $state.updateIn([machineId, "oscillators", param, paramItem], oldValue => value).toJS();
