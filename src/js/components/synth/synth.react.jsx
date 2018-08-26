@@ -27,8 +27,12 @@ let Synth = props => {
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc1.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc1", "octave", value)
           } />
-          <Slider name="Semitone" min={0} max={11} step={1} value={0} onValueChange={ value => false } />
-          <Slider name="Cent" min={0} max={100} step={1} value={0} onValueChange={ value => false } />
+          <Slider name="Semitone" min={0} max={11} step={1} value={synthParams.oscillators.osc1.semitone} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc1", "semitone", value)
+          } />
+          <Slider name="Cent" min={0} max={100} step={1} value={synthParams.oscillators.osc1.cent} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc1", "cent", value)
+          } />
           <Rotator name="Velocity" value={0} onValueChange={ value => false } />
         </div>
       </div>
@@ -42,8 +46,12 @@ let Synth = props => {
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc2.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc2", "octave", value)
           } />
-          <Slider name="Semitone" min={0} max={11} step={1} value={0} onValueChange={ value => false } />
-          <Slider name="Cent" min={0} max={100} step={1} value={0} onValueChange={ value => false } />
+          <Slider name="Semitone" min={0} max={11} step={1} value={synthParams.oscillators.osc2.semitone} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc2", "semitone", value)
+          } />
+          <Slider name="Cent" min={0} max={100} step={1} value={synthParams.oscillators.osc2.cent} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc2", "cent", value)
+          } />
           <Rotator name="Velocity" value={0} onValueChange={ value => false } />
         </div>
       </div>
