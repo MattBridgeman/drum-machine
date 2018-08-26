@@ -75,10 +75,13 @@ export default function synth(state = defaultState, action){
   let $state = fromJS(state);
   switch(type) {
     case CHANGE_SYNTH_PARAM:
+      machineId = machineId.toString();
       switch(param) {
+        case "voices":
+          return $state.updateIn([machineId, "voices"], oldValue => value).toJS();
         case "osc1":
         case "osc2":
-          return $state.updateIn([machineId + "", "oscillators", param, paramItem], oldValue => value).toJS();
+          return $state.updateIn([machineId, "oscillators", param, paramItem], oldValue => value).toJS();
         default:
           return state;
       }

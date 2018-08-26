@@ -10,7 +10,9 @@ let Synth = props => {
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
-      <Slider name="Voices" min={1} max={8} step={1} value={1} onValueChange={ value => false } />
+      <Slider name="Voices" min={1} max={8} step={1} value={synthParams.voices} onValueChange={ value => 
+        synthActions.changeSynthParam(machineId, "voices", null, value)
+      } />
       <Rotator name="Volume" value={0} onValueChange={ value => false } />
       <Rotator name="Pan" value={0} onValueChange={ value => false } />
       <Rotator name="Send 1" value={0} onValueChange={ value => false } />
