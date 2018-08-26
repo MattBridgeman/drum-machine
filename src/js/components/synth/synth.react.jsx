@@ -86,17 +86,19 @@ let Synth = props => {
     </div>
     <div className="filter">
       <h3>Filter</h3>
-      <div className="vertical-range">
-        <label htmlFor="filter-frequency" className="item-label">Frequency</label>
-        <input id="filter-frequency" type="range" min="0" max="100" value={synthParams.filter.frequency} onChange={ e => 
-          synthActions.changeSynthParam(machineId, "filter", "frequency", e.target.value)
-        } step="1" />
-      </div>
-      <div className="vertical-range">
-        <label htmlFor="filter-resonance" className="item-label">Resonance</label>
-        <input id="filter-resonance" type="range" min="0" max="100" value={synthParams.filter.resonance} onChange={ e => 
-          synthActions.changeSynthParam(machineId, "filter", "resonance", e.target.value)
-        } step="1" />
+      <div className="filter-controls">
+        <div className="vertical-range">
+          <label htmlFor="filter-frequency" className="item-label">Frequency</label>
+          <input id="filter-frequency" type="range" min="0" max="100" value={synthParams.filter.frequency} onChange={ e => 
+            synthActions.changeSynthParam(machineId, "filter", "frequency", e.target.value)
+          } step="1" />
+        </div>
+        <div className="vertical-range">
+          <label htmlFor="filter-resonance" className="item-label">Resonance</label>
+          <input id="filter-resonance" type="range" min="0" max="100" value={synthParams.filter.resonance} onChange={ e => 
+            synthActions.changeSynthParam(machineId, "filter", "resonance", e.target.value)
+          } step="1" />
+        </div>
       </div>
     </div>
     <div className="envelopes">
