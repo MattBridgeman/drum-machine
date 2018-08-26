@@ -32,7 +32,14 @@ let Synth = props => {
         <div className="oscillator-controls">
           <div className="radio-slider">
             <h3 className="item-label">Type</h3>
-            Sine
+            <select id="osc1-type" onChange={ e =>
+              synthActions.changeSynthParam(machineId, "osc1", "waveType", e.target.value)
+            }>
+              <option value="sine" selected={synthParams.oscillators.osc1.waveType === "sine"}>Sine</option>
+              <option value="square" selected={synthParams.oscillators.osc1.waveType === "square"}>Square</option>
+              <option value="sawtooth" selected={synthParams.oscillators.osc1.waveType === "sawtooth"}>Sawtooth</option>
+              <option value="triange" selected={synthParams.oscillators.osc1.waveType === "triangle"}>Triange</option>
+            </select>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc1.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc1", "octave", value)
@@ -53,7 +60,14 @@ let Synth = props => {
         <div className="oscillator-controls">
           <div className="radio-slider">
             <h3 className="item-label">Type</h3>
-            Square
+            <select id="osc2-type" onChange={ e =>
+              synthActions.changeSynthParam(machineId, "osc2", "waveType", e.target.value)
+            }>
+              <option value="sine" selected={synthParams.oscillators.osc2.waveType === "sine"}>Sine</option>
+              <option value="square" selected={synthParams.oscillators.osc2.waveType === "square"}>Square</option>
+              <option value="sawtooth" selected={synthParams.oscillators.osc2.waveType === "sawtooth"}>Sawtooth</option>
+              <option value="triange" selected={synthParams.oscillators.osc2.waveType === "triangle"}>Triange</option>
+            </select>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc2.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc2", "octave", value)
@@ -74,7 +88,9 @@ let Synth = props => {
       <h3>Filter</h3>
       <div className="vertical-range">
         <label htmlFor="filter-frequency" className="item-label">Frequency</label>
-        <input id="filter-frequency" type="range" min="0" max="100" value="0" step="1" />
+        <input id="filter-frequency" type="range" min="0" max="100" value={synthParams.filter.frequency} onChange={ e => 
+          synthActions.changeSynthParam(machineId, "filter", "frequency", e.target.value)
+        } step="1" />
       </div>
       <div className="vertical-range">
         <label htmlFor="filter-resonance" className="item-label">Resonance</label>
