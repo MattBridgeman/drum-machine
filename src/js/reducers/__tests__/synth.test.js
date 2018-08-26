@@ -60,4 +60,14 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].sends.send2).to.equal(7);
   });
+  it("changes the filter frequency", () => {
+    let action = changeSynthParam(0, "filter", "frequency", 7);
+    let state = synth(undefined, action);
+    expect(state[0].filter.frequency).to.equal(7);
+  });
+  it("changes the filter resonance", () => {
+    let action = changeSynthParam(0, "filter", "resonance", 7);
+    let state = synth(undefined, action);
+    expect(state[0].filter.resonance).to.equal(7);
+  });
 });

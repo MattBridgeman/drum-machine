@@ -40,7 +40,7 @@ let defaultSynth = {
   },
   filter: {
     frequency: 0,
-    q: 0,
+    resonance: 0,
     type: "lowcut"
   },
   lfos: {
@@ -87,6 +87,8 @@ export default function synth(state = defaultState, action){
         case "osc1":
         case "osc2":
           return $state.updateIn([machineId, "oscillators", param, paramItem], oldValue => value).toJS();
+        case "filter":
+          return $state.updateIn([machineId, param, paramItem], oldValue => value).toJS();
         default:
           return state;
       }
