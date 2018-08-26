@@ -89,6 +89,8 @@ export default function synth(state = defaultState, action){
           return $state.updateIn([machineId, param, paramItem], oldValue => value).toJS();
         case "amp":
           return $state.updateIn([machineId, "envelopes", param, paramItem], oldValue => value).toJS();
+        case "env-filter":
+          return $state.updateIn([machineId, "envelopes", "filter", paramItem], oldValue => value).toJS();        
         default:
           return state;
       }
