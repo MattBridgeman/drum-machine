@@ -30,6 +30,11 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].oscillators.osc2.cents).to.equal(3);
   });
+  it("changes the oscilator amount", () => {
+    let action = changeSynthParam(0, "osc2", "amount", 3);
+    let state = synth(undefined, action);
+    expect(state[0].oscillators.osc2.amount).to.equal(3);
+  });
   it("changes the voices", () => {
     let action = changeSynthParam(0, "voices", null, 7);
     let state = synth(undefined, action);

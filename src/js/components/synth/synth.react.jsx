@@ -43,7 +43,9 @@ let Synth = props => {
           <Slider name="Cent" min={0} max={100} step={1} value={synthParams.oscillators.osc1.cent} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc1", "cent", value)
           } />
-          <Rotator name="Velocity" value={0} onValueChange={ value => false } />
+          <Rotator name="Amount" value={synthParams.oscillators.osc1.amount} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc1", "amount", value)
+          } />
         </div>
       </div>
       <div className="oscillator">
@@ -62,7 +64,9 @@ let Synth = props => {
           <Slider name="Cent" min={0} max={100} step={1} value={synthParams.oscillators.osc2.cent} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc2", "cent", value)
           } />
-          <Rotator name="Velocity" value={0} onValueChange={ value => false } />
+          <Rotator name="Amount" value={synthParams.oscillators.osc2.amount} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "osc2", "amount", value)
+          } />
         </div>
       </div>
     </div>
