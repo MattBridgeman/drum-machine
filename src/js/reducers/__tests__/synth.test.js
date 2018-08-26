@@ -25,4 +25,9 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].oscillators.osc2.semitone).to.equal(3);
   });
+  it("changes the oscilator cents", () => {
+    let action = changeSynthParam(0, "osc2", "cents", 3);
+    let state = synth(undefined, action);
+    expect(state[0].oscillators.osc2.cents).to.equal(3);
+  });
 });
