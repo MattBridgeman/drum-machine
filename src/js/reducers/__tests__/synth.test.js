@@ -15,4 +15,14 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].oscillators.osc1.waveType).to.equal("square");
   });
+  it("changes the oscilator oscillator octave", () => {
+    let action = changeSynthParam(0, "osc1", "octave", 2);
+    let state = synth(undefined, action);
+    expect(state[0].oscillators.osc1.octave).to.equal(2);
+  });
+  it("changes the oscilator semitone", () => {
+    let action = changeSynthParam(0, "osc2", "semitone", 3);
+    let state = synth(undefined, action);
+    expect(state[0].oscillators.osc2.semitone).to.equal(3);
+  });
 });
