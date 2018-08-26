@@ -13,8 +13,12 @@ let Synth = props => {
       <Slider name="Voices" min={1} max={8} step={1} value={synthParams.voices} onValueChange={ value => 
         synthActions.changeSynthParam(machineId, "voices", null, value)
       } />
-      <Rotator name="Volume" value={0} onValueChange={ value => false } />
-      <Rotator name="Pan" value={0} onValueChange={ value => false } />
+      <Rotator name="Volume" value={synthParams.volume} onValueChange={ value => 
+        synthActions.changeSynthParam(machineId, "volume", null, value)
+      } />
+      <Rotator name="Pan" value={synthParams.pan} onValueChange={ value => 
+        synthActions.changeSynthParam(machineId, "pan", null, value)
+      } />
       <Rotator name="Send 1" value={0} onValueChange={ value => false } />
       <Rotator name="Send 2" value={0} onValueChange={ value => false } />
     </div>

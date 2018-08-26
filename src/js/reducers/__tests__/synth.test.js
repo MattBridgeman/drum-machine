@@ -35,4 +35,14 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].voices).to.equal(7);
   });
+  it("changes the volume", () => {
+    let action = changeSynthParam(0, "volume", null, 7);
+    let state = synth(undefined, action);
+    expect(state[0].volume).to.equal(7);
+  });
+  it("changes the pan", () => {
+    let action = changeSynthParam(0, "pan", null, 7);
+    let state = synth(undefined, action);
+    expect(state[0].pan).to.equal(7);
+  });
 });
