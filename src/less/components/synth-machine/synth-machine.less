@@ -4,15 +4,19 @@
   border: 1px solid @grey-transparency;
   .basic-controls {
     display: flex;
+    max-width: 310px;
+    margin: 0 auto;
+    > * {
+      width: 20%;
+    }
   }
   .oscillator {
     .oscillator-controls {
       display: flex;
-      .slider-container {
-        width: 90px;
-      }
-      .rotator {
-        width: 45px;
+      max-width: 310px;
+      margin: 0 auto;
+      > * {
+        width: 20%;
       }
     }
   }
