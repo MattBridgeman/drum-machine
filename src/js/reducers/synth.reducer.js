@@ -48,13 +48,13 @@ let defaultSynth = {
       rate: 0,
       amount: 0,
       waveType: "sine",
-      connections: ["osc12"]
+      destination: ["osc12"]
     },
     lfo2: {
       rate: 0,
       amount: 0,
       waveType: "square",
-      connections: ["ffreq"]
+      destination: ["ffreq"]
     }
   },
   voices: 4,
@@ -87,6 +87,9 @@ export default function synth(state = defaultState, action){
         case "filter":
         case "sends":
           return $state.updateIn([machineId, param, paramItem], oldValue => value).toJS();
+        case "lfo1":
+        case "lfo2":
+          return $state.updateIn([machineId, "lfos", param, paramItem], oldValue => value).toJS();
         case "amp":
           return $state.updateIn([machineId, "envelopes", param, paramItem], oldValue => value).toJS();
         case "env-filter":

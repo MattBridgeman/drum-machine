@@ -30,7 +30,7 @@ let Synth = props => {
       <div className="oscillator">
         <h3>Oscillator 1</h3>
         <div className="oscillator-controls">
-          <div className="radio-slider">
+          <div className="select-item">
             <h3 className="item-label">Type</h3>
             <select id="osc1-type" onChange={ e =>
               synthActions.changeSynthParam(machineId, "osc1", "waveType", e.target.value)
@@ -58,7 +58,7 @@ let Synth = props => {
       <div className="oscillator">
         <h3>Oscillator 2</h3>
         <div className="oscillator-controls">
-          <div className="radio-slider">
+          <div className="select-item">
             <h3 className="item-label">Type</h3>
             <select id="osc2-type" onChange={ e =>
               synthActions.changeSynthParam(machineId, "osc2", "waveType", e.target.value)
@@ -162,30 +162,60 @@ let Synth = props => {
         <div className="lfo">
           <h3>LFO 1</h3>
           <div className="lfo-controls">
-            <Rotator name="Rate" value={0} onValueChange={ value => false } />
-            <Rotator name="Amount" value={0} onValueChange={ value => false } />
-            <div className="radio-slider">
+            <Rotator name="Rate" value={synthParams.lfos.lfo1.rate} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "lfo1", "rate", value)
+            } />
+            <Rotator name="Amount" value={synthParams.lfos.lfo1.amount} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "lfo1", "amount", value)
+            } />
+            <div className="select-item">
               <h3 className="item-label">Type</h3>
-              Square
+              <select id="lfo1-type" onChange={ e =>
+                synthActions.changeSynthParam(machineId, "lfo1", "waveType", e.target.value)
+              }>
+                <option value="sine" selected={synthParams.lfos.lfo1.waveType === "sine"}>Sine</option>
+                <option value="square" selected={synthParams.lfos.lfo1.waveType === "square"}>Square</option>
+                <option value="sawtooth" selected={synthParams.lfos.lfo1.waveType === "sawtooth"}>Sawtooth</option>
+                <option value="triange" selected={synthParams.lfos.lfo1.waveType === "triangle"}>Triange</option>
+              </select>
             </div>
-            <div className="radio-slider">
+            <div className="select-item">
               <h3 className="item-label">Destination</h3>
-              Oscilator 1,2
+              <select id="lfo1-destination" onChange={ e =>
+                synthActions.changeSynthParam(machineId, "lfo1", "destination", e.target.value)
+              }>
+                <option value="sine" selected={synthParams.lfos.lfo1.destination === "osc12"}>Oscilator 1,2</option>
+              </select>
             </div>
           </div>
         </div>
         <div className="lfo">
           <h3>LFO 2</h3>
           <div className="lfo-controls">
-            <Rotator name="Rate" value={0} onValueChange={ value => false } />
-            <Rotator name="Amount" value={0} onValueChange={ value => false } />
-            <div className="radio-slider">
+            <Rotator name="Rate" value={synthParams.lfos.lfo2.rate} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "lfo2", "rate", value)
+            } />
+            <Rotator name="Amount" value={synthParams.lfos.lfo2.amount} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "lfo2", "amount", value)
+            } />
+            <div className="select-item">
               <h3 className="item-label">Type</h3>
-              Square
+              <select id="lfo2-type" onChange={ e =>
+                synthActions.changeSynthParam(machineId, "lfo2", "waveType", e.target.value)
+              }>
+                <option value="sine" selected={synthParams.lfos.lfo2.waveType === "sine"}>Sine</option>
+                <option value="square" selected={synthParams.lfos.lfo2.waveType === "square"}>Square</option>
+                <option value="sawtooth" selected={synthParams.lfos.lfo2.waveType === "sawtooth"}>Sawtooth</option>
+                <option value="triange" selected={synthParams.lfos.lfo2.waveType === "triangle"}>Triange</option>
+              </select>
             </div>
-            <div className="radio-slider">
+            <div className="select-item">
               <h3 className="item-label">Destination</h3>
-              Oscilator 1,2
+              <select id="lfo2-destination" onChange={ e =>
+                synthActions.changeSynthParam(machineId, "lfo2", "destination", e.target.value)
+              }>
+                <option value="sine" selected={synthParams.lfos.lfo2.destination === "osc12"}>Oscilator 1,2</option>
+              </select>
             </div>
           </div>
         </div>

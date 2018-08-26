@@ -70,4 +70,39 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].filter.resonance).to.equal(7);
   });
+  it("changes the lfo rate", () => {
+    let action = changeSynthParam(0, "lfo1", "rate", 7);
+    let state = synth(undefined, action);
+    expect(state[0].lfos.lfo1.rate).to.equal(7);
+  });
+  it("changes the lfo amount", () => {
+    let action = changeSynthParam(0, "lfo1", "amount", 7);
+    let state = synth(undefined, action);
+    expect(state[0].lfos.lfo1.amount).to.equal(7);
+  });
+  it("changes the lfo type", () => {
+    let action = changeSynthParam(0, "lfo1", "waveType", "square");
+    let state = synth(undefined, action);
+    expect(state[0].lfos.lfo1.waveType).to.equal("square");
+  });
+  it("changes the lfo destination", () => {
+    let action = changeSynthParam(0, "lfo1", "destination", "ffreq");
+    let state = synth(undefined, action);
+    expect(state[0].lfos.lfo1.destination).to.equal("ffreq");
+  });
+  it("changes the env amp attack", () => {
+    let action = changeSynthParam(0, "amp", "attack", 13);
+    let state = synth(undefined, action);
+    expect(state[0].envelopes.amp.attack).to.equal(13);
+  });
+  it("changes the env filter attack", () => {
+    let action = changeSynthParam(0, "env-filter", "attack", 13);
+    let state = synth(undefined, action);
+    expect(state[0].envelopes.filter.attack).to.equal(13);
+  });
+  it("doesn't change a random param", () => {
+    let action = changeSynthParam(0, "random", "attack", 13);
+    let state = synth(undefined, action);
+    expect(state[0].envelopes.filter.attack).to.equal(0);
+  });
 });
