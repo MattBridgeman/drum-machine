@@ -105,19 +105,27 @@ let Synth = props => {
         <div className="envelope-controls">
           <div className="vertical-range">
             <label htmlFor="amp-attack" className="item-label">Attack</label>
-            <input id="amp-attack" type="range" min="0" max="100" value="0" step="1" />
+            <input id="amp-attack" type="range" min="0" max="100" value={synthParams.envelopes.amp.attack} onChange={ e => 
+              synthActions.changeSynthParam(machineId, "amp", "attack", e.target.value)
+            } step="1" />
           </div>
           <div className="vertical-range">
             <label htmlFor="amp-decay" className="item-label">Decay</label>
-            <input id="amp-decay" type="range" min="0" max="100" value="0" step="1" />
+            <input id="amp-decay" type="range" min="0" max="100" value={synthParams.envelopes.amp.decay} onChange={ e => 
+              synthActions.changeSynthParam(machineId, "amp", "decay", e.target.value)
+            } step="1" />
           </div>
           <div className="vertical-range">
             <label htmlFor="amp-sustain" className="item-label">Sustain</label>
-            <input id="amp-sustain" type="range" min="0" max="100" value="0" step="1" />
+            <input id="amp-sustain" type="range" min="0" max="100" value={synthParams.envelopes.amp.sustain} onChange={ e => 
+              synthActions.changeSynthParam(machineId, "amp", "sustain", e.target.value)
+            } step="1" />
           </div>
           <div className="vertical-range">
             <label htmlFor="amp-release" className="item-label">Release</label>
-            <input id="amp-release" type="range" min="0" max="100" value="0" step="1" />
+            <input id="amp-release" type="range" min="0" max="100" value={synthParams.envelopes.amp.release} onChange={ e => 
+              synthActions.changeSynthParam(machineId, "amp", "release", e.target.value)
+            } step="1" />
           </div>
         </div>
       </div>
