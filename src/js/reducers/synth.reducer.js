@@ -7,7 +7,7 @@ import {
 let initialState = {};
 
 let defaultSynth = {
-  oscilators: {
+  oscillators: {
     osc1: {
       waveType: "sine",
       octave: 0,
@@ -78,7 +78,7 @@ export default function synth(state = defaultState, action){
       switch(param) {
         case "osc1":
         case "osc2":
-          return $state.updateIn([machineId, "oscilators", param, paramItem], oldValue => value).toJS(); 
+          return $state.updateIn([machineId, "oscillators", param, paramItem], oldValue => value).toJS(); 
         default:
         return state;
       }

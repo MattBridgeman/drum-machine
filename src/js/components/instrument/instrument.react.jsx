@@ -13,7 +13,7 @@ class Instrument extends Component {
         case "drumMachine":
           return <DrumMachine {...this.props} machineId={machineId} />
         case "synth":
-          return <Synth {...this.props} />
+          return <Synth {...this.props} machineId={machineId} />
         default:
           return null;
       }

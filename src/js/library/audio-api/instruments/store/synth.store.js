@@ -14,7 +14,7 @@ import { createStore } from "redux";
 //}
 let initialState = {
   time: 0,
-  oscilators: {
+  oscillators: {
     osc1: {
       waveType: "sine",
       frequency: 110,

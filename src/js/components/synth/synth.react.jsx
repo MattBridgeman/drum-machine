@@ -5,7 +5,8 @@ import { Rotator } from "../rotator/rotator.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
 
 let Synth = props => {
-  const { machine, machineId, dispatch } = props;
+  const { synth, machineId, dispatch } = props;
+  const synthParams = synth[machineId];
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
@@ -23,7 +24,10 @@ let Synth = props => {
             <h3 className="item-label">Type</h3>
             Sine
           </div>
-          <Slider name="Octave" min={0} max={7} step={1} value={0} onValueChange={ value => synthActions.changeSynthParam(machineId, "osc1", "octave", value) } />
+          <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc1.octave} onValueChange={ value => {
+            console.log(value, machineId, "osc1", "octave", value, synthActions.changeSynthParam);
+            synthActions.changeSynthParam(machineId, "osc1", "octave", value)
+           } } />
           <Slider name="Semitone" min={0} max={11} step={1} value={0} onValueChange={ value => false } />
           <Slider name="Cent" min={0} max={100} step={1} value={0} onValueChange={ value => false } />
           <Rotator name="Velocity" value={0} onValueChange={ value => false } />
