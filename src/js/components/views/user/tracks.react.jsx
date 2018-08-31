@@ -10,9 +10,10 @@ import moment from "moment";
 import { buildTrackRoute } from "../../../library/routing/routing";
 
 const TracksList = props => {
-  let { tracks: { tracks }, match } = props;
+  let { tracks: { tracks }, match, dispatch } = props;
   let userId = getValueFromPath(match, "params/userId");
   let userTracks = getValueFromPath(tracks, userId) || [];
+  let trackActions = bindActionCreators(DrumMachineActions.tracks, dispatch);
   return userTracks.length ? 
   (<div className="large-list">
     <h2>Tracks</h2>

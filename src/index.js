@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import { ConnectedRouter } from "react-router-redux";
 import { Route, Switch } from "react-router";
 import { Provider } from "react-redux";
-import Track from "./components/views/user/track.react.jsx";
-import Tracks from "./components/views/user/tracks.react.jsx";
-import Samples from "./components/views/user/samples.react.jsx";
-import Login from "./components/views/user/login.react.jsx";
-import Logout from "./components/views/user/logout.react.jsx";
-import configureStore from "./store/store";
-import { history } from "./middleware/history";
+import Track from "./js/components/views/user/track.react.jsx";
+import Tracks from "./js/components/views/user/tracks.react.jsx";
+import Samples from "./js/components/views/user/samples.react.jsx";
+import Login from "./js/components/views/user/login.react.jsx";
+import Logout from "./js/components/views/user/logout.react.jsx";
+import configureStore from "./js/store/store";
+import { history } from "./js/middleware/history";
+import './less/all.css';
 
 const store = configureStore();
 

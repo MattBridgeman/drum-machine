@@ -1,3 +1,6 @@
+import firebase from "firebase";
+import firebaseui from "firebaseui";
+
 let uiConfig = () => ({
   signInFlow: "popup",
   signInOptions: [

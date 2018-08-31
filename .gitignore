@@ -5,6 +5,7 @@
 node_modules/
 build/
 typings/
+src/less/**/*.css
 npm-debug.log
 .DS_Store
 .AppleDouble

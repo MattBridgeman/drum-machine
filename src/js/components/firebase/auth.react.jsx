@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 import { uiConfig } from "../../library/firebase/config";
 import { init } from "../../library/firebase/firebase";
 import DrumMachineActions from "../../actions/root.actions";
+import firebase from "firebase";
+import firebaseui from "firebaseui";
 
 let ui;
 

@@ -1,7 +1,8 @@
-import { request } from "./request";
-
-var arrayBuffer = function(url) {
-	return request(url, "GET", "arraybuffer");
+let arrayBuffer = url => {
+	return fetch(url)
+		.then(response =>
+			response.arrayBuffer()	
+		);
 };
 
 export { arrayBuffer };
