@@ -1,6 +1,5 @@
 import { getAudioContext } from "../context";
 import { timeout } from "../interval";
-import { synthStore } from "./store/synth.store";
 import { panPercentageToValue } from "../pan";
 import { numberToArrayLength, numberToArrayLengthWithValue, updateValue } from "../../natives/array";
 import ogen from "../../generator/ogen";
@@ -9,8 +8,9 @@ import { adsr } from "../adsr";
 import keyboardMap from "../../keyboard/keyboard.map";
 import keyboardArray from "../../keyboard/keyboard.array";
 import keyboardFrequencies from "../../keyboard/keyboard.frequencies";
+import { normaliseValue } from "../../natives/numbers";
 
-export const MAX_VOICES = 16;
+export const MAX_VOICES = 8;
 
 export let createSynth = () => {
 
@@ -22,12 +22,12 @@ export let createSynth = () => {
   let send1 = null;
   let send2 = null;
   let loopSubscription = false;
-  let store = synthStore();
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
   let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {});
   let keysPressed = [];
   let voices = MAX_VOICES;
   let availableVoice = 0;
+  let state;
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -108,14 +108,14 @@ export let createSynth = () => {
             }
           } = voiceNode;
           // osc1.type = "sine";
-
           if(keyPressed) {
-            let { note, octave } = keyPressed;
+            let { note, octave: keyOctave } = keyPressed;
             let noteIndex = keyboardArray.indexOf(note);
-            let OSC1_TEST_OCTAVE_OFFSET = 3;
-            let OSC2_TEST_OCTAVE_OFFSET = 4;
-            let osc1keyIndex = (keyboardArray.length * (octave + OSC1_TEST_OCTAVE_OFFSET) + noteIndex);
-            let osc2keyIndex = (keyboardArray.length * (octave + OSC2_TEST_OCTAVE_OFFSET) + noteIndex);
+            let osc1Octave = state.oscillators.osc1.octave;
+            let osc2Octave = state.oscillators.osc2.octave;
+            let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
+            let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
+            console.log(osc1keyIndex, osc2keyIndex);
             let osc1frequency = keyboardFrequencies[osc1keyIndex];
             let osc2frequency = keyboardFrequencies[osc2keyIndex];
             osc1.frequency.setValueAtTime(osc1frequency, time);
@@ -136,6 +136,15 @@ export let createSynth = () => {
     let currentSynth = synth[machineId];
     updateConnections(instrument, state);
     updateKeys(instrument, state);
+    updateState(instrument, state);
+  };
+
+  let updateState = (instrument, newState) => {
+    let { keys } = newState;
+    let { machineId } = instrument;
+    let { synth } = newState;
+    let synthState = synth[machineId];
+    state = synthState;
   };
 
   let updateConnections = (instrument, state) => {
