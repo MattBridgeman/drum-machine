@@ -1,5 +1,5 @@
 import React from "react";
-import keymap from "../library/keyboard/keymap";
+import { keymap } from "../library/keyboard";
 import { onKeyDown, onKeyUp } from "../actions/keys.actions";
 
 export const keys = store => next => {

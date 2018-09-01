@@ -5,9 +5,7 @@ import { numberToArrayLength, numberToArrayLengthWithValue, updateValue } from "
 import ogen from "../../generator/ogen";
 import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
-import keyboardMap from "../../keyboard/keyboard.map";
-import keyboardArray from "../../keyboard/keyboard.array";
-import keyboardFrequencies from "../../keyboard/keyboard.frequencies";
+import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
 
 export const MAX_VOICES = 8;
@@ -111,13 +109,26 @@ export let createSynth = () => {
           if(keyPressed) {
             let { note, octave: keyOctave } = keyPressed;
             let noteIndex = keyboardArray.indexOf(note);
-            let osc1Octave = state.oscillators.osc1.octave;
-            let osc2Octave = state.oscillators.osc2.octave;
+            let {
+              oscillators: {
+                osc1: {
+                  octave: osc1Octave,
+                  semitone: osc1Semitone,
+                  cent: osc1Cent
+                },
+                osc2: {
+                  octave: osc2Octave,
+                  semitone: osc2Semitone,
+                  cent: osc2Cent
+                }
+              }
+            } = state;
             let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
             let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
-            console.log(osc1keyIndex, osc2keyIndex);
             let osc1frequency = keyboardFrequencies[osc1keyIndex];
             let osc2frequency = keyboardFrequencies[osc2keyIndex];
+            osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
+            osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
             osc1.frequency.setValueAtTime(osc1frequency, time);
             osc2.frequency.setValueAtTime(osc2frequency, time);
           }
