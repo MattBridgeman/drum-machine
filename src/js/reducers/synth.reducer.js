@@ -39,9 +39,9 @@ let defaultSynth = {
     }
   },
   filter: {
-    frequency: 0,
+    frequency: 100,
     resonance: 0,
-    type: "lowcut"
+    type: "lowpass"
   },
   lfos: {
     lfo1: {

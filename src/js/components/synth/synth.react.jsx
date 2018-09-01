@@ -87,6 +87,16 @@ let Synth = props => {
     <div className="filter">
       <h3>Filter</h3>
       <div className="filter-controls">
+        <div className="select-item">
+          <h3 className="item-label">Type</h3>
+          <select id="filter-type" onChange={ e =>
+            synthActions.changeSynthParam(machineId, "filter", "type", e.target.value)
+          }>
+            <option value="highpass" selected={synthParams.filter.type === "highpass"}>High Pass</option>
+            <option value="lowpass" selected={synthParams.filter.type === "lowpass"}>Low Pass</option>
+            <option value="bandpass" selected={synthParams.filter.type === "bandpass"}>Band Pass</option>
+          </select>
+        </div>
         <div className="vertical-range">
           <label htmlFor="filter-frequency" className="item-label">Frequency</label>
           <input id="filter-frequency" type="range" min="0" max="100" value={synthParams.filter.frequency} onChange={ e => 

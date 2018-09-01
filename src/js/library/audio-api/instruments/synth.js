@@ -7,6 +7,7 @@ import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
+import { filterPercentageToValue } from "../filter";
 
 export const MAX_VOICES = 8;
 
@@ -154,6 +155,11 @@ export let createSynth = () => {
                 release: ampRelease
               }
             },
+            filter: {
+              frequency: filterFrequency,
+              resonance: filterResonance,
+              type: filterType
+            },
             volume,
             pan,
             sends: {
@@ -185,12 +191,14 @@ export let createSynth = () => {
           send1Node.gain.setValueAtTime(send1 * 0.01, time);
           send2Node.gain.setValueAtTime(send2 * 0.01, time);
 
+          filter.frequency.setValueAtTime(filterPercentageToValue(filterFrequency), time);
+          filter.Q.setValueAtTime(filterResonance, time);
           //set pan
           panNode.setPosition(...panPercentageToValue(pan));
 
           //set amp
           asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, asdrs[i]));
-          voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
+          amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
       });
   };
