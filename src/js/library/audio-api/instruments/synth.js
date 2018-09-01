@@ -108,41 +108,50 @@ export let createSynth = () => {
               output
             }
           } = voiceNode;
-          // osc1.type = "sine";
-          //if(key) {
-            let { note = 0, octave: keyOctave = 0 } = key || {};
-            let noteIndex = keyboardArray.indexOf(note);
-            let {
-              oscillators: {
-                osc1: {
-                  octave: osc1Octave,
-                  semitone: osc1Semitone,
-                  cent: osc1Cent
-                },
-                osc2: {
-                  octave: osc2Octave,
-                  semitone: osc2Semitone,
-                  cent: osc2Cent
-                }
+          let { note = 0, octave: keyOctave = 0 } = key || {};
+          let noteIndex = keyboardArray.indexOf(note);
+          let {
+            oscillators: {
+              osc1: {
+                waveType: osc1WaveType,
+                octave: osc1Octave,
+                semitone: osc1Semitone,
+                cent: osc1Cent
               },
-              envelopes: {
-                amp: {
-
-                }
+              osc2: {
+                waveType: osc2WaveType,
+                octave: osc2Octave,
+                semitone: osc2Semitone,
+                cent: osc2Cent
               }
-            } = state;
-            let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
-            let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
-            let osc1frequency = keyboardFrequencies[osc1keyIndex];
-            let osc2frequency = keyboardFrequencies[osc2keyIndex];
-            osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
-            osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
-            osc1.frequency.setValueAtTime(osc1frequency, time);
-            osc2.frequency.setValueAtTime(osc2frequency, time);
-          //}
+            },
+            envelopes: {
+              amp: {
+
+              }
+            }
+          } = state;
+          //set wavetype
+          if(osc1.type != osc1WaveType) {
+            osc1.type = osc1WaveType;
+          }
+          if(osc2.type != osc2WaveType) {
+            osc2.type = osc2WaveType;
+          };
+          //set frequency
+          let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
+          let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
+          let osc1frequency = keyboardFrequencies[osc1keyIndex];
+          let osc2frequency = keyboardFrequencies[osc2keyIndex];
+          osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
+          osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
+          osc1.frequency.setValueAtTime(osc1frequency, time);
+          osc2.frequency.setValueAtTime(osc2frequency, time);
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
+          
+          //set amp
           asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: 0, decay: 0, sustain: 100, release: 100 }, asdrs[i]));
           voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
