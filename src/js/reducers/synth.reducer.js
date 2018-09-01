@@ -10,25 +10,25 @@ let defaultSynth = {
   oscillators: {
     osc1: {
       waveType: "sine",
-      octave: 0,
+      octave: 4,
       semitone: 0,
       cent: 0,
-      amount: 0
+      amount: 100
     },
     osc2: {
-      waveType: "square",
-      octave: 0,
+      waveType: "sine",
+      octave: 4,
       semitone: 0,
       cent: 0,
-      amount: 0
+      amount: 100
     }
   },
   fm: true,
   envelopes: {
     amp: {
       attack: 0,
-      decay: 0,
-      sustain: 0,
+      decay: 100,
+      sustain: 100,
       release: 0
     },
     filter: {

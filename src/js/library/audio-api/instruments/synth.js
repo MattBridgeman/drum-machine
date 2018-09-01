@@ -33,8 +33,14 @@ export let createSynth = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
       return {
         oscillators: {
-          osc1: context.createOscillator(),
-          osc2: context.createOscillator()
+          osc1: {
+            osc: context.createOscillator(),
+            amount: context.createGain()
+          },
+          osc2: {
+            osc: context.createOscillator(),
+            amount: context.createGain()
+          }
         },
         gains: {
           amount: context.createGain(),
@@ -52,8 +58,14 @@ export let createSynth = () => {
     //connections
     voiceNodes.forEach(({
       oscillators: {
-        osc1,
-        osc2,
+        osc1: {
+          osc: osc1osc,
+          amount: osc1Amount
+        },
+        osc2: {
+          osc: osc2osc,
+          amount: osc2Amount
+        }
       },
       gains: {
         amount,
@@ -62,14 +74,16 @@ export let createSynth = () => {
         output
       }
     }) => {
-      osc1.type = "sine";
-      osc1.frequency.setValueAtTime(220, context.currentTime);
-      osc1.start();
-      osc1.connect(amp);
-      osc2.type = "sine";
-      osc2.frequency.setValueAtTime(110, context.currentTime);
-      osc2.start();
-      osc2.connect(amp);
+      osc1osc.type = "sine";
+      osc1osc.frequency.setValueAtTime(220, context.currentTime);
+      osc1osc.start();
+      osc1osc.connect(osc1Amount);
+      osc2osc.type = "sine";
+      osc2osc.frequency.setValueAtTime(110, context.currentTime);
+      osc2osc.start();
+      osc2osc.connect(osc2Amount);
+      osc1Amount.connect(amp);
+      osc2Amount.connect(amp);
       amp.connect(filter);
       amp.gain.value = 0;
       filter.connect(amount);
@@ -98,8 +112,14 @@ export let createSynth = () => {
           let key = voiceToKeyMap[i];
           let {
             oscillators: {
-              osc1,
-              osc2
+              osc1: {
+                osc: osc1osc,
+                amount: osc1AmountNode
+              },
+              osc2: {
+                osc: osc2osc,
+                amount: osc2AmountNode
+              }
             },
             gains: {
               amount,
@@ -116,13 +136,15 @@ export let createSynth = () => {
                 waveType: osc1WaveType,
                 octave: osc1Octave,
                 semitone: osc1Semitone,
-                cent: osc1Cent
+                cent: osc1Cent,
+                amount: osc1Amount
               },
               osc2: {
                 waveType: osc2WaveType,
                 octave: osc2Octave,
                 semitone: osc2Semitone,
-                cent: osc2Cent
+                cent: osc2Cent,
+                amount: osc2Amount
               }
             },
             envelopes: {
@@ -135,11 +157,11 @@ export let createSynth = () => {
             }
           } = state;
           //set wavetype
-          if(osc1.type != osc1WaveType) {
-            osc1.type = osc1WaveType;
+          if(osc1osc.type != osc1WaveType) {
+            osc1osc.type = osc1WaveType;
           }
-          if(osc2.type != osc2WaveType) {
-            osc2.type = osc2WaveType;
+          if(osc2osc.type != osc2WaveType) {
+            osc2osc.type = osc2WaveType;
           };
           //set frequency
           let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
@@ -148,8 +170,12 @@ export let createSynth = () => {
           let osc2frequency = keyboardFrequencies[osc2keyIndex];
           osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
           osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
-          osc1.frequency.setValueAtTime(osc1frequency, time);
-          osc2.frequency.setValueAtTime(osc2frequency, time);
+          osc1osc.frequency.setValueAtTime(osc1frequency, time);
+          osc2osc.frequency.setValueAtTime(osc2frequency, time);
+          
+          //set amounts
+          osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
+          osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
