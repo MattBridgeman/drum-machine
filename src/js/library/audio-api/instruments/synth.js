@@ -21,11 +21,13 @@ export let createSynth = () => {
   let send2 = null;
   let loopSubscription = false;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
-  let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {});
+  let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {
+    phase: "release"
+  });
   let keysPressed = [];
   let voices = MAX_VOICES;
   let availableVoice = 0;
-  let state;
+  let state = {};
 
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -92,7 +94,8 @@ export let createSynth = () => {
       .subscribe(time => {
         voiceNodes
         .forEach((voiceNode, i) => {
-          let keyPressed = voiceToKeyMap[i];
+          if(!state.oscillators) return;
+          let key = voiceToKeyMap[i];
           let {
             oscillators: {
               osc1,
@@ -106,8 +109,8 @@ export let createSynth = () => {
             }
           } = voiceNode;
           // osc1.type = "sine";
-          if(keyPressed) {
-            let { note, octave: keyOctave } = keyPressed;
+          //if(key) {
+            let { note = 0, octave: keyOctave = 0 } = key || {};
             let noteIndex = keyboardArray.indexOf(note);
             let {
               oscillators: {
@@ -121,6 +124,11 @@ export let createSynth = () => {
                   semitone: osc2Semitone,
                   cent: osc2Cent
                 }
+              },
+              envelopes: {
+                amp: {
+
+                }
               }
             } = state;
             let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
@@ -131,11 +139,11 @@ export let createSynth = () => {
             osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
             osc1.frequency.setValueAtTime(osc1frequency, time);
             osc2.frequency.setValueAtTime(osc2frequency, time);
-          }
+          //}
           amount.gain.setValueAtTime(1, time);
           amp.gain.setValueAtTime(1, time);
           volumeNode.gain.setValueAtTime(1, time);
-          asdrs = updateValue(asdrs, i, adsr(keyPressed, 10, { attack: 0, decay: 0, sustain: 100, release: 100 }, asdrs[i]));
+          asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: 0, decay: 0, sustain: 100, release: 100 }, asdrs[i]));
           voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
       });
@@ -181,7 +189,10 @@ export let createSynth = () => {
     .map((item, key) => {
       let match = keysPressed.filter(key => item.note === key.note && item.octave === key.octave);
       if(!match.length) {
-       return 0;
+       return {
+         ...item,
+         released: true
+       };
       } else {
         return item;
       }
@@ -194,7 +205,7 @@ export let createSynth = () => {
       .filter((key, i) => i < voices)
       .forEach((item, i) => {
         if(item) {
-          let keyMatch = keysPressed.filter(key => item.note === keyPressedItem.note && item.octave === keyPressedItem.octave);
+          let keyMatch = keysPressed.filter(key => item.note === keyPressedItem.note && item.octave === keyPressedItem.octave && !item.released);
           if(keyMatch.length) {
             match = keyMatch;
           }
