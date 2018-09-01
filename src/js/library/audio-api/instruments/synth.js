@@ -22,7 +22,10 @@ export let createSynth = () => {
   let send2Node = null;
   let loopSubscription = false;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
-  let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {
+  let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
+    phase: "release"
+  });
+  let filterAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
     phase: "release"
   });
   let keysPressed = [];
@@ -153,6 +156,12 @@ export let createSynth = () => {
                 decay: ampDecay,
                 sustain: ampSustain,
                 release: ampRelease
+              },
+              filter: {
+                attack: filterAttack,
+                decay: filterDecay,
+                sustain: filterSustain,
+                release: filterRelease
               }
             },
             filter: {
@@ -191,14 +200,17 @@ export let createSynth = () => {
           send1Node.gain.setValueAtTime(send1 * 0.01, time);
           send2Node.gain.setValueAtTime(send2 * 0.01, time);
 
-          filter.frequency.setValueAtTime(filterPercentageToValue(filterFrequency), time);
           filter.Q.setValueAtTime(filterResonance, time);
           //set pan
           panNode.setPosition(...panPercentageToValue(pan));
 
-          //set amp
-          asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, asdrs[i]));
-          amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
+          //set amp asdr
+          ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, ampAsdrs[i]));
+          amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
+
+          //set filter asdr
+          filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
+          filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
         });
       });
   };
@@ -236,7 +248,7 @@ export let createSynth = () => {
       .filter((key, i) => i < voices);
 
     //update voice key map
-    //remove keys which are no longer pressed
+    //flag keys which are no longer pressed
     //leave all assigned pressed keys alone
     voiceToKeyMap = voiceToKeyMap
     .filter((key, i) => i < voices)
@@ -272,8 +284,12 @@ export let createSynth = () => {
         }
         voiceToKeyMap = updateValue(voiceToKeyMap, availableVoice, keyPressedItem);
         //reset phase to attack for any new keys
-        asdrs = updateValue(asdrs, availableVoice, {
-          ...asdrs[availableVoice],
+        ampAsdrs = updateValue(ampAsdrs, availableVoice, {
+          ...ampAsdrs[availableVoice],
+          phase: 'attack'
+        });
+        filterAsdrs = updateValue(filterAsdrs, availableVoice, {
+          ...filterAsdrs[availableVoice],
           phase: 'attack'
         });
       }

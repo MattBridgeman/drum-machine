@@ -33,8 +33,8 @@ let defaultSynth = {
     },
     filter: {
       attack: 0,
-      decay: 0,
-      sustain: 0,
+      decay: 100,
+      sustain: 100,
       release: 0
     }
   },
