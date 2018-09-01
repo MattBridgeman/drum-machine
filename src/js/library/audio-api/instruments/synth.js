@@ -127,7 +127,10 @@ export let createSynth = () => {
             },
             envelopes: {
               amp: {
-
+                attack: ampAttack,
+                decay: ampDecay,
+                sustain: ampSustain,
+                release: ampRelease
               }
             }
           } = state;
@@ -152,7 +155,7 @@ export let createSynth = () => {
           volumeNode.gain.setValueAtTime(1, time);
           
           //set amp
-          asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: 0, decay: 0, sustain: 100, release: 100 }, asdrs[i]));
+          asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, asdrs[i]));
           voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
         });
       });
