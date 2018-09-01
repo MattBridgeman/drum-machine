@@ -1,12 +1,13 @@
 import React from "react";
 import { playState } from "../play.state";
 import { expect } from "chai";
+import td from "testdouble";
 import { newAudioContext } from "../../actions/audio.context.actions";
 import { newSegmentIndex, togglePlayPause } from "../../actions/play.state.actions";
 import { timeout } from "../../library/audio-api/interval";
 import { getPromiseMock } from "../../library/test-helpers/mocks/promise";
 import configureTestStore from "../../store/test.store";
-import td from "testdouble";
+import { GlobalAudioContext } from "../../library/test-helpers/stubs/audio.api";
 
 describe("Play state", () => {
   it("passes 'next' onwards for all action types", () => {
