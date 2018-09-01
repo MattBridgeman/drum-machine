@@ -20,6 +20,12 @@ export let createSynth = () => {
   let panNode = null;
   let send1Node = null;
   let send2Node = null;
+  let lfo1Node = null;
+  let lfo1WetNode = null;
+  let lfo1DryNode = null;
+  let lfo2Node = null;
+  let lfo2WetNode = null;
+  let lfo2DryNode = null;
   let loopSubscription = false;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
   let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
@@ -58,6 +64,12 @@ export let createSynth = () => {
     panNode = context.createPanner();
     send1Node = context.createGain();
     send2Node = context.createGain();
+    lfo1Node = context.createOscillator();
+    lfo1DryNode = context.createGain();
+    lfo1WetNode = context.createGain();
+    lfo2Node = context.createOscillator();
+    lfo2DryNode = context.createGain();
+    lfo2WetNode = context.createGain();
 
     //connections
     voiceNodes.forEach(({
@@ -95,6 +107,16 @@ export let createSynth = () => {
     });
     volumeNode.gain.value = 0;
     volumeNode.connect(panNode);
+
+    lfo1WetNode.gain.value = 0;
+    lfo1Node.connect(lfo1WetNode);
+    lfo1DryNode.connect(lfo2Node);
+    lfo1WetNode.connect(lfo2Node);
+    lfo2WetNode.gain.value = 0;
+    lfo2Node.connect(lfo2WetNode);
+    lfo2DryNode.connect(panNode);
+    lfo2WetNode.connect(panNode);
+
     panNode.panningModel = "equalpower";
     panNode.setPosition(...panPercentageToValue(50));
     panNode.connect(output);
@@ -169,6 +191,20 @@ export let createSynth = () => {
               resonance: filterResonance,
               type: filterType
             },
+            lfos: {
+              lfo1: {
+                rate: lfo1Rate,
+                amount: lfo1Amount,
+                waveType: lfo1Type,
+                destination: lfo1Destination
+              },
+              lfo2: {
+                rate: lfo2Rate,
+                amount: lfo2Amount,
+                waveType: lfo2Type,
+                destination: lfo2Destination
+              }
+            },
             volume,
             pan,
             sends: {
@@ -211,6 +247,11 @@ export let createSynth = () => {
           //set filter asdr
           filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
           filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
+        
+          //set lfos
+          if(lfo1Node.type != lfo1Type) {
+            lfo1Node.type = lfo1Type;
+          }
         });
       });
   };

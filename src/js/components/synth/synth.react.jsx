@@ -196,7 +196,7 @@ let Synth = props => {
               <select id="lfo1-destination" onChange={ e =>
                 synthActions.changeSynthParam(machineId, "lfo1", "destination", e.target.value)
               }>
-                <option value="sine" selected={synthParams.lfos.lfo1.destination === "osc12"}>Oscilator 1,2</option>
+                <option value="sine" selected={synthParams.lfos.lfo1.destination === "amp"}>Amplitude</option>
               </select>
             </div>
           </div>
@@ -226,7 +226,7 @@ let Synth = props => {
               <select id="lfo2-destination" onChange={ e =>
                 synthActions.changeSynthParam(machineId, "lfo2", "destination", e.target.value)
               }>
-                <option value="sine" selected={synthParams.lfos.lfo2.destination === "osc12"}>Oscilator 1,2</option>
+                <option value="sine" selected={synthParams.lfos.lfo2.destination === "amp"}>Amplitude</option>
               </select>
             </div>
           </div>
