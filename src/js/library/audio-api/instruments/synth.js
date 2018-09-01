@@ -17,8 +17,8 @@ export let createSynth = () => {
   let voiceNodes = null;
   let volumeNode = null;
   let panNode = null;
-  let send1 = null;
-  let send2 = null;
+  let send1Node = null;
+  let send2Node = null;
   let loopSubscription = false;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
   let asdrs = numberToArrayLengthWithValue(MAX_VOICES, {
@@ -52,8 +52,8 @@ export let createSynth = () => {
     });
     volumeNode = context.createGain();
     panNode = context.createPanner();
-    send1 = context.createGain();
-    send2 = context.createGain();
+    send1Node = context.createGain();
+    send2Node = context.createGain();
 
     //connections
     voiceNodes.forEach(({
@@ -182,7 +182,12 @@ export let createSynth = () => {
           osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
           osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
           volumeNode.gain.setValueAtTime(volume * 0.01, time);
-          
+          send1Node.gain.setValueAtTime(send1 * 0.01, time);
+          send2Node.gain.setValueAtTime(send2 * 0.01, time);
+
+          //set pan
+          panNode.setPosition(...panPercentageToValue(pan));
+
           //set amp
           asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, asdrs[i]));
           voiceNode.gains.amp.gain.linearRampToValueAtTime(asdrs[i].value * 0.01, time);
