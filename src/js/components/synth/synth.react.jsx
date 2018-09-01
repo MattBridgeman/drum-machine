@@ -38,7 +38,7 @@ let Synth = props => {
               <option value="sine" selected={synthParams.oscillators.osc1.waveType === "sine"}>Sine</option>
               <option value="square" selected={synthParams.oscillators.osc1.waveType === "square"}>Square</option>
               <option value="sawtooth" selected={synthParams.oscillators.osc1.waveType === "sawtooth"}>Sawtooth</option>
-              <option value="triange" selected={synthParams.oscillators.osc1.waveType === "triangle"}>Triange</option>
+              <option value="triangle" selected={synthParams.oscillators.osc1.waveType === "triangle"}>Triangle</option>
             </select>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc1.octave} onValueChange={ value => 
@@ -66,7 +66,7 @@ let Synth = props => {
               <option value="sine" selected={synthParams.oscillators.osc2.waveType === "sine"}>Sine</option>
               <option value="square" selected={synthParams.oscillators.osc2.waveType === "square"}>Square</option>
               <option value="sawtooth" selected={synthParams.oscillators.osc2.waveType === "sawtooth"}>Sawtooth</option>
-              <option value="triange" selected={synthParams.oscillators.osc2.waveType === "triangle"}>Triange</option>
+              <option value="triangle" selected={synthParams.oscillators.osc2.waveType === "triangle"}>Triangle</option>
             </select>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc2.octave} onValueChange={ value => 
@@ -178,7 +178,7 @@ let Synth = props => {
                 <option value="sine" selected={synthParams.lfos.lfo1.waveType === "sine"}>Sine</option>
                 <option value="square" selected={synthParams.lfos.lfo1.waveType === "square"}>Square</option>
                 <option value="sawtooth" selected={synthParams.lfos.lfo1.waveType === "sawtooth"}>Sawtooth</option>
-                <option value="triange" selected={synthParams.lfos.lfo1.waveType === "triangle"}>Triange</option>
+                <option value="triangle" selected={synthParams.lfos.lfo1.waveType === "triangle"}>Triangle</option>
               </select>
             </div>
             <div className="select-item">
@@ -208,7 +208,7 @@ let Synth = props => {
                 <option value="sine" selected={synthParams.lfos.lfo2.waveType === "sine"}>Sine</option>
                 <option value="square" selected={synthParams.lfos.lfo2.waveType === "square"}>Square</option>
                 <option value="sawtooth" selected={synthParams.lfos.lfo2.waveType === "sawtooth"}>Sawtooth</option>
-                <option value="triange" selected={synthParams.lfos.lfo2.waveType === "triangle"}>Triange</option>
+                <option value="triangle" selected={synthParams.lfos.lfo2.waveType === "triangle"}>Triangle</option>
               </select>
             </div>
             <div className="select-item">

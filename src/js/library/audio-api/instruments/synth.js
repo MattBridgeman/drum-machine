@@ -85,12 +85,11 @@ export let createSynth = () => {
       osc1Amount.connect(amp);
       osc2Amount.connect(amp);
       amp.connect(filter);
-      amp.gain.value = 0;
       filter.connect(amount);
       amount.connect(output);
       output.connect(volumeNode);
     });
-
+    volumeNode.gain.value = 0;
     volumeNode.connect(panNode);
     panNode.panningModel = "equalpower";
     panNode.setPosition(...panPercentageToValue(50));
@@ -154,6 +153,12 @@ export let createSynth = () => {
                 sustain: ampSustain,
                 release: ampRelease
               }
+            },
+            volume,
+            pan,
+            sends: {
+              send1,
+              send2
             }
           } = state;
           //set wavetype
@@ -176,9 +181,7 @@ export let createSynth = () => {
           //set amounts
           osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
           osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
-          amount.gain.setValueAtTime(1, time);
-          amp.gain.setValueAtTime(1, time);
-          volumeNode.gain.setValueAtTime(1, time);
+          volumeNode.gain.setValueAtTime(volume * 0.01, time);
           
           //set amp
           asdrs = updateValue(asdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, asdrs[i]));
