@@ -5,10 +5,10 @@
   "main": "src/js/main.js",
   "scripts": {
     "start": "npm run build-css && react-scripts start",
-    "build": "CI=true; npm run build-css && react-scripts build",
+    "build": "npm run build-css && react-scripts build",
     "build-css": "./node_modules/less/bin/lessc src/less/all.less src/less/all.css",
-    "test": "CI=true react-scripts test --env=jsdom",
-    "test-watch": "CI=false react-scripts test --env=jsdom --watchman",
+    "test": "CI=true; react-scripts test --env=jsdom",
+    "test-watch": "CI=false; react-scripts test --env=jsdom --watchman",
     "coverage": "react-scripts test --env=jsdom --coverage"
   },
   "repository": {
