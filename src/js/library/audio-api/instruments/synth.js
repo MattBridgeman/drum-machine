@@ -20,6 +20,7 @@ export let createSynth = () => {
   let panNode = null;
   let send1Node = null;
   let send2Node = null;
+  let preLfoNode = null;
   let lfo1Node = null;
   let lfo1WetNode = null;
   let lfo1DryNode = null;
@@ -64,6 +65,7 @@ export let createSynth = () => {
     panNode = context.createPanner();
     send1Node = context.createGain();
     send2Node = context.createGain();
+    preLfoNode = context.createGain();
     lfo1Node = context.createOscillator();
     lfo1DryNode = context.createGain();
     lfo1WetNode = context.createGain();
@@ -106,17 +108,24 @@ export let createSynth = () => {
       output.connect(volumeNode);
     });
     volumeNode.gain.value = 0;
-    volumeNode.connect(panNode);
-
+    volumeNode.connect(preLfoNode);
+    
+    //FX - LFO
+    preLfoNode.connect(lfo1DryNode);
     lfo1WetNode.gain.value = 0;
+    lfo1Node.frequency.value = 4;
     lfo1Node.connect(lfo1WetNode);
-    lfo1DryNode.connect(lfo2Node);
-    lfo1WetNode.connect(lfo2Node);
+    lfo1DryNode.connect(panNode);
+    lfo1WetNode.connect(panNode);
+    
+    preLfoNode.connect(lfo1DryNode);
     lfo2WetNode.gain.value = 0;
+    lfo2Node.frequency.value = 4;
     lfo2Node.connect(lfo2WetNode);
     lfo2DryNode.connect(panNode);
     lfo2WetNode.connect(panNode);
 
+    //FX - pan
     panNode.panningModel = "equalpower";
     panNode.setPosition(...panPercentageToValue(50));
     panNode.connect(output);
@@ -126,9 +135,11 @@ export let createSynth = () => {
 
   let createLookAheadSubscription = () => {
     //TODO: tidy the way current time is accessed and adsr is changed
+    const LOOK_AHEAD_MS = 50;
+    const LOOK_AHEAD_RESLOUTION = 10;
     let _adsr = {},
         time = context.currentTime;
-    loopSubscription = createLookAheadStream(50, 10)
+    loopSubscription = createLookAheadStream(LOOK_AHEAD_MS, LOOK_AHEAD_RESLOUTION)
       .map(i => time + (i * 0.01))
       .subscribe(time => {
         voiceNodes
@@ -242,16 +253,22 @@ export let createSynth = () => {
 
           //set amp asdr
           ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, ampAsdrs[i]));
+          
+          //amp.gain.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
           amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
 
           //set filter asdr
           filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
+          //filter.frequency.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
           filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
-        
+
           //set lfos
           if(lfo1Node.type != lfo1Type) {
             lfo1Node.type = lfo1Type;
           }
+
+          lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
+          lfo1WetNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
         });
       });
   };
