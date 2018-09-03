@@ -8,6 +8,7 @@ import { adsr } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
+import { createAnalyser } from "../analyser";
 
 export const MAX_VOICES = 8;
 
@@ -39,7 +40,7 @@ export let createSynth = () => {
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
-
+  let drawer = createAnalyser();
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
       return {
@@ -57,6 +58,7 @@ export let createSynth = () => {
           amount: context.createGain(),
           amp: context.createGain(),
           filter: context.createBiquadFilter(),
+          filterAnalyser: context.createAnalyser(),
           output: context.createGain()
         }
       };
@@ -89,9 +91,10 @@ export let createSynth = () => {
         amount,
         amp,
         filter,
+        filterAnalyser,
         output
       }
-    }) => {
+    }, i) => {
       osc1osc.type = "sine";
       osc1osc.frequency.setValueAtTime(220, context.currentTime);
       osc1osc.start();
@@ -103,7 +106,11 @@ export let createSynth = () => {
       osc1Amount.connect(amp);
       osc2Amount.connect(amp);
       amp.connect(filter);
-      filter.connect(amount);
+      filter.connect(filterAnalyser);
+      filterAnalyser.connect(amount);
+      filterAnalyser.fftSize = 2048;
+      //TODO: remove debug analyser
+      drawer.addItem(filterAnalyser, `VoiceNode ${i}`);
       amount.connect(output);
       output.connect(volumeNode);
     });
