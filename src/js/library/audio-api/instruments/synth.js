@@ -25,8 +25,10 @@ export let createSynth = () => {
   let lfo1Node = null;
   let lfo1WetNode = null;
   let lfo1DryNode = null;
+  let lfo1OutNode = null;
   let lfo2Node = null;
   let lfo2WetNode = null;
+  let lfo2OutNode = null;
   let lfo2DryNode = null;
   let loopSubscription = false;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
@@ -71,9 +73,11 @@ export let createSynth = () => {
     lfo1Node = context.createOscillator();
     lfo1DryNode = context.createGain();
     lfo1WetNode = context.createGain();
+    lfo1OutNode = context.createGain();
     lfo2Node = context.createOscillator();
     lfo2DryNode = context.createGain();
     lfo2WetNode = context.createGain();
+    lfo2OutNode = context.createGain();
 
     //connections
     voiceNodes.forEach(({
@@ -121,15 +125,17 @@ export let createSynth = () => {
     preLfoNode.connect(lfo1DryNode);
     lfo1WetNode.gain.value = 0;
     lfo1Node.frequency.value = 0;
-    lfo1Node.connect(lfo1WetNode.gain);
+    lfo1Node.connect(lfo1WetNode);
     lfo1DryNode.connect(panNode);
+    lfo1WetNode.connect(lfo1OutNode);
     lfo1WetNode.connect(panNode);
     
     preLfoNode.connect(lfo2DryNode);
     lfo2WetNode.gain.value = 0;
     lfo2Node.frequency.value = 0;
-    lfo2Node.connect(lfo2WetNode.gain);
+    lfo2Node.connect(lfo2WetNode);
     lfo2DryNode.connect(panNode);
+    lfo2WetNode.connect(lfo2OutNode);
     lfo2WetNode.connect(panNode);
 
     //FX - pan
@@ -273,16 +279,16 @@ export let createSynth = () => {
           if(lfo1Node.type != lfo1Type) {
             lfo1Node.type = lfo1Type;
           }
-          lfo1Node.frequency.linearRampToValueAtTime(lfo1Rate, time);
+          lfo1Node.frequency.value = lfo1Rate;
           lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
-          lfo1WetNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
+          lfo2OutNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
 
           if(lfo2Node.type != lfo2Type) {
             lfo2Node.type = lfo2Type;
           }
-          lfo2Node.frequency.linearRampToValueAtTime(lfo2Rate, time);
+          lfo2Node.frequency.value = lfo2Rate;
           lfo2DryNode.gain.linearRampToValueAtTime((100 - lfo2Amount) * 0.01, time);
-          lfo2WetNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
+          lfo2OutNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
         });
       });
   };
