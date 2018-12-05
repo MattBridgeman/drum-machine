@@ -1,4 +1,4 @@
-const Rx = require('rxjs/Rx');
+import { Observable } from "rxjs";
 
 /* eslint-disable no-use-before-define */
 if (typeof setImmediate !== 'function') {
@@ -38,7 +38,7 @@ const next = (iter, observer, prev = undefined) => {
 };
 
 const ogen = (fn) => (...args) => {
-  return Rx.Observable.create(observer => {
+  return Observable.create(observer => {
     next(fn(...args), observer);
   });
 };

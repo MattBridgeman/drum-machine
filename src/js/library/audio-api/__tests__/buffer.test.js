@@ -1,10 +1,6 @@
 import TestUtils from "react-dom/test-utils";
-import React from "react";
 import { segmentsToSchedule, segmentsToClear, buffersSinceId } from "../buffer";
 import { expect } from "chai";
-import { buffer } from "rxjs/internal/operators/buffer";
-
-const { renderIntoDocument, Simulate } = TestUtils;
 
 describe("segments to schedule", () => {
   it("Schedules 4 segments, given no previous segments", () => {
