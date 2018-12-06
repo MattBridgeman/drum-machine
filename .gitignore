@@ -12,3 +12,4 @@ npm-debug.log
 .LSOverride
 deploy_key
 .nyc_output
+coverage/
