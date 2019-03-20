@@ -2,7 +2,7 @@ import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
 import { tracks } from "../tracks";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import configureTestStore from "../../store/test.store";
 import * as _routing from "../../library/routing/routing";
 import * as _db from "../../library/firebase/db";

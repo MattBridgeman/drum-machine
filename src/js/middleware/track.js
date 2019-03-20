@@ -1,4 +1,4 @@
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack, newTrackLoading, newTrackSave, newTrackLoaded } from "../actions/track.actions";

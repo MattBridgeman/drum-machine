@@ -1,6 +1,6 @@
-import createHistory from "history/createHashHistory";
-import { routerMiddleware } from "react-router-redux";
+import { createHashHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
 
-export const history = createHistory();
+export const history = createHashHistory();
 
 export const historyMiddleware = routerMiddleware(history);

@@ -43,4 +43,4 @@ const ogen = (fn) => (...args) => {
   });
 };
 
-module.exports = ogen.ogen = ogen.default = ogen;
+export default ogen.ogen = ogen.default = ogen;

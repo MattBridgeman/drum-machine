@@ -1,3 +1,4 @@
+import { map } from "rxjs/operators";
 import { getAudioContext } from "../context";
 import { timeout } from "../interval";
 import { panPercentageToValue } from "../pan";
@@ -153,7 +154,9 @@ export let createSynth = () => {
     let _adsr = {},
         time = context.currentTime;
     loopSubscription = createLookAheadStream(LOOK_AHEAD_MS, LOOK_AHEAD_RESLOUTION)
-      .map(i => time + (i * 0.01))
+      .pipe(
+        map(i => time + (i * 0.01))
+      )
       .subscribe(time => {
         voiceNodes
         .forEach((voiceNode, i) => {

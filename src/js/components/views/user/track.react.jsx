@@ -10,7 +10,7 @@ class Track extends Component {
     let { props } = this;
     return <View {...props} view={{ name: "track" }}>
       <div className="container">
-        {props && props.track.state === "loading" ? (
+        {props && props.track && props.track.state === "loading" ? (
           <div className="status loading">
             <span className="icon icon__loading"></span>
             <p>Loading Track</p>

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ConnectedRouter } from "react-router-redux";
+import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router";
 import { Provider } from "react-redux";
 import Track from "./js/components/views/user/track.react.jsx";

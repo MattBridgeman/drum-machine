@@ -1,7 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { track, isNewTrack } from "../track";
 import { timeout } from "../../library/audio-api/interval";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE, NEW_TRACK_SAVE } from "../../constants/track.constants";
