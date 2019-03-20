@@ -43,7 +43,7 @@ export let createSynth = () => {
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
-  let drawer = createAnalyser();
+  //let drawer = createAnalyser();
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
       return {
@@ -115,7 +115,7 @@ export let createSynth = () => {
       filterAnalyser.connect(amount);
       filterAnalyser.fftSize = 2048;
       //TODO: remove debug analyser
-      drawer.addItem(filterAnalyser, `VoiceNode ${i}`);
+      //drawer.addItem(filterAnalyser, `VoiceNode ${i}`);
       amount.connect(output);
       output.connect(volumeNode);
     });
