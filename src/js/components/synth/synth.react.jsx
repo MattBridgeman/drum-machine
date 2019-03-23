@@ -241,7 +241,7 @@ let Synth = props => {
             <div className="pattern-item">
               { numberToArrayLength(8)
                   .map(key => 
-                    <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === key} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, key === value ? -1 : key)} />
+                    <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === key} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, key === value ? -1 : key)} showIndicator={key === 0} />
                   )
               }
             </div>
