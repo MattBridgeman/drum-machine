@@ -3,9 +3,11 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
+import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
+import { objectToArray, numberToArrayLength } from "../../library/natives/array";
 
 let Synth = props => {
-  const { synth, machineId, dispatch } = props;
+  const { synth, machineId, dispatch, playState } = props;
   const synthParams = synth[machineId];
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
@@ -232,6 +234,19 @@ let Synth = props => {
           </div>
         </div>
       </div>
+    </div>
+    <div className="pattern">
+      { objectToArray(synthParams.banks[synthParams.currentBankIndex])
+          .map((value, index) =>
+            <div className="pattern-item">
+              { numberToArrayLength(8)
+                  .map(key => 
+                    <PatternBeat key={index} index={index} current={playState.currentSegmentIndex === index} selected={value > 0} onToggle={() => synthActions.togglePatternItem(machineId, synthParams.currentBankIndex, index, key === value ? 0 : value)} />
+                  )
+              }
+            </div>
+          )
+      }
     </div>
   </div>
 };
