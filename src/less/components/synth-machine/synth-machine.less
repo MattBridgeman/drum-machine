@@ -45,5 +45,15 @@
   .pattern {
     display: flex;
     overflow-x: auto;
+    .pattern-item {
+      display: none;
+      flex-grow: 1;
+      &.show {
+        display: block;
+      }
+      .pattern-beat {
+        width: 100%;
+      }
+    }
   }
 }

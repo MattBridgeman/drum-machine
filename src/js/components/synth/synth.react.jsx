@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
+import classnames from "classnames";
 import DrumMachineActions from "../../actions/root.actions";
 import { Rotator } from "../rotator/rotator.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
@@ -238,7 +239,7 @@ let Synth = props => {
     <div className="pattern">
       { objectToArray(synthParams.banks[synthParams.currentBankIndex])
           .map((value, index) =>
-            <div className="pattern-item">
+            <div className={classnames("pattern-item", { show: index < 4 })}>
               { numberToArrayLength(8)
                   .map(key => 
                     <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === key} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, key === value ? -1 : key)} showIndicator={key === 0} />
