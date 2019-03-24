@@ -48,11 +48,23 @@
     .pattern-item {
       display: none;
       flex-grow: 1;
+      .pattern-item-group {
+        display: flex;
+        align-items: center;
+      }
       &.show {
         display: block;
       }
+      .key-name {
+        flex-grow: 1;
+        width: 20px;
+      }
       .pattern-beat {
         width: 100%;
+        .button {
+          width: 35px;
+          height: 35px;
+        }
       }
     }
   }

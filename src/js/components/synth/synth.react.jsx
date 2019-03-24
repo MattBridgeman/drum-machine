@@ -6,6 +6,7 @@ import { Rotator } from "../rotator/rotator.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { objectToArray, numberToArrayLength } from "../../library/natives/array";
+import { keyboardArray } from "../../library/keyboard";
 
 let Synth = props => {
   const { synth, machineId, dispatch, playState } = props;
@@ -239,11 +240,15 @@ let Synth = props => {
     <div className="pattern">
       { objectToArray(synthParams.banks[synthParams.currentBankIndex])
           .map((value, index) =>
-            <div className={classnames("pattern-item", { show: index < 4 })}>
-              { numberToArrayLength(8)
-                  .map(key => 
-                    <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === key} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, key === value ? -1 : key)} showIndicator={key === 0} />
-                  )
+            <div className={classnames("pattern-item", { show: index < 8 })}>
+              { numberToArrayLength(12)
+                  .map((key, keyIndex) => {
+                    let keyValue = 11 - keyIndex;
+                    return <div className="pattern-item-group">
+                      { index === 0 && <span className="key-name">{keyboardArray[keyValue]}</span> }
+                      <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === keyValue} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, keyValue)} showIndicator={key === 0} />
+                    </div>
+                  })
               }
             </div>
           )
