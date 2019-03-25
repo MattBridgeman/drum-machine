@@ -3,6 +3,9 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { numberToArrayLength } from "../../library/natives/array";
+import { PatternTimeSignature } from "./pattern.time.signature.react";
+import { PatternTimeSignatureGroup } from "./pattern.time.signature.react";
+import { PatternTimeSignature44 } from "./pattern.time.signature.react";
 
 class Pattern extends React.Component {
 
@@ -16,20 +19,20 @@ class Pattern extends React.Component {
 		const drumMachineActions = bindActionCreators(DrumMachineActions.drumMachine, dispatch);
 		return (
 			<div className="pattern">
-				<div className="time-signature">
+				<PatternTimeSignature>
 					{
 						numberToArrayLength(tempo.beatsPerBar)
 							.map(beatIndex => {
 								let segments = numberToArrayLength(tempo.segmentsPerBeat, beatIndex * tempo.segmentsPerBeat);
 								return ( 
-									<div className="time-signature-group">
-										<div className="time-signature-4-4">
+									<PatternTimeSignatureGroup>
+										<PatternTimeSignature44>
 											{ segments
 												.map(segmentIndex =>
 													<span className="signature-item">{segmentIndex + 1}</span>
 												)
 											}
-										</div>
+										</PatternTimeSignature44>
 										<div className="pattern-tray">
 											{ channels
 												.map((channel, i) => ({
@@ -47,13 +50,13 @@ class Pattern extends React.Component {
 												)
 											}
 										</div>
-									</div>
+									</PatternTimeSignatureGroup>
 								)
 							}
 						)
 
 					}
-				</div>
+				</PatternTimeSignature>
 			</div>
 		);
 	}
