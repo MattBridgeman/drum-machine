@@ -151,27 +151,27 @@ let Synth = props => {
         <div className="envelope-controls">
           <div className="vertical-range">
             <label htmlFor="filter-attack" className="item-label">Attack</label>
-            <input id="filter-attack" type="range" min="0" max="100" value={synthParams.envelopes.filter.attack} onChange={ e => 
-              synthActions.changeSynthParam(machineId, "env-filter", "attack", e.target.value)
-            } step="1" />
+            <Fader id="filter-attack" type="range" min={0} max={100} value={synthParams.envelopes.filter.attack} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "env-filter", "attack", value)
+            } step={1} />
           </div>
           <div className="vertical-range">
             <label htmlFor="filter-decay" className="item-label">Decay</label>
-            <input id="filter-decay" type="range" min="0" max="100" value={synthParams.envelopes.filter.decay} onChange={ e => 
-              synthActions.changeSynthParam(machineId, "env-filter", "decay", e.target.value)
-            } step="1" />
+            <Fader id="filter-decay" type="range" min={0} max={100} value={synthParams.envelopes.filter.decay} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "env-filter", "decay", value)
+            } step={1} />
           </div>
           <div className="vertical-range">
             <label htmlFor="filter-sustain" className="item-label">Sustain</label>
-            <input id="filter-sustain" type="range" min="0" max="100" value={synthParams.envelopes.filter.sustain} onChange={ e => 
-              synthActions.changeSynthParam(machineId, "env-filter", "sustain", e.target.value)
-            } step="1" />
+            <Fader id="filter-sustain" type="range" min={0} max={100} value={synthParams.envelopes.filter.sustain} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "env-filter", "sustain", value)
+            } step={1} />
           </div>
           <div className="vertical-range">
             <label htmlFor="filter-release" className="item-label">Release</label>
-            <input id="filter-release" type="range" min="0" max="100" value={synthParams.envelopes.filter.release} onChange={ e => 
-              synthActions.changeSynthParam(machineId, "env-filter", "release", e.target.value)
-            } step="1" />
+            <Fader id="filter-release" type="range" min={0} max={100} value={synthParams.envelopes.filter.release} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "env-filter", "release", value)
+            } step={1} />
           </div>
         </div>
       </div>

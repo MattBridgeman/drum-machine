@@ -18,7 +18,7 @@ class Fader extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, value, onValueChange, name } = this.props;
+    let { min, max, step, value, onValueChange, name, id } = this.props;
 
     let x;
     if(this.state.touching){
@@ -33,7 +33,7 @@ class Fader extends React.Component {
 		return (
       <div className="fader-container" ref="faderContainer">
         <h3 className="item-label">{name}</h3>
-				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
+				<input id={id} type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className={classnames("fader", { grabbing: this.state.touching })} ref="fader" aria-hidden="true" style={faderStyle}>
         </div>
       </div>
