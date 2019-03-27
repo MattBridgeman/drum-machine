@@ -1,21 +1,16 @@
 import React from "react";
+import classnames from "classnames";
 import * as _ from "../../library/natives/array";
 import { normaliseValue, valueAsPercentageOfX } from "../../library/natives/numbers";
 
-const STEP_SIZE = 33.34;
-const STEP_OFFSET = -1;
-const STEPS_VISIBLE = 3;
-
-class Slider extends React.Component {
+class Fader extends React.Component {
 
 	constructor(props) {
 		super(props);
     this.state = {
       touching: false,
       touches: [],
-      coordinates: {
-        containerWidth: 0
-      },
+      containerWidth: 0,
       currentX: 0,
       previousX: 0
     }
@@ -23,8 +18,6 @@ class Slider extends React.Component {
 	
 	render() {
     let { min, max, step, value, onValueChange, name } = this.props;
-    
-    let steps = _.rangeToArray(min, max, step);
 
     let x;
     if(this.state.touching){
@@ -33,25 +26,14 @@ class Slider extends React.Component {
     } else {
       x = this.getXFromCurrentValue();
     }
-    let sliderStyle = {
-			transform: "translate(" + x + "%, 0)",
-      transition: this.state.touching ? "" : "transform 300ms ease"
+    let faderStyle = {
+			transform: `translate(${x}px, 0)`
 		};
-    let sliderClass = this.state.touching ? "slider grabbing" : "slider";
 		return (
-      <div className="slider-container">
+      <div className="fader-container" ref="faderContainer">
         <h3 className="item-label">{name}</h3>
 				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
-        <div className={sliderClass} ref="slider" aria-hidden="true">
-          <div className="slider-wrapper" style={sliderStyle}>
-            { steps.map((item, i) => {
-              let className = item === value ? "item selected" : "item";
-              return (
-                <div className={className}>{item}</div>
-              );
-            }
-            )}
-          </div>
+        <div className={classnames("fader", { grabbing: this.state.touching })} ref="fader" aria-hidden="true" style={faderStyle}>
         </div>
       </div>
 		);
@@ -65,55 +47,48 @@ class Slider extends React.Component {
   }
 
   getXFromCurrentValue() {
-    let { min, max, step, value, onChange } = this.props;
-
+    let { min, max, step, value } = this.props;
+    let stepSize = this.state.containerWidth;
     let currentStep = (value - min) / step;
-    let viewStep = currentStep + STEP_OFFSET;
 
-    return viewStep * STEP_SIZE * -1
+    return currentStep * stepSize / 100;
   }
 
   getCurrentValueFromX(x) {
     let { min, max, step } = this.props;
-
-    let viewStep = x / (STEP_SIZE * -1);
-    let currentStep = viewStep - STEP_OFFSET;
-    let value = (Math.round(currentStep) + min) * step;
-
+    let stepSize = this.state.containerWidth;
+    let viewStep = x / stepSize * 100;
+    let value = (Math.round(viewStep) + min) * step;
+    console.log('stepSize', stepSize, 'viewStep', viewStep, 'value', value);
     return normaliseValue(value, min, max);
   }
 
   getCurrentX() {
     let touchDistance = this.getTouchDistance();
     let percentage = valueAsPercentageOfX(touchDistance, this.state.containerWidth);
-    return this.state.previousX - percentage;
-  }
-
-  getSnapToX(x) {
-    //TODO: snap to a value
-    return x;
+    return this.state.previousX - touchDistance;
   }
 
   calculateContainerWidth() {
-		let { slider: $slider } = this.refs;
+		let { faderContainer: $faderContainer } = this.refs;
 
     this.setState({
-      containerWidth: $slider.getBoundingClientRect().width
+      containerWidth: $faderContainer.getBoundingClientRect().width
     });
   }
 
   componentDidMount() {
-		let { slider: $slider } = this.refs;
+		let { fader: $fader } = this.refs;
 
     this.calculateContainerWidth();
 
     window.addEventListener("resize", e => this.calculateContainerWidth);
 
-    $slider.addEventListener("touchstart", e => this.onStart(e));
-    $slider.addEventListener("touchmove", e => this.onMove(e));
-    $slider.addEventListener("touchend", e => this.onEnd(e));
+    $fader.addEventListener("touchstart", e => this.onStart(e));
+    $fader.addEventListener("touchmove", e => this.onMove(e));
+    $fader.addEventListener("touchend", e => this.onEnd(e));
 
-    $slider.addEventListener("mousedown", e => this.onStart(e));
+    $fader.addEventListener("mousedown", e => this.onStart(e));
     window.addEventListener("mousemove", e => this.onMove(e));
     window.addEventListener("mouseup", e => this.onEnd(e));
   }
@@ -149,7 +124,7 @@ class Slider extends React.Component {
       
       this.setState({
         touching: true,
-        touches: this.state.touches.concat([touch]),
+        touches: [...this.state.touches, touch],
         currentX: this.getCurrentX()
       });
     });
@@ -172,4 +147,4 @@ class Slider extends React.Component {
   }
 }
 
-export { Slider };
+export { Fader };
