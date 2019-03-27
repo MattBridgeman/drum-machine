@@ -8,6 +8,7 @@ import { Fader } from "../fader/fader.react.jsx";
 import { PatternBeat } from "../pattern/pattern.beat.react.jsx";
 import { objectToArray, numberToArrayLength } from "../../library/natives/array";
 import { keyboardArray } from "../../library/keyboard";
+import { Selector, SelectorOption } from "../selector/selector.react";
 
 let Synth = props => {
   const { synth, machineId, dispatch, playState } = props;
@@ -37,14 +38,14 @@ let Synth = props => {
         <div className="oscillator-controls">
           <div className="select-item">
             <h3 className="item-label">Type</h3>
-            <select id="osc1-type" onChange={ e =>
-              synthActions.changeSynthParam(machineId, "osc1", "waveType", e.target.value)
+            <Selector id="osc1-type" onValueChange={ value =>
+              synthActions.changeSynthParam(machineId, "osc1", "waveType", value)
             }>
-              <option value="sine" selected={synthParams.oscillators.osc1.waveType === "sine"}>Sine</option>
-              <option value="square" selected={synthParams.oscillators.osc1.waveType === "square"}>Square</option>
-              <option value="sawtooth" selected={synthParams.oscillators.osc1.waveType === "sawtooth"}>Sawtooth</option>
-              <option value="triangle" selected={synthParams.oscillators.osc1.waveType === "triangle"}>Triangle</option>
-            </select>
+              <SelectorOption value="sine" selected={synthParams.oscillators.osc1.waveType === "sine"}>Sine</SelectorOption>
+              <SelectorOption value="square" selected={synthParams.oscillators.osc1.waveType === "square"}>Square</SelectorOption>
+              <SelectorOption value="sawtooth" selected={synthParams.oscillators.osc1.waveType === "sawtooth"}>Sawtooth</SelectorOption>
+              <SelectorOption value="triangle" selected={synthParams.oscillators.osc1.waveType === "triangle"}>Triangle</SelectorOption>
+            </Selector>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc1.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc1", "octave", value)

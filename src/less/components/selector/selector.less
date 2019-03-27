@@ -1,0 +1,25 @@
+.selector-container {
+  .visual-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid @dark-grey;
+    text-align: center;
+    .selector-options {
+      flex-grow: 1;
+      .selector-option {
+        display: none;
+        &.selected {
+          display: block;
+        }
+      }
+    }
+    .selector-buttons {
+      display: flex;
+      flex-direction: column;
+      .button {
+        background: @dark-grey;
+        border: 0 none;
+      }
+    }
+  }
+}
