@@ -104,14 +104,14 @@ let Synth = props => {
         </div>
         <div className="vertical-range">
           <label htmlFor="filter-frequency" className="item-label">Frequency</label>
-          <input id="filter-frequency" type="range" min="0" max="100" value={synthParams.filter.frequency} onChange={ e => 
-            synthActions.changeSynthParam(machineId, "filter", "frequency", e.target.value)
+          <Fader id="filter-frequency" type="range" min={0} max={100} value={synthParams.filter.frequency} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "filter", "frequency", value)
           } step="1" />
         </div>
         <div className="vertical-range">
           <label htmlFor="filter-resonance" className="item-label">Resonance</label>
-          <input id="filter-resonance" type="range" min="0" max="100" value={synthParams.filter.resonance} onChange={ e => 
-            synthActions.changeSynthParam(machineId, "filter", "resonance", e.target.value)
+          <Fader id="filter-resonance" type="range" min={0} max={100} value={synthParams.filter.resonance} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "filter", "resonance", value)
           } step="1" />
         </div>
       </div>
