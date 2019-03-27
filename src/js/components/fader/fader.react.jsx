@@ -11,6 +11,7 @@ class Fader extends React.Component {
       touching: false,
       touches: [],
       containerWidth: 0,
+      faderWidth: 0,
       currentX: 0,
       previousX: 0
     }
@@ -48,7 +49,7 @@ class Fader extends React.Component {
 
   getXFromCurrentValue() {
     let { min, max, step, value } = this.props;
-    let stepSize = this.state.containerWidth;
+    let stepSize = this.getContainerWidth();
     let currentStep = (value - min) / step;
 
     return currentStep * stepSize / 100;
@@ -56,24 +57,31 @@ class Fader extends React.Component {
 
   getCurrentValueFromX(x) {
     let { min, max, step } = this.props;
-    let stepSize = this.state.containerWidth;
+    let stepSize = this.getContainerWidth();
     let viewStep = x / stepSize * 100;
     let value = (Math.round(viewStep) + min) * step;
-    console.log('stepSize', stepSize, 'viewStep', viewStep, 'value', value);
     return normaliseValue(value, min, max);
+  }
+
+  getContainerWidth() {
+    return this.state.containerWidth - this.state.faderWidth;
   }
 
   getCurrentX() {
     let touchDistance = this.getTouchDistance();
-    let percentage = valueAsPercentageOfX(touchDistance, this.state.containerWidth);
-    return this.state.previousX - touchDistance;
+    let diff = this.state.previousX - touchDistance;
+    return normaliseValue(diff, 0, this.getContainerWidth());
   }
 
   calculateContainerWidth() {
-		let { faderContainer: $faderContainer } = this.refs;
+		let {
+      faderContainer: $faderContainer,
+      fader: $fader
+    } = this.refs;
 
     this.setState({
-      containerWidth: $faderContainer.getBoundingClientRect().width
+      containerWidth: $faderContainer.getBoundingClientRect().width,
+      faderWidth: $fader.getBoundingClientRect().width
     });
   }
 
