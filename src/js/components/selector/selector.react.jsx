@@ -62,8 +62,8 @@ class SelectorOption extends Component {
     let { name, value, selected, children } = this.props;
 		return (
       <div className={classnames("selector-option", { selected })} ref="faderContainer">
-        <span className="selector-option-label">{name}</span>
-        <option value={value} selected={selected}>{children}</option>
+        <span className="selector-option-label">{children}</span>
+        <option value={value} selected={selected} name={name} className="assistive">{children}</option>
       </div>
 		);
   }

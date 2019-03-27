@@ -6,8 +6,15 @@
     text-align: center;
     .selector-options {
       flex-grow: 1;
+      width: calc(100% - 28px);
       .selector-option {
         display: none;
+        .selector-option-label {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          display: block;
+        }
         &.selected {
           display: block;
         }
@@ -19,6 +26,7 @@
       .button {
         background: @dark-grey;
         border: 0 none;
+        padding: 0 4px;
       }
     }
   }
