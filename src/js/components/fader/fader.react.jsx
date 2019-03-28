@@ -90,7 +90,7 @@ class Fader extends React.Component {
 
     this.calculateContainerWidth();
 
-    window.addEventListener("resize", e => this.calculateContainerWidth);
+    window.addEventListener("resize", e => this.calculateContainerWidth());
 
     $fader.addEventListener("touchstart", e => this.onStart(e));
     $fader.addEventListener("touchmove", e => this.onMove(e));

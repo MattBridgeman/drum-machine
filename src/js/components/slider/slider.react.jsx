@@ -107,7 +107,7 @@ class Slider extends React.Component {
 
     this.calculateContainerWidth();
 
-    window.addEventListener("resize", e => this.calculateContainerWidth);
+    window.addEventListener("resize", e => this.calculateContainerWidth());
 
     $slider.addEventListener("touchstart", e => this.onStart(e));
     $slider.addEventListener("touchmove", e => this.onMove(e));

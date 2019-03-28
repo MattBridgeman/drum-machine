@@ -16,21 +16,53 @@ let Synth = props => {
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
-      <Slider name="Voices" min={1} max={8} step={1} value={synthParams.voices} onValueChange={ value => 
-        synthActions.changeSynthParam(machineId, "voices", null, value)
-      } />
-      <Rotator name="Volume" value={synthParams.volume} onValueChange={ value => 
-        synthActions.changeSynthParam(machineId, "volume", null, value)
-      } />
-      <Rotator name="Pan" value={synthParams.pan} onValueChange={ value => 
-        synthActions.changeSynthParam(machineId, "pan", null, value)
-      } />
-      <Rotator name="Send 1" value={synthParams.sends.send1} onValueChange={ value => 
-        synthActions.changeSynthParam(machineId, "sends", "send1", value)
-      } />
-      <Rotator name="Send 2" value={synthParams.sends.send2} onValueChange={ value => 
-        synthActions.changeSynthParam(machineId, "sends", "send2", value)
-      } />
+      <h3>Basic Controls</h3>
+      <div className="basic-controls-inner">
+        <Slider name="Voices" min={1} max={8} step={1} value={synthParams.voices} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "voices", null, value)
+        } />
+        <Rotator name="Volume" value={synthParams.volume} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "volume", null, value)
+        } />
+        <Rotator name="Pan" value={synthParams.pan} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "pan", null, value)
+        } />
+        <Rotator name="Send 1" value={synthParams.sends.send1} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "sends", "send1", value)
+        } />
+        <Rotator name="Send 2" value={synthParams.sends.send2} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "sends", "send2", value)
+        } />
+      </div>
+    </div>
+    <div className="filter">
+      <h3>Filter</h3>
+      <div className="filter-controls">
+        <div className="select-item">
+          <h3 className="item-label">Type</h3>
+          <Selector id="filter-type" onValueChange={ value =>
+            synthActions.changeSynthParam(machineId, "filter", "type", value)
+          }>
+            <SelectorOption value="highpass" selected={synthParams.filter.type === "highpass"}>High Pass</SelectorOption>
+            <SelectorOption value="lowpass" selected={synthParams.filter.type === "lowpass"}>Low Pass</SelectorOption>
+            <SelectorOption value="bandpass" selected={synthParams.filter.type === "bandpass"}>Band Pass</SelectorOption>
+          </Selector>
+        </div>
+        <div className="parameter-group">
+          <div className="parameter">
+            <label htmlFor="filter-frequency" className="item-label">Frequency</label>
+            <Fader id="filter-frequency" type="range" min={0} max={100} value={synthParams.filter.frequency} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "filter", "frequency", value)
+            } step="1" />
+          </div>
+          <div className="parameter">
+            <label htmlFor="filter-resonance" className="item-label">Resonance</label>
+            <Fader id="filter-resonance" type="range" min={0} max={100} value={synthParams.filter.resonance} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "filter", "resonance", value)
+            } step="1" />
+          </div>
+        </div>
+      </div>
     </div>
     <div className="oscillator-container">
       <div className="oscillator">
@@ -66,14 +98,14 @@ let Synth = props => {
         <div className="oscillator-controls">
           <div className="select-item">
             <h3 className="item-label">Type</h3>
-            <select id="osc2-type" onChange={ e =>
-              synthActions.changeSynthParam(machineId, "osc2", "waveType", e.target.value)
+            <Selector id="osc2-type" onValueChange={ value =>
+              synthActions.changeSynthParam(machineId, "osc2", "waveType", value)
             }>
-              <option value="sine" selected={synthParams.oscillators.osc2.waveType === "sine"}>Sine</option>
-              <option value="square" selected={synthParams.oscillators.osc2.waveType === "square"}>Square</option>
-              <option value="sawtooth" selected={synthParams.oscillators.osc2.waveType === "sawtooth"}>Sawtooth</option>
-              <option value="triangle" selected={synthParams.oscillators.osc2.waveType === "triangle"}>Triangle</option>
-            </select>
+              <SelectorOption value="sine" selected={synthParams.oscillators.osc2.waveType === "sine"}>Sine</SelectorOption>
+              <SelectorOption value="square" selected={synthParams.oscillators.osc2.waveType === "square"}>Square</SelectorOption>
+              <SelectorOption value="sawtooth" selected={synthParams.oscillators.osc2.waveType === "sawtooth"}>Sawtooth</SelectorOption>
+              <SelectorOption value="triangle" selected={synthParams.oscillators.osc2.waveType === "triangle"}>Triangle</SelectorOption>
+            </Selector>
           </div>
           <Slider name="Octave" min={0} max={7} step={1} value={synthParams.oscillators.osc2.octave} onValueChange={ value => 
             synthActions.changeSynthParam(machineId, "osc2", "octave", value)
@@ -90,152 +122,121 @@ let Synth = props => {
         </div>
       </div>
     </div>
-    <div className="filter">
-      <h3>Filter</h3>
-      <div className="filter-controls">
-        <div className="select-item">
-          <h3 className="item-label">Type</h3>
-          <select id="filter-type" onChange={ e =>
-            synthActions.changeSynthParam(machineId, "filter", "type", e.target.value)
-          }>
-            <option value="highpass" selected={synthParams.filter.type === "highpass"}>High Pass</option>
-            <option value="lowpass" selected={synthParams.filter.type === "lowpass"}>Low Pass</option>
-            <option value="bandpass" selected={synthParams.filter.type === "bandpass"}>Band Pass</option>
-          </select>
+    <div className="envelope">
+      <h3>Amp Envelope</h3>
+      <div className="envelope-controls">
+        <div className="parameter">
+          <label htmlFor="amp-attack" className="item-label">Attack</label>
+          <Fader id="amp-attack" type="range" min={0} max={100} value={synthParams.envelopes.amp.attack} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "amp", "attack", value)
+          } step={1} />
         </div>
-        <div className="vertical-range">
-          <label htmlFor="filter-frequency" className="item-label">Frequency</label>
-          <Fader id="filter-frequency" type="range" min={0} max={100} value={synthParams.filter.frequency} onValueChange={ value => 
-            synthActions.changeSynthParam(machineId, "filter", "frequency", value)
-          } step="1" />
+        <div className="parameter">
+          <label htmlFor="amp-decay" className="item-label">Decay</label>
+          <Fader id="amp-decay" type="range" min={0} max={100} value={synthParams.envelopes.amp.decay} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "amp", "decay", value)
+          } step={1} />
         </div>
-        <div className="vertical-range">
-          <label htmlFor="filter-resonance" className="item-label">Resonance</label>
-          <Fader id="filter-resonance" type="range" min={0} max={100} value={synthParams.filter.resonance} onValueChange={ value => 
-            synthActions.changeSynthParam(machineId, "filter", "resonance", value)
-          } step="1" />
+        <div className="parameter">
+          <label htmlFor="amp-sustain" className="item-label">Sustain</label>
+          <Fader id="amp-sustain" type="range" min={0} max={100} value={synthParams.envelopes.amp.sustain} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "amp", "sustain", value)
+          } step={1} />
+        </div>
+        <div className="parameter">
+          <label htmlFor="amp-release" className="item-label">Release</label>
+          <Fader id="amp-release" type="range" min={0} max={100} value={synthParams.envelopes.amp.release} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "amp", "release", value)
+          } step={1} />
         </div>
       </div>
     </div>
-    <div className="envelopes">
-      <div className="envelope">
-        <h3>Amp Envelope</h3>
-        <div className="envelope-controls">
-          <div className="vertical-range">
-            <label htmlFor="amp-attack" className="item-label">Attack</label>
-            <Fader id="amp-attack" type="range" min={0} max={100} value={synthParams.envelopes.amp.attack} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "amp", "attack", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="amp-decay" className="item-label">Decay</label>
-            <Fader id="amp-decay" type="range" min={0} max={100} value={synthParams.envelopes.amp.decay} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "amp", "decay", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="amp-sustain" className="item-label">Sustain</label>
-            <Fader id="amp-sustain" type="range" min={0} max={100} value={synthParams.envelopes.amp.sustain} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "amp", "sustain", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="amp-release" className="item-label">Release</label>
-            <Fader id="amp-release" type="range" min={0} max={100} value={synthParams.envelopes.amp.release} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "amp", "release", value)
-            } step={1} />
-          </div>
+    <div className="envelope">
+      <h3>Filter Envelope</h3>
+      <div className="envelope-controls">
+        <div className="parameter">
+          <label htmlFor="filter-attack" className="item-label">Attack</label>
+          <Fader id="filter-attack" type="range" min={0} max={100} value={synthParams.envelopes.filter.attack} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "env-filter", "attack", value)
+          } step={1} />
+        </div>
+        <div className="parameter">
+          <label htmlFor="filter-decay" className="item-label">Decay</label>
+          <Fader id="filter-decay" type="range" min={0} max={100} value={synthParams.envelopes.filter.decay} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "env-filter", "decay", value)
+          } step={1} />
+        </div>
+        <div className="parameter">
+          <label htmlFor="filter-sustain" className="item-label">Sustain</label>
+          <Fader id="filter-sustain" type="range" min={0} max={100} value={synthParams.envelopes.filter.sustain} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "env-filter", "sustain", value)
+          } step={1} />
+        </div>
+        <div className="parameter">
+          <label htmlFor="filter-release" className="item-label">Release</label>
+          <Fader id="filter-release" type="range" min={0} max={100} value={synthParams.envelopes.filter.release} onValueChange={ value => 
+            synthActions.changeSynthParam(machineId, "env-filter", "release", value)
+          } step={1} />
         </div>
       </div>
-      <div className="envelope">
-        <h3>Filter Envelope</h3>
-        <div className="envelope-controls">
-          <div className="vertical-range">
-            <label htmlFor="filter-attack" className="item-label">Attack</label>
-            <Fader id="filter-attack" type="range" min={0} max={100} value={synthParams.envelopes.filter.attack} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "env-filter", "attack", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="filter-decay" className="item-label">Decay</label>
-            <Fader id="filter-decay" type="range" min={0} max={100} value={synthParams.envelopes.filter.decay} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "env-filter", "decay", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="filter-sustain" className="item-label">Sustain</label>
-            <Fader id="filter-sustain" type="range" min={0} max={100} value={synthParams.envelopes.filter.sustain} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "env-filter", "sustain", value)
-            } step={1} />
-          </div>
-          <div className="vertical-range">
-            <label htmlFor="filter-release" className="item-label">Release</label>
-            <Fader id="filter-release" type="range" min={0} max={100} value={synthParams.envelopes.filter.release} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "env-filter", "release", value)
-            } step={1} />
-          </div>
+    </div>
+    <div className="lfo">
+      <h3>LFO 1</h3>
+      <div className="lfo-controls">
+        <Rotator name="Rate" value={synthParams.lfos.lfo1.rate} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "lfo1", "rate", value)
+        } />
+        <Rotator name="Amount" value={synthParams.lfos.lfo1.amount} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "lfo1", "amount", value)
+        } />
+        <div className="select-item">
+          <h3 className="item-label">Type</h3>
+          <Selector id="lfo1-type" onValueChange={ value =>
+            synthActions.changeSynthParam(machineId, "lfo1", "waveType", value)
+          }>
+            <SelectorOption value="sine" selected={synthParams.lfos.lfo1.waveType === "sine"}>Sine</SelectorOption>
+            <SelectorOption value="square" selected={synthParams.lfos.lfo1.waveType === "square"}>Square</SelectorOption>
+            <SelectorOption value="sawtooth" selected={synthParams.lfos.lfo1.waveType === "sawtooth"}>Sawtooth</SelectorOption>
+            <SelectorOption value="triangle" selected={synthParams.lfos.lfo1.waveType === "triangle"}>Triangle</SelectorOption>
+          </Selector>
+        </div>
+        <div className="select-item">
+          <h3 className="item-label">Destination</h3>
+          <Selector id="lfo1-destination" onValueChange={ value =>
+            synthActions.changeSynthParam(machineId, "lfo1", "destination", value)
+          }>
+            <SelectorOption value="sine" selected={synthParams.lfos.lfo1.destination === "amp"}>Amplitude</SelectorOption>
+          </Selector>
         </div>
       </div>
-      <div className="lfo-container">
-        <div className="lfo">
-          <h3>LFO 1</h3>
-          <div className="lfo-controls">
-            <Rotator name="Rate" value={synthParams.lfos.lfo1.rate} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "lfo1", "rate", value)
-            } />
-            <Rotator name="Amount" value={synthParams.lfos.lfo1.amount} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "lfo1", "amount", value)
-            } />
-            <div className="select-item">
-              <h3 className="item-label">Type</h3>
-              <select id="lfo1-type" onChange={ e =>
-                synthActions.changeSynthParam(machineId, "lfo1", "waveType", e.target.value)
-              }>
-                <option value="sine" selected={synthParams.lfos.lfo1.waveType === "sine"}>Sine</option>
-                <option value="square" selected={synthParams.lfos.lfo1.waveType === "square"}>Square</option>
-                <option value="sawtooth" selected={synthParams.lfos.lfo1.waveType === "sawtooth"}>Sawtooth</option>
-                <option value="triangle" selected={synthParams.lfos.lfo1.waveType === "triangle"}>Triangle</option>
-              </select>
-            </div>
-            <div className="select-item">
-              <h3 className="item-label">Destination</h3>
-              <select id="lfo1-destination" onChange={ e =>
-                synthActions.changeSynthParam(machineId, "lfo1", "destination", e.target.value)
-              }>
-                <option value="sine" selected={synthParams.lfos.lfo1.destination === "amp"}>Amplitude</option>
-              </select>
-            </div>
-          </div>
+    </div>
+    <div className="lfo">
+      <h3>LFO 2</h3>
+      <div className="lfo-controls">
+        <Rotator name="Rate" value={synthParams.lfos.lfo2.rate} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "lfo2", "rate", value)
+        } />
+        <Rotator name="Amount" value={synthParams.lfos.lfo2.amount} onValueChange={ value => 
+          synthActions.changeSynthParam(machineId, "lfo2", "amount", value)
+        } />
+        <div className="select-item">
+          <h3 className="item-label">Type</h3>
+          <Selector id="lfo2-type" onValueChange={ value =>
+            synthActions.changeSynthParam(machineId, "lfo2", "waveType", value)
+          }>
+            <SelectorOption value="sine" selected={synthParams.lfos.lfo2.waveType === "sine"}>Sine</SelectorOption>
+            <SelectorOption value="square" selected={synthParams.lfos.lfo2.waveType === "square"}>Square</SelectorOption>
+            <SelectorOption value="sawtooth" selected={synthParams.lfos.lfo2.waveType === "sawtooth"}>Sawtooth</SelectorOption>
+            <SelectorOption value="triangle" selected={synthParams.lfos.lfo2.waveType === "triangle"}>Triangle</SelectorOption>
+          </Selector>
         </div>
-        <div className="lfo">
-          <h3>LFO 2</h3>
-          <div className="lfo-controls">
-            <Rotator name="Rate" value={synthParams.lfos.lfo2.rate} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "lfo2", "rate", value)
-            } />
-            <Rotator name="Amount" value={synthParams.lfos.lfo2.amount} onValueChange={ value => 
-              synthActions.changeSynthParam(machineId, "lfo2", "amount", value)
-            } />
-            <div className="select-item">
-              <h3 className="item-label">Type</h3>
-              <select id="lfo2-type" onChange={ e =>
-                synthActions.changeSynthParam(machineId, "lfo2", "waveType", e.target.value)
-              }>
-                <option value="sine" selected={synthParams.lfos.lfo2.waveType === "sine"}>Sine</option>
-                <option value="square" selected={synthParams.lfos.lfo2.waveType === "square"}>Square</option>
-                <option value="sawtooth" selected={synthParams.lfos.lfo2.waveType === "sawtooth"}>Sawtooth</option>
-                <option value="triangle" selected={synthParams.lfos.lfo2.waveType === "triangle"}>Triangle</option>
-              </select>
-            </div>
-            <div className="select-item">
-              <h3 className="item-label">Destination</h3>
-              <select id="lfo2-destination" onChange={ e =>
-                synthActions.changeSynthParam(machineId, "lfo2", "destination", e.target.value)
-              }>
-                <option value="sine" selected={synthParams.lfos.lfo2.destination === "amp"}>Amplitude</option>
-              </select>
-            </div>
-          </div>
+        <div className="select-item">
+          <h3 className="item-label">Destination</h3>
+          <Selector id="lfo2-destination" onValueChange={ value =>
+            synthActions.changeSynthParam(machineId, "lfo2", "destination", value)
+          }>
+            <SelectorOption value="sine" selected={synthParams.lfos.lfo2.destination === "amp"}>Amplitude</SelectorOption>
+          </Selector>
         </div>
       </div>
     </div>

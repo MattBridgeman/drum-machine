@@ -5,6 +5,7 @@ class Selector extends Component {
   handleIncrement() {
     let { onValueChange, children, id } = this.props;
     let selectedIndex = 0;
+    if(!children.length) return;
     let childProps = Children.map(children, (child, index) => {
       if(child.props.selected) {
         selectedIndex = index;
@@ -12,7 +13,7 @@ class Selector extends Component {
       return child.props;
     });
     selectedIndex++;
-    if(selectedIndex >= children.length) {
+    if( selectedIndex >= children.length) {
       selectedIndex = 0;
     }
     onValueChange(childProps[selectedIndex].value);
@@ -20,6 +21,7 @@ class Selector extends Component {
   handleDecrement() {
     let { onValueChange, children, id } = this.props;
     let selectedIndex = 0;
+    if(!children.length) return;
     let childProps = Children.map(children, (child, index) => {
       if(child.props.selected) {
         selectedIndex = index;
