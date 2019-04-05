@@ -18,7 +18,7 @@ let Synth = props => {
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>Basic Controls</CollapsibleHeader>
         <CollapsibleContent>
           <div className="basic-controls-inner">
@@ -42,7 +42,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="filter">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>Filter</CollapsibleHeader>
         <CollapsibleContent>
           <div className="filter-controls">
@@ -141,7 +141,7 @@ let Synth = props => {
       </div>
     </div>
     <div className="envelope">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>Amp Envelope</CollapsibleHeader>
         <CollapsibleContent>
           <div className="envelope-controls">
@@ -174,7 +174,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="envelope">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>Filter Envelope</CollapsibleHeader>
         <CollapsibleContent>
           <div className="envelope-controls">
@@ -207,7 +207,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="lfo">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>LFO 1</CollapsibleHeader>
         <CollapsibleContent>
           <div className="lfo-controls">
@@ -241,7 +241,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="lfo">
-      <Collapsible initialState="open">
+      <Collapsible initialState="closed">
         <CollapsibleHeader>LFO 2</CollapsibleHeader>
         <CollapsibleContent>
           <div className="lfo-controls">
