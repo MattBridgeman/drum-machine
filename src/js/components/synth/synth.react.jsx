@@ -10,7 +10,7 @@ import { objectToArray, numberToArrayLength } from "../../library/natives/array"
 import { keyboardArray } from "../../library/keyboard";
 import { Selector, SelectorOption } from "../selector/selector.react";
 import { Collapsible, CollapsibleHeader, CollapsibleContent } from "../collapsible/collapsible.react";
-import { GridContainer, GridAxisItem, Grid, GridRow, GridItem } from "../grid/grid.react";
+import { GridContainer, GridAxis, GridAxisItem, Grid, GridRow, GridItem } from "../grid/grid.react";
 
 let Synth = props => {
   const { synth, machineId, dispatch, playState } = props;
@@ -291,7 +291,7 @@ let Synth = props => {
           )
       }
     </div>
-    <GridContainer>
+    <GridContainer types={["show-grid-axis-x", "show-grid-axis-y"]}>
       <GridAxis type="x">
         <GridAxisItem>1</GridAxisItem>
         <GridAxisItem>2</GridAxisItem>

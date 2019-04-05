@@ -1,0 +1,38 @@
+@grid-size-default: 20px;
+
+.grid-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: @grid-size-default auto;
+  grid-template-rows: @grid-size-default auto;
+}
+
+.grid-axis {
+  &.grid-axis-x {
+    grid-column-start: 2;
+    display: flex;
+    > .grid-axis-item {
+      width: @grid-size-default;
+    }
+  }
+  &.grid-axis-y {
+    display: flex;
+    flex-direction: column;
+    > .grid-axis-item {
+      width: @grid-size-default;
+      height: @grid-size-default;
+    }
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  .grid-row {
+    display: flex;
+    > .grid-item {
+      width: @grid-size-default;
+      height: @grid-size-default;
+    }
+  }
+}

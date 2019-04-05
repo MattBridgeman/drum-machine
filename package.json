@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run build-css && react-scripts start",
     "build": "npm run build-css && react-scripts build",
-    "build-css": "./node_modules/less/bin/lessc src/less/all.less src/less/all.css",
+    "build-css": "less-watch-compiler --run-once ./src/less/ ./src/less/ all.less",
+    "watch-css": "less-watch-compiler ./src/less/ ./src/less/ all.less",
     "test": "CI=true; react-scripts test --env=jsdom --coverage",
     "test-watch": "CI=false; react-scripts test --env=jsdom --watchman",
     "coverage": "react-scripts test --env=jsdom --coverage"
@@ -19,6 +20,7 @@
     "@alrra/travis-scripts": "^3.0.1",
     "chai": "^4.2.0",
     "less": "^3.9.0",
+    "less-watch-compiler": "^1.13.0",
     "moment": "^2.24.0",
     "react-scripts": "^2.1.8",
     "rxjs": "^6.3.3",

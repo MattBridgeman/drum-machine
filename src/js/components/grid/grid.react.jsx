@@ -2,8 +2,8 @@ import React from "react";
 import classnames from 'classnames';
 
 let GridContainer = props => {
-  let { children } = props;
-  return <div className="grid-container">{children}</div>;
+  let { children, types } = props;
+  return <div className={classnames("grid-container", ...types)}>{children}</div>;
 };
 
 let GridAxis = props => {
