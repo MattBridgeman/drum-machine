@@ -4,13 +4,14 @@ import { timeout } from "../interval";
 import { panPercentageToValue } from "../pan";
 import { numberToArrayLength, numberToArrayLengthWithValue, updateValue } from "../../natives/array";
 import ogen from "../../generator/ogen";
+import { createBufferStream } from "../buffer.stream";
 import { createLookAheadStream } from "../lookahead.stream";
 import { adsr } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
 import { createAnalyser } from "../analyser";
-
+import { Subject } from "rxjs";
 export const MAX_VOICES = 8;
 
 export let createSynth = () => {
@@ -32,6 +33,7 @@ export let createSynth = () => {
   let lfo2OutNode = null;
   let lfo2DryNode = null;
   let loopSubscription = false;
+  let lastBufferId = undefined;
   let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
   let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
     phase: "release"
@@ -43,6 +45,7 @@ export let createSynth = () => {
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
+  let updateStream = new Subject();
   //let drawer = createAnalyser();
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -144,15 +147,16 @@ export let createSynth = () => {
     panNode.setPosition(...panPercentageToValue(50));
     panNode.connect(output);
 
-    createLookAheadSubscription();
+    createNoteStream();
   };
 
-  let createLookAheadSubscription = () => {
+  let createNoteStream = () => {
     //TODO: tidy the way current time is accessed and adsr is changed
     const LOOK_AHEAD_MS = 50;
     const LOOK_AHEAD_RESLOUTION = 10;
-    let _adsr = {},
-        time = context.currentTime;
+    createBufferStream(updateStream)
+      .subscribe();
+    let time = context.currentTime;
     loopSubscription = createLookAheadStream(LOOK_AHEAD_MS, LOOK_AHEAD_RESLOUTION)
       .pipe(
         map(i => time + (i * 0.01))
@@ -303,6 +307,7 @@ export let createSynth = () => {
     updateConnections(instrument, state);
     updateKeys(instrument, state);
     updateState(instrument, state);
+    updateStream.next(state.buffer);
   };
 
   let updateState = (instrument, newState) => {
@@ -321,7 +326,8 @@ export let createSynth = () => {
     let { keys } = state;
     let { machineId } = instrument;
     let { synth } = state;
-    let { voices } = synth[machineId];
+    let { voices, banks } = synth[machineId];
+
     keysPressed = keys
       .map(key => keyboardMap[key.keyName])
       .filter(key => !!key)
