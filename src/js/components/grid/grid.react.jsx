@@ -22,8 +22,8 @@ let Grid = props => {
 };
 
 let GridRow = props => {
-  let { children } = props;
-  return <div className="grid-row">{children}</div>;
+  let { children, type } = props;
+  return <div className={classnames("grid-row", { [`grid-row-${type}`]: type })}>{children}</div>;
 };
 
 let GridItem = props => {

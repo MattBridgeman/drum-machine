@@ -274,45 +274,39 @@ let Synth = props => {
         </CollapsibleContent>
       </Collapsible>
     </div>
-    <div className="pattern">
-      { objectToArray(synthParams.banks[synthParams.currentBankIndex])
-          .map((value, index) =>
-            <div className={classnames("pattern-item", { show: index < 8 })}>
-              { numberToArrayLength(12)
-                  .map((key, keyIndex) => {
-                    let keyValue = 11 - keyIndex;
-                    return <div className="pattern-item-group">
-                      { index === 0 && <span className="key-name">{keyboardArray[keyValue]}</span> }
-                      <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === keyValue} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, keyValue)} showIndicator={key === 0} />
-                    </div>
-                  })
-              }
-            </div>
-          )
-      }
-    </div>
     <GridContainer types={["show-grid-axis-x", "show-grid-axis-y"]}>
       <GridAxis type="x">
-        <GridAxisItem>1</GridAxisItem>
-        <GridAxisItem>2</GridAxisItem>
-        <GridAxisItem>3</GridAxisItem>
+        { objectToArray(synthParams.banks[synthParams.currentBankIndex])
+            .map((value, index) =>
+              <GridAxisItem>{index + 1}</GridAxisItem>
+            )
+        }
       </GridAxis>
       <GridAxis type="y">
-        <GridAxisItem>a</GridAxisItem>
-        <GridAxisItem>b</GridAxisItem>
-        <GridAxisItem>c</GridAxisItem>
+        { numberToArrayLength(12)
+            .map((key, keyIndex) => {
+              let keyValue = 11 - keyIndex;
+              return <GridAxisItem>{keyboardArray[keyValue]}</GridAxisItem>;
+            })
+        }
       </GridAxis>
       <Grid>
-        <GridRow type="dark">
-          <GridItem>button</GridItem>
-          <GridItem>button</GridItem>
-          <GridItem>button</GridItem>
-        </GridRow>
-        <GridRow type="light">
-          <GridItem>button</GridItem>
-          <GridItem>button</GridItem>
-          <GridItem>button</GridItem>
-        </GridRow>
+        { numberToArrayLength(12)
+            .map((key, keyIndex) => {
+              let keyValue = 11 - keyIndex;
+              let keyName = keyboardArray[keyValue];
+              return <GridRow type={classnames({ dark: keyName.includes('#'), light: !keyName.includes('#') })}>
+                { objectToArray(synthParams.banks[synthParams.currentBankIndex])
+                    .map((value, index) =>
+                      <GridAxisItem>
+                        <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === keyValue} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, keyValue)} showIndicator={false} />
+                      </GridAxisItem>
+                    )
+                }
+              
+              </GridRow>
+            })
+        }
       </Grid>
     </GridContainer>
   </div>

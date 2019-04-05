@@ -1,4 +1,4 @@
-@grid-size-default: 20px;
+@grid-size-default: 35px;
 
 .grid-container {
   position: relative;
@@ -13,6 +13,9 @@
     display: flex;
     > .grid-axis-item {
       width: @grid-size-default;
+      height: @grid-size-default;
+      text-align: center;
+      padding: 10px 0;
     }
   }
   &.grid-axis-y {
@@ -21,6 +24,8 @@
     > .grid-axis-item {
       width: @grid-size-default;
       height: @grid-size-default;
+      text-align: center;
+      padding: 10px 0;
     }
   }
 }
