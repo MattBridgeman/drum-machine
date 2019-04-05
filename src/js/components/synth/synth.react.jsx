@@ -10,6 +10,7 @@ import { objectToArray, numberToArrayLength } from "../../library/natives/array"
 import { keyboardArray } from "../../library/keyboard";
 import { Selector, SelectorOption } from "../selector/selector.react";
 import { Collapsible, CollapsibleHeader, CollapsibleContent } from "../collapsible/collapsible.react";
+import { GridContainer, GridAxisItem, Grid, GridRow, GridItem } from "../grid/grid.react";
 
 let Synth = props => {
   const { synth, machineId, dispatch, playState } = props;
@@ -290,6 +291,30 @@ let Synth = props => {
           )
       }
     </div>
+    <GridContainer>
+      <GridAxis type="x">
+        <GridAxisItem>1</GridAxisItem>
+        <GridAxisItem>2</GridAxisItem>
+        <GridAxisItem>3</GridAxisItem>
+      </GridAxis>
+      <GridAxis type="y">
+        <GridAxisItem>a</GridAxisItem>
+        <GridAxisItem>b</GridAxisItem>
+        <GridAxisItem>c</GridAxisItem>
+      </GridAxis>
+      <Grid>
+        <GridRow type="dark">
+          <GridItem>button</GridItem>
+          <GridItem>button</GridItem>
+          <GridItem>button</GridItem>
+        </GridRow>
+        <GridRow type="light">
+          <GridItem>button</GridItem>
+          <GridItem>button</GridItem>
+          <GridItem>button</GridItem>
+        </GridRow>
+      </Grid>
+    </GridContainer>
   </div>
 };
 
