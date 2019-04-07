@@ -2,11 +2,11 @@ import { map } from "rxjs/operators";
 import { getAudioContext } from "../context";
 import { timeout } from "../interval";
 import { panPercentageToValue } from "../pan";
-import { numberToArrayLength, numberToArrayLengthWithValue, updateValue } from "../../natives/array";
+import { numberToArrayLength, numberToArrayLengthWithValue, updateValue, last } from "../../natives/array";
 import ogen from "../../generator/ogen";
 import { createBufferStream } from "../buffer.stream";
 import { createLookAheadStream } from "../lookahead.stream";
-import { adsr } from "../adsr";
+import { adsr, getAdsrValues, setAdsrValues } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
@@ -33,19 +33,19 @@ export let createSynth = () => {
   let lfo2OutNode = null;
   let lfo2DryNode = null;
   let loopSubscription = false;
-  let lastBufferId = undefined;
-  let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
-  let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
-    phase: "release"
-  });
-  let filterAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
-    phase: "release"
-  });
+  //let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
+  // let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
+  //   phase: "release"
+  // });
+  // let filterAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
+  //   phase: "release"
+  // });
   let keysPressed = [];
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
   let updateStream = new Subject();
+  let bufferStream;
   //let drawer = createAnalyser();
   let init = () => {
     voiceNodes = numberToArrayLength(MAX_VOICES).map(_ => {
@@ -151,152 +151,115 @@ export let createSynth = () => {
   };
 
   let createNoteStream = () => {
-    //TODO: tidy the way current time is accessed and adsr is changed
-    const LOOK_AHEAD_MS = 50;
-    const LOOK_AHEAD_RESLOUTION = 10;
-    createBufferStream(updateStream)
-      .subscribe();
-    let time = context.currentTime;
-    loopSubscription = createLookAheadStream(LOOK_AHEAD_MS, LOOK_AHEAD_RESLOUTION)
-      .pipe(
-        map(i => time + (i * 0.01))
-      )
-      .subscribe(time => {
-        voiceNodes
-        .forEach((voiceNode, i) => {
-          if(!state.oscillators) return;
-          let key = voiceToKeyMap[i];
-          let {
-            oscillators: {
-              osc1: {
-                osc: osc1osc,
-                amount: osc1AmountNode
-              },
-              osc2: {
-                osc: osc2osc,
-                amount: osc2AmountNode
-              }
+    bufferStream = createBufferStream(updateStream)
+      .subscribe(buffer => {
+        let { time, index, bar } = buffer;
+        let { currentBankIndex, banks, oscillators } = state;
+        let note = banks[currentBankIndex][index];
+        let keyOctave = 0;
+        let noteIndex = keyboardArray.indexOf(note);
+        if(note === undefined || note === -1 || !oscillators) return;
+        //increment the voice to use
+        ++availableVoice;
+        if(availableVoice >= voices) {
+          availableVoice = 0;
+        }
+        let voiceNode = voiceNodes[availableVoice];
+        let {
+          oscillators: {
+            osc1: {
+              osc: osc1osc
             },
-            gains: {
-              amount,
-              amp,
-              filter,
-              output
+            osc2: {
+              osc: osc2osc
             }
-          } = voiceNode;
-          let { note = 0, octave: keyOctave = 0 } = key || {};
-          let noteIndex = keyboardArray.indexOf(note);
-          let {
-            oscillators: {
-              osc1: {
-                waveType: osc1WaveType,
-                octave: osc1Octave,
-                semitone: osc1Semitone,
-                cent: osc1Cent,
-                amount: osc1Amount
-              },
-              osc2: {
-                waveType: osc2WaveType,
-                octave: osc2Octave,
-                semitone: osc2Semitone,
-                cent: osc2Cent,
-                amount: osc2Amount
-              }
+          },
+          gains: {
+            amp,
+            filter
+          }
+        } = voiceNode;
+        let {
+          oscillators: {
+            osc1: {
+              waveType: osc1WaveType,
+              octave: osc1Octave,
+              semitone: osc1Semitone,
+              cent: osc1Cent,
+              amount: osc1Amount
             },
-            envelopes: {
-              amp: {
-                attack: ampAttack,
-                decay: ampDecay,
-                sustain: ampSustain,
-                release: ampRelease
-              },
-              filter: {
-                attack: filterAttack,
-                decay: filterDecay,
-                sustain: filterSustain,
-                release: filterRelease
-              }
+            osc2: {
+              waveType: osc2WaveType,
+              octave: osc2Octave,
+              semitone: osc2Semitone,
+              cent: osc2Cent,
+              amount: osc2Amount
+            }
+          },
+          envelopes: {
+            amp: {
+              attack: ampAttack,
+              decay: ampDecay,
+              sustain: ampSustain,
+              release: ampRelease
             },
             filter: {
-              frequency: filterFrequency,
-              resonance: filterResonance,
-              type: filterType
-            },
-            lfos: {
-              lfo1: {
-                rate: lfo1Rate,
-                amount: lfo1Amount,
-                waveType: lfo1Type,
-                destination: lfo1Destination
-              },
-              lfo2: {
-                rate: lfo2Rate,
-                amount: lfo2Amount,
-                waveType: lfo2Type,
-                destination: lfo2Destination
-              }
-            },
-            volume,
-            pan,
-            sends: {
-              send1,
-              send2
+              attack: filterAttack,
+              decay: filterDecay,
+              sustain: filterSustain,
+              release: filterRelease
             }
-          } = state;
-          //set wavetype
-          if(osc1osc.type != osc1WaveType) {
-            osc1osc.type = osc1WaveType;
+          },
+          filter: {
+            frequency: filterFrequency,
+            resonance: filterResonance,
+            type: filterType
+          },
+          lfos: {
+            lfo1: {
+              rate: lfo1Rate,
+              amount: lfo1Amount,
+              waveType: lfo1Type,
+              destination: lfo1Destination
+            },
+            lfo2: {
+              rate: lfo2Rate,
+              amount: lfo2Amount,
+              waveType: lfo2Type,
+              destination: lfo2Destination
+            }
+          },
+          volume,
+          pan,
+          sends: {
+            send1,
+            send2
           }
-          if(osc2osc.type != osc2WaveType) {
-            osc2osc.type = osc2WaveType;
-          };
-          //set frequency
-          let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
-          let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
-          let osc1frequency = keyboardFrequencies[osc1keyIndex];
-          let osc2frequency = keyboardFrequencies[osc2keyIndex];
-          osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
-          osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
-          osc1osc.frequency.setValueAtTime(osc1frequency, time);
-          osc2osc.frequency.setValueAtTime(osc2frequency, time);
-          
-          //set amounts
-          osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
-          osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
-          volumeNode.gain.setValueAtTime(volume * 0.01, time);
-          send1Node.gain.setValueAtTime(send1 * 0.01, time);
-          send2Node.gain.setValueAtTime(send2 * 0.01, time);
+        } = state;
+        //set frequency
+        let osc1keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc1Octave) + noteIndex), 0, 83);
+        let osc2keyIndex = normaliseValue((keyboardArray.length * (keyOctave + osc2Octave) + noteIndex), 0, 83);
+        let osc1frequency = keyboardFrequencies[osc1keyIndex];
+        let osc2frequency = keyboardFrequencies[osc2keyIndex];
+        osc1frequency += (osc1Semitone * osc1frequency * keyTranspose.semitone) + (osc1Cent * osc1frequency * keyTranspose.cent);
+        osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
+        osc1osc.frequency.setValueAtTime(osc1frequency, time);
+        osc2osc.frequency.setValueAtTime(osc2frequency, time);
 
-          filter.Q.setValueAtTime(filterResonance, time);
-          //set pan
-          panNode.setPosition(...panPercentageToValue(pan));
+        //set amp asdr
+        //ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, , ampAsdrs[i]));
+        
+        //amp.gain.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
+        let adsrValues = getAdsrValues({ attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease });
+        setAdsrValues(adsrValues, time, amp.gain);
+        //amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
 
-          //set amp asdr
-          ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease }, ampAsdrs[i]));
-          
-          //amp.gain.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
-          amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
-
-          //set filter asdr
-          filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
-          //filter.frequency.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
-          filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
-
-          //set lfos
-          if(lfo1Node.type != lfo1Type) {
-            lfo1Node.type = lfo1Type;
-          }
-          lfo1Node.frequency.value = lfo1Rate;
-          lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
-          lfo2OutNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
-
-          if(lfo2Node.type != lfo2Type) {
-            lfo2Node.type = lfo2Type;
-          }
-          lfo2Node.frequency.value = lfo2Rate;
-          lfo2DryNode.gain.linearRampToValueAtTime((100 - lfo2Amount) * 0.01, time);
-          lfo2OutNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
-        });
+        //set filter asdr
+        let filterAdsrValues = getAdsrValues({ attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease });
+        setAdsrValues(filterAdsrValues, time, filter.frequency);
+        //filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
+        //filter.frequency.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
+        //filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
       });
   };
 
@@ -305,8 +268,8 @@ export let createSynth = () => {
     let { synth } = state;
     let currentSynth = synth[machineId];
     updateConnections(instrument, state);
-    updateKeys(instrument, state);
     updateState(instrument, state);
+    updateParams(instrument, state);
     updateStream.next(state.buffer);
   };
 
@@ -322,70 +285,100 @@ export let createSynth = () => {
     //TODO: connect FM etc
   };
 
-  let updateKeys = (instrument, state) => {
-    let { keys } = state;
-    let { machineId } = instrument;
-    let { synth } = state;
-    let { voices, banks } = synth[machineId];
-
-    keysPressed = keys
-      .map(key => keyboardMap[key.keyName])
-      .filter(key => !!key)
-      .sort((prev, curr) => curr.time - prev.time)
-      .filter((key, i) => i < voices);
-
-    //update voice key map
-    //flag keys which are no longer pressed
-    //leave all assigned pressed keys alone
-    voiceToKeyMap = voiceToKeyMap
-    .filter((key, i) => i < voices)
-    .map((item, key) => {
-      let match = keysPressed.filter(key => item.note === key.note && item.octave === key.octave);
-      if(!match.length) {
-       return {
-         ...item,
-         released: true
-       };
-      } else {
-        return item;
-      }
-    });
-
-    //assign new keys to a voice
-    keysPressed.forEach(keyPressedItem => {
-      let match;
-      voiceToKeyMap
-      .filter((key, i) => i < voices)
-      .forEach((item, i) => {
-        if(item) {
-          let keyMatch = keysPressed.filter(key => item.note === keyPressedItem.note && item.octave === keyPressedItem.octave && !item.released);
-          if(keyMatch.length) {
-            match = keyMatch;
+  let updateParams = (instrument, state) => {
+    let time = context.currentTime;
+    voiceNodes
+      .forEach((voiceNode, i) => {
+        if(!state.oscillators) return;
+        let {
+          oscillators: {
+            osc1: {
+              osc: osc1osc,
+              amount: osc1AmountNode
+            },
+            osc2: {
+              osc: osc2osc,
+              amount: osc2AmountNode
+            }
+          },
+          gains: {
+            filter
           }
+        } = voiceNode;
+        let {
+          oscillators: {
+            osc1: {
+              waveType: osc1WaveType,
+              amount: osc1Amount
+            },
+            osc2: {
+              waveType: osc2WaveType,
+              amount: osc2Amount
+            }
+          },
+          filter: {
+            resonance: filterResonance,
+            type: filterType
+          },
+          lfos: {
+            lfo1: {
+              rate: lfo1Rate,
+              amount: lfo1Amount,
+              waveType: lfo1Type
+            },
+            lfo2: {
+              rate: lfo2Rate,
+              amount: lfo2Amount,
+              waveType: lfo2Type
+            }
+          },
+          volume,
+          pan,
+          sends: {
+            send1,
+            send2
+          }
+        } = state;
+        //set wavetype
+        if(osc1osc.type != osc1WaveType) {
+          osc1osc.type = osc1WaveType;
         }
+        if(osc2osc.type != osc2WaveType) {
+          osc2osc.type = osc2WaveType;
+        };
+        
+        //set amounts
+        osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
+        osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
+        volumeNode.gain.setValueAtTime(volume * 0.01, time);
+        send1Node.gain.setValueAtTime(send1 * 0.01, time);
+        send2Node.gain.setValueAtTime(send2 * 0.01, time);
+
+        filter.Q.setValueAtTime(filterResonance, time);
+        //set pan
+        panNode.setPosition(...panPercentageToValue(pan));
+
+        //set lfos
+        if(lfo1Node.type != lfo1Type) {
+          lfo1Node.type = lfo1Type;
+        }
+        lfo1Node.frequency.value = lfo1Rate;
+        lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
+        lfo2OutNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
+
+        if(lfo2Node.type != lfo2Type) {
+          lfo2Node.type = lfo2Type;
+        }
+        lfo2Node.frequency.value = lfo2Rate;
+        lfo2DryNode.gain.linearRampToValueAtTime((100 - lfo2Amount) * 0.01, time);
+        lfo2OutNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
       });
-      if(!match) {
-        ++availableVoice;
-        if(availableVoice >= voices) {
-          availableVoice = 0;
-        }
-        voiceToKeyMap = updateValue(voiceToKeyMap, availableVoice, keyPressedItem);
-        //reset phase to attack for any new keys
-        ampAsdrs = updateValue(ampAsdrs, availableVoice, {
-          ...ampAsdrs[availableVoice],
-          phase: 'attack'
-        });
-        filterAsdrs = updateValue(filterAsdrs, availableVoice, {
-          ...filterAsdrs[availableVoice],
-          phase: 'attack'
-        });
-      }
-    });
   };
   
   let remove = () => {
     context = null;
     loopSubscription.unsubscribe();
+    bufferStream.unsubscribe();
   };
 
   init();

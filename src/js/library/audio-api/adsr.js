@@ -1,5 +1,9 @@
+import { percentageToValueOfRange } from "../natives/numbers";
+
 export const MAX_OUTPUT = 100;
 export const MIN_INPUT = 1;
+export const MIN_RAMP_MILLISECONDS = 15;
+export const MAX_RAMP_MILLISECONDS = 4000;
 
 export let adsr = (keyPressed, elapsedTime, {
     attack,
@@ -43,4 +47,34 @@ export let adsr = (keyPressed, elapsedTime, {
     value,
     time: time + elapsedTime
   };
+};
+
+export const getAdsrValues = ({
+  attack,
+  decay,
+  sustain,
+  release
+}) => {
+  return {
+    attack: percentageToValueOfRange(attack, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
+    decay: percentageToValueOfRange(decay, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
+    sustain: percentageToValueOfRange(sustain, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
+    release: percentageToValueOfRange(release, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS)
+  };
+};
+
+export const setAdsrValues = (adsrValues, startTime, audioParam) => {
+  Object.entries(adsrValues)
+  .forEach(([key, value]) => {
+    switch(key){
+      case "attack":
+        return audioParam.setTargetAtTime(1, startTime + (value * 0.01));
+      case "decay":
+        return audioParam.setTargetAtTime((100 - value) * 0.01, startTime + (adsrValues.attack * 0.01) + (value * 0.01));
+      case "sustain":
+        return audioParam.setTargetAtTime((100 - adsrValues.decay) * 0.01, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01) + (adsrValues.sustain * 0.01));
+      case "release":
+        return audioParam.setTargetAtTime(0, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01) + (adsrValues.sustain * 0.01) + (adsrValues.release * 0.01));
+    }
+  });
 };
