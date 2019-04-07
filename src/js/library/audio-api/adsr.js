@@ -64,17 +64,14 @@ export const getAdsrValues = ({
 };
 
 export const setAdsrValues = (adsrValues, startTime, audioParam) => {
-  Object.entries(adsrValues)
-  .forEach(([key, value]) => {
-    switch(key){
-      case "attack":
-        return audioParam.setTargetAtTime(1, startTime, value * 0.01);
-      case "decay":
-        return audioParam.setTargetAtTime((100 - value) * 0.01, startTime + (adsrValues.attack * 0.01), value * 0.01);
-      case "sustain":
-        return audioParam.setTargetAtTime((100 - adsrValues.decay) * 0.01, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01), adsrValues.sustain * 0.01);
-      case "release":
-        return audioParam.setTargetAtTime(0, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01) + (adsrValues.sustain * 0.01), adsrValues.release * 0.01);
-    }
-  });
+  console.log(adsrValues);
+
+  console.log('setTargetAtTime', 1, startTime, adsrValues.attack * 0.01);
+  audioParam.setTargetAtTime(1, startTime, adsrValues.attack * 0.01);
+  console.log('audioParam.setTargetAtTime', adsrValues.decay * 0.01, startTime + (adsrValues.attack * 0.01), adsrValues.decay * 0.01);
+  audioParam.setTargetAtTime(adsrValues.decay * 0.01, startTime + (adsrValues.attack * 0.01), adsrValues.decay * 0.01);
+  console.log('audioParam.setTargetAtTime', adsrValues.decay * 0.01, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01), adsrValues.sustain * 0.01);
+  audioParam.setTargetAtTime(adsrValues.decay * 0.01, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01), adsrValues.sustain * 0.01);
+  console.log('audioParam.setTargetAtTime', 0, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01) + (adsrValues.sustain * 0.01), adsrValues.release * 0.01);
+  audioParam.setTargetAtTime(0, startTime + (adsrValues.attack * 0.01) + (adsrValues.decay * 0.01) + (adsrValues.sustain * 0.01), adsrValues.release * 0.01);
 };

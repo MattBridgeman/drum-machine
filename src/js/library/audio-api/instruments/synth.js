@@ -114,6 +114,7 @@ export let createSynth = () => {
       osc1Amount.connect(amp);
       osc2Amount.connect(amp);
       amp.connect(filter);
+      amp.gain.value = 0;
       filter.connect(filterAnalyser);
       filterAnalyser.connect(amount);
       filterAnalyser.fftSize = 2048;
@@ -122,7 +123,7 @@ export let createSynth = () => {
       amount.connect(output);
       output.connect(volumeNode);
     });
-    volumeNode.gain.value = 0;
+    volumeNode.gain.value = 1;
     volumeNode.connect(preLfoNode);
     
     //FX - LFO
@@ -250,13 +251,13 @@ export let createSynth = () => {
         //ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, , ampAsdrs[i]));
         
         //amp.gain.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
-        let adsrValues = getAdsrValues({ attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease });
+        let adsrValues = { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease };
         setAdsrValues(adsrValues, time, amp.gain);
         //amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
 
         //set filter asdr
-        let filterAdsrValues = getAdsrValues({ attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease });
-        setAdsrValues(filterAdsrValues, time, filter.frequency);
+        //let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };
+        //setAdsrValues(filterAdsrValues, time, filter.frequency);
         //filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
         //filter.frequency.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
         //filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);

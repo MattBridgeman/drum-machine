@@ -19,6 +19,6 @@ export let createBufferStream = (onUpdate) => {
       }
     });
   
-    return () => null;
+    return () => onUpdate.unsubscribe();
   });
 };
