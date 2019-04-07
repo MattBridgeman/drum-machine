@@ -15,7 +15,7 @@ export let createBufferStream = (onUpdate) => {
       let buffers = lastBufferId !== undefined ? buffersSinceId(lastBufferId, buffer) : buffer;
       if(buffers.length) {
         lastBufferId = last(buffers).id;
-        buffers.forEach(() => observer.next(buffers));
+        buffers.forEach((buffer) => observer.next(buffer));
       }
     });
   

@@ -153,12 +153,12 @@ export let createSynth = () => {
   let createNoteStream = () => {
     bufferStream = createBufferStream(updateStream)
       .subscribe(buffer => {
-        let { time, index, bar } = buffer;
+        let { time = 0, index = 0, bar = 0 } = buffer;
         let { currentBankIndex, banks, oscillators } = state;
         let note = banks[currentBankIndex][index];
         let keyOctave = 0;
         let noteIndex = keyboardArray.indexOf(note);
-        if(note === undefined || note === -1 || !oscillators) return;
+        if(note === -1 || !oscillators) return;
         //increment the voice to use
         ++availableVoice;
         if(availableVoice >= voices) {
