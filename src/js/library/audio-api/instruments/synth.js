@@ -107,9 +107,9 @@ export let createSynth = () => {
       osc2Amount.connect(amp);
       amp.connect(filter);
       amp.gain.value = 0;
-      filter.connect(filterAnalyser);
-      filterAnalyser.connect(amount);
-      filterAnalyser.fftSize = 2048;
+      filter.connect(amount);
+      // filterAnalyser.connect(amount);
+      // filterAnalyser.fftSize = 2048;
       //TODO: remove debug analyser
       //drawer.addItem(filterAnalyser, `VoiceNode ${i}`);
       amount.connect(output);
@@ -148,10 +148,9 @@ export let createSynth = () => {
       .subscribe(buffer => {
         let { time = 0, index = 0, bar = 0 } = buffer;
         let { currentBankIndex, banks, oscillators } = state;
-        let note = banks[currentBankIndex][index];
+        let noteIndex = banks[currentBankIndex][index];
         let keyOctave = 0;
-        let noteIndex = keyboardArray.indexOf(note);
-        if(note === -1 || !oscillators) return;
+        if(noteIndex === -1 || !oscillators) return;
         //increment the voice to use
         ++availableVoice;
         if(availableVoice >= voices) {
@@ -175,18 +174,14 @@ export let createSynth = () => {
         let {
           oscillators: {
             osc1: {
-              waveType: osc1WaveType,
               octave: osc1Octave,
               semitone: osc1Semitone,
-              cent: osc1Cent,
-              amount: osc1Amount
+              cent: osc1Cent
             },
             osc2: {
-              waveType: osc2WaveType,
               octave: osc2Octave,
               semitone: osc2Semitone,
-              cent: osc2Cent,
-              amount: osc2Amount
+              cent: osc2Cent
             }
           },
           envelopes: {
@@ -207,12 +202,6 @@ export let createSynth = () => {
             frequency: filterFrequency,
             resonance: filterResonance,
             type: filterType
-          },
-          volume,
-          pan,
-          sends: {
-            send1,
-            send2
           }
         } = state;
         //set frequency
@@ -288,6 +277,7 @@ export let createSynth = () => {
             }
           },
           filter: {
+            frequency: filterFrequency,
             resonance: filterResonance,
             type: filterType
           },
@@ -303,6 +293,7 @@ export let createSynth = () => {
               waveType: lfo2Type
             }
           },
+          voices: numberOfVoices,
           volume,
           pan,
           sends: {
@@ -310,6 +301,7 @@ export let createSynth = () => {
             send2
           }
         } = state;
+        voices = numberOfVoices;
         //set wavetype
         if(osc1osc.type != osc1WaveType) {
           osc1osc.type = osc1WaveType;
@@ -328,6 +320,8 @@ export let createSynth = () => {
         if(filter.type != filterType) {
           filter.type = filterType;
         }
+        //console.log(filterPercentageToValue(filterFrequency));
+        filter.frequency.setValueAtTime(filterPercentageToValue(filterFrequency), time);
         filter.Q.setValueAtTime(filterResonance, time);
         //set pan
         panNode.setPosition(...panPercentageToValue(pan));
