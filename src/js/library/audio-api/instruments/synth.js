@@ -33,14 +33,6 @@ export let createSynth = () => {
   let lfo2OutNode = null;
   let lfo2DryNode = null;
   let loopSubscription = false;
-  //let voiceToKeyMap = numberToArrayLengthWithValue(MAX_VOICES, 0);
-  // let ampAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
-  //   phase: "release"
-  // });
-  // let filterAsdrs = numberToArrayLengthWithValue(MAX_VOICES, {
-  //   phase: "release"
-  // });
-  let keysPressed = [];
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
@@ -216,20 +208,6 @@ export let createSynth = () => {
             resonance: filterResonance,
             type: filterType
           },
-          lfos: {
-            lfo1: {
-              rate: lfo1Rate,
-              amount: lfo1Amount,
-              waveType: lfo1Type,
-              destination: lfo1Destination
-            },
-            lfo2: {
-              rate: lfo2Rate,
-              amount: lfo2Amount,
-              waveType: lfo2Type,
-              destination: lfo2Destination
-            }
-          },
           volume,
           pan,
           sends: {
@@ -246,28 +224,20 @@ export let createSynth = () => {
         osc2frequency += (osc2Semitone * osc2frequency* keyTranspose.semitone) + (osc2Cent * osc2frequency * keyTranspose.cent);
         osc1osc.frequency.setValueAtTime(osc1frequency, time);
         osc2osc.frequency.setValueAtTime(osc2frequency, time);
-
-        //set amp asdr
-        //ampAsdrs = updateValue(ampAsdrs, i, adsr(key && !key.released, 10, , ampAsdrs[i]));
         
-        //amp.gain.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
+        //amp.gain.cancelScheduledValues(time);
         let adsrValues = { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease };
         setAdsrValues(adsrValues, time, amp.gain);
-        //amp.gain.linearRampToValueAtTime(ampAsdrs[i].value * 0.01, time);
 
         //set filter asdr
         //let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };
-        //setAdsrValues(filterAdsrValues, time, filter.frequency);
-        //filterAsdrs = updateValue(filterAsdrs, i, adsr(key && !key.released, 10, { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease }, filterAsdrs[i]));     
-        //filter.frequency.cancelScheduledValues(time-(LOOK_AHEAD_MS/1000));
-        //filter.frequency.linearRampToValueAtTime(filterPercentageToValue((filterAsdrs[i].value * (filterFrequency / 100))), time);
+        //setAdsrValues(filterAdsrValues, time, filter.frequency, value => filterPercentageToValue(value * (filterFrequency * 0.001)));
       });
   };
 
   let update = (instrument, state) => {
     let { machineId } = instrument;
     let { synth } = state;
-    let currentSynth = synth[machineId];
     updateConnections(instrument, state);
     updateState(instrument, state);
     updateParams(instrument, state);
@@ -286,10 +256,10 @@ export let createSynth = () => {
     //TODO: connect FM etc
   };
 
-  let updateParams = (instrument, state) => {
+  let updateParams = () => {
     let time = context.currentTime;
     voiceNodes
-      .forEach((voiceNode, i) => {
+      .forEach((voiceNode) => {
         if(!state.oscillators) return;
         let {
           oscillators: {
@@ -355,6 +325,9 @@ export let createSynth = () => {
         send1Node.gain.setValueAtTime(send1 * 0.01, time);
         send2Node.gain.setValueAtTime(send2 * 0.01, time);
 
+        if(filter.type != filterType) {
+          filter.type = filterType;
+        }
         filter.Q.setValueAtTime(filterResonance, time);
         //set pan
         panNode.setPosition(...panPercentageToValue(pan));
