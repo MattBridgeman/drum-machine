@@ -1,9 +1,13 @@
-import { percentageToValueOfRange } from "../natives/numbers";
+import { percentageToValueOfRange, normaliseValue } from "../natives/numbers";
+
+const { min, max } = Math;
 
 export const MAX_OUTPUT = 100;
 export const MIN_INPUT = 1;
-export const MIN_RAMP_MILLISECONDS = 15;
-export const MAX_RAMP_MILLISECONDS = 4000;
+export const MIN_RAMP_SECONDS = 0.015;
+export const MAX_RAMP_SECONDS = 10;
+export const MIN_RAMP_TIME_CONSTANT = 0.003;
+export const MAX_RAMP_TIME_CONSTANT = 2;
 
 export let adsr = (keyPressed, elapsedTime, {
     attack,
@@ -15,10 +19,10 @@ export let adsr = (keyPressed, elapsedTime, {
     value = 0,
     time = 0
   }) => {
-    attack = Math.max(MIN_INPUT, attack);
-    decay = Math.max(MIN_INPUT, decay);
-    sustain = Math.max(MIN_INPUT, sustain);
-    release = Math.max(MIN_INPUT, release);
+    attack = max(MIN_INPUT, attack);
+    decay = max(MIN_INPUT, decay);
+    sustain = max(MIN_INPUT, sustain);
+    release = max(MIN_INPUT, release);
   phase = keyPressed ? phase : "release";
   switch(phase) {
     case "attack":
@@ -49,23 +53,9 @@ export let adsr = (keyPressed, elapsedTime, {
   };
 };
 
-export const getAdsrValues = ({
-  attack,
-  decay,
-  sustain,
-  release
-}) => {
-  return {
-    attack: percentageToValueOfRange(attack, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
-    decay: percentageToValueOfRange(decay, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
-    sustain: percentageToValueOfRange(sustain, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS),
-    release: percentageToValueOfRange(release, MIN_RAMP_MILLISECONDS, MAX_RAMP_MILLISECONDS)
-  };
-};
-
 const divideBy100 = value => value * value * 0.01;
-const ramp = value => value * value * 0.001;
-const percentToTimeConstant = value => value * 0.02;
+const ramp = value => normaliseValue(value * value * 0.001, MIN_RAMP_SECONDS, MAX_RAMP_SECONDS); //exponential curve - 10 second max ramp
+const percentToTimeConstant = value => normaliseValue(value * 0.02, MIN_RAMP_TIME_CONSTANT, MAX_RAMP_TIME_CONSTANT); //Max 2 second time constant (5 * time constant is when value change is complete)
 
 export const setAttackDecayValues = ({
   attack,
