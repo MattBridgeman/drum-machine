@@ -221,8 +221,8 @@ export let createSynth = () => {
         setSustainReleaseValues(adsrValues, time + keyPressDuration, amp.gain);
 
         //set filter asdr
-        //let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };
-        //setAdsrValues(filterAdsrValues, time, filter.frequency, value => filterPercentageToValue(value * (filterFrequency * 0.001)));
+        let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };
+        setAttackDecayValues(filterAdsrValues, time, filter.frequency, value => filterPercentageToValue(filterFrequency));
       });
   };
 

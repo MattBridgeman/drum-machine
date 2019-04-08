@@ -61,13 +61,13 @@ export const setAttackDecayValues = ({
   attack,
   decay,
   sustain
-}, startTime, audioParam, normaliseFn = divideBy100) => {
-  audioParam.setTargetAtTime(normaliseFn(100), startTime, percentToTimeConstant(attack));
-  audioParam.setTargetAtTime(normaliseFn(sustain), startTime + ramp(attack), percentToTimeConstant(100 - decay));
+}, startTime, audioParam, normalise = divideBy100) => {
+  audioParam.setTargetAtTime(normalise(100), startTime, percentToTimeConstant(attack));
+  audioParam.setTargetAtTime(normalise(sustain), startTime + ramp(attack), percentToTimeConstant(100 - decay));
 };
 
 export const setSustainReleaseValues = ({
   release
-}, startTime, audioParam, normaliseFn = divideBy100) => {
-  audioParam.setTargetAtTime(normaliseFn(0), startTime, percentToTimeConstant(release));
+}, startTime, audioParam, normalise = divideBy100, timeConstant) => {
+  audioParam.setTargetAtTime(normalise(0), startTime, percentToTimeConstant(release));
 };
