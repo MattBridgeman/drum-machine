@@ -63,23 +63,21 @@ export const getAdsrValues = ({
   };
 };
 
-const divideBy100 = value => value * 0.01;
-const percentToTimeConstant = value => value * 0.001;
+const divideBy100 = value => value * value * 0.01;
+const ramp = value => value * value * 0.001;
+const percentToTimeConstant = value => value * 0.02;
 
 export const setAttackDecayValues = ({
   attack,
-  decay
+  decay,
+  sustain
 }, startTime, audioParam, normaliseFn = divideBy100) => {
-  audioParam.cancelScheduledValues(startTime);
   audioParam.setTargetAtTime(normaliseFn(100), startTime, percentToTimeConstant(attack));
-  audioParam.setTargetAtTime(normaliseFn(decay), startTime + percentToTimeConstant(attack), percentToTimeConstant(decay));
+  audioParam.setTargetAtTime(normaliseFn(sustain), startTime + ramp(attack), percentToTimeConstant(100 - decay));
 };
 
 export const setSustainReleaseValues = ({
-  sustain,
   release
 }, startTime, audioParam, normaliseFn = divideBy100) => {
-  audioParam.cancelScheduledValues(startTime);
-  audioParam.setTargetAtTime(normaliseFn(decay), startTime, percentToTimeConstant(sustain));
-  audioParam.setTargetAtTime(normaliseFn(0), startTime + percentToTimeConstant(sustain), percentToTimeConstant(release));
+  audioParam.setTargetAtTime(normaliseFn(0), startTime, percentToTimeConstant(release));
 };

@@ -9,13 +9,14 @@ let uniqueGenerator = unique();
 export default function buffer(state = initialState, action) {
   switch (action.type) {
     case NEW_BUFFER_SEGMENT:
-      let { time, index } = action;
+      let { time, index, duration } = action;
       let lastEntry = last(state || []);
       let lastId = lastEntry ? lastEntry.id : -1;
       return [...state, {
         time,
         index,
         bar: 0,
+        duration,
         id: lastId + 1
       }];
     case CLEAR_BUFFER_SEGMENT:
