@@ -19,11 +19,13 @@ export function segmentsToSchedule(currentTime, state) {
         let lastSegment = last(prev);
         return [...prev, {
           index: normalisedIndex(playState, tempo, lastSegment.index + 1),
-          time: lastSegment.time + segmentTime
+          time: lastSegment.time + segmentTime,
+          duration: segmentTime
         }];
       }, [lastBuffer || {
         index: 0,
-        time: currentTime + BUFFER_DELAY_IN_SECONDS
+        time: currentTime + BUFFER_DELAY_IN_SECONDS,
+        duration: segmentTime
       }])
       .filter((segment, index) => lastBuffer ? index !== 0 : true);
   }

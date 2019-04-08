@@ -6,7 +6,7 @@ import { numberToArrayLength, numberToArrayLengthWithValue, updateValue, last } 
 import ogen from "../../generator/ogen";
 import { createBufferStream } from "../buffer.stream";
 import { createLookAheadStream } from "../lookahead.stream";
-import { adsr, getAdsrValues, setAdsrValues } from "../adsr";
+import { setAttackDecayValues, setSustainReleaseValues } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
 import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
@@ -146,7 +146,7 @@ export let createSynth = () => {
   let createNoteStream = () => {
     bufferStream = createBufferStream(updateStream)
       .subscribe(buffer => {
-        let { time = 0, index = 0, bar = 0 } = buffer;
+        let { time = 0, index = 0, bar = 0, duration } = buffer;
         let { currentBankIndex, banks, oscillators } = state;
         let noteIndex = banks[currentBankIndex][index];
         let keyOctave = 0;
@@ -216,7 +216,9 @@ export let createSynth = () => {
         
         //amp.gain.cancelScheduledValues(time);
         let adsrValues = { attack: ampAttack, decay: ampDecay, sustain: ampSustain, release: ampRelease };
-        setAdsrValues(adsrValues, time, amp.gain);
+        let keyPressDuration = duration * 0.5;
+        setAttackDecayValues(adsrValues, time, amp.gain);
+        setSustainReleaseValues(adsrValues, time + keyPressDuration, amp.gain);
 
         //set filter asdr
         //let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };

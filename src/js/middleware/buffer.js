@@ -41,8 +41,8 @@ export const buffer = store => next => {
         try {
           let currentState = store.getState();
           let segments = segmentsToSchedule(context.currentTime, currentState);
-          segments.forEach(({index, time}) => 
-            next(bufferActions.newBufferSegment(index, time))
+          segments.forEach(({index, time, duration}) => 
+            next(bufferActions.newBufferSegment(index, time, duration))
           );
         } catch(err) {
           console.error(err);
