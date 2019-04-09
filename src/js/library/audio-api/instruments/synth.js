@@ -8,7 +8,7 @@ import { createBufferStream } from "../buffer.stream";
 import { createLookAheadStream } from "../lookahead.stream";
 import { setAttackDecayValues, setSustainReleaseValues } from "../adsr";
 import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
-import { normaliseValue } from "../../natives/numbers";
+import { normaliseValue, percentageToValueOfRange } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
 import { createAnalyser } from "../analyser";
 import { Subject } from "rxjs";
@@ -195,7 +195,8 @@ export let createSynth = () => {
               attack: filterAttack,
               decay: filterDecay,
               sustain: filterSustain,
-              release: filterRelease
+              release: filterRelease,
+              amount: filterAmount
             }
           },
           filter: {
@@ -222,7 +223,14 @@ export let createSynth = () => {
 
         //set filter asdr
         let filterAdsrValues = { attack: filterAttack, decay: filterDecay, sustain: filterSustain, release: filterRelease };
-        setAttackDecayValues(filterAdsrValues, time, filter.frequency, value => filterPercentageToValue(filterFrequency));
+        setAttackDecayValues(filterAdsrValues, time, filter.frequency, value => {
+          const percentage = filterFrequency + ((value - filterFrequency) * (filterAmount * 0.01));
+          return filterPercentageToValue(percentage);
+        });
+        setSustainReleaseValues(filterAdsrValues, time + keyPressDuration, filter.frequency, value => {
+          const percentage = filterFrequency + ((value - filterFrequency) * (filterAmount * 0.01));
+          return filterPercentageToValue(percentage);
+        });
       });
   };
 
@@ -324,7 +332,7 @@ export let createSynth = () => {
         }
         //console.log(filterPercentageToValue(filterFrequency));
         filter.frequency.setValueAtTime(filterPercentageToValue(filterFrequency), time);
-        filter.Q.setValueAtTime(filterResonance, time);
+        filter.Q.setValueAtTime(filterResonance * 0.05, time);
         //set pan
         panNode.setPosition(...panPercentageToValue(pan));
 

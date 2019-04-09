@@ -202,6 +202,9 @@ let Synth = props => {
                 synthActions.changeSynthParam(machineId, "env-filter", "release", value)
               } step={1} />
             </div>
+            <Rotator name="Amount" value={synthParams.envelopes.filter.amount} onValueChange={ value => 
+              synthActions.changeSynthParam(machineId, "env-filter", "amount", value)
+            } />
           </div>
         </CollapsibleContent>
       </Collapsible>

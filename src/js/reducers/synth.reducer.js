@@ -13,14 +13,14 @@ let defaultSynth = {
       octave: 4,
       semitone: 0,
       cent: 0,
-      amount: 100
+      amount: 30
     },
     osc2: {
       waveType: "sine",
       octave: 4,
       semitone: 0,
       cent: 0,
-      amount: 100
+      amount: 30
     }
   },
   fm: true,
@@ -35,7 +35,8 @@ let defaultSynth = {
       attack: 0,
       decay: 100,
       sustain: 100,
-      release: 0
+      release: 0,
+      amount: 0
     }
   },
   filter: {
@@ -62,7 +63,7 @@ let defaultSynth = {
     send1: 0,
     send2: 0
   },
-  volume: 50,
+  volume: 20,
   pan: 50,
   currentBankIndex: 0,
   banks: {
