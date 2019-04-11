@@ -1,14 +1,51 @@
-import React from "react";
+import React, { PureComponent, Children, cloneElement } from "react";
 import classnames from 'classnames';
 
-let GridContainer = props => {
-  let { children, types } = props;
-  return <div className={classnames("grid-container", ...types)}>{children}</div>;
+const GRID_SIZE_DEFAULT = 35;
+
+class GridContainer extends PureComponent {
+  state={
+    containerWidth: ''
+  }
+  calculateContainerWidth = () => {
+		let { grid: $grid } = this.refs;
+
+    this.setState({
+      containerWidth: $grid.getBoundingClientRect().width
+    });
+  }
+  componentDidMount() {
+    this.calculateContainerWidth();
+    window.addEventListener("resize", this.calculateContainerWidth);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.calculateContainerWidth);
+  }
+  render() {
+    let { children, types } = this.props;
+    let { containerWidth } = this.state;
+    return <div className={classnames("grid-container", ...types)} ref="grid">{
+      Children.map(children, child => {
+        return cloneElement(child, {
+          ...child.props,
+          max: {
+            columns: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1
+          },
+          offset: {
+            column: 0,
+            row: 0
+          }
+        });
+      })
+    }</div>;
+  }
 };
 
 let GridAxis = props => {
-  let { children, type } = props;
-  return <div className={classnames("grid-axis", { [`grid-axis-${type}`]: type })}>{children}</div>;
+  let { children, type, max: { columns = 0 }, offset: { column = 0 } } = props;
+  return <div className={classnames("grid-axis", { [`grid-axis-${type}`]: type })}>{
+    columns && type === "x" ? children.filter((child, i) => i >= column && i < columns + column) : children
+  }</div>;
 };
 
 let GridAxisItem = props => {
@@ -17,13 +54,23 @@ let GridAxisItem = props => {
 };
 
 let Grid = props => {
-  let { children } = props;
-  return <div className="grid">{children}</div>;
+  let { children, max, offset } = props;
+  return <div className="grid">{
+    Children.map(children, child => {
+      return cloneElement(child, {
+        ...child.props,
+        max,
+        offset
+      });
+    })
+  }</div>;
 };
 
 let GridRow = props => {
-  let { children, type } = props;
-  return <div className={classnames("grid-row", { [`grid-row-${type}`]: type })}>{children}</div>;
+  let { children, type, max: { columns = 0 }, offset: { column = 0 } } = props;
+  return <div className={classnames("grid-row", { [`grid-row-${type}`]: type })}>{
+    columns ? children.filter((child, i) => i >= column && i < columns + column) : children
+  }</div>;
 };
 
 let GridItem = props => {

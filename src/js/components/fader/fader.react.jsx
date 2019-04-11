@@ -73,7 +73,7 @@ class Fader extends React.Component {
     return normaliseValue(diff, 0, this.getContainerWidth());
   }
 
-  calculateContainerWidth() {
+  calculateContainerWidth = () => {
 		let {
       faderContainer: $faderContainer,
       fader: $fader
@@ -90,18 +90,30 @@ class Fader extends React.Component {
 
     this.calculateContainerWidth();
 
-    window.addEventListener("resize", e => this.calculateContainerWidth());
+    window.addEventListener("resize", this.calculateContainerWidth);
 
-    $fader.addEventListener("touchstart", e => this.onStart(e));
-    $fader.addEventListener("touchmove", e => this.onMove(e));
-    $fader.addEventListener("touchend", e => this.onEnd(e));
+    $fader.addEventListener("touchstart", this.onStart);
+    $fader.addEventListener("touchmove", this.onMove);
+    $fader.addEventListener("touchend", this.onEnd);
 
-    $fader.addEventListener("mousedown", e => this.onStart(e));
-    window.addEventListener("mousemove", e => this.onMove(e));
-    window.addEventListener("mouseup", e => this.onEnd(e));
+    $fader.addEventListener("mousedown", this.onStart);
+    window.addEventListener("mousemove", this.onMove);
+    window.addEventListener("mouseup", this.onEnd);
   }
 
-  onStart(e) {
+  componentWillUnmount() {
+		let { fader: $fader } = this.refs;
+    window.removeEventListener("resize", this.calculateContainerWidth);
+    $fader.removeEventListener("touchstart", this.onStart);
+    $fader.removeEventListener("touchmove", this.onMove);
+    $fader.removeEventListener("touchend", this.onEnd);
+
+    $fader.removeEventListener("mousedown", this.onStart);
+    window.removeEventListener("mousemove", this.onMove);
+    window.removeEventListener("mouseup", this.onEnd);
+  }
+
+  onStart = (e) => {
     e.preventDefault();
     let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
     this.setState({
@@ -112,7 +124,7 @@ class Fader extends React.Component {
     });
   }
 
-  onMove(e) {
+  onMove = (e) => {
     if(!e.target || !this.state.touching) {
       return;
     }
@@ -138,7 +150,7 @@ class Fader extends React.Component {
     });
   }
 
-  onEnd(e) {
+  onEnd = (e) => {
     if(!e.target || !this.state.touching) {
       return;
     }

@@ -94,7 +94,7 @@ class Slider extends React.Component {
     return x;
   }
 
-  calculateContainerWidth() {
+  calculateContainerWidth = () => {
 		let { slider: $slider } = this.refs;
 
     this.setState({
@@ -107,18 +107,30 @@ class Slider extends React.Component {
 
     this.calculateContainerWidth();
 
-    window.addEventListener("resize", e => this.calculateContainerWidth());
+    window.addEventListener("resize", this.calculateContainerWidth);
 
-    $slider.addEventListener("touchstart", e => this.onStart(e));
-    $slider.addEventListener("touchmove", e => this.onMove(e));
-    $slider.addEventListener("touchend", e => this.onEnd(e));
+    $slider.addEventListener("touchstart", this.onStart);
+    $slider.addEventListener("touchmove", this.onMove);
+    $slider.addEventListener("touchend", this.onEnd);
 
-    $slider.addEventListener("mousedown", e => this.onStart(e));
-    window.addEventListener("mousemove", e => this.onMove(e));
-    window.addEventListener("mouseup", e => this.onEnd(e));
+    $slider.addEventListener("mousedown", this.onStart);
+    window.addEventListener("mousemove", this.onMove);
+    window.addEventListener("mouseup", this.onEnd);
   }
 
-  onStart(e) {
+  componentWillUnmount() {
+		let { slider: $slider } = this.refs;
+    window.removeEventListener("resize", this.calculateContainerWidth);
+    $slider.removeEventListener("touchstart", this.onStart);
+    $slider.removeEventListener("touchmove", this.onMove);
+    $slider.removeEventListener("touchend", this.onEnd);
+
+    $slider.removeEventListener("mousedown", this.onStart);
+    window.removeEventListener("mousemove", this.onMove);
+    window.removeEventListener("mouseup", this.onEnd);
+  }
+
+  onStart = (e) => {
     e.preventDefault();
     let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
     this.setState({
@@ -129,7 +141,7 @@ class Slider extends React.Component {
     });
   }
 
-  onMove(e) {
+  onMove = (e) => {
     if(!e.target || !this.state.touching) {
       return;
     }
@@ -155,7 +167,7 @@ class Slider extends React.Component {
     });
   }
 
-  onEnd(e) {
+  onEnd = (e) => {
     if(!e.target || !this.state.touching) {
       return;
     }
