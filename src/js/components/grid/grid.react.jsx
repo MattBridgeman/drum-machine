@@ -29,7 +29,8 @@ class GridContainer extends PureComponent {
         return cloneElement(child, {
           ...child.props,
           max: {
-            columns: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1
+            columns: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1,
+            rows: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1
           },
           offset: {
             column: 0,
@@ -42,9 +43,13 @@ class GridContainer extends PureComponent {
 };
 
 let GridAxis = props => {
-  let { children, type, max: { columns = 0 }, offset: { column = 0 } } = props;
+  let { children, type, max: { columns = 0, rows = 0 }, offset: { column = 0, row = 0 } } = props;
   return <div className={classnames("grid-axis", { [`grid-axis-${type}`]: type })}>{
-    columns && type === "x" ? children.filter((child, i) => i >= column && i < columns + column) : children
+    columns || rows ? children.filter((child, i) => 
+      type === "x" ?
+        i >= column && i < columns + column :
+        i >= row && i < rows + row
+    ) : children
   }</div>;
 };
 
@@ -54,14 +59,17 @@ let GridAxisItem = props => {
 };
 
 let Grid = props => {
-  let { children, max, offset } = props;
+  let { children, max, max: { rows = 0 }, offset, offset: { row = 0 } } = props;
   return <div className="grid">{
-    Children.map(children, child => {
-      return cloneElement(child, {
-        ...child.props,
-        max,
-        offset
-      });
+    Children.map(children, (child, i) => {
+      if(rows && i >= row && i < rows + row) {
+        return cloneElement(child, {
+          ...child.props,
+          max,
+          offset
+        });
+      }
+      return null;
     })
   }</div>;
 };
