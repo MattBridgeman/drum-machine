@@ -47,14 +47,16 @@ class GridContainer extends PureComponent {
         });
       })
     }
-    <Fader id="grid-container-scroll-x" type="range" min={0} max={max.columns} value={offset.column} onValueChange={ value => 
-      this.setState({
-        offset: {
-          ...offset,
-          column: value
-        }
-      })
-    } step={1} />
+    <GridScroll type="x">
+      <Fader id="grid-container-scroll-x" type="range" min={0} max={max.columns} value={offset.column} onValueChange={ value => 
+        this.setState({
+          offset: {
+            ...offset,
+            column: value
+          }
+        })
+      } step={1} />
+    </GridScroll>
     </div>;
   }
 };
@@ -101,6 +103,11 @@ let GridRow = props => {
 let GridItem = props => {
   let { children } = props;
   return <div className="grid-item">{children}</div>;
+};
+
+let GridScroll = props => {
+  let { children, type } = props;
+  return <div className={classnames("grid-scroll", { [`grid-scroll-${type}`]: type})}>{children}</div>;
 };
 
 export {

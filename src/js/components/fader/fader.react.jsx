@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import * as _ from "../../library/natives/array";
-import { normaliseValue, valueAsPercentageOfX } from "../../library/natives/numbers";
+import { normaliseValue, valueAsPercentageOfX, percentageToValueOfRange } from "../../library/natives/numbers";
 
 class Fader extends React.Component {
 
@@ -51,8 +51,7 @@ class Fader extends React.Component {
     let { min, max, step, value } = this.props;
     let stepSize = this.getContainerWidth();
     let currentStep = (value - min) / step;
-
-    return currentStep * stepSize / 100;
+    return currentStep * stepSize / (max-min);
   }
 
   getCurrentValueFromX(x) {
@@ -60,7 +59,7 @@ class Fader extends React.Component {
     let stepSize = this.getContainerWidth();
     let viewStep = x / stepSize * 100;
     let value = (Math.round(viewStep) + min) * step;
-    return normaliseValue(value, min, max);
+    return normaliseValue(percentageToValueOfRange(value, min, max), min, max);
   }
 
   getContainerWidth() {
