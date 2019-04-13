@@ -5,7 +5,7 @@
   display: grid;
   max-width: 100%;
   overflow: hidden;
-  grid-template-columns: @grid-size-default auto;
+  grid-template-columns: @grid-size-default auto @grid-size-default;
   grid-template-rows: @grid-size-default auto;
 }
 
@@ -23,6 +23,7 @@
   &.grid-axis-y {
     display: flex;
     flex-direction: column;
+    grid-column: 1;
     > .grid-axis-item {
       width: @grid-size-default;
       height: @grid-size-default;
@@ -47,5 +48,9 @@
 .grid-scroll {
   &.grid-scroll-x {
     grid-column: span 2;
+  }
+  &.grid-scroll-y {
+    grid-column: 3;
+    grid-row: 1;
   }
 }

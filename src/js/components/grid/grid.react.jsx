@@ -23,8 +23,8 @@ class GridContainer extends PureComponent {
     this.setState({
       containerWidth: width,
       max: {
-        columns: Math.floor(width / GRID_SIZE_DEFAULT) - 1,
-        rows: Math.floor(width / GRID_SIZE_DEFAULT) - 1
+        columns: Math.floor(width / GRID_SIZE_DEFAULT) - 2,
+        rows: Math.floor(width / GRID_SIZE_DEFAULT) - 2
       }
     });
   }
@@ -53,6 +53,16 @@ class GridContainer extends PureComponent {
           offset: {
             ...offset,
             column: value
+          }
+        })
+      } step={1} />
+    </GridScroll>
+    <GridScroll type="y">
+      <Fader id="grid-container-scroll-y" orientation="vertical" type="range" min={0} max={max.rows} value={offset.row} onValueChange={ value => 
+        this.setState({
+          offset: {
+            ...offset,
+            row: value
           }
         })
       } step={1} />
