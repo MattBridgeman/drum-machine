@@ -168,7 +168,9 @@ class Fader extends React.Component {
       touchesX: [touchX],
       touchesY: [touchY],
       currentX: this.getXFromCurrentValue(),
-      previousX: this.getXFromCurrentValue()
+      previousX: this.getXFromCurrentValue(),
+      currentY: this.getYFromCurrentValue(),
+      previousY: this.getYFromCurrentValue()
     });
   }
 
