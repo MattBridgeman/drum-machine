@@ -144,8 +144,8 @@ class Fader extends React.Component {
     this.setState({
       containerWidth: faderContainerDimensions.width,
       containerHeight: faderContainerDimensions.height,
-      faderWidth: this.getFaderWidth(),
-      faderHeight: this.getFaderHeight()
+      faderWidth: this.getFaderWidth() || faderDimensions.width,
+      faderHeight: this.getFaderHeight() || faderDimensions.height
     });
   }
 
