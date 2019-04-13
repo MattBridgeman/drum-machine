@@ -21,7 +21,7 @@ class Fader extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, onValueChange, name, id, orientation } = this.props;
+    let { min, max, step, onValueChange, name, id, orientation, width, height } = this.props;
 
     let x, y;
     if(this.state.touching){
@@ -31,11 +31,15 @@ class Fader extends React.Component {
       x = this.getXFromCurrentValue();
       y = this.getYFromCurrentValue();
     }
+    let containerStyle = {
+      width,
+      height
+		};
     let faderStyle = {
 			transform: `translate(${x}px, ${y}px)`
 		};
 		return (
-      <div className={classnames("fader-container", { "orientation-vertical": orientation === "vertical" })} ref="faderContainer">
+      <div className={classnames("fader-container", { "orientation-vertical": orientation === "vertical" })} ref="faderContainer" style={containerStyle}>
         <h3 className="item-label">{name}</h3>
 				<input id={id} type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className={classnames("fader", { grabbing: this.state.touching })} ref="fader" aria-hidden="true" style={faderStyle}>
@@ -91,11 +95,13 @@ class Fader extends React.Component {
   }
 
   getContainerWidth() {
-    return this.state.containerWidth - this.state.faderWidth;
+    let { width } = this.props;
+    return (width || this.state.containerWidth) - this.state.faderWidth;
   }
 
   getContainerHeight() {
-    return this.state.containerHeight - this.state.faderHeight;
+    let { height } = this.props;
+    return (height || this.state.containerHeight) - this.state.faderHeight;
   }
 
   getCurrentX() {

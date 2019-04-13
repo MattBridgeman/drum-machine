@@ -6,7 +6,8 @@ const GRID_SIZE_DEFAULT = 35;
 
 class GridContainer extends PureComponent {
   state={
-    containerWidth: '',
+    containerWidth: 0,
+    containerHeight: 0,
     max: {
       columns: 0,
       rows: 0
@@ -16,24 +17,25 @@ class GridContainer extends PureComponent {
       row: 0
     }
   }
-  calculateContainerWidth = () => {
+  calculateContainerDimensions = () => {
 		let { grid: $grid } = this.refs;
 
-    let width = $grid.getBoundingClientRect().width;
+    let dimensions = $grid.getBoundingClientRect();
     this.setState({
-      containerWidth: width,
+      containerWidth: dimensions.width,
+      containerHeight: dimensions.height,
       max: {
-        columns: Math.floor(width / GRID_SIZE_DEFAULT) - 2,
-        rows: Math.floor(width / GRID_SIZE_DEFAULT) - 2
+        columns: Math.floor(dimensions.width / GRID_SIZE_DEFAULT) - 2,
+        rows: Math.floor(dimensions.width / GRID_SIZE_DEFAULT) - 2
       }
     });
   }
   componentDidMount() {
-    this.calculateContainerWidth();
-    window.addEventListener("resize", this.calculateContainerWidth);
+    this.calculateContainerDimensions();
+    window.addEventListener("resize", this.calculateContainerDimensions);
   }
   componentWillUnmount() {
-    window.removeEventListener("resize", this.calculateContainerWidth);
+    window.removeEventListener("resize", this.calculateContainerDimensions);
   }
   render() {
     let { children, columns, rows } = this.props;
@@ -48,7 +50,7 @@ class GridContainer extends PureComponent {
       })
     }
     <GridScroll type="x">
-      <Fader id="grid-container-scroll-x" type="range" min={0} max={max.columns} value={offset.column} onValueChange={ value => 
+      <Fader id="grid-container-scroll-x" width={(max.columns + 1) * GRID_SIZE_DEFAULT} type="range" min={0} max={max.columns} value={offset.column} onValueChange={ value => 
         this.setState({
           offset: {
             ...offset,
@@ -58,7 +60,7 @@ class GridContainer extends PureComponent {
       } step={1} />
     </GridScroll>
     <GridScroll type="y">
-      <Fader id="grid-container-scroll-y" orientation="vertical" type="range" min={0} max={max.rows} value={offset.row} onValueChange={ value => 
+      <Fader id="grid-container-scroll-y" height={(max.rows + 1) * GRID_SIZE_DEFAULT} orientation="vertical" type="range" min={0} max={max.rows} value={offset.row} onValueChange={ value => 
         this.setState({
           offset: {
             ...offset,
