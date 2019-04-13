@@ -1,17 +1,31 @@
 import React, { PureComponent, Children, cloneElement } from "react";
 import classnames from 'classnames';
+import { Fader } from "../fader/fader.react";
 
 const GRID_SIZE_DEFAULT = 35;
 
 class GridContainer extends PureComponent {
   state={
-    containerWidth: ''
+    containerWidth: '',
+    max: {
+      columns: 0,
+      rows: 0
+    },
+    offset: {
+      column: 0,
+      row: 0
+    }
   }
   calculateContainerWidth = () => {
 		let { grid: $grid } = this.refs;
 
+    let width = $grid.getBoundingClientRect().width;
     this.setState({
-      containerWidth: $grid.getBoundingClientRect().width
+      containerWidth: width,
+      max: {
+        columns: Math.floor(width / GRID_SIZE_DEFAULT) - 1,
+        rows: Math.floor(width / GRID_SIZE_DEFAULT) - 1
+      }
     });
   }
   componentDidMount() {
@@ -22,23 +36,26 @@ class GridContainer extends PureComponent {
     window.removeEventListener("resize", this.calculateContainerWidth);
   }
   render() {
-    let { children, types } = this.props;
-    let { containerWidth } = this.state;
-    return <div className={classnames("grid-container", ...types)} ref="grid">{
+    let { children } = this.props;
+    let { max, offset } = this.state;
+    return <div className="grid-container" ref="grid">{
       Children.map(children, child => {
         return cloneElement(child, {
           ...child.props,
-          max: {
-            columns: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1,
-            rows: Math.floor(containerWidth / GRID_SIZE_DEFAULT) - 1
-          },
-          offset: {
-            column: 0,
-            row: 0
-          }
+          max,
+          offset
         });
       })
-    }</div>;
+    }
+    <Fader id="grid-container-scroll-x" type="range" min={0} max={max.columns} value={offset.column} onValueChange={ value => 
+      this.setState({
+        offset: {
+          ...offset,
+          column: value
+        }
+      })
+    } step={1} />
+    </div>;
   }
 };
 

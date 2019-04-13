@@ -277,7 +277,7 @@ let Synth = props => {
         </CollapsibleContent>
       </Collapsible>
     </div>
-    <GridContainer types={["show-grid-axis-x", "show-grid-axis-y"]}>
+    <GridContainer>
       <GridAxis type="x">
         { objectToArray(synthParams.banks[synthParams.currentBankIndex])
             .map((value, index) =>
@@ -293,6 +293,7 @@ let Synth = props => {
             })
         }
       </GridAxis>
+      
       <Grid>
         { numberToArrayLength(12)
             .map((key, keyIndex) => {
