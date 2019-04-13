@@ -5,8 +5,19 @@
   display: grid;
   max-width: 100%;
   overflow: hidden;
-  grid-template-columns: @grid-size-default auto @grid-size-default;
+  grid-template-columns: @grid-size-default auto;
   grid-template-rows: @grid-size-default auto;
+  &.grid-container-show-scroll-x {
+    grid-template-columns: @grid-size-default auto @grid-size-default;
+    .grid-scroll-x {
+      display: block;
+    }
+  }
+  &.grid-container-show-scroll-y {
+    .grid-scroll-y {
+      display: block;
+    }
+  }
 }
 
 .grid-axis {
@@ -46,11 +57,12 @@
 }
 
 .grid-scroll {
+  display: none;
   &.grid-scroll-x {
     grid-column: span 2;
   }
   &.grid-scroll-y {
     grid-column: 3;
-    grid-row: 1;
+    grid-row: 1 / span 2;
   }
 }

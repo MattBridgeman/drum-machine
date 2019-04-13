@@ -36,9 +36,9 @@ class GridContainer extends PureComponent {
     window.removeEventListener("resize", this.calculateContainerWidth);
   }
   render() {
-    let { children } = this.props;
+    let { children, columns, rows } = this.props;
     let { max, offset } = this.state;
-    return <div className="grid-container" ref="grid">{
+    return <div className={classnames("grid-container", { "grid-container-show-scroll-x": max.columns < columns, "grid-container-show-scroll-y": max.rows < rows })} ref="grid">{
       Children.map(children, child => {
         return cloneElement(child, {
           ...child.props,

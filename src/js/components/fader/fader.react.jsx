@@ -11,27 +11,31 @@ class Fader extends React.Component {
       touching: false,
       touches: [],
       containerWidth: 0,
+      containerHeight: 0,
       faderWidth: 0,
+      faderHeight: 0,
       currentX: 0,
-      previousX: 0
+      currentY: 0,
+      previousY: 0
     }
 	}
 	
 	render() {
-    let { min, max, step, value, onValueChange, name, id } = this.props;
+    let { min, max, step, onValueChange, name, id, orientation } = this.props;
 
-    let x;
+    let x, y;
     if(this.state.touching){
       x = this.state.currentX;
-      value = this.getCurrentValueFromX(x);
+      y = this.state.currentY;
     } else {
       x = this.getXFromCurrentValue();
+      y = this.getYFromCurrentValue();
     }
     let faderStyle = {
-			transform: `translate(${x}px, 0)`
+			transform: `translate(${x}px, ${y}px)`
 		};
 		return (
-      <div className="fader-container" ref="faderContainer">
+      <div className={classnames("fader-container", { "orientation-vertical": orientation === "vertical" })} ref="faderContainer">
         <h3 className="item-label">{name}</h3>
 				<input id={id} type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className={classnames("fader", { grabbing: this.state.touching })} ref="fader" aria-hidden="true" style={faderStyle}>
@@ -40,16 +44,32 @@ class Fader extends React.Component {
 		);
 	}
 
-  getTouchDistance() {
-    var first = _.first(this.state.touches);
-    var last = _.last(this.state.touches);
+  getTouchDistanceX() {
+    var first = _.first(this.state.touchesX);
+    var last = _.last(this.state.touchesX);
+    var distance = first - last;
+    return distance;
+  }
+
+  getTouchDistanceY() {
+    var first = _.first(this.state.touchesY);
+    var last = _.last(this.state.touchesY);
     var distance = first - last;
     return distance;
   }
 
   getXFromCurrentValue() {
-    let { min, max, step, value } = this.props;
+    let { min, max, step, value, orientation } = this.props;
+    if(orientation === "vertical") return 0;
     let stepSize = this.getContainerWidth();
+    let currentStep = (value - min) / step;
+    return currentStep * stepSize / (max-min);
+  }
+
+  getYFromCurrentValue() {
+    let { min, max, step, value, orientation } = this.props;
+    if(orientation !== "vertical") return 0;
+    let stepSize = this.getContainerHeight();
     let currentStep = (value - min) / step;
     return currentStep * stepSize / (max-min);
   }
@@ -62,34 +82,61 @@ class Fader extends React.Component {
     return normaliseValue(percentageToValueOfRange(value, min, max), min, max);
   }
 
+  getCurrentValueFromY(y) {
+    let { min, max, step } = this.props;
+    let stepSize = this.getContainerHeight();
+    let viewStep = y / stepSize * 100;
+    let value = (Math.round(viewStep) + min) * step;
+    return normaliseValue(percentageToValueOfRange(value, min, max), min, max);
+  }
+
   getContainerWidth() {
     return this.state.containerWidth - this.state.faderWidth;
   }
 
+  getContainerHeight() {
+    return this.state.containerHeight - this.state.faderHeight;
+  }
+
   getCurrentX() {
-    let touchDistance = this.getTouchDistance();
+    let { orientation } = this.props;
+    if(orientation === "vertical") return 0;
+    let touchDistance = this.getTouchDistanceX();
     let diff = this.state.previousX - touchDistance;
     return normaliseValue(diff, 0, this.getContainerWidth());
   }
 
-  calculateContainerWidth = () => {
+  getCurrentY() {
+    let { orientation } = this.props;
+    if(orientation !== "vertical") return 0;
+    let touchDistance = this.getTouchDistanceY();
+    let diff = this.state.previousY - touchDistance;
+    return normaliseValue(diff, 0, this.getContainerHeight());
+  }
+
+  calculateContainerDimensions = () => {
 		let {
       faderContainer: $faderContainer,
       fader: $fader
     } = this.refs;
 
+    let faderContainerDimensions = $faderContainer.getBoundingClientRect();
+    let faderDimensions = $fader.getBoundingClientRect();
+
     this.setState({
-      containerWidth: $faderContainer.getBoundingClientRect().width,
-      faderWidth: $fader.getBoundingClientRect().width
+      containerWidth: faderContainerDimensions.width,
+      containerHeight: faderContainerDimensions.height,
+      faderWidth: faderDimensions.width,
+      faderHeight: faderDimensions.width
     });
   }
 
   componentDidMount() {
 		let { fader: $fader } = this.refs;
 
-    this.calculateContainerWidth();
+    this.calculateContainerDimensions();
 
-    window.addEventListener("resize", this.calculateContainerWidth);
+    window.addEventListener("resize", this.calculateContainerDimensions);
 
     $fader.addEventListener("touchstart", this.onStart);
     $fader.addEventListener("touchmove", this.onMove);
@@ -102,7 +149,7 @@ class Fader extends React.Component {
 
   componentWillUnmount() {
 		let { fader: $fader } = this.refs;
-    window.removeEventListener("resize", this.calculateContainerWidth);
+    window.removeEventListener("resize", this.calculateContainerDimensions);
     $fader.removeEventListener("touchstart", this.onStart);
     $fader.removeEventListener("touchmove", this.onMove);
     $fader.removeEventListener("touchend", this.onEnd);
@@ -114,10 +161,12 @@ class Fader extends React.Component {
 
   onStart = (e) => {
     e.preventDefault();
-    let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
+    let touchX = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
+    let touchY = e.pageY !== undefined ? e.pageY : e.touches[0].pageY;
     this.setState({
       touching: true,
-      touches: [touch],
+      touchesX: [touchX],
+      touchesY: [touchY],
       currentX: this.getXFromCurrentValue(),
       previousX: this.getXFromCurrentValue()
     });
@@ -128,9 +177,15 @@ class Fader extends React.Component {
       return;
     }
     e.preventDefault();
-    let { onValueChange, value } = this.props;
-    let touch = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
-    let newValue = this.getCurrentValueFromX(this.getCurrentX());
+    let { onValueChange, value, orientation } = this.props;
+    let touchX = e.pageX !== undefined ? e.pageX : e.touches[0].pageX;
+    let touchY = e.pageY !== undefined ? e.pageY : e.touches[0].pageY;
+    let newValue;
+    if(orientation === "vertical") {
+      newValue = this.getCurrentValueFromY(this.getCurrentY());
+    } else {
+      newValue = this.getCurrentValueFromX(this.getCurrentX());
+    }
 
 		if(this.rafId) window.cancelAnimationFrame(this.rafId);
 
@@ -143,8 +198,10 @@ class Fader extends React.Component {
       
       this.setState({
         touching: true,
-        touches: [...this.state.touches, touch],
-        currentX: this.getCurrentX()
+        touchesX: [...this.state.touchesX, touchX],
+        touchesY: [...this.state.touchesY, touchY],
+        currentX: this.getCurrentX(),
+        currentY: this.getCurrentY()
       });
     });
   }
@@ -155,9 +212,14 @@ class Fader extends React.Component {
     }
     e.preventDefault();
 
-    let { onValueChange } = this.props;
-    let value = this.getCurrentValueFromX(this.getCurrentX());
+    let { onValueChange, orientation } = this.props;
 
+    let value;
+    if(orientation === "vertical") {
+      value = this.getCurrentValueFromY(this.getCurrentY());
+    } else {
+      value = this.getCurrentValueFromX(this.getCurrentX());
+    }
     onValueChange(value);
 
     this.setState({
