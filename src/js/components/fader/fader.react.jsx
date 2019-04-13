@@ -36,6 +36,8 @@ class Fader extends React.Component {
       height
 		};
     let faderStyle = {
+      height: height ? this.getFaderHeight() : null,
+      width: width ? this.getFaderWidth() : null,
 			transform: `translate(${x}px, ${y}px)`
 		};
 		return (
@@ -46,7 +48,17 @@ class Fader extends React.Component {
         </div>
       </div>
 		);
-	}
+  }
+  
+  getFaderHeight() {
+    let { min, max, orientation, height } = this.props;
+    return orientation === "vertical" ? height / (max - min) : this.state.faderHeight;
+  }
+
+  getFaderWidth() {
+    let { min, max, orientation, width } = this.props;
+    return orientation !== "vertical" ? width / (max - min) : this.state.faderWidth;
+  }
 
   getTouchDistanceX() {
     var first = _.first(this.state.touchesX);
@@ -96,12 +108,12 @@ class Fader extends React.Component {
 
   getContainerWidth() {
     let { width } = this.props;
-    return (width || this.state.containerWidth) - this.state.faderWidth;
+    return (width || this.state.containerWidth) - this.getFaderWidth();
   }
 
   getContainerHeight() {
     let { height } = this.props;
-    return (height || this.state.containerHeight) - this.state.faderHeight;
+    return (height || this.state.containerHeight) - this.getFaderHeight();
   }
 
   getCurrentX() {
@@ -132,8 +144,8 @@ class Fader extends React.Component {
     this.setState({
       containerWidth: faderContainerDimensions.width,
       containerHeight: faderContainerDimensions.height,
-      faderWidth: faderDimensions.width,
-      faderHeight: faderDimensions.width
+      faderWidth: this.getFaderWidth(),
+      faderHeight: this.getFaderHeight()
     });
   }
 
