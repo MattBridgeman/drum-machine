@@ -3,6 +3,8 @@ import classnames from "classnames";
 import * as _ from "../../library/natives/array";
 import { normaliseValue, valueAsPercentageOfX, percentageToValueOfRange } from "../../library/natives/numbers";
 
+const DEFAULT_FADER_SIZE = 20;
+
 class Fader extends React.Component {
 
 	constructor(props) {
@@ -21,7 +23,7 @@ class Fader extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, onValueChange, name, id, orientation, width, height } = this.props;
+    let { min, max, step, onValueChange, name, id, orientation, type, width, height } = this.props;
 
     let x, y;
     if(this.state.touching){
@@ -41,7 +43,7 @@ class Fader extends React.Component {
 			transform: `translate(${x}px, ${y}px)`
 		};
 		return (
-      <div className={classnames("fader-container", { "orientation-vertical": orientation === "vertical" })} ref="faderContainer" style={containerStyle}>
+      <div className={classnames("fader-container", { [`fader-container-${type}`]: type, "orientation-vertical": orientation === "vertical" })} ref="faderContainer" style={containerStyle}>
         <h3 className="item-label">{name}</h3>
 				<input id={id} type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className={classnames("fader", { grabbing: this.state.touching })} ref="fader" aria-hidden="true" style={faderStyle}>
@@ -52,12 +54,12 @@ class Fader extends React.Component {
   
   getFaderHeight() {
     let { min, max, orientation, height } = this.props;
-    return orientation === "vertical" ? height / (max - min) : this.state.faderHeight;
+    return orientation === "vertical" ? height ? height / (max - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
   }
 
   getFaderWidth() {
     let { min, max, orientation, width } = this.props;
-    return orientation !== "vertical" ? width / (max - min) : this.state.faderWidth;
+    return orientation !== "vertical" ? width ? width / (max - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
   }
 
   getTouchDistanceX() {
@@ -139,13 +141,12 @@ class Fader extends React.Component {
     } = this.refs;
 
     let faderContainerDimensions = $faderContainer.getBoundingClientRect();
-    let faderDimensions = $fader.getBoundingClientRect();
 
     this.setState({
       containerWidth: faderContainerDimensions.width,
       containerHeight: faderContainerDimensions.height,
-      faderWidth: this.getFaderWidth() || faderDimensions.width,
-      faderHeight: this.getFaderHeight() || faderDimensions.height
+      faderWidth: this.getFaderWidth(),
+      faderHeight: this.getFaderHeight()
     });
   }
 

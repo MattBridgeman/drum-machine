@@ -50,7 +50,7 @@ class GridContainer extends PureComponent {
       })
     }
     <GridScroll type="x">
-      <Fader id="grid-container-scroll-x" width={(max.columns) * GRID_SIZE_DEFAULT} type="range" min={0} max={columns - max.columns} value={offset.column} onValueChange={ value => 
+      <Fader id="grid-container-scroll-x" width={(max.columns) * GRID_SIZE_DEFAULT} type="narrow" min={0} max={columns - max.columns} value={offset.column} onValueChange={ value => 
         this.setState({
           offset: {
             ...offset,
@@ -60,7 +60,7 @@ class GridContainer extends PureComponent {
       } step={1} />
     </GridScroll>
     <GridScroll type="y">
-      <Fader id="grid-container-scroll-y" height={(max.rows) * GRID_SIZE_DEFAULT} orientation="vertical" type="range" min={0} max={rows - max.rows} value={offset.row} onValueChange={ value => 
+      <Fader id="grid-container-scroll-y" height={(max.rows) * GRID_SIZE_DEFAULT} orientation="vertical" type="narrow" min={0} max={rows - max.rows} value={offset.row} onValueChange={ value => 
         this.setState({
           offset: {
             ...offset,
