@@ -85,8 +85,8 @@ let GridAxis = props => {
 };
 
 let GridAxisItem = props => {
-  let { children } = props;
-  return <div className="grid-axis-item">{children}</div>;
+  let { children, type } = props;
+  return <div className={classnames("grid-axis-item", { [`grid-axis-item-${type}`]: type })}>{children}</div>;
 };
 
 let Grid = props => {

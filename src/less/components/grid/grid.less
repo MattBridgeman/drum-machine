@@ -29,7 +29,16 @@
       width: @grid-size-default;
       height: @grid-size-default;
       text-align: center;
-      padding: 10px 0;
+      background: @light-grey;
+      border-top: 8px solid @white;
+      border-bottom: 8px solid @white;
+      line-height: 19px;
+      &.grid-axis-item-start {
+        border-left: 4px solid @white;
+      }
+      &.grid-axis-item-end {
+        border-right: 4px solid @white;
+      }
     }
   }
   &.grid-axis-y {
@@ -40,7 +49,9 @@
       width: @grid-size-default;
       height: @grid-size-default;
       text-align: center;
-      padding: 10px 0;
+      background: @light-grey;
+      border-left: 8px solid @white;
+      border-right: 8px solid @white;
     }
   }
 }

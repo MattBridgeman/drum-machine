@@ -209,6 +209,7 @@ let Synth = props => {
         </CollapsibleContent>
       </Collapsible>
     </div>
+    {/*
     <div className="lfo">
       <Collapsible initialState="closed">
         <CollapsibleHeader>LFO 1</CollapsibleHeader>
@@ -277,11 +278,12 @@ let Synth = props => {
         </CollapsibleContent>
       </Collapsible>
     </div>
+    */}
     <GridContainer columns={16} rows={12}>
       <GridAxis type="x">
         { objectToArray(synthParams.banks[synthParams.currentBankIndex])
             .map((value, index) =>
-              <GridAxisItem>{index + 1}</GridAxisItem>
+              <GridAxisItem type={index % 4 === 0 ? "start" : index % 4 === 3 ? "end" : null}>{index + 1}</GridAxisItem>
             )
         }
       </GridAxis>
