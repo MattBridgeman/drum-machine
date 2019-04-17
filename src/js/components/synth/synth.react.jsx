@@ -305,7 +305,7 @@ let Synth = props => {
                 { objectToArray(synthParams.banks[synthParams.currentBankIndex])
                     .map((value, index) =>
                       <GridAxisItem>
-                        <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === keyValue} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, keyValue)} showIndicator={false} />
+                        <PatternBeat key={`pattern-item-${index}-${key}`} index={index} current={playState.currentSegmentIndex === index} selected={value === keyValue} onToggle={() => synthActions.changeSynthParam(machineId, "pattern-item", `${synthParams.currentBankIndex}.${index}`, value === keyValue ? -1 : keyValue)} showIndicator={false} />
                       </GridAxisItem>
                     )
                 }

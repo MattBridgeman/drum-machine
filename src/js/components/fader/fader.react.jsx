@@ -136,8 +136,7 @@ class Fader extends React.Component {
 
   calculateContainerDimensions = () => {
 		let {
-      faderContainer: $faderContainer,
-      fader: $fader
+      faderContainer: $faderContainer
     } = this.refs;
 
     let faderContainerDimensions = $faderContainer.getBoundingClientRect();
