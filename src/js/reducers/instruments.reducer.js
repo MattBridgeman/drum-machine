@@ -7,7 +7,7 @@ let defaultState = [{
   id: 0,
   type: "drumMachine",
   machineId: 0,
-  selected: false
+  selected: true
 },{
   id: 1,
   type: "reverb",
@@ -22,7 +22,7 @@ let defaultState = [{
   id: 4,
   type: "synth",
   machineId: 0,
-  selected: true
+  selected: false
 }];
 
 let uniqueGenerator = unique();
