@@ -54,12 +54,12 @@ class Fader extends React.Component {
   
   getFaderHeight() {
     let { min, max, orientation, height } = this.props;
-    return orientation === "vertical" ? height ? height / (max - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
+    return orientation === "vertical" ? height ? height / (max + 1 - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
   }
 
   getFaderWidth() {
     let { min, max, orientation, width } = this.props;
-    return orientation !== "vertical" ? width ? width / (max - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
+    return orientation !== "vertical" ? width ? width / (max + 1 - min) : DEFAULT_FADER_SIZE : DEFAULT_FADER_SIZE;
   }
 
   getTouchDistanceX() {

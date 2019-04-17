@@ -18,15 +18,21 @@ class GridContainer extends PureComponent {
     }
   }
   calculateContainerDimensions = () => {
-		let { grid: $grid } = this.refs;
+    let { grid: $grid } = this.refs;
+    let { columns, rows } = this.props;
 
     let dimensions = $grid.getBoundingClientRect();
+    let maxColumns = Math.floor(dimensions.width / GRID_SIZE_DEFAULT) - 2;
     this.setState({
       containerWidth: dimensions.width,
       containerHeight: dimensions.height,
       max: {
-        columns: Math.floor(dimensions.width / GRID_SIZE_DEFAULT) - 2,
-        rows: Math.floor(dimensions.width / GRID_SIZE_DEFAULT) - 2
+        columns: maxColumns,
+        rows: maxColumns
+      },
+      offset: {
+        column: this.state.offset.column + maxColumns < columns ? this.state.offset.column : columns - maxColumns,
+        row: this.state.offset.row + maxColumns < rows ? this.state.offset.row : rows - maxColumns,
       }
     });
   }
