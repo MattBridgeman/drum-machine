@@ -42,7 +42,9 @@ export let updateConnections = (instrumentNodes, state) => {
       let toMachine = getMachineFromConnection(to, instrumentNodes);
       let toNodePath = to.nodePath;
       let toNode = getValueFromPath(toMachine, toNodePath);
-      fromNode.disconnect(toNode);
+      if(fromNode && toNode) {
+        fromNode.disconnect(toNode);
+      }
     }
   });
 };
