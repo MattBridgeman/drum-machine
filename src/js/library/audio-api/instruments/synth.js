@@ -1,18 +1,14 @@
-import { map } from "rxjs/operators";
 import { getAudioContext } from "../context";
-import { timeout } from "../interval";
 import { panPercentageToValue } from "../pan";
-import { numberToArrayLength, numberToArrayLengthWithValue, updateValue, last } from "../../natives/array";
-import ogen from "../../generator/ogen";
+import { numberToArrayLength } from "../../natives/array";
 import { createBufferStream } from "../buffer.stream";
-import { createLookAheadStream } from "../lookahead.stream";
 import { setAttackDecayValues, setSustainReleaseValues } from "../adsr";
-import { keyboardMap, keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
-import { normaliseValue, percentageToValueOfRange } from "../../natives/numbers";
+import { keyboardArray, keyboardFrequencies, keyTranspose } from "../../keyboard";
+import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
-import { createAnalyser } from "../analyser";
 import { Subject } from "rxjs";
 export const MAX_VOICES = 8;
+export const SYNTH_VOLUME_COEFFICIENT = 0.1;
 
 export let createSynth = () => {
 
@@ -235,8 +231,6 @@ export let createSynth = () => {
   };
 
   let update = (instrument, state) => {
-    let { machineId } = instrument;
-    let { synth } = state;
     updateConnections(instrument, state);
     updateState(instrument, state);
     updateParams(instrument, state);
@@ -323,7 +317,7 @@ export let createSynth = () => {
         //set amounts
         osc1AmountNode.gain.setValueAtTime(osc1Amount * 0.01, time);
         osc2AmountNode.gain.setValueAtTime(osc2Amount * 0.01, time);
-        volumeNode.gain.setValueAtTime(volume * 0.01, time);
+        volumeNode.gain.setValueAtTime(volume * 0.01 * SYNTH_VOLUME_COEFFICIENT, time);
         send1Node.gain.setValueAtTime(send1 * 0.01, time);
         send2Node.gain.setValueAtTime(send2 * 0.01, time);
 
