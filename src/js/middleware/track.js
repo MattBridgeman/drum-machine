@@ -14,7 +14,8 @@ export const stateToSave = [
   "reverb",
   "tempo",
   "track",
-  "meta"
+  "meta",
+  "synth"
 ];
 
 export const isNewTrack = store => action => {
