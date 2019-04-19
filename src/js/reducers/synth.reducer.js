@@ -3,6 +3,11 @@ import { fromJS } from "immutable";
 import {
 	CHANGE_SYNTH_PARAM
 } from "../constants/synth.constants";
+import {
+	NEW_TRACK_LOADING,
+	LOAD_DEFAULT_TRACK,
+	NEW_TRACK_LOADED
+} from "../constants/track.constants";
 
 let initialState = {};
 
@@ -111,6 +116,12 @@ export default function synth(state = defaultState, action){
         default:
           return state;
       }
+    case NEW_TRACK_LOADING:
+			return initialState;
+		case LOAD_DEFAULT_TRACK:
+			return defaultState;
+		case NEW_TRACK_LOADED:
+			return action.synth || initialState;
     default:
       return state;
   }
