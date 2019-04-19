@@ -8,7 +8,7 @@ import { normaliseValue } from "../../natives/numbers";
 import { filterPercentageToValue } from "../filter";
 import { Subject } from "rxjs";
 export const MAX_VOICES = 8;
-export const SYNTH_VOLUME_COEFFICIENT = 0.1;
+export const SYNTH_VOLUME_COEFFICIENT = 0.005;
 
 export let createSynth = () => {
 
