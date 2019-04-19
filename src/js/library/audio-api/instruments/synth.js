@@ -28,7 +28,6 @@ export let createSynth = () => {
   let lfo2WetNode = null;
   let lfo2OutNode = null;
   let lfo2DryNode = null;
-  let loopSubscription = false;
   let voices = MAX_VOICES;
   let availableVoice = 0;
   let state = {};
@@ -349,7 +348,6 @@ export let createSynth = () => {
   
   let remove = () => {
     context = null;
-    loopSubscription.unsubscribe();
     bufferStream.unsubscribe();
   };
 

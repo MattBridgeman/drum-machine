@@ -41,6 +41,7 @@ export const playState = store => next => {
         let currentState = store.getState();
         let { buffer } = currentState;
         let { currentTime } = context;
+        if(!buffer.length) return;
         let currentSegment = buffer.reduce((prev, curr) => {
           if(curr.time <= currentTime) return curr;
           else return prev;
