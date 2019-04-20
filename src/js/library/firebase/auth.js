@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import firebaseui from "firebaseui";
+import * as firebaseui from "firebaseui";
 import { init } from "./firebase";
 
 let onAuthStateChanged = (cb) => {

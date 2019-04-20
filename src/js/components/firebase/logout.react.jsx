@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { init } from "../../library/firebase/firebase";
 import DrumMachineActions from "../../actions/root.actions";
 import firebase from "firebase";
-import firebaseui from "firebaseui";
+import * as firebaseui from "firebaseui";
 
 class Logout extends Component {
   render(){
