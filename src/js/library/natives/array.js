@@ -10,6 +10,14 @@ export function numberToArrayLength(length, offset = 0) {
 	return array;
 }
 
+export function numberToArrayLengthWithValue(length, value) {
+	let array = [];
+	for(let i = 0; i < length; i++) {
+		array[i] = value;
+	}
+	return array;
+}
+
 export function rangeToArray(min, max, step) {
 	let array = [];
 	let i = min;
@@ -51,4 +59,10 @@ export function keyValueArrayToObject(objectList) {
 		object[key] = value;
 	});
 	return object;
+}
+
+export function updateValue(array, index, value) {
+	return array.map((item, i) => {
+		return i === index ? value : item;
+	});
 }

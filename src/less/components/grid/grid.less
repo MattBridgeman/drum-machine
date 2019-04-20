@@ -1,0 +1,88 @@
+@grid-size-default: 35px;
+@scroll-size-default: 30px;
+
+.grid-container {
+  position: relative;
+  display: grid;
+  max-width: 100%;
+  overflow: hidden;
+  grid-template-columns: @grid-size-default auto;
+  grid-template-rows: @grid-size-default auto;
+  &.grid-container-show-scroll-x {
+    grid-template-columns: @grid-size-default auto @scroll-size-default;
+    .grid-scroll-x {
+      display: block;
+    }
+  }
+  &.grid-container-show-scroll-y {
+    .grid-scroll-y {
+      display: block;
+    }
+  }
+}
+
+.grid-axis {
+  &.grid-axis-x {
+    grid-column-start: 2;
+    display: flex;
+    > .grid-axis-item {
+      width: @grid-size-default;
+      height: @grid-size-default;
+      text-align: center;
+      background: @light-grey;
+      border-top: 8px solid @white;
+      border-bottom: 8px solid @white;
+      line-height: 19px;
+      &.grid-axis-item-start {
+        border-left: 4px solid @white;
+      }
+      &.grid-axis-item-end {
+        border-right: 4px solid @white;
+      }
+    }
+  }
+  &.grid-axis-y {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    > .grid-axis-item {
+      width: @grid-size-default;
+      height: @grid-size-default;
+      text-align: center;
+      background: @light-grey;
+      border-left: 8px solid @white;
+      border-right: 8px solid @white;
+      padding: 10px 0;
+    }
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  .grid-row {
+    display: flex;
+    > .grid-item {
+      width: @grid-size-default;
+      height: @grid-size-default;
+    }
+  }
+  .pattern-beat .button {
+    border-right-width: 0;
+    border-bottom-width: 0;
+  }
+  .grid-axis-item-end .pattern-beat .button {
+    border-right-width: 1px;
+  }
+}
+
+.grid-scroll {
+  display: none;
+  &.grid-scroll-x {
+    grid-column: 2 / span 2;
+  }
+  &.grid-scroll-y {
+    grid-column: 3;
+    grid-row: 2 / span 1;
+  }
+}

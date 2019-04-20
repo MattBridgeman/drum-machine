@@ -7,7 +7,9 @@ export let getStubContext = () => {
 			connect: td.function(),
 			gain: {
 				value: 1,
-				linearRampToValueAtTime: td.function()
+				linearRampToValueAtTime: td.function(),
+				setValueAtTime: td.function(),
+				setTargetAtTime: td.function()
 			}
 		}),
     createPanner: () => ({
@@ -15,13 +17,37 @@ export let getStubContext = () => {
 			setPosition: td.function(),
 			panningModel: ''
 		}),
+    createOscillator: () => ({
+			start: td.function(),
+			connect: td.function(),
+			type: 'sine',
+			frequency: {
+				setValueAtTime: td.function(),
+				setTargetAtTime: td.function(),
+				value: 0
+			}
+		}),
 		createBufferSource: () => ({
 			connect: td.function(),
 			start: td.function(),
 			playbackRate: {
 				value: 1
 			}
-		})
+		}),
+		createBiquadFilter: () => ({
+			connect: td.function(),
+			type: 'lowpass',
+			frequency: {
+				setValueAtTime: td.function(),
+				setTargetAtTime: td.function(),
+				value: 0
+			},
+			Q: {
+				setValueAtTime: td.function(),
+				setTargetAtTime: td.function(),
+				value: 0
+			}
+		}),
 	};
 	return context;
 };

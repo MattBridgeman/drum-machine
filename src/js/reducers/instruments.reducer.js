@@ -18,6 +18,11 @@ let defaultState = [{
   type: "master",
   machineId: 0,
   selected: false
+},{
+  id: 4,
+  type: "synth",
+  machineId: 0,
+  selected: false
 }];
 
 let uniqueGenerator = unique();

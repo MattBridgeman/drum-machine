@@ -39,6 +39,18 @@ let defaultState = [{
     type: "master",
     nodePath: "inputs/main"
   }
+},{
+  id: 3,
+  from: {
+    machineId: 0,
+    type: "synth",
+    nodePath: "outputs/main"
+  },
+  to: {
+    machineId: 0,
+    type: "master",
+    nodePath: "inputs/main"
+  }
 }];
 
 let uniqueGenerator = unique();

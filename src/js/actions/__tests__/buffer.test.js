@@ -5,12 +5,13 @@ import { NEW_BUFFER_SEGMENT, CLEAR_BUFFER_SEGMENTS, CLEAR_BUFFER_SEGMENT } from 
 describe("Buffer actions", function() {
 
 	it("newBufferSegment returns corresponding action", function() {
-		var action = newBufferSegment(0, 1234);
+		var action = newBufferSegment(0, 1234, 0.125);
 
 		expect(action).to.deep.equal({
 			type: NEW_BUFFER_SEGMENT,
       index: 0,
-			time: 1234
+			time: 1234,
+			duration: 0.125
 		});
 	});
 

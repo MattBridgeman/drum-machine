@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
+import { connectRouter } from "connected-react-router";
+import { history } from "../middleware/history";
 import drumMachine from "./drum.machine.reducer";
 import tempo from "./tempo.reducer";
 import librarySounds from "./library.sounds.reducer";
@@ -15,6 +16,7 @@ import tracks from "./tracks.reducer";
 import meta from "./meta.reducer";
 import samples from "./samples.reducer";
 import preview from "./preview.reducer";
+import synth from "./synth.reducer";
 
 const rootReducer = combineReducers({
 	tempo,
@@ -32,7 +34,8 @@ const rootReducer = combineReducers({
 	meta,
 	samples,
 	preview,
-	router: routerReducer
+	synth,
+	router: connectRouter(history)
 });
 
 export default rootReducer;

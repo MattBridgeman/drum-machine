@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { init } from "../../library/firebase/firebase";
 import DrumMachineActions from "../../actions/root.actions";
+import firebase from "firebase";
+import * as firebaseui from "firebaseui";
 
 class Logout extends Component {
   render(){

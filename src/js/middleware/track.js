@@ -1,4 +1,4 @@
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { NEW_TRACK_LOADING } from "../constants/track.constants";
 import { timeout } from "../library/audio-api/interval";
 import { loadDefaultTrack, newTrackLoading, newTrackSave, newTrackLoaded } from "../actions/track.actions";
@@ -14,7 +14,8 @@ export const stateToSave = [
   "reverb",
   "tempo",
   "track",
-  "meta"
+  "meta",
+  "synth"
 ];
 
 export const isNewTrack = store => action => {
@@ -22,7 +23,6 @@ export const isNewTrack = store => action => {
   let nextState = rootReducer(prevState, action);
 
   if(!prevState.router.location) return;
-
   let trackRoute = matchesTrackRoute(nextState.router.location.pathname);
   let isLoadingTrack = nextState.track.state === "loading";
   let isTrackRoute = !!trackRoute;

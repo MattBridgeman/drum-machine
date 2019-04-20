@@ -1,3 +1,9 @@
+## 1.6.0
+
+- Added a synth (not visible yet)
+- Switch from custom babel build to react-scripts
+- Various improvements and bug fixes
+
 ## 1.5.1
 
 - Added the ability to preview samples

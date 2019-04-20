@@ -1,0 +1,37 @@
+.fader-container {
+  background: @light-grey;
+  height: 10px;
+  position: relative;
+  margin: 10px 0;
+  border-radius: 5px;
+  .fader {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background: @dark-grey;
+    border-radius: 10px;
+    top: -5px;
+  }
+  &.fader-container-narrow {
+    .fader {
+      height: 10px;
+      width: 10px;
+      border-radius: 5px;
+      top: 0;
+    }
+    &.orientation-vertical {
+      .fader {
+        left: 0;
+      }
+    }
+  }
+  &.orientation-vertical {
+    height: 100%;
+    margin: 0 10px;
+    width: 10px;
+    .fader {
+      top: 0;
+      left: -5px;
+    }
+  }
+}

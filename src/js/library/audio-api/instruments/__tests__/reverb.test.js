@@ -9,9 +9,11 @@ import * as _context from "../../context";
 describe("Reverb", () => {
   it("creates a reverb", () => {
     let context = getStubContext();
-    let SimpleReverb = () => ({
-      connect: td.function()
-    });
+    class SimpleReverb {
+      connect() {
+        return td.function();
+      }
+    };
     td.replace(_context, "getAudioContext", () => context);
     td.replace(_SimpleReverb, "SimpleReverb", SimpleReverb);
     let reverb = createReverb();
@@ -19,9 +21,11 @@ describe("Reverb", () => {
   });
   it("returns inputs/main and outputs/main", () => {
     let context = getStubContext();
-    let SimpleReverb = () => ({
-      connect: td.function()
-    });
+    class SimpleReverb {
+      connect() {
+        return td.function();
+      }
+    };
     td.replace(_context, "getAudioContext", () => context);
     td.replace(_SimpleReverb, "SimpleReverb", SimpleReverb);
     let reverb = createReverb();

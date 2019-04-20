@@ -1,7 +1,7 @@
 import React from "react";
 import { expect } from "chai";
 import td from "testdouble";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 import { track, isNewTrack } from "../track";
 import { timeout } from "../../library/audio-api/interval";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED, TRACK_SAVE, NEW_TRACK_SAVE } from "../../constants/track.constants";
@@ -269,6 +269,14 @@ describe("Track", () => {
           channels: []
         }
       },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "foooo"
       }
@@ -300,6 +308,14 @@ describe("Track", () => {
       reverb: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
       track: {trackId: "12345678", state: "idle", userId: "1234"},
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "foooo"
       }
@@ -348,6 +364,14 @@ describe("Track", () => {
           channels: []
         }
       },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "fooooo"
       }
@@ -375,7 +399,15 @@ describe("Track", () => {
       track: {trackId: "12345678", state: "idle", userId: "1234"},
       meta: {
         title: "fooooo"
-      }
+      },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
     }))
     td.reset();
   });
@@ -485,15 +517,21 @@ describe("Track", () => {
       let store = {
         getState: () => state
       };
-      let next = td.function();
   
       let action = {
         type: "@@router/LOCATION_CHANGE",
         payload: {
-          pathname: "/users/123/tracks/1234"
+          action: "PUSH",
+          isFirstRendering: false,
+          location: {
+            hash: "",
+            pathname: "/users/123/tracks/1234",
+            search: ""
+          },
+          state: undefined
         }
       };
-      
+
       let newTrack = isNewTrack(store)(action);
       
       expect(newTrack.trackId).to.equal("1234");

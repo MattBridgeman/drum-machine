@@ -1,12 +1,9 @@
 import TestUtils from "react-dom/test-utils";
-import React from "react";
-import { segmentsToSchedule, segmentsToClear } from "../buffer";
+import { segmentsToSchedule, segmentsToClear, buffersSinceId } from "../buffer";
 import { expect } from "chai";
 
-const { renderIntoDocument, Simulate } = TestUtils;
-
 describe("segments to schedule", () => {
-  it("Schedules 4 segments, given no previous segments", () => {
+  it("Schedules 3 segments, given no previous segments", () => {
     let currentTime = 1234;
     let store = {
       playState: {
@@ -25,13 +22,16 @@ describe("segments to schedule", () => {
     let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.1,
-      index: 0
+      index: 0,
+      duration: 0.125
     }, {
       time: 1234.225,
-      index: 1
+      index: 1,
+      duration: 0.125
     }, {
       time: 1234.35,
-      index: 2
+      index: 2,
+      duration: 0.125
     }]);
   });
   it("Schedules 0 segments, given look ahead is already complete", () => {
@@ -79,22 +79,27 @@ describe("segments to schedule", () => {
       },
       buffer: [{
         time: 1234.1,
-        index: 0
+        index: 0,
+        duration: 0.125
       }, {
         time: 1234.225,
-        index: 1
+        index: 1,
+        duration: 0.125
       }, {
         time: 1234.35,
-        index: 2
+        index: 2,
+        duration: 0.125
       }]
     };
     let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.475,
-      index: 3
+      index: 3,
+      duration: 0.125
     }, {
       time: 1234.6,
-      index: 4
+      index: 4,
+      duration: 0.125
     }]);
 	});
 
@@ -129,5 +134,17 @@ describe("Segments to clear", () => {
       time: 1234.35,
       index: 2
     }]);
+  });
+});
+
+describe("Buffers Since Id", () => {
+  it("determines buffers since a given ID", () => {
+    let buffer = [{ id: 1 },{ id: 2 },{ id: 3 },{ id: 4 },{ id: 5 },{ id: 6 },{ id: 7 }];
+    let lastId = 3;
+    expect(buffersSinceId(3,buffer)).to.deep.equal([{ id: 4 },{ id: 5 },{ id: 6 },{ id:  7}]);
+  });
+  it("return original buffer if Id is undefined", () => {
+    let buffer = [{ id: 1 },{ id: 2 },{ id: 3 },{ id: 4 },{ id: 5 },{ id: 6 },{ id: 7 }];
+    expect(buffersSinceId(undefined,buffer)).to.equal(buffer);
   });
 });

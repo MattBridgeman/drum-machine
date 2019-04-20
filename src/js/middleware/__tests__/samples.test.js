@@ -221,7 +221,14 @@ describe("Samples", () => {
     let action = {
       type: "@@router/LOCATION_CHANGE",
       payload: {
-        pathname: "/users/123/tracks/1234"
+        action: "PUSH",
+        isFirstRendering: false,
+        location: {
+          hash: "",
+          pathname: "/users/123/tracks/1234",
+          search: ""
+        },
+        state: undefined
       }
     };
     newAction(action);
@@ -229,7 +236,14 @@ describe("Samples", () => {
     td.verify(next({
       type: "@@router/LOCATION_CHANGE",
       payload: {
-        pathname: "/users/123/tracks/1234"
+        action: "PUSH",
+        isFirstRendering: false,
+        location: {
+          hash: "",
+          pathname: "/users/123/tracks/1234",
+          search: ""
+        },
+        state: undefined
       }
     }))
     td.verify(next({

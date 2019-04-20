@@ -1,0 +1,40 @@
+.collapsible {
+  .collapsible-header {
+    border: 1px solid @grey-transparency;
+    h3 {
+      margin: 0;
+    }
+    a {
+      display: block;
+      padding: 10px 10px 10px 30px;
+      color: @dark-grey;
+      position: relative;
+      span {
+        position: absolute;
+        left: 5px;
+        top: 7px;
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  &.open {
+    .collapsible-header {
+      a {
+        span {
+          transform: rotate(0deg);
+        }
+      }
+    }
+    .collapsible-content {
+      max-height: 1000px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}

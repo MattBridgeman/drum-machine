@@ -19,9 +19,6 @@ You can [try out here](https://mattbridgeman.github.io/drum-machine/)!
 
 ## The main features on the roadmap are:
 
-- Create a user profile
-- See other user creations
-- Upload custom samples
 - New Instruments and effects
 - Add service worker for offline support
 

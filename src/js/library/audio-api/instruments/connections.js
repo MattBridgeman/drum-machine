@@ -1,13 +1,13 @@
 import { getValueFromPath } from "../../natives/object";
 import { objectToArrayWithKeyValue } from "../../natives/array";
-export let cache = {};
+export let connectionsCache = {};
 
 export let updateConnections = (instrumentNodes, state) => {
   let idCache = {};
   let { connections } = state;
   connections.forEach(connection => {
     let { id, from, to } = connection;
-    let item = cache[id];
+    let item = connectionsCache[id];
     idCache[id] = true;
     if(item) {
       return;
@@ -18,10 +18,11 @@ export let updateConnections = (instrumentNodes, state) => {
     let toMachine = getMachineFromConnection(to, instrumentNodes);
     let toNodePath = to.nodePath;
     let toNode = getValueFromPath(toMachine, toNodePath);
+    if(!fromNode || !toNode) return;
     fromNode.connect(toNode);
 
-    cache = {
-      ...cache,
+    connectionsCache = {
+      ...connectionsCache,
       [id]: {
         from,
         to
@@ -30,10 +31,10 @@ export let updateConnections = (instrumentNodes, state) => {
   });
 
   //disconnect nodes
-  let cacheArray = objectToArrayWithKeyValue(cache);
-  cacheArray.forEach(item => {
+  let connectionsCacheArray = objectToArrayWithKeyValue(connectionsCache);
+  connectionsCacheArray.forEach(item => {
     let { key, value } = item;
-    let { from, to } = value;
+    let { id, from, to } = value;
     if(!idCache[key]) {
       let fromMachine = getMachineFromConnection(from, instrumentNodes);
       let fromNodePath = from.nodePath;
@@ -41,15 +42,18 @@ export let updateConnections = (instrumentNodes, state) => {
       let toMachine = getMachineFromConnection(to, instrumentNodes);
       let toNodePath = to.nodePath;
       let toNode = getValueFromPath(toMachine, toNodePath);
-      fromNode.disconnect(toNode);
+      if(fromNode && toNode) {
+        fromNode.disconnect(toNode);
+      }
+      delete connectionsCache[key];
     }
   });
 };
 
-export let getMachineFromConnection = (connectionNode, instrumentNodes) => {
+export let getMachineFromConnection = (connectionNode, instrumentNodes = []) => {
   let { machineId, type } = connectionNode;
   let node = instrumentNodes.filter(node => 
     node.instrument.type === type && node.instrument.machineId === machineId
   )[0];
-  return node.machine;
+  return node && node.machine;
 };
