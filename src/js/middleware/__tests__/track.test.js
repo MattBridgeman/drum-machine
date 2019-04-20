@@ -269,6 +269,14 @@ describe("Track", () => {
           channels: []
         }
       },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "foooo"
       }
@@ -300,6 +308,14 @@ describe("Track", () => {
       reverb: {},
       tempo: {beatsPerMinute: 120, beatsPerBar: 4, segmentsPerBeat: 4},
       track: {trackId: "12345678", state: "idle", userId: "1234"},
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "foooo"
       }
