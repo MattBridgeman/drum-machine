@@ -68,6 +68,6 @@ export const setAttackDecayValues = ({
 
 export const setSustainReleaseValues = ({
   release
-}, startTime, audioParam, normalise = divideBy100, timeConstant) => {
+}, startTime, audioParam, normalise = divideBy100) => {
   audioParam.setTargetAtTime(normalise(0), startTime, percentToTimeConstant(release));
 };

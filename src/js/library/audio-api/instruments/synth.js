@@ -231,7 +231,6 @@ export let createSynth = () => {
   };
 
   let updateState = (instrument, newState) => {
-    let { keys } = newState;
     let { machineId } = instrument;
     let { synth } = newState;
     let synthState = synth[machineId];

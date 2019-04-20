@@ -8,6 +8,7 @@ export let getStubContext = () => {
 			gain: {
 				value: 1,
 				linearRampToValueAtTime: td.function(),
+				setValueAtTime: td.function(),
 				setTargetAtTime: td.function()
 			}
 		}),
@@ -19,7 +20,7 @@ export let getStubContext = () => {
     createOscillator: () => ({
 			start: td.function(),
 			connect: td.function(),
-			type: '',
+			type: 'sine',
 			frequency: {
 				setValueAtTime: td.function(),
 				setTargetAtTime: td.function(),
@@ -35,7 +36,7 @@ export let getStubContext = () => {
 		}),
 		createBiquadFilter: () => ({
 			connect: td.function(),
-			type: '',
+			type: 'lowpass',
 			frequency: {
 				setValueAtTime: td.function(),
 				setTargetAtTime: td.function(),
