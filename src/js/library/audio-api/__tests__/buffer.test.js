@@ -3,7 +3,7 @@ import { segmentsToSchedule, segmentsToClear, buffersSinceId } from "../buffer";
 import { expect } from "chai";
 
 describe("segments to schedule", () => {
-  it("Schedules 4 segments, given no previous segments", () => {
+  it("Schedules 3 segments, given no previous segments", () => {
     let currentTime = 1234;
     let store = {
       playState: {
@@ -22,13 +22,16 @@ describe("segments to schedule", () => {
     let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.1,
-      index: 0
+      index: 0,
+      duration: 0.125
     }, {
       time: 1234.225,
-      index: 1
+      index: 1,
+      duration: 0.125
     }, {
       time: 1234.35,
-      index: 2
+      index: 2,
+      duration: 0.125
     }]);
   });
   it("Schedules 0 segments, given look ahead is already complete", () => {
@@ -76,22 +79,27 @@ describe("segments to schedule", () => {
       },
       buffer: [{
         time: 1234.1,
-        index: 0
+        index: 0,
+        duration: 0.125
       }, {
         time: 1234.225,
-        index: 1
+        index: 1,
+        duration: 0.125
       }, {
         time: 1234.35,
-        index: 2
+        index: 2,
+        duration: 0.125
       }]
     };
     let nextState = segmentsToSchedule(currentTime, store);
     expect(nextState).to.deep.equal([{
       time: 1234.475,
-      index: 3
+      index: 3,
+      duration: 0.125
     }, {
       time: 1234.6,
-      index: 4
+      index: 4,
+      duration: 0.125
     }]);
 	});
 
