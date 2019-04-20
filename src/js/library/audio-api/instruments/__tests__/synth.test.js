@@ -82,7 +82,6 @@ describe("Synth", () => {
   });
   it("creates a synth", () => {
     let synth = createSynth();
-    td.reset();
   });
   it("updates the synth params", () => {
     let synth = createSynth();
@@ -104,5 +103,9 @@ describe("Synth", () => {
         1234: synthState
       }
     });
+  });
+  it("stops the synth", () => {
+    let synth = createSynth();
+    synth.remove();
   });
 });
