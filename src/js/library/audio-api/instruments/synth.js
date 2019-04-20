@@ -51,7 +51,6 @@ export let createSynth = () => {
           amount: context.createGain(),
           amp: context.createGain(),
           filter: context.createBiquadFilter(),
-          filterAnalyser: context.createAnalyser(),
           output: context.createGain()
         }
       };
@@ -86,7 +85,6 @@ export let createSynth = () => {
         amount,
         amp,
         filter,
-        filterAnalyser,
         output
       }
     }, i) => {
@@ -103,10 +101,6 @@ export let createSynth = () => {
       amp.connect(filter);
       amp.gain.value = 0;
       filter.connect(amount);
-      // filterAnalyser.connect(amount);
-      // filterAnalyser.fftSize = 2048;
-      //TODO: remove debug analyser
-      //drawer.addItem(filterAnalyser, `VoiceNode ${i}`);
       amount.connect(output);
       output.connect(volumeNode);
     });
@@ -328,20 +322,20 @@ export let createSynth = () => {
         //set pan
         panNode.setPosition(...panPercentageToValue(pan));
 
-        //set lfos
-        if(lfo1Node.type != lfo1Type) {
-          lfo1Node.type = lfo1Type;
-        }
-        lfo1Node.frequency.value = lfo1Rate;
-        lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
-        lfo2OutNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
+        //TODO - set lfos 
+        // if(lfo1Node.type != lfo1Type) {
+        //   lfo1Node.type = lfo1Type;
+        // }
+        // lfo1Node.frequency.value = lfo1Rate;
+        // lfo1DryNode.gain.linearRampToValueAtTime((100 - lfo1Amount) * 0.01, time);
+        // lfo2OutNode.gain.linearRampToValueAtTime(lfo1Amount * 0.01, time);
 
-        if(lfo2Node.type != lfo2Type) {
-          lfo2Node.type = lfo2Type;
-        }
-        lfo2Node.frequency.value = lfo2Rate;
-        lfo2DryNode.gain.linearRampToValueAtTime((100 - lfo2Amount) * 0.01, time);
-        lfo2OutNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
+        // if(lfo2Node.type != lfo2Type) {
+        //   lfo2Node.type = lfo2Type;
+        // }
+        // lfo2Node.frequency.value = lfo2Rate;
+        // lfo2DryNode.gain.linearRampToValueAtTime((100 - lfo2Amount) * 0.01, time);
+        // lfo2OutNode.gain.linearRampToValueAtTime(lfo2Amount * 0.01, time);
       });
   };
   
