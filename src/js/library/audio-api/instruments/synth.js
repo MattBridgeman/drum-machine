@@ -323,7 +323,6 @@ export let createSynth = () => {
         if(filter.type != filterType) {
           filter.type = filterType;
         }
-        //console.log(filterPercentageToValue(filterFrequency));
         filter.frequency.setValueAtTime(filterPercentageToValue(filterFrequency), time);
         filter.Q.setValueAtTime(filterResonance * 0.05, time);
         //set pan

@@ -364,6 +364,14 @@ describe("Track", () => {
           channels: []
         }
       },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
       meta: {
         title: "fooooo"
       }
@@ -391,7 +399,15 @@ describe("Track", () => {
       track: {trackId: "12345678", state: "idle", userId: "1234"},
       meta: {
         title: "fooooo"
-      }
+      },
+      synth: {
+        0: {
+          currentBankIndex: 0,
+          banks: {
+            0: []
+          }
+        }
+      },
     }))
     td.reset();
   });
@@ -501,15 +517,21 @@ describe("Track", () => {
       let store = {
         getState: () => state
       };
-      let next = td.function();
   
       let action = {
         type: "@@router/LOCATION_CHANGE",
         payload: {
-          pathname: "/users/123/tracks/1234"
+          action: "PUSH",
+          isFirstRendering: false,
+          location: {
+            hash: "",
+            pathname: "/users/123/tracks/1234",
+            search: ""
+          },
+          state: undefined
         }
       };
-      
+
       let newTrack = isNewTrack(store)(action);
       
       expect(newTrack.trackId).to.equal("1234");

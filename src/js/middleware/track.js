@@ -23,7 +23,6 @@ export const isNewTrack = store => action => {
   let nextState = rootReducer(prevState, action);
 
   if(!prevState.router.location) return;
-
   let trackRoute = matchesTrackRoute(nextState.router.location.pathname);
   let isLoadingTrack = nextState.track.state === "loading";
   let isTrackRoute = !!trackRoute;
