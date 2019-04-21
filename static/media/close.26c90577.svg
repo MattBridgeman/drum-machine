@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-890 127 47 47">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-close);
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-close">
+      <rect x="-890" y="127" width="47" height="47"/>
+    </clipPath>
+  </defs>
+  <g id="close" class="cls-1">
+    <line id="Line_2" data-name="Line 2" class="cls-2" x2="22" y2="22" transform="translate(-877.5 139.5)"/>
+    <line id="Line_3" data-name="Line 3" class="cls-2" x2="22" y2="22" transform="translate(-855.5 139.5) rotate(90)"/>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-1029 252 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-folder);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #fff;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-folder">
+      <rect x="-1029" y="252" width="20" height="20"/>
+    </clipPath>
+  </defs>
+  <g id="folder" class="cls-1">
+    <g id="Symbol_6_1" data-name="Symbol 6 – 1" transform="translate(-1029 252)">
+      <g id="Rectangle_33" data-name="Rectangle 33" class="cls-2" transform="translate(2 6)">
+        <rect class="cls-3" width="16" height="10"/>
+        <rect class="cls-4" x="0.5" y="0.5" width="15" height="9"/>
+      </g>
+      <g id="Rectangle_34" data-name="Rectangle 34" class="cls-2" transform="translate(2 4)">
+        <rect class="cls-3" width="6" height="4"/>
+        <rect class="cls-4" x="0.5" y="0.5" width="5" height="3"/>
+      </g>
+      <path id="Path_5" data-name="Path 5" class="cls-2" d="M-1019,255l3.249,2.773H-1019Z" transform="translate(1027.5 -249.9)"/>
+    </g>
+  </g>
+</svg>

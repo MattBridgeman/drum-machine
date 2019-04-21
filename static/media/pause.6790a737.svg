@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-779 68 13 19">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-pause);
+      }
+
+      .cls-2 {
+        fill: #2e2e2e;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-pause">
+      <rect x="-779" y="68" width="13" height="19"/>
+    </clipPath>
+  </defs>
+  <g id="pause" class="cls-1">
+    <rect id="Rectangle_35" data-name="Rectangle 35" class="cls-2" width="4" height="19" transform="translate(-779 68)"/>
+    <rect id="Rectangle_36" data-name="Rectangle 36" class="cls-2" width="4" height="19" transform="translate(-770 68)"/>
+  </g>
+</svg>

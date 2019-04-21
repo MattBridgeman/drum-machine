@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-803 68 13 19">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-play);
+      }
+
+      .cls-2 {
+        fill: #2e2e2e;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-play">
+      <rect x="-803" y="68" width="13" height="19"/>
+    </clipPath>
+  </defs>
+  <g id="play" class="cls-1">
+    <path id="Path_2" data-name="Path 2" class="cls-2" d="M313.887,604.238v19l13-9.5Z" transform="translate(-1116.887 -536.238)"/>
+  </g>
+</svg>
