@@ -6,8 +6,8 @@
   "scripts": {
     "start": "npm run build-css && react-scripts start",
     "build": "npm run build-css && react-scripts build",
-    "build-css": "less-watch-compiler --run-once ./src/less/ ./src/less/ all.less",
-    "watch-css": "less-watch-compiler ./src/less/ ./src/less/ all.less",
+    "build-css": "$(npm bin)/less-watch-compiler --run-once ./src/less/ ./src/less/ all.less",
+    "watch-css": "$(npm bin)/less-watch-compiler ./src/less/ ./src/less/ all.less",
     "test": "CI=true; react-scripts test --env=jsdom --coverage",
     "test-watch": "CI=false; react-scripts test --env=jsdom --watchman",
     "coverage": "react-scripts test --env=jsdom --coverage"
