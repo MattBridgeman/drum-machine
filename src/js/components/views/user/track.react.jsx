@@ -1,24 +1,22 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { Instrument } from "../../instrument/instrument.react.jsx";
+import { Track } from "../../track/track.react.jsx";
 import { View } from "../view.react.jsx";
 
-class Track extends Component {
+class TrackView extends PureComponent {
   render(){
     let { props } = this;
     return <View {...props} view={{ name: "track" }}>
-      <div className="container">
-        {props && props.track && props.track.state === "loading" ? (
+      {props && props.track && props.track.state === "loading" ? (
+        <div className="container">
           <div className="status loading">
             <span className="icon icon__loading"></span>
             <p>Loading Track</p>
           </div>
-        ) : (
-        <div className="">
-          <Instrument {...props} />
         </div>
+        ) : (
+          <Track {...props} />
         )}
-      </div>
     </View>;
   }
 };
@@ -27,4 +25,4 @@ function mapStateToProps(state) {
 	return state;
 }
 
-export default connect(mapStateToProps)(Track);
+export default connect(mapStateToProps)(TrackView);
