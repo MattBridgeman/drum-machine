@@ -1,5 +1,7 @@
 import { unique } from "../library/natives/numbers";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
+import { CHANGE_INSTRUMENT } from "../constants/instruments.constants";
+import { fromJS } from "immutable";
 
 let initialState = [];
 
@@ -28,6 +30,8 @@ let defaultState = [{
 let uniqueGenerator = unique();
 
 export default function instruments(state = initialState, action) {
+  let { index, id } = action;
+  let $state = fromJS(state);
   switch (action.type) {
     case NEW_TRACK_LOADING:
       return initialState;
@@ -35,6 +39,14 @@ export default function instruments(state = initialState, action) {
       return defaultState;
     case NEW_TRACK_LOADED:
       return action.instruments;
+    case CHANGE_INSTRUMENT:
+      return $state.map(item => {
+        if(item.get('id') === id) {
+          return item.set("selected", true)
+        } else {
+          return item.set("selected", false)
+        }
+      }).toJS();
     default:
       return state;
   }

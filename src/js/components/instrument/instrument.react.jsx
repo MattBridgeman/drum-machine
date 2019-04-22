@@ -29,13 +29,15 @@ class Instrument extends PureComponent {
 
 class InstrumentSelector extends PureComponent {
   render(){
-    const { instruments } = this.props;
+    const { instruments, onChange } = this.props;
     let selectableInstruments = instruments.filter(({ type }) => SELECTABLE_INSTRUMENTS.includes(type));
     return <div>
       <ul>
-        {selectableInstruments.map(({ type }) =>
-          <li>{type}</li>
-        )}
+        {selectableInstruments.map(({ type, id, machineId }, index) => {
+          return <li><button className="button" onClick={() => {
+            onChange(id, type, machineId, index);
+          }}>{type}</button></li>
+        })}
       </ul>
     </div>;
   }
