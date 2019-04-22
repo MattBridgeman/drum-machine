@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
 import { Slider } from "../slider/slider.react";
+import { Modal } from "../modal/modal.react";
 
 const PlayBarPlayPause = ({ isPlaying, onClick }) => {
   return <button class="play-bar__play-pause" onClick={onClick}>
@@ -23,16 +24,33 @@ const PlayBarTempo = ({ beatsPerMinute, onChange }) => {
     <span className="play-bar__label">Tempo</span>
     <Slider type="small" theme="light" min={MIN_BEATS_PER_MINUTE} max={MAX_BEATS_PER_MINUTE} step={1} value={beatsPerMinute} onValueChange={onChange} />
   </div>
-}
+};
+
+const InstrumentChanger = ({ instruments }) => {
+  return <div className="play-bar__instruments">
+    <span className="play-bar__label">Instruments</span>
+    <Modal title="Instruments" icon="folder" trigger={({ onOpen }) => 
+      <button className="play-bar__instruments__button" onClick={onOpen}>
+        <span className="assistive">Instruments</span>
+        <span className="icon__folder"></span>
+      </button>
+    }>
+      { ({ onClose }) => 
+        <div>hello</div>
+      }
+    </Modal>
+  </div>
+};
 
 class PlayBar extends PureComponent {
   render(){
-		const { tempo, playState, dispatch } = this.props;
+		const { tempo, playState, instruments, dispatch } = this.props;
 		const playStateActions = bindActionCreators(DrumMachineActions.playState, dispatch);
 		const tempoActions = bindActionCreators(DrumMachineActions.tempo, dispatch);
     return <div className="play-bar">
       <PlayBarPlayPause isPlaying={playState.isPlaying} onClick={playStateActions.togglePlayPause} />
       <PlayBarTempo beatsPerMinute={tempo.beatsPerMinute} onChange={tempoActions.changeBPMToAmount} />
+      <InstrumentChanger instruments={instruments} />
     </div>;
   }
 };
