@@ -49,4 +49,31 @@
 	input:focus + .slider {
 		border-color: @orange;
 	}
+	&-small {
+		.slider {
+			.slider-wrapper {
+				height: 25px;
+				div {
+					font-size: 1.2em;
+					line-height: 25px;
+				}
+			}
+		}
+	}
+	&-light {
+		.slider {
+			&:after,
+			&:before {
+				background: linear-gradient(to right, @dark-grey 0%,rgba(255,255,255,0) 100%);
+			}
+			&:after {
+				background: linear-gradient(to right, rgba(255,255,255,0) 0%, @dark-grey 100%);
+			}
+			.slider-wrapper {
+				div {
+					color: @white;
+				}
+			}
+		}
+	}
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import * as _ from "../../library/natives/array";
 import { normaliseValue, valueAsPercentageOfX } from "../../library/natives/numbers";
+import { Maybe } from "../maybe/maybe.react";
+import classnames from "classnames";
 
 const STEP_SIZE = 33.34;
 const STEP_OFFSET = -1;
@@ -22,7 +24,7 @@ class Slider extends React.Component {
 	}
 	
 	render() {
-    let { min, max, step, value, onValueChange, name } = this.props;
+    let { min, max, step, value, onValueChange, name, type, theme } = this.props;
     
     let steps = _.rangeToArray(min, max, step);
 
@@ -39,8 +41,8 @@ class Slider extends React.Component {
 		};
     let sliderClass = this.state.touching ? "slider grabbing" : "slider";
 		return (
-      <div className="slider-container">
-        <h3 className="item-label">{name}</h3>
+      <div className={classnames("slider-container", { [`slider-container-${type}`]: type, [`slider-container-${theme}`]: theme })}>
+        <Maybe condition={name}><h3 className="item-label">{name}</h3></Maybe>
 				<input type="range" ref="value" min={min} max={max} step={step} className="item-value assistive" onChange={(e) => onValueChange(+(e.target.value))} />
         <div className={sliderClass} ref="slider" aria-hidden="true">
           <div className="slider-wrapper" style={sliderStyle}>

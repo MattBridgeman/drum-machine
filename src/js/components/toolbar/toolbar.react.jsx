@@ -9,6 +9,7 @@ import { ToggleButton } from "../toggle-button/toggle.button.react.jsx";
 import { numberToArrayLength } from "../../library/natives/array";
 import { Reverb } from "./reverb/reverb.react.jsx";
 import { Slider } from "../slider/slider.react.jsx";
+import { MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
 
 class Toolbar extends Component {
 
@@ -29,7 +30,7 @@ class Toolbar extends Component {
           <PlayToggle isPlaying={ playState.isPlaying } onPlayPause={ playStateActions.togglePlayPause } />
         </div>
         <div className="toolbar-item tempo">
-          <Slider name="Tempo" min={50} max={190} step={1} value={tempo.beatsPerMinute} onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
+          <Slider name="Tempo" min={MIN_BEATS_PER_MINUTE} max={MAX_BEATS_PER_MINUTE} step={1} value={tempo.beatsPerMinute} onValueChange={ (value) => tempoActions.changeBPMToAmount(value) } />
         </div>
         <div className="toolbar-item swing">
           <Slider name="Swing" min={0} max={100} step={5} value={swing} onValueChange={ (value) => drumMachineActions.changeSwingToAmount(machineId, value) } />
