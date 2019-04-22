@@ -5,6 +5,7 @@ import DrumMachineActions from "../../actions/root.actions";
 import { MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
 import { Slider } from "../slider/slider.react";
 import { Modal } from "../modal/modal.react";
+import { InstrumentSelector } from "../instrument/instrument.react";
 
 const PlayBarPlayPause = ({ isPlaying, onClick }) => {
   return <button class="play-bar__play-pause" onClick={onClick}>
@@ -32,11 +33,11 @@ const InstrumentChanger = ({ instruments }) => {
     <Modal title="Instruments" icon="folder" trigger={({ onOpen }) => 
       <button className="play-bar__instruments__button" onClick={onOpen}>
         <span className="assistive">Instruments</span>
-        <span className="icon__folder"></span>
+        <span className="icon icon__folder"></span>
       </button>
     }>
       { ({ onClose }) => 
-        <div>hello</div>
+        <InstrumentSelector instruments={instruments} />
       }
     </Modal>
   </div>

@@ -1,8 +1,13 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
 import { Synth } from "../synth/synth.react.jsx";
 
-class Instrument extends Component {
+const SELECTABLE_INSTRUMENTS = [
+  "drumMachine",
+  "synth"
+];
+
+class Instrument extends PureComponent {
   render(){
     const { instruments } = this.props;
     let selectedInstruments = instruments.filter(item => item.selected);
@@ -22,4 +27,18 @@ class Instrument extends Component {
   }
 };
 
-export { Instrument };
+class InstrumentSelector extends PureComponent {
+  render(){
+    const { instruments } = this.props;
+    let selectableInstruments = instruments.filter(({ type }) => SELECTABLE_INSTRUMENTS.includes(type));
+    return <div>
+      <ul>
+        {selectableInstruments.map(({ type }) =>
+          <li>{type}</li>
+        )}
+      </ul>
+    </div>;
+  }
+};
+
+export { Instrument, InstrumentSelector };
