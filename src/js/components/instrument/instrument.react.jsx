@@ -7,6 +7,15 @@ const SELECTABLE_INSTRUMENTS = [
   "synth"
 ];
 
+const INSTRUMENTS_MAP = {
+  drumMachine: {
+    friendlyName: "Drum Machine"
+  },
+  synth: {
+    friendlyName: "Synth"
+  }
+};
+
 class Instrument extends PureComponent {
   render(){
     const { instruments } = this.props;
@@ -29,15 +38,31 @@ class Instrument extends PureComponent {
 
 class InstrumentSelector extends PureComponent {
   render(){
-    const { instruments, onChange } = this.props;
+    const { instruments, onChange, onNewInstrument } = this.props;
     let selectableInstruments = instruments.filter(({ type }) => SELECTABLE_INSTRUMENTS.includes(type));
     return <div>
-      <ul>
+      <ul className="instrument-selector">
         {selectableInstruments.map(({ type, id, machineId }, index) => {
           return <li><button className="button" onClick={() => {
             onChange(id, type, machineId, index);
           }}>{type}</button></li>
         })}
+        <li><AddInstrument onNewInstrument={onNewInstrument} /></li>
+      </ul>
+    </div>;
+  }
+};
+
+class AddInstrument extends PureComponent {
+  render(){
+    const { onNewInstrument } = this.props;
+    return <div className="add-instrument">
+      <ul>
+        {SELECTABLE_INSTRUMENTS.map(type => 
+          <li><button className="button add-instrument-button" onClick={() => {
+            onNewInstrument(type);
+          }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>
+        )}
       </ul>
     </div>;
   }
