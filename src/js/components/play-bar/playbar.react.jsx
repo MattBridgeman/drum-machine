@@ -40,7 +40,10 @@ const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
         <InstrumentSelector instruments={instruments} onChange={(id, type, machineId, index) => {
           onChange(id, type, machineId, index);
           onClose();
-        }} onNewInstrument={onNewInstrument} />
+        }} onNewInstrument={(type) => {
+          onNewInstrument(type);
+          onClose();
+        }} />
       }
     </Modal>
   </div>
