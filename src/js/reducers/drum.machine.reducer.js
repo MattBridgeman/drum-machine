@@ -17,6 +17,7 @@ import {
 	LOAD_DEFAULT_TRACK,
 	NEW_TRACK_LOADED
 } from "../constants/track.constants";
+import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
 
 const initialState = {};
 
@@ -360,6 +361,14 @@ export default function drumMachine(state = initialState, action) {
 			return defaultState;
 		case NEW_TRACK_LOADED:
 			return action.drumMachine;
+		case ON_NEW_INSTRUMENT:
+			if(action.instrumentType === "drumMachine"){
+				return {
+					...state,
+					[action.machineId]: defaultMachine
+				}
+			}
+			return state;
 		default:
 			return state;
 	}

@@ -27,7 +27,7 @@ const PlayBarTempo = ({ beatsPerMinute, onChange }) => {
   </div>
 };
 
-const InstrumentChanger = ({ instruments, onChange }) => {
+const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
   return <div className="play-bar__instruments">
     <span className="play-bar__label">Instruments</span>
     <Modal title="Instruments" icon="folder" trigger={({ onOpen }) => 
@@ -40,7 +40,7 @@ const InstrumentChanger = ({ instruments, onChange }) => {
         <InstrumentSelector instruments={instruments} onChange={(id, type, machineId, index) => {
           onChange(id, type, machineId, index);
           onClose();
-        }} />
+        }} onNewInstrument={onNewInstrument} />
       }
     </Modal>
   </div>
@@ -55,7 +55,7 @@ class PlayBar extends PureComponent {
     return <div className="play-bar">
       <PlayBarPlayPause isPlaying={playState.isPlaying} onClick={playStateActions.togglePlayPause} />
       <PlayBarTempo beatsPerMinute={tempo.beatsPerMinute} onChange={tempoActions.changeBPMToAmount} />
-      <InstrumentChanger instruments={instruments} onChange={instrumentsActions.changeInstrument} />
+      <InstrumentChanger instruments={instruments} onChange={instrumentsActions.changeInstrument} onNewInstrument={instrumentsActions.onNewInstrument} />
     </div>;
   }
 };

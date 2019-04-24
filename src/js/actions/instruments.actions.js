@@ -1,4 +1,4 @@
-import { CHANGE_INSTRUMENT } from "../constants/instruments.constants";
+import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
 
 export const changeInstrument = (id, type, machineId, index) => {
   return {
@@ -8,4 +8,11 @@ export const changeInstrument = (id, type, machineId, index) => {
     machineId,
     index
   }
-}
+};
+
+export const onNewInstrument = (type) => {
+  return {
+    type: ON_NEW_INSTRUMENT,
+    instrumentType: type
+  }
+};

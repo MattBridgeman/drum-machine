@@ -8,6 +8,7 @@ import {
 	LOAD_DEFAULT_TRACK,
 	NEW_TRACK_LOADED
 } from "../constants/track.constants";
+import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
 
 let initialState = {};
 
@@ -121,7 +122,12 @@ export default function synth(state = defaultState, action){
 		case LOAD_DEFAULT_TRACK:
 			return defaultState;
 		case NEW_TRACK_LOADED:
-			return action.synth || initialState;
+      return action.synth || initialState;
+		case ON_NEW_INSTRUMENT:
+      if(action.instrumentType === "synth"){
+        return $state.set(machineId, defaultSynth).toJS();
+      }
+    return state;
     default:
       return state;
   }

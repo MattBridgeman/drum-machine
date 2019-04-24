@@ -46,7 +46,7 @@ class Toolbar extends Component {
           </div>
         </div>
         <div className="toolbar-item reverb">
-          <Reverb machineId={0} {...this.props} />
+          <Reverb {...this.props} machineId={0} />
         </div>
       </div>
     );
