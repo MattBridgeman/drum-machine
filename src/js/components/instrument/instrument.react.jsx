@@ -45,7 +45,7 @@ class InstrumentSelector extends PureComponent {
         {selectableInstruments.map(({ type, id, machineId }, index) => {
           return <li><button className="button" onClick={() => {
             onChange(id, type, machineId, index);
-          }}>{type}</button></li>
+          }}>{INSTRUMENTS_MAP[type].friendlyName}</button></li>
         })}
         <li><AddInstrument onNewInstrument={onNewInstrument} /></li>
       </ul>
