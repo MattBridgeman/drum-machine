@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { play, newBarIndex, pause } from "../play.state.actions";
-import { NEW_BAR_INDEX, PLAY, PAUSE } from "../../constants/play.state.constants";
+import { play, newBarIndex, pause, togglePlayPause } from "../play.state.actions";
+import { NEW_BAR_INDEX, PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../../constants/play.state.constants";
 
 describe("Play State actions", () => {
 
@@ -17,6 +17,14 @@ describe("Play State actions", () => {
 
 		expect(action).to.deep.equal({
 			type: PAUSE
+		});
+	});
+
+	it("returns a togglePlayPause action", () => {
+		var action = togglePlayPause();
+
+		expect(action).to.deep.equal({
+			type: TOGGLE_PLAY_PAUSE
 		});
 	});
 
