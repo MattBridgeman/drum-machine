@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { play, newBarIndex, pause, togglePlayPause } from "../play.state.actions";
-import { NEW_BAR_INDEX, PLAY, PAUSE, TOGGLE_PLAY_PAUSE } from "../../constants/play.state.constants";
+import { play, newBarIndex, pause, togglePlayPause, newSegmentIndex, incrementSegmentIndex } from "../play.state.actions";
+import { NEW_BAR_INDEX, PLAY, PAUSE, TOGGLE_PLAY_PAUSE, NEW_SEGMENT_INDEX, INCREMENT_SEGMENT_INDEX } from "../../constants/play.state.constants";
 
 describe("Play State actions", () => {
 
@@ -25,6 +25,24 @@ describe("Play State actions", () => {
 
 		expect(action).to.deep.equal({
 			type: TOGGLE_PLAY_PAUSE
+		});
+	});
+
+	it("returns a newSegmentIndex action", () => {
+		var action = newSegmentIndex(12);
+
+		expect(action).to.deep.equal({
+			type: NEW_SEGMENT_INDEX,
+			value: 12
+		});
+	});
+
+	it("returns a incrementSegmentIndex action", () => {
+		var action = incrementSegmentIndex(12);
+
+		expect(action).to.deep.equal({
+			type: INCREMENT_SEGMENT_INDEX,
+			value: 12
 		});
 	});
 
