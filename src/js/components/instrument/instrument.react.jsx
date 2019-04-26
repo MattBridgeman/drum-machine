@@ -57,20 +57,31 @@ class InstrumentSelector extends PureComponent {
 };
 
 class AddInstrument extends PureComponent {
+  state={
+    open: false
+  }
+
+  onToggle() {
+    this.setState({
+      open: !this.state.open
+    });
+  }
+
   render(){
     const { onNewInstrument } = this.props;
-    return <button className="button add-instrument-button">
-      Add New
-    </button>;
-    // <div className="add-instrument">
-    //   <ul>
-    //     {SELECTABLE_INSTRUMENTS.map(type => 
-    //       <li><button className="button add-instrument-button" onClick={() => {
-    //         onNewInstrument(type);
-    //       }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>
-    //     )}
-    //   </ul>
-    // </div>;
+    return <div className="add-instrument">
+      <button className="button add-instrument-trigger" onClick={() => this.onToggle()}>
+        Add New
+      </button>
+      <ul className={classnames({ open: this.state.open })}>
+        {SELECTABLE_INSTRUMENTS.map(type => 
+          <li><button className="button add-instrument-button" onClick={() => {
+            this.onToggle();
+            onNewInstrument(type);
+          }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>
+        )}
+      </ul>
+    </div>;
   }
 };
 

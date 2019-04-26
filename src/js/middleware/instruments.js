@@ -2,11 +2,7 @@ import { updateInstrumentAudio } from "../library/audio-api/instruments/instrume
 import { updateConnections } from "../library/audio-api/instruments/connections";
 import rootReducer from "../reducers/root.reducer";
 import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
-
-const newId = ids => {
-  return ids.map(parseInt)
-    .reduce((previousId, nextId) => previousId < nextId ? nextId : previousId, -1) + 1;
-};
+import { newId } from "../library/utils";
 
 export const instruments = store => next => {
   let update = action => {
@@ -19,7 +15,7 @@ export const instruments = store => next => {
     const { instrumentType } = action;
     let newAction = {
       ...action,
-      id: newId(Object.keys(instruments))
+      id: newId(instruments.map(({ id }) => id))
     };
     switch(instrumentType) {
       case "drumMachine":

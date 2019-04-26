@@ -23,4 +23,40 @@
       background: 0;
     }
   }
+  .add-instrument {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    ul {
+      clip: rect(0px, 0px, 0px, 0px);
+      transition: opacity 300ms, clip 0ms linear 300ms;
+      opacity: 0;
+      &.open {
+        clip: rect(0px, 500px, 500px, 0px);
+        opacity: 1;
+        transition: opacity 300ms, clip 0ms linear 0ms;
+      }
+    }
+    li {
+      position: absolute;
+      top: 0;
+      left: 120%;
+      list-style: none;
+      + li {
+        top: 30px;
+        left: 114%;
+      }
+    }
+    .add-instrument-button {
+      white-space: nowrap;
+      padding: 5px;
+      background: @white;
+      border: 1px solid @light-grey;
+      border-radius: 3px;
+      &:before {
+        display: none;
+      }
+    }
+  }
 }
