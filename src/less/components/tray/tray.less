@@ -1,0 +1,57 @@
+.tray-container {
+  text-align: left;
+  .tray-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    clip: rect(0px, 0px, 0px, 0px);
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    transition: opacity 300ms, clip 0ms linear 300ms;
+    background: @grey-transparency;
+    opacity: 0;
+  }
+  .tray {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: @white;
+    z-index: 21;
+    color: @dark-grey;
+    text-transform: none;
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    .tray-title {
+      display: flex;
+      h3 {
+        font-size: 10px;
+        line-height: 1;
+        margin: 0 0 5px;
+        font-weight: normal;
+        text-transform: uppercase;
+      }
+    }
+    .tray-body {
+      flex-grow: 1;
+    }
+    .close-button {
+      background: 0;
+      border: 0 none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  &.open {
+    .tray-overlay {
+      clip: rect(0px, 5000px, 5000px, 0px);
+      opacity: 1;
+      transition: opacity 300ms, clip 0ms linear 0ms;
+    }
+  }
+}

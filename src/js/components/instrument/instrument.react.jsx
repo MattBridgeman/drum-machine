@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
 import { Synth } from "../synth/synth.react.jsx";
+import classnames from "classnames";
 
 const SELECTABLE_INSTRUMENTS = [
   "drumMachine",
@@ -9,9 +10,11 @@ const SELECTABLE_INSTRUMENTS = [
 
 const INSTRUMENTS_MAP = {
   drumMachine: {
+    className: "drum-machine",
     friendlyName: "Drum Machine"
   },
   synth: {
+    className: "synth",
     friendlyName: "Synth"
   }
 };
@@ -43,7 +46,7 @@ class InstrumentSelector extends PureComponent {
     return <div>
       <ul className="instrument-selector">
         {selectableInstruments.map(({ type, id, machineId }, index) => {
-          return <li><button className="button select-instrument-button" onClick={() => {
+          return <li><button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className)} onClick={() => {
             onChange(id, type, machineId, index);
           }}>{INSTRUMENTS_MAP[type].friendlyName}</button></li>
         })}
@@ -56,15 +59,18 @@ class InstrumentSelector extends PureComponent {
 class AddInstrument extends PureComponent {
   render(){
     const { onNewInstrument } = this.props;
-    return <div className="add-instrument">
-      <ul>
-        {SELECTABLE_INSTRUMENTS.map(type => 
-          <li><button className="button add-instrument-button" onClick={() => {
-            onNewInstrument(type);
-          }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>
-        )}
-      </ul>
-    </div>;
+    return <button className="button add-instrument-button">
+      Add New
+    </button>;
+    // <div className="add-instrument">
+    //   <ul>
+    //     {SELECTABLE_INSTRUMENTS.map(type => 
+    //       <li><button className="button add-instrument-button" onClick={() => {
+    //         onNewInstrument(type);
+    //       }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>
+    //     )}
+    //   </ul>
+    // </div>;
   }
 };
 

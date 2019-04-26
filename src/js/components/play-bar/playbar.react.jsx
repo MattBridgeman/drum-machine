@@ -6,6 +6,7 @@ import { MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/temp
 import { Slider } from "../slider/slider.react";
 import { Modal } from "../modal/modal.react";
 import { InstrumentSelector } from "../instrument/instrument.react";
+import { Tray } from "../tray/tray.react";
 
 const PlayBarPlayPause = ({ isPlaying, onClick }) => {
   return <button class="play-bar__play-pause" onClick={onClick}>
@@ -30,7 +31,7 @@ const PlayBarTempo = ({ beatsPerMinute, onChange }) => {
 const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
   return <div className="play-bar__instruments">
     <span className="play-bar__label">Instruments</span>
-    <Modal title="Instruments" icon="folder" trigger={({ onOpen }) => 
+    <Tray title="Instruments" icon="folder" trigger={({ onOpen }) => 
       <button className="play-bar__instruments__button" onClick={onOpen}>
         <span className="assistive">Instruments</span>
         <span className="icon icon__folder"></span>
@@ -45,7 +46,7 @@ const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
           onClose();
         }} />
       }
-    </Modal>
+    </Tray>
   </div>
 };
 

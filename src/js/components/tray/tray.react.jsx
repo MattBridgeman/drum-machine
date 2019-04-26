@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Maybe } from "../maybe/maybe.react.jsx";
 import classnames from "classnames";
 
-class Modal extends Component {
+class Tray extends Component {
 
   constructor(props) {
     super(props);
@@ -26,10 +26,10 @@ class Modal extends Component {
   render() {
     let { props, state } = this;
     return (
-      <div className={classnames("modal-container", { open: state.open })}>
+      <div className={classnames("tray-container", { open: state.open })}>
         <Maybe condition={!props.trigger}>
-          <button className="modal-button open-button" onClick={() => this.onOpen()}>
-            Open Modal
+          <button className="tray-button open-button" onClick={() => this.onOpen()}>
+            Open Tray
           </button>
         </Maybe>
         <Maybe condition={props.trigger}>
@@ -37,28 +37,24 @@ class Modal extends Component {
             onOpen: () => this.onOpen()
           })}
         </Maybe>
-        <div className="model-overlay"></div>
+        <div className="tray-overlay" onClick={() => this.onClose()}></div>
         <Maybe condition={state.open}>
-          <div className="modal">
+          <div className="tray">
             <Maybe condition={props.title}>
-              <div className="modal-title">
+              <div className="tray-title">
                 <h3>{props.title}</h3>
-                <button className="modal-button close-button" onClick={() => this.onClose()}>
-                  <span className="assistive">Close Modal</span>
-                  <span className="icon__close"></span>
-                </button>
               </div>
             </Maybe>
-            <div className="modal-body">
+            <div className="tray-body">
               { props.children({
                 onClose: () => this.onClose()
               }) }
             </div>
-            </div>
+          </div>
         </Maybe>
       </div>
     );
   }
 };
 
-export { Modal };
+export { Tray };
