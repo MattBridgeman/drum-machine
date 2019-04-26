@@ -1,0 +1,95 @@
+{
+  "drumMachine": {
+    "0": {
+      "currentBankIndex": 0,
+      "swing": 0,
+      "channels": [{
+        "sound": 0,
+        "patterns": {
+          "0": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        "volume": 50,
+        "selected": true,
+        "pitch": 50,
+        "decay": 100,
+        "pan": 50,
+        "reverb": false
+      }]
+    }
+  },
+  "synth": {
+    "0": {
+      "oscillators": {
+        "osc1": {
+          "waveType": "sine",
+          "octave": 4,
+          "semitone": 0,
+          "cent": 0,
+          "amount": 50
+        },
+        "osc2": {
+          "waveType": "sine",
+          "octave": 4,
+          "semitone": 0,
+          "cent": 0,
+          "amount": 50
+        }
+      },
+      "fm": true,
+      "envelopes": {
+        "amp": {
+          "attack": 0,
+          "decay": 100,
+          "sustain": 100,
+          "release": 0
+        },
+        "filter": {
+          "attack": 0,
+          "decay": 100,
+          "sustain": 100,
+          "release": 0,
+          "amount": 0
+        }
+      },
+      "filter": {
+        "frequency": 100,
+        "resonance": 0,
+        "type": "lowpass"
+      },
+      "lfos": {
+        "lfo1": {
+          "rate": 0,
+          "amount": 0,
+          "waveType": "sine",
+          "destination": ["osc12"]
+        },
+        "lfo2": {
+          "rate": 0,
+          "amount": 0,
+          "waveType": "square",
+          "destination": ["ffreq"]
+        }
+      },
+      "voices": 4,
+      "sends": {
+        "send1": 0,
+        "send2": 0
+      },
+      "volume": 50,
+      "pan": 50,
+      "currentBankIndex": 0,
+      "banks": {
+        "0": [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+      }
+    }
+  },
+  "instruments": [{
+    "type": "drumMachine",
+    "id": 0,
+    "machineId": 0
+  },{
+    "type": "synth",
+    "id": 1,
+    "machineId": 0
+  }]
+}

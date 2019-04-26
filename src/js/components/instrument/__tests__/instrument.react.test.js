@@ -1,11 +1,13 @@
 import { expect } from "chai";
-import { InstrumentSelector } from "../instrument.react";
+import { InstrumentSelector, Instrument } from "../instrument.react";
 import React from "react";
 import { mount } from "enzyme";
 import td from "testdouble";
 
+import storeState from "./store.fixture.json";
+
 describe("InstrumentSelector", () => {
-	it("does not crash", () => {
+	it("renders the instruments and an add instrument", () => {
     const wrapper = mount(<InstrumentSelector
       instruments={[{
         type: "drumMachine",
@@ -22,5 +24,13 @@ describe("InstrumentSelector", () => {
     const $addInstrument = wrapper.find(".add-instrument");
     expect($selectButtons.length).to.equal(2);
     expect($addInstrument.length).to.equal(1);
+  });
+});
+
+describe("Instruments", () => {
+	it("renders the selected instrument", () => {
+    const wrapper = mount(<Instrument
+      {...storeState} />);
+    console.log(wrapper.html());
   });
 });
