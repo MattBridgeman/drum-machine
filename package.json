@@ -19,6 +19,8 @@
   "devDependencies": {
     "@alrra/travis-scripts": "^3.0.1",
     "chai": "^4.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "less": "^3.9.0",
     "less-watch-compiler": "^1.13.0",
     "moment": "^2.24.0",

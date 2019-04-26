@@ -43,7 +43,7 @@ class InstrumentSelector extends PureComponent {
     return <div>
       <ul className="instrument-selector">
         {selectableInstruments.map(({ type, id, machineId }, index) => {
-          return <li><button className="button" onClick={() => {
+          return <li><button className="button select-instrument-button" onClick={() => {
             onChange(id, type, machineId, index);
           }}>{INSTRUMENTS_MAP[type].friendlyName}</button></li>
         })}
