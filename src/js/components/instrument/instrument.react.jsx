@@ -15,7 +15,7 @@ const INSTRUMENTS_MAP = {
   },
   synth: {
     className: "synth",
-    friendlyName: "Synth"
+    friendlyName: "Synth Machine"
   }
 };
 
