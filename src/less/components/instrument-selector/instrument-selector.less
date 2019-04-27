@@ -12,6 +12,17 @@
       text-transform: uppercase;
       padding: 0;
       background: 0;
+      outline: 0;
+      span {
+        transform: translateY(0px);
+        transition: transform 200ms ease;
+      }
+      &:hover,
+      &:focus {
+        span {
+          transform: translateY(-2px);
+        }
+      }
     }
   }
   .add-instrument {
@@ -23,30 +34,33 @@
       clip: rect(0px, 0px, 0px, 0px);
       transition: opacity 300ms, clip 0ms linear 300ms;
       opacity: 0;
+      padding: 0;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #f1f1f1;
+      border-radius: 2px;
+      top: 0;
       &.open {
         clip: rect(0px, 500px, 500px, 0px);
         opacity: 1;
         transition: opacity 300ms, clip 0ms linear 0ms;
       }
     }
+    .add-instrument-button {
+      white-space: nowrap;
+      padding: 9px 15px;
+      width: 100%;
+      text-align: left;
+      outline: 0;
+    }
     li {
-      position: absolute;
-      top: 0;
-      left: 120%;
       list-style: none;
       + li {
         top: 30px;
         left: 114%;
-      }
-    }
-    .add-instrument-button {
-      white-space: nowrap;
-      padding: 5px;
-      background: @white;
-      border: 1px solid @light-grey;
-      border-radius: 3px;
-      &:before {
-        display: none;
+        .add-instrument-button {
+          border-top: 1px solid #f1f1f1;
+        }
       }
     }
   }

@@ -74,7 +74,8 @@ class AddInstrument extends PureComponent {
     const { onNewInstrument } = this.props;
     return <div className="add-instrument">
       <button className="button add-instrument-trigger" onClick={() => this.onToggle()}>
-        Add New
+        <span className="icon__plus"></span>
+        Add New Instrument
       </button>
       <ul className={classnames({ open: this.state.open })}>
         {SELECTABLE_INSTRUMENTS.map(type => 

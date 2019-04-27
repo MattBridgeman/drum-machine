@@ -34,7 +34,7 @@ const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
     <Tray title="Instruments" icon="folder" trigger={({ onOpen }) => 
       <button className="play-bar__instruments__button" onClick={onOpen}>
         <span className="assistive">Instruments</span>
-        <span className="icon icon__folder"></span>
+        <span className="icon icon__icon-instruments"></span>
       </button>
     }>
       { ({ onClose }) => 
