@@ -16,17 +16,11 @@
       span {
         transform: translateY(0px);
         transition: transform 200ms ease, filter 200ms;
-        filter: grayscale(100%);
       }
       &:hover,
       &:focus {
         span {
           transform: translateY(-2px);
-        }
-      }
-      &.selected {
-        span {
-          filter: grayscale(0%);
         }
       }
     }
@@ -81,6 +75,13 @@
     }
     li {
       list-style: none;
+      .button {
+        transition: background-color 300ms;
+        &:hover,
+        &:focus {
+          background-color: @light-grey;
+        }
+      }
     }
   }
 }
