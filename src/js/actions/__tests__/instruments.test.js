@@ -1,12 +1,14 @@
 import { expect } from "chai";
 import {
   changeInstrument,
-  onNewInstrument
+  onNewInstrument,
+  deleteInstrument
 } from "../instruments.actions";
 
 import { 
   ON_NEW_INSTRUMENT,
-  CHANGE_INSTRUMENT
+  CHANGE_INSTRUMENT,
+  DELETE_INSTRUMENT
 } from "../../constants/instruments.constants";
 
 describe("Instruments actions", () => {
@@ -25,6 +27,16 @@ describe("Instruments actions", () => {
       .to.deep.equal({
         type: ON_NEW_INSTRUMENT,
         instrumentType: "drumMachine"
+      });
+  });
+  it("returns a deleteInstrument action", () => {
+    expect(deleteInstrument(1234, "drumMachine", 12345, 0))
+      .to.deep.equal({
+        type: DELETE_INSTRUMENT,
+        id: 1234,
+        instrumentType: "drumMachine",
+        machineId: 12345,
+        index: 0
       });
   });
 });
