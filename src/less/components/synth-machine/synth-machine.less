@@ -4,6 +4,8 @@
   border: 1px solid @grey-transparency;
   display: flex;
   flex-direction: column;
+  max-width: 622px;
+  margin: 0 auto;
   .basic-controls {
     .basic-controls-inner {
       display: flex;
@@ -69,17 +71,6 @@
     }
   }
 }
-
-.break-tablet-portrait({
-  .synth-machine {
-    .oscillator-container {
-      display: flex;
-      .oscillator {
-        flex-grow: 1;
-      }
-    }
-	}
-});
 
 .break-tablet-landscape({
   .synth-machine {
