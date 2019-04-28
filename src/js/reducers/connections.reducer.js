@@ -1,6 +1,6 @@
 import { unique } from "../library/natives/numbers";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
-import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
+import { ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../constants/instruments.constants";
 import { fromJS, Map } from "immutable";
 import { newId } from "../library/utils";
 
@@ -99,6 +99,13 @@ export default function connections(state = initialState, action) {
         }));
       } 
       return $state.toJS();
+    case DELETE_INSTRUMENT:
+      return $state.filter(item => {
+        const from = item.get("from");
+        const to = item.get("to");
+        return !(from.get("machineId") === machineId && from.get("type") === instrumentType) &&
+          !(to.get("machineId") === machineId && to.get("type") === instrumentType);
+      }).toJS();
     default:
       return state;
   }
