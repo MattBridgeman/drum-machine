@@ -41,17 +41,25 @@ class Instrument extends PureComponent {
 
 class InstrumentSelector extends PureComponent {
   render(){
-    const { instruments, onChange, onNewInstrument } = this.props;
+    const { instruments, onChange, onDelete, onNewInstrument } = this.props;
     let selectableInstruments = instruments.filter(({ type }) => SELECTABLE_INSTRUMENTS.includes(type));
     return <div>
       <ul className="instrument-selector">
         {selectableInstruments.map(({ type, id, machineId, selected }, index) => {
-          return <li><button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className, { selected })} onClick={() => {
-            onChange(id, type, machineId, index);
-          }}>
-          
-          <span className={`icon__icon-${INSTRUMENTS_MAP[type].className}`}></span>
-          {INSTRUMENTS_MAP[type].friendlyName}</button></li>
+          return <li>
+            <button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className, { selected })} onClick={() => {
+                onChange(id, type, machineId, index);
+              }}>
+              <span className={`icon__icon-${INSTRUMENTS_MAP[type].className}`}></span>
+              {INSTRUMENTS_MAP[type].friendlyName}
+            </button>
+
+            <button className={classnames("button delete-instrument-button", INSTRUMENTS_MAP[type].className)} onClick={() => {
+              onDelete(id, type, machineId, index);
+            }}>
+              <span className="icon icon__close"></span>
+            </button>
+          </li>
         })}
         <li><AddInstrument onNewInstrument={onNewInstrument} /></li>
       </ul>

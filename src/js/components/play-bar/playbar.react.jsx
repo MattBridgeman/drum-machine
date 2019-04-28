@@ -28,7 +28,7 @@ const PlayBarTempo = ({ beatsPerMinute, onChange }) => {
   </div>
 };
 
-const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
+const InstrumentChanger = ({ instruments, onChange, onDelete, onNewInstrument }) => {
   return <div className="play-bar__instruments">
     <span className="play-bar__label">Instruments</span>
     <Tray title="Instruments" icon="folder" trigger={({ onOpen }) => 
@@ -38,13 +38,19 @@ const InstrumentChanger = ({ instruments, onChange, onNewInstrument }) => {
       </button>
     }>
       { ({ onClose }) => 
-        <InstrumentSelector instruments={instruments} onChange={(id, type, machineId, index) => {
-          onChange(id, type, machineId, index);
-          onClose();
-        }} onNewInstrument={(type) => {
-          onNewInstrument(type);
-          onClose();
-        }} />
+        <InstrumentSelector instruments={instruments}
+          onChange={(id, type, machineId, index) => {
+            onChange(id, type, machineId, index);
+            onClose();
+          }}
+          onDelete={(id, type, machineId, index) => {
+            onDelete(id, type, machineId, index);
+            onClose();
+          }}
+          onNewInstrument={(type) => {
+            onNewInstrument(type);
+            onClose();
+          }} />
       }
     </Tray>
   </div>
@@ -59,7 +65,12 @@ class PlayBar extends PureComponent {
     return <div className="play-bar">
       <PlayBarPlayPause isPlaying={playState.isPlaying} onClick={playStateActions.togglePlayPause} />
       <PlayBarTempo beatsPerMinute={tempo.beatsPerMinute} onChange={tempoActions.changeBPMToAmount} />
-      <InstrumentChanger instruments={instruments} onChange={instrumentsActions.changeInstrument} onNewInstrument={instrumentsActions.onNewInstrument} />
+      <InstrumentChanger
+        instruments={instruments}
+        onChange={instrumentsActions.changeInstrument}
+        onDelete={instrumentsActions.deleteInstrument}
+        onNewInstrument={instrumentsActions.onNewInstrument}
+      />
     </div>;
   }
 };

@@ -6,6 +6,7 @@
   > li {
     width: 60px;
     padding: 0 6px;
+    position: relative;
     .button {
       border: 0 none;
       font-size: 10px;
@@ -21,6 +22,27 @@
       &:focus {
         span {
           transform: translateY(-2px);
+        }
+      }
+    }
+    .delete-instrument-button {
+      position: absolute;
+      background: @dark-grey;
+      top: -2px;
+      border-radius: 50%;
+      height: 19px;
+      width: 19px;
+      right: -2px;
+      border: 2px solid @white;
+      span {
+        height: 15px;
+        width: 15px;
+        margin: 0;
+      }
+      &:hover,
+      &:focus {
+        span {
+          transform: none;
         }
       }
     }
