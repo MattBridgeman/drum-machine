@@ -17,7 +17,8 @@ import {
 	LOAD_DEFAULT_TRACK,
 	NEW_TRACK_LOADED
 } from "../constants/track.constants";
-import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
+import { ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../constants/instruments.constants";
+import { fromJS } from "immutable";
 
 const initialState = {};
 
@@ -194,6 +195,8 @@ const defaultState = {
 };
 
 export default function drumMachine(state = initialState, action) {
+	const $state = fromJS(state);
+	const { instrumentType, machineId, id } = action;
 	switch (action.type) {
 		case CHANGE_VOLUME_TO_AMOUNT:
 			return {
@@ -362,11 +365,16 @@ export default function drumMachine(state = initialState, action) {
 		case NEW_TRACK_LOADED:
 			return action.drumMachine;
 		case ON_NEW_INSTRUMENT:
-			if(action.instrumentType === "drumMachine"){
+			if(action.instrumentType === "drumMachine") {
 				return {
 					...state,
 					[action.machineId]: defaultMachine
 				}
+			}
+			return state;
+		case DELETE_INSTRUMENT:
+			if(instrumentType === "drumMachine") {
+				return $state.delete(machineId.toString()).toJS();
 			}
 			return state;
 		default:
