@@ -27,8 +27,6 @@ let defaultState = [{
   selected: false
 }];
 
-let uniqueGenerator = unique();
-
 export default function instruments(state = initialState, action) {
   let { id, instrumentType, machineId } = action;
   let $state = fromJS(state);
