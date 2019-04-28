@@ -103,7 +103,28 @@ describe("Connections reducer", () => {
     });
     expect(nextState).to.deep.equal(_connections);
   });
-  it("removed connection from the instrument", () => {
+  it("adds connection from synth to master", () => {
+    let _connections = [{
+      id: 0,
+      from: {
+        machineId: 1,
+        type: "synth",
+        nodePath: "outputs/main"
+      },
+      to: {
+        machineId: 0,
+        type: "master",
+        nodePath: "inputs/main"
+      }
+    }];
+    let nextState = connections([], {
+      type: ON_NEW_INSTRUMENT,
+      instrumentType: "synth",
+      machineId: 1
+    });
+    expect(nextState).to.deep.equal(_connections);
+  });
+  it("removes connection from the instrument", () => {
     let _connections = [{
       id: 0,
       from: {
@@ -135,5 +156,47 @@ describe("Connections reducer", () => {
       machineId: 0
     });
     expect(nextState).to.deep.equal([]);
+  });
+  it("removes connection from the synth", () => {
+    let _connections = [{
+      id: 0,
+      from: {
+        machineId: 0,
+        type: "synth",
+        nodePath: "outputs/main"
+      },
+      to: {
+        machineId: 0,
+        type: "master",
+        nodePath: "inputs/main"
+      }
+    }];
+    let nextState = connections(_connections, {
+      type: DELETE_INSTRUMENT,
+      instrumentType: "synth",
+      machineId: 0
+    });
+    expect(nextState).to.deep.equal([]);
+  });
+  it("leaves connection not related to removal", () => {
+    let _connections = [{
+      id: 0,
+      from: {
+        machineId: 0,
+        type: "synth",
+        nodePath: "outputs/main"
+      },
+      to: {
+        machineId: 0,
+        type: "master",
+        nodePath: "inputs/main"
+      }
+    }];
+    let nextState = connections(_connections, {
+      type: DELETE_INSTRUMENT,
+      instrumentType: "drumMachine",
+      machineId: 0
+    });
+    expect(nextState).to.deep.equal(_connections);
   });
 });
