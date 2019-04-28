@@ -5,7 +5,7 @@ import {
   LOAD_DEFAULT_TRACK,
   NEW_TRACK_LOADED
 } from "../../constants/track.constants";
-import { ON_NEW_INSTRUMENT } from "../../constants/instruments.constants";
+import { ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../../constants/instruments.constants";
 
 describe("Connections reducer", () => {
 	it("returns the default connections state", () => {
@@ -102,5 +102,38 @@ describe("Connections reducer", () => {
       machineId: 0
     });
     expect(nextState).to.deep.equal(_connections);
+  });
+  it("removed connection from the instrument", () => {
+    let _connections = [{
+      id: 0,
+      from: {
+        machineId: 0,
+        type: "drumMachine",
+        nodePath: "outputs/main"
+      },
+      to: {
+        machineId: 0,
+        type: "master",
+        nodePath: "inputs/main"
+      }
+    }, {
+      id: 1,
+      from: {
+        machineId: 0,
+        type: "drumMachine",
+        nodePath: "outputs/send1"
+      },
+      to: {
+        machineId: 0,
+        type: "reverb",
+        nodePath: "inputs/main"
+      }
+    }];
+    let nextState = connections(_connections, {
+      type: DELETE_INSTRUMENT,
+      instrumentType: "drumMachine",
+      machineId: 0
+    });
+    expect(nextState).to.deep.equal([]);
   });
 });
