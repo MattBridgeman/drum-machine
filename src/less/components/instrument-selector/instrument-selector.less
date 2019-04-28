@@ -15,12 +15,18 @@
       outline: 0;
       span {
         transform: translateY(0px);
-        transition: transform 200ms ease;
+        transition: transform 200ms ease, filter 200ms;
+        filter: grayscale(100%);
       }
       &:hover,
       &:focus {
         span {
           transform: translateY(-2px);
+        }
+      }
+      &.selected {
+        span {
+          filter: grayscale(0%);
         }
       }
     }
@@ -36,14 +42,32 @@
       opacity: 0;
       padding: 0;
       position: absolute;
-      background: #fff;
-      border: 1px solid #f1f1f1;
+      background: @white;
+      border: 1px solid @grey;
       border-radius: 2px;
-      top: 0;
+      top: 120%;
+      right: -10px;
       &.open {
-        clip: rect(0px, 500px, 500px, 0px);
+        clip: rect(-11px, 500px, 500px, -11px);
         opacity: 1;
         transition: opacity 300ms, clip 0ms linear 0ms;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 13px;
+        top: -11px;
+        .arrow-up(10px, @grey);
+      }
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 13px;
+        top: -10px;
+        .arrow-up(10px);
       }
     }
     .add-instrument-button {
@@ -52,16 +76,11 @@
       width: 100%;
       text-align: left;
       outline: 0;
+      text-transform: none;
+      font-size: 16px;
     }
     li {
       list-style: none;
-      + li {
-        top: 30px;
-        left: 114%;
-        .add-instrument-button {
-          border-top: 1px solid #f1f1f1;
-        }
-      }
     }
   }
 }

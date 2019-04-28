@@ -45,8 +45,8 @@ class InstrumentSelector extends PureComponent {
     let selectableInstruments = instruments.filter(({ type }) => SELECTABLE_INSTRUMENTS.includes(type));
     return <div>
       <ul className="instrument-selector">
-        {selectableInstruments.map(({ type, id, machineId }, index) => {
-          return <li><button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className)} onClick={() => {
+        {selectableInstruments.map(({ type, id, machineId, selected }, index) => {
+          return <li><button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className, { selected })} onClick={() => {
             onChange(id, type, machineId, index);
           }}>
           
