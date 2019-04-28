@@ -19,8 +19,9 @@ import {
 	LOAD_DEFAULT_TRACK,
 	NEW_TRACK_LOADED
 } from "../../constants/track.constants";
+import { ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../../constants/instruments.constants";
 
-describe("Drum Machine reducer", function() {
+describe("Drum Machine reducer", () => {
 	function getInitialState(){
 		return {
 			0: {
@@ -71,7 +72,7 @@ describe("Drum Machine reducer", function() {
 		};
 	}
 
-	it("Expect volume value to change to amount", function() {
+	it("Expect volume value to change to amount", () => {
 		const channelId = 0;
 		const machineId = 0;
 		const value = 20;
@@ -90,7 +91,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].volume).to.equal(20);
 	});
 
-	it("Expect pitch value to change to amount", function() {
+	it("Expect pitch value to change to amount", () => {
 		const channelId = 0;
 		const machineId = 0;
 		const value = 20;
@@ -109,7 +110,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].pitch).to.equal(20);
 	});
 
-	it("Expect decay value to change to amount", function() {
+	it("Expect decay value to change to amount", () => {
 		const channelId = 0;
 		const machineId = 0;
 		const value = 20;
@@ -128,7 +129,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].decay).to.equal(20);
 	});
 
-	it("Expect pan value to change to amount", function() {
+	it("Expect pan value to change to amount", () => {
 		const channelId = 0;
 		const machineId = 0;
 		const value = 20;
@@ -147,7 +148,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].pan).to.equal(20);
 	});
 
-	it("Expect reverb value to toggle from true to false", function() {
+	it("Expect reverb value to toggle from true to false", () => {
 		const channelId = 0;
 		const machineId = 0;
 		const initialState = getInitialState();
@@ -164,7 +165,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].reverb).to.equal(false);
 	});
 	
-	it("Expect reverb value to toggle from false to true", function() {
+	it("Expect reverb value to toggle from false to true", () => {
 		const channelId = 1;
 		const machineId = 0;
 		const initialState = getInitialState();
@@ -181,7 +182,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].reverb).to.equal(true);
 	});
 	
-	it("Expect selected channel to change", function() {
+	it("Expect selected channel to change", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -198,7 +199,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels["1"].selected).to.equal(true);
 	});
 
-	it("Expect unsolo'd channel to be solo'd", function() {
+	it("Expect unsolo'd channel to be solo'd", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -215,7 +216,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels["1"].solo).to.equal(true);
 	});
 
-	it("Expect solo'd channel to be unsolo'd", function() {
+	it("Expect solo'd channel to be unsolo'd", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -232,7 +233,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels["1"].solo).to.equal(false);
 	});
 	
-	it("Expect unmuted channel to be muted", function() {
+	it("Expect unmuted channel to be muted", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -249,7 +250,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels["1"].mute).to.equal(true);
 	});
 
-	it("Expect muted channel to be unmuted", function() {
+	it("Expect muted channel to be unmuted", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -266,7 +267,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels["1"].mute).to.equal(false);
 	});
 
-	it("toggles the beat for the 0 pattern bank", function() {
+	it("toggles the beat for the 0 pattern bank", () => {
 		const machineId = 0;
 		const channelId = 1;
 		const bankId = 4;
@@ -288,7 +289,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].channels[channelId].patterns[bankId][index]).to.equal(1);
 	});
 
-	it("changes the current bank index to the new index", function() {
+	it("changes the current bank index to the new index", () => {
 		const machineId = 0;
 		const bankId = 4;
 		const initialState = getInitialState();
@@ -305,7 +306,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].currentBankIndex).to.equal(bankId);
 	});
 
-	it("Expect swing to change to set amount", function() {
+	it("Expect swing to change to set amount", () => {
 		const machineId = 0;
 		const initialState = getInitialState();
 
@@ -321,7 +322,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[machineId].swing).to.equal(55);
 	});
 
-	it("clears the drum machine state on new track", function() {
+	it("clears the drum machine state on new track", () => {
 		const initialState = getInitialState();
 
 		const action = {
@@ -333,7 +334,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState).to.deep.equal({});
 	});
 
-	it("loads the default track state", function() {
+	it("loads the default track state", () => {
 		const initialState = getInitialState();
 
 		const action = {
@@ -346,7 +347,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState[0].swing).to.equal(0);
 	});
 
-	it("loads the new track loaded state", function() {
+	it("loads the new track loaded state", () => {
 		const _drumMachine = {
 			0: {
 				currentBankIndex: 0,
@@ -364,7 +365,7 @@ describe("Drum Machine reducer", function() {
 		expect(nextState).to.deep.equal(_drumMachine);
 	});
 	
-	it("changes the selected sound", function() {
+	it("changes the selected sound", () => {
 		const initialState = getInitialState();
 
 		const action = {
@@ -378,5 +379,48 @@ describe("Drum Machine reducer", function() {
 
 		expect(nextState[0].channels[0].sound).to.deep.equal(1234);
 		expect(nextState[0].channels[1].sound).to.deep.equal(1);
+	});
+	
+	it("adds new drum machine", () => {
+
+		const action = {
+			type: ON_NEW_INSTRUMENT,
+			instrumentType: "drumMachine",
+			machineId: 1
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState[1]).to.exist;
+	});
+	
+	it("does nothing if machine is not drum machine", () => {
+
+		const action = {
+			type: ON_NEW_INSTRUMENT,
+			instrumentType: "synth",
+			machineId: 1
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState).to.deep.equal({});
+	});
+	
+	it("deletes drum machine", () => {
+
+		const action = {
+			type: DELETE_INSTRUMENT,
+			instrumentType: "drumMachine",
+			machineId: 0
+		};
+
+		const nextState = drumMachine({
+			0: {
+				channels: []
+			}
+		}, action);
+
+		expect(nextState).to.deep.equal({});
 	});
 });
