@@ -1,6 +1,6 @@
 import { unique } from "../library/natives/numbers";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../constants/track.constants";
-import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
+import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../constants/instruments.constants";
 import { Map, fromJS } from "immutable";
 
 let initialState = [];
@@ -56,6 +56,9 @@ export default function instruments(state = initialState, action) {
           machineId,
           selected: true
         })).toJS();
+    case DELETE_INSTRUMENT:
+      return $state
+        .filter(item => item.get("id") !== id).toJS();
     default:
       return state;
   }
