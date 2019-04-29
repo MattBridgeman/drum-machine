@@ -1,4 +1,4 @@
-import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../constants/instruments.constants";
+import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT, DELETE_INSTRUMENT, CHANGE_INSTRUMENT_NAME } from "../constants/instruments.constants";
 
 export const changeInstrument = (id, type, machineId, index) => {
   return {
@@ -24,5 +24,14 @@ export const deleteInstrument = (id, type, machineId, index) => {
     instrumentType: type,
     machineId,
     index
+  }
+};
+
+export const changeInstrumentName = (id, name) => {
+  console.log("CHANGE_INSTRUMENT_NAME", id, name)
+  return {
+    type: CHANGE_INSTRUMENT_NAME,
+    id,
+    name
   }
 };
