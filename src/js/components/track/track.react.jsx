@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { Instrument } from "../instrument/instrument.react.jsx";
+import { InstrumentTitle } from "../instrument-title/instrument.title.react.jsx";
 import { PlayBar } from "../play-bar/playbar.react.jsx";
 
 class Track extends PureComponent {
@@ -8,6 +9,7 @@ class Track extends PureComponent {
     return <div>
       <PlayBar {...props} />
       <div className="container">
+        <InstrumentTitle {...props} />
         <Instrument {...props} />
       </div>
     </div>;
