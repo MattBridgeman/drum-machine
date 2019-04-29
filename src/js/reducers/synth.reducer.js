@@ -8,7 +8,7 @@ import {
 	LOAD_DEFAULT_TRACK,
 	NEW_TRACK_LOADED
 } from "../constants/track.constants";
-import { ON_NEW_INSTRUMENT } from "../constants/instruments.constants";
+import { ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../constants/instruments.constants";
 
 let initialState = {};
 
@@ -127,9 +127,13 @@ export default function synth(state = defaultState, action){
       if(action.instrumentType === "synth"){
         return $state.set(machineId, defaultSynth).toJS();
       }
-    return state;
+      return state;
+    case DELETE_INSTRUMENT:
+      if(action.instrumentType === "synth"){
+				return $state.delete(machineId.toString()).toJS();
+      }
+      return state;
     default:
       return state;
   }
-  return state;
 };

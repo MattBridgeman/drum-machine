@@ -1,6 +1,9 @@
 import { expect } from "chai";
 import synth from "../synth.reducer";
 import { changeSynthParam } from "../../actions/synth.actions";
+import { deleteInstrument, onNewInstrument } from "../../actions/instruments.actions";
+import { ON_NEW_INSTRUMENT } from "../../constants/instruments.constants";
+import { LOAD_DEFAULT_TRACK, NEW_TRACK_LOADING, NEW_TRACK_LOADED } from "../../constants/track.constants";
 
 describe("Synth reducer", () => {
   it("returns default synth state", () => {
@@ -100,9 +103,109 @@ describe("Synth reducer", () => {
     let state = synth(undefined, action);
     expect(state[0].envelopes.filter.attack).to.equal(13);
   });
+  it("changes the pattern item", () => {
+    let action = changeSynthParam(0, "pattern-item", "0.0", 1);
+    let state = synth({
+      0: {
+        banks: {
+          0: [-1]
+        }
+      }
+    }, action);
+    expect(state[0].banks[0][0]).to.equal(1);
+  });
   it("doesn't change a random param", () => {
     let action = changeSynthParam(0, "random", "attack", 13);
     let state = synth(undefined, action);
     expect(state[0].envelopes.filter.attack).to.equal(0);
+  });
+  it("loads initial track state", () => {
+    let action = {
+      type: NEW_TRACK_LOADING
+    };
+    let state = synth(undefined, action);
+    expect(state).to.deep.equal({});
+  });
+  it("loads state from track", () => {
+    let _synth = {};
+    let action = {
+      type: NEW_TRACK_LOADED,
+      synth: _synth
+    };
+    let state = synth(undefined, action);
+    expect(state).to.equal(action.synth);
+  });
+  it("loads default state if no synth in track", () => {
+    let action = {
+      type: NEW_TRACK_LOADED
+    };
+    let state = synth(undefined, action);
+    expect(state).to.be.an("object");
+  });
+  it("loads default track state", () => {
+    let action = {
+      type: LOAD_DEFAULT_TRACK
+    };
+    let state = synth(undefined, action);
+    expect(state).to.be.an("object");
+  });
+  it("deletes the synth", () => {
+    let action = {
+      type: ON_NEW_INSTRUMENT,
+      machineId: 1,
+      instrumentType: "synth"
+    };
+    let state = synth({
+      0: {
+        volume: 50,
+        pan: 50,
+        currentBankIndex: 0
+      }
+    }, action);
+    expect(state[1]).to.be.an("object");
+  });
+  it("does nothing if not a synth", () => {
+    let action = {
+      type: ON_NEW_INSTRUMENT,
+      machineId: 1,
+      instrumentType: "drumMachine"
+    };
+    let _synth = {
+      0: {
+        volume: 50,
+        pan: 50,
+        currentBankIndex: 0
+      }
+    };
+    let state = synth(_synth, action);
+    expect(state).to.equal(_synth);
+  });
+  it("deletes the synth", () => {
+    let action = deleteInstrument(1, "synth", 0, 0);
+    let state = synth({
+      0: {
+        volume: 50,
+        pan: 50,
+        currentBankIndex: 0
+      }
+    }, action);
+    expect(state).to.deep.equal({});
+  });
+  it("does nothing if not a synth", () => {
+    let action = deleteInstrument(1, "drumMachine", 0, 0);
+    let state = synth({
+      0: {
+        volume: 50,
+        pan: 50,
+        currentBankIndex: 0
+      }
+    }, action);
+    expect(state).to.deep.equal({
+      0: {
+        volume: 50,
+        pan: 50,
+        currentBankIndex: 0
+      }
+    });
   });
 });
