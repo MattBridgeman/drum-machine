@@ -28,7 +28,6 @@ export const deleteInstrument = (id, type, machineId, index) => {
 };
 
 export const changeInstrumentName = (id, name) => {
-  console.log("CHANGE_INSTRUMENT_NAME", id, name)
   return {
     type: CHANGE_INSTRUMENT_NAME,
     id,
