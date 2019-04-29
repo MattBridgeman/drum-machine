@@ -72,6 +72,28 @@ describe("Drum Machine reducer", () => {
 		};
 	}
 
+	it("Does nothing if not an action related to the drum machine", () => {
+
+		const action = {
+			type: "RANDOM_ACTION"
+		};
+
+		const nextState = drumMachine({}, action);
+
+		expect(nextState).to.deep.equal({});
+	});
+
+	it("returns default state if no state given", () => {
+
+		const action = {
+			type: "RANDOM_ACTION"
+		};
+
+		const nextState = drumMachine(undefined, action);
+
+		expect(nextState).to.be.an("object");
+	});
+
 	it("Expect volume value to change to amount", () => {
 		const channelId = 0;
 		const machineId = 0;
@@ -422,5 +444,24 @@ describe("Drum Machine reducer", () => {
 		}, action);
 
 		expect(nextState).to.deep.equal({});
+	});
+	
+	it("does not delete if not drum machine", () => {
+
+		const action = {
+			type: DELETE_INSTRUMENT,
+			instrumentType: "synth",
+			machineId: 0
+		};
+
+		const _drumMachine = {
+			0: {
+				channels: []
+			}
+		};
+
+		const nextState = drumMachine(_drumMachine, action);
+
+		expect(nextState).to.deep.equal(_drumMachine);
 	});
 });
