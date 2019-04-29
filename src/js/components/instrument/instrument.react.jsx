@@ -2,22 +2,7 @@ import React, { PureComponent } from "react";
 import { DrumMachine } from "../drum-machine/drum.machine.react.jsx";
 import { Synth } from "../synth/synth.react.jsx";
 import classnames from "classnames";
-
-const SELECTABLE_INSTRUMENTS = [
-  "drumMachine",
-  "synth"
-];
-
-const INSTRUMENTS_MAP = {
-  drumMachine: {
-    className: "drum-machine",
-    friendlyName: "Drum Machine"
-  },
-  synth: {
-    className: "synth",
-    friendlyName: "Synth Machine"
-  }
-};
+import { SELECTABLE_INSTRUMENTS, INSTRUMENTS_MAP } from "../../constants/instruments.constants.js";
 
 class Instrument extends PureComponent {
   render(){
