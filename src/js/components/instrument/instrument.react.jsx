@@ -31,7 +31,7 @@ class InstrumentSelector extends PureComponent {
     return <div>
       <ul className="instrument-selector">
         {selectableInstruments.map(({ type, id, machineId, selected, name }, index) => {
-          return <li>
+          return <li key={id}>
             <button className={classnames("button select-instrument-button", INSTRUMENTS_MAP[type].className, { selected })} onClick={() => {
                 onChange(id, type, machineId, index);
               }}>
@@ -71,8 +71,8 @@ class AddInstrument extends PureComponent {
         Add New Instrument
       </button>
       <ul className={classnames({ open: this.state.open })}>
-        {SELECTABLE_INSTRUMENTS.map(type => 
-          <li><button className="button add-instrument-button" onClick={() => {
+        {SELECTABLE_INSTRUMENTS.map((type, index) => 
+          <li key={index}><button className="button add-instrument-button" onClick={() => {
             this.onToggle();
             onNewInstrument(type);
           }}>Add {INSTRUMENTS_MAP[type].friendlyName}</button></li>

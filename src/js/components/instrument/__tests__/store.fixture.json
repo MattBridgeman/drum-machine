@@ -1,4 +1,10 @@
 {
+  "playState": {
+    "isPlaying": false
+  },
+  "tempo": {
+    "beatsPerMinute": 123
+  },
   "drumMachine": {
     "0": {
       "currentBankIndex": 0,
@@ -81,6 +87,18 @@
       "banks": {
         "0": [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
       }
+    }
+  },
+  "reverb": {
+    "0": {
+
+    }
+  },
+  "librarySounds": {
+    "0": {
+      "name": "Bass Drum",
+      "shortName": "BD",
+      "path": "http://localhost:3000/foo"
     }
   },
   "instruments": [{
