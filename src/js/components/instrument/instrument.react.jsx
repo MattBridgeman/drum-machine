@@ -82,4 +82,4 @@ class AddInstrument extends PureComponent {
   }
 };
 
-export { Instrument, InstrumentSelector };
+export { Instrument, InstrumentSelector, AddInstrument };
