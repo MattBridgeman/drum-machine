@@ -2,13 +2,15 @@ import { expect } from "chai";
 import {
   changeInstrument,
   onNewInstrument,
-  deleteInstrument
+  deleteInstrument,
+  changeInstrumentName
 } from "../instruments.actions";
 
 import { 
   ON_NEW_INSTRUMENT,
   CHANGE_INSTRUMENT,
-  DELETE_INSTRUMENT
+  DELETE_INSTRUMENT,
+  CHANGE_INSTRUMENT_NAME
 } from "../../constants/instruments.constants";
 
 describe("Instruments actions", () => {
@@ -37,6 +39,14 @@ describe("Instruments actions", () => {
         instrumentType: "drumMachine",
         machineId: 12345,
         index: 0
+      });
+  });
+  it("returns a changeInstrumentName action", () => {
+    expect(changeInstrumentName(1234, "test name"))
+      .to.deep.equal({
+        type: CHANGE_INSTRUMENT_NAME,
+        id: 1234,
+        name: "test name"
       });
   });
 });
