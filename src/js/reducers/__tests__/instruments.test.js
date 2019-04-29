@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import instruments from "../instruments.reducer";
 import { NEW_TRACK_LOADING, LOAD_DEFAULT_TRACK, NEW_TRACK_LOADED } from "../../constants/track.constants";
-import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT, DELETE_INSTRUMENT } from "../../constants/instruments.constants";
+import { CHANGE_INSTRUMENT, ON_NEW_INSTRUMENT, DELETE_INSTRUMENT, CHANGE_INSTRUMENT_NAME } from "../../constants/instruments.constants";
 
 describe("Instrument reducer", () => {
 	it("returns the default state", () => {
@@ -147,5 +147,25 @@ describe("Instrument reducer", () => {
       machineId: 0,
       selected: true
     }]);
+  });
+  
+  it("changes instrument name", () => {
+    let _instruments = [{
+      id: 0,
+      name: "test name"
+    },{
+      id: 1
+    }];
+
+    let state = instruments(_instruments, {
+      type: CHANGE_INSTRUMENT_NAME,
+      id: 1,
+      name: "another name"
+    });
+    
+    expect(state[1]).to.deep.equal({
+      id: 1,
+      name: "another name"
+    });
   });
 });
