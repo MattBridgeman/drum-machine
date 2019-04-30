@@ -134,5 +134,6 @@ export {
   GridAxisItem,
   Grid,
   GridRow,
+  GridScroll,
   GridItem
 };
