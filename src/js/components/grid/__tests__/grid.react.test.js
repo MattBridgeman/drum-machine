@@ -108,6 +108,10 @@ describe("GridContainer", () => {
   beforeEach(() => {
     td.replace(window, "addEventListener");
     td.replace(window, "removeEventListener");
+    td.replace(Element.prototype, "getBoundingClientRect");
+  });
+  afterEach(() => {
+    td.reset();
   });
 	it("renders a grid container and calls resize event listener", () => {
     const wrapper = mount(<GridContainer
@@ -133,5 +137,25 @@ describe("GridContainer", () => {
     </GridContainer>);
     wrapper.unmount();
     td.verify(window.removeEventListener("resize", td.matchers.anything()));
+  });
+	it("calls onValueChange of y axis", () => {
+    td.when(Element.prototype.getBoundingClientRect())
+      .thenReturn({
+        width: 110,
+        height: 110
+      });
+    const wrapper = mount(<GridContainer
+      columns={2}
+      rows={2}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridContainer>);
+    const $fader = wrapper.find("#grid-container-scroll-x").at(0);
+    $fader.props().onValueChange(1);
+    const state = wrapper.state();
+    expect(state.max).to.deep.equal({ columns: 0, rows: 0 });
+    expect(state.offset).to.deep.equal({ column: 1, row: 0 });
   });
 });
