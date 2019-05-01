@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { GridAxis, GridAxisItem, Grid, GridRow, GridItem, GridScroll, GridContainer } from "../grid.react";
 import React from "react";
 import { mount } from "enzyme";
+import td from "testdouble";
 
 describe("GridAxis", () => {
 	it("renders 2 child items for GridAxis x", () => {
@@ -104,7 +105,11 @@ describe("GridScroll", () => {
 });
 
 describe("GridContainer", () => {
-	it("renders a grid container", () => {
+  beforeEach(() => {
+    td.replace(window, "addEventListener");
+    td.replace(window, "removeEventListener");
+  });
+	it("renders a grid container and calls resize event listener", () => {
     const wrapper = mount(<GridContainer
       columns={2}
       rows={2}>
@@ -115,5 +120,18 @@ describe("GridContainer", () => {
     </GridContainer>);
     expect(wrapper.exists("#grid-container-scroll-x")).to.equal(true);
     expect(wrapper.exists("#grid-container-scroll-y")).to.equal(true);
+    td.verify(window.addEventListener("resize", td.matchers.anything()));
+  });
+	it("calls remove resize event listener", () => {
+    const wrapper = mount(<GridContainer
+      columns={2}
+      rows={2}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridContainer>);
+    wrapper.unmount();
+    td.verify(window.removeEventListener("resize", td.matchers.anything()));
   });
 });
