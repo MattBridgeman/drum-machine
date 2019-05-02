@@ -6,7 +6,7 @@ import td from "testdouble";
 
 describe("InstrumentTitle", () => {
   const dispatchSpy = td.function();
-  it("renders the tray", () => {
+  it("renders the Title", () => {
     const wrapper = mount(<InstrumentTitle
       instruments={[
         {
@@ -18,5 +18,17 @@ describe("InstrumentTitle", () => {
       dispatch={dispatchSpy}
     ></InstrumentTitle>);
     expect(wrapper.exists(".instrument-title")).to.be.true;
+  });
+  it("doesn't render title if no selected instrument", () => {
+    const wrapper = mount(<InstrumentTitle
+      instruments={[
+        {
+          id: 0,
+          type: "drumMachine"
+        }
+      ]}
+      dispatch={dispatchSpy}
+    ></InstrumentTitle>);
+    expect(wrapper.exists(".instrument-title")).to.be.false;
   });
 });
