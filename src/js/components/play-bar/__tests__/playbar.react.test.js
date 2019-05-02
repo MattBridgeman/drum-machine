@@ -5,9 +5,7 @@ import { mount } from "enzyme";
 import td from "testdouble";
 import DrumMachineActions from "../../../actions/root.actions";
 
-import storeState from "../../../library/test-helpers/fixtures/store.fixture.json";
-
-describe("Channels", () => {
+describe("PlayBar", () => {
   const dispatchSpy = td.function();
   beforeEach(() => {
     td.replace(DrumMachineActions.playState, "togglePlayPause");

@@ -3,12 +3,8 @@ import { Maybe } from "../maybe/maybe.react.jsx";
 import classnames from "classnames";
 
 class Tray extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    }
+  state = {
+    open: false
   }
   
   onOpen() {
@@ -33,7 +29,7 @@ class Tray extends Component {
           </button>
         </Maybe>
         <Maybe condition={props.trigger}>
-          {props.trigger({
+          {props.trigger && props.trigger({
             onOpen: () => this.onOpen()
           })}
         </Maybe>
