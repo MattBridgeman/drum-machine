@@ -66,6 +66,16 @@ describe("GridRow", () => {
     </GridRow>);
     expect(wrapper.find(".grid-row-x div").length).to.equal(2);
   });
+	it("renders all child items with no props", () => {
+    const wrapper = mount(<GridRow
+      type="x">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridRow>);
+    expect(wrapper.find(".grid-row-x div").length).to.equal(4);
+  });
 });
 
 describe("GridAxisItem", () => {

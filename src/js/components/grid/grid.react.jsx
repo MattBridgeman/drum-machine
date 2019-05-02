@@ -112,7 +112,7 @@ let Grid = props => {
 };
 
 let GridRow = props => {
-  let { children, type, max: { columns = 0 }, offset: { column = 0 } } = props;
+  let { children, type, max: { columns = 0 } = {}, offset: { column = 0 } = {} } = props;
   return <div className={classnames("grid-row", { [`grid-row-${type}`]: type })}>{
     columns ? children.filter((child, i) => i >= column && i < columns + column) : children
   }</div>;
