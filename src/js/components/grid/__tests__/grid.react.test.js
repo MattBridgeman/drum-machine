@@ -109,6 +109,12 @@ describe("GridContainer", () => {
     td.replace(window, "addEventListener");
     td.replace(window, "removeEventListener");
     td.replace(Element.prototype, "getBoundingClientRect");
+
+    td.when(Element.prototype.getBoundingClientRect())
+      .thenReturn({
+        width: 110,
+        height: 110
+      });
   });
   afterEach(() => {
     td.reset();
@@ -138,12 +144,7 @@ describe("GridContainer", () => {
     wrapper.unmount();
     td.verify(window.removeEventListener("resize", td.matchers.anything()));
   });
-	it("calls onValueChange of y axis", () => {
-    td.when(Element.prototype.getBoundingClientRect())
-      .thenReturn({
-        width: 110,
-        height: 110
-      });
+	it("calls onValueChange of x axis", () => {
     const wrapper = mount(<GridContainer
       columns={2}
       rows={2}>
@@ -155,7 +156,22 @@ describe("GridContainer", () => {
     const $fader = wrapper.find("#grid-container-scroll-x").at(0);
     $fader.props().onValueChange(1);
     const state = wrapper.state();
-    expect(state.max).to.deep.equal({ columns: 0, rows: 0 });
+    expect(state.max).to.deep.equal({ columns: 1, rows: 1 });
     expect(state.offset).to.deep.equal({ column: 1, row: 0 });
+  });
+	it("calls onValueChange of y axis", () => {
+    const wrapper = mount(<GridContainer
+      columns={2}
+      rows={2}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridContainer>);
+    const $fader = wrapper.find("#grid-container-scroll-y").at(0);
+    $fader.props().onValueChange(1);
+    const state = wrapper.state();
+    expect(state.max).to.deep.equal({ columns: 1, rows: 1 });
+    expect(state.offset).to.deep.equal({ column: 0, row: 1 });
   });
 });
