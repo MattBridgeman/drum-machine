@@ -4,12 +4,11 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { MIN_BEATS_PER_MINUTE, MAX_BEATS_PER_MINUTE } from "../../constants/tempo.constants";
 import { Slider } from "../slider/slider.react";
-import { Modal } from "../modal/modal.react";
 import { InstrumentSelector } from "../instrument/instrument.react";
 import { Tray } from "../tray/tray.react";
 
 const PlayBarPlayPause = ({ isPlaying, onClick }) => {
-  return <button class="play-bar__play-pause" onClick={onClick}>
+  return <button className="play-bar__play-pause" onClick={onClick}>
     <Maybe condition={isPlaying}>
       <span className="play-bar__label">Pause</span>
       <span className="icon icon__pause-light"></span>
