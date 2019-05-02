@@ -37,6 +37,16 @@ describe("GridAxis", () => {
     </GridAxis>);
     expect(wrapper.find(".grid-axis div").length).to.equal(2);
   });
+	it("renders all children if no columns or rows", () => {
+    const wrapper = mount(<GridAxis
+      type="y">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridAxis>);
+    expect(wrapper.find(".grid-axis div").length).to.equal(4);
+  });
 });
 
 describe("GridRow", () => {

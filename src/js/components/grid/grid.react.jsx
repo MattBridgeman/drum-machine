@@ -80,7 +80,7 @@ class GridContainer extends PureComponent {
 };
 
 let GridAxis = props => {
-  let { children, type, max: { columns = 0, rows = 0 }, offset: { column = 0, row = 0 } } = props;
+  let { children, type, max: { columns = 0, rows = 0 } = {}, offset: { column = 0, row = 0 } = {} } = props;
   return <div className={classnames("grid-axis", { [`grid-axis-${type}`]: type })}>{
     columns || rows ? children.filter((child, i) => 
       type === "x" ?
@@ -96,7 +96,7 @@ let GridAxisItem = props => {
 };
 
 let Grid = props => {
-  let { children, max, max: { rows = 0 }, offset, offset: { row = 0 } } = props;
+  let { children, max, max: { rows = 0 } = {}, offset, offset: { row = 0 } = {} } = props;
   return <div className="grid">{
     Children.map(children, (child, i) => {
       if(rows && i >= row && i < rows + row) {
