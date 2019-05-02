@@ -6,6 +6,9 @@ import td from "testdouble";
 
 describe("InstrumentTitle", () => {
   const dispatchSpy = td.function();
+  beforeEach(() => {
+    td.replace(DrumMachineActions.instruments, "changeInstrumentName");
+  })
   it("renders the Title", () => {
     const wrapper = mount(<InstrumentTitle
       instruments={[
