@@ -11,6 +11,9 @@ describe("Channels", () => {
   const dispatchSpy = td.function();
   beforeEach(() => {
     td.replace(DrumMachineActions.drumMachine, "changeSelectedSound");
+    td.replace(DrumMachineActions.drumMachine, "changeSelectedChannel");
+    td.replace(DrumMachineActions.drumMachine, "toggleMuteChannel");
+    td.replace(DrumMachineActions.drumMachine, "toggleSoloChannel");
     td.replace(DrumMachineActions.drumMachine, "changeVolumeToAmount");
     td.replace(DrumMachineActions.drumMachine, "changePitchToAmount");
     td.replace(DrumMachineActions.drumMachine, "changeDecayToAmount");
@@ -40,6 +43,39 @@ describe("Channels", () => {
     SoundSelector.props().onSoundChange("1234");
     td.verify(DrumMachineActions.drumMachine.changeSelectedSound("0", 0, "1234"));
   });
+	it("calls changeSelectedChannel correctly on ToggleButton click", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const ToggleButton = wrapper.find("ToggleButton").at(0);
+    ToggleButton.props().onClick();
+    td.verify(DrumMachineActions.drumMachine.changeSelectedChannel("0", 0));
+  });
+	it("calls toggleSoloChannel correctly on ToggleButton click", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const ToggleButton = wrapper.find("ToggleButton").at(1);
+    ToggleButton.props().onClick();
+    td.verify(DrumMachineActions.drumMachine.toggleSoloChannel("0", 0));
+  });
+	it("calls toggleMuteChannel correctly on ToggleButton click", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const ToggleButton = wrapper.find("ToggleButton").at(2);
+    ToggleButton.props().onClick();
+    td.verify(DrumMachineActions.drumMachine.toggleMuteChannel("0", 0));
+  });
 	it("calls changeVolumeToAmount correctly", () => {
     const wrapper = mount(<Channels
       machine={storeState.drumMachine[0]}
@@ -47,8 +83,8 @@ describe("Channels", () => {
       {...storeState}
       dispatch={dispatchSpy}
     />);
-    const SoundSelector = wrapper.find("Rotator").at(0);
-    SoundSelector.props().onValueChange(50);
+    const Selector = wrapper.find("Rotator").at(0);
+    Selector.props().onValueChange(50);
     td.verify(DrumMachineActions.drumMachine.changeVolumeToAmount("0", 0, 50));
   });
 	it("calls changePitchToAmount correctly", () => {
@@ -58,8 +94,8 @@ describe("Channels", () => {
       {...storeState}
       dispatch={dispatchSpy}
     />);
-    const SoundSelector = wrapper.find("Rotator").at(1);
-    SoundSelector.props().onValueChange(50);
+    const Selector = wrapper.find("Rotator").at(1);
+    Selector.props().onValueChange(50);
     td.verify(DrumMachineActions.drumMachine.changePitchToAmount("0", 0, 50));
   });
 	it("calls changeDecayToAmount correctly", () => {
@@ -69,8 +105,8 @@ describe("Channels", () => {
       {...storeState}
       dispatch={dispatchSpy}
     />);
-    const SoundSelector = wrapper.find("Rotator").at(2);
-    SoundSelector.props().onValueChange(50);
+    const Selector = wrapper.find("Rotator").at(2);
+    Selector.props().onValueChange(50);
     td.verify(DrumMachineActions.drumMachine.changeDecayToAmount("0", 0, 50));
   });
 	it("calls changePanToAmount correctly", () => {
@@ -80,8 +116,8 @@ describe("Channels", () => {
       {...storeState}
       dispatch={dispatchSpy}
     />);
-    const SoundSelector = wrapper.find("Rotator").at(3);
-    SoundSelector.props().onValueChange(50);
+    const Selector = wrapper.find("Rotator").at(3);
+    Selector.props().onValueChange(50);
     td.verify(DrumMachineActions.drumMachine.changePanToAmount("0", 0, 50));
   });
 	it("calls toggleReverb correctly", () => {
@@ -91,8 +127,8 @@ describe("Channels", () => {
       {...storeState}
       dispatch={dispatchSpy}
     />);
-    const SoundSelector = wrapper.find("ToggleButton").at(3);
-    SoundSelector.props().onClick(100);
+    const Selector = wrapper.find("ToggleButton").at(3);
+    Selector.props().onClick(100);
     td.verify(DrumMachineActions.drumMachine.toggleReverb("0", 0, 100));
   });
 });
