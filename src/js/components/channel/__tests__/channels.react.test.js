@@ -12,6 +12,10 @@ describe("Channels", () => {
   beforeEach(() => {
     td.replace(DrumMachineActions.drumMachine, "changeSelectedSound");
     td.replace(DrumMachineActions.drumMachine, "changeVolumeToAmount");
+    td.replace(DrumMachineActions.drumMachine, "changePitchToAmount");
+    td.replace(DrumMachineActions.drumMachine, "changeDecayToAmount");
+    td.replace(DrumMachineActions.drumMachine, "changePanToAmount");
+    td.replace(DrumMachineActions.drumMachine, "toggleReverb");
   });
   afterEach(() => {
     td.reset();
@@ -46,5 +50,49 @@ describe("Channels", () => {
     const SoundSelector = wrapper.find("Rotator").at(0);
     SoundSelector.props().onValueChange(50);
     td.verify(DrumMachineActions.drumMachine.changeVolumeToAmount("0", 0, 50));
+  });
+	it("calls changePitchToAmount correctly", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const SoundSelector = wrapper.find("Rotator").at(1);
+    SoundSelector.props().onValueChange(50);
+    td.verify(DrumMachineActions.drumMachine.changePitchToAmount("0", 0, 50));
+  });
+	it("calls changeDecayToAmount correctly", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const SoundSelector = wrapper.find("Rotator").at(2);
+    SoundSelector.props().onValueChange(50);
+    td.verify(DrumMachineActions.drumMachine.changeDecayToAmount("0", 0, 50));
+  });
+	it("calls changePanToAmount correctly", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const SoundSelector = wrapper.find("Rotator").at(3);
+    SoundSelector.props().onValueChange(50);
+    td.verify(DrumMachineActions.drumMachine.changePanToAmount("0", 0, 50));
+  });
+	it("calls toggleReverb correctly", () => {
+    const wrapper = mount(<Channels
+      machine={storeState.drumMachine[0]}
+      machineId="0"
+      {...storeState}
+      dispatch={dispatchSpy}
+    />);
+    const SoundSelector = wrapper.find("ToggleButton").at(3);
+    SoundSelector.props().onClick(100);
+    td.verify(DrumMachineActions.drumMachine.toggleReverb("0", 0, 100));
   });
 });

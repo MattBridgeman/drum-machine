@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import DrumMachineActions from "../../actions/root.actions";
 import { SoundSelector } from "../sound-selector/sound.selector.react.jsx";
 import { getSound } from "../../library/audio-api/load.sounds";
+import classnames from "classnames";
 
 class Channels extends Component {
 
@@ -23,7 +24,7 @@ class Channels extends Component {
             let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
             let onSoloClick = () => actions.toggleSoloChannel(machineId, i);
             let onMuteClick = () => actions.toggleMuteChannel(machineId, i);
-            return <div className={"channel " + (channel.selected ? "selected" : "")} ref="channel" key={i}>
+            return <div className={classnames("channel", { "selected": channel.selected})} ref="channel" key={i}>
               <div className="channel-head">
                 <div className="channel-item">
                   <div className="channel-title">
