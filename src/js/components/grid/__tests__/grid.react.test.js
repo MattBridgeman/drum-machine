@@ -94,6 +94,14 @@ describe("Grid", () => {
     </Grid>);
     expect(wrapper.find(".grid div").length).to.equal(2);
   });
+	it("renders nothing without props", () => {
+    const wrapper = mount(<Grid>
+      <div></div>
+      <div></div>
+      <div></div>
+    </Grid>);
+    expect(wrapper.exists('.grid div')).to.equal(false);
+  });
 });
 
 describe("GridItem", () => {
