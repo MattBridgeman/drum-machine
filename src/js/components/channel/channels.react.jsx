@@ -8,10 +8,6 @@ import { getSound } from "../../library/audio-api/load.sounds";
 
 class Channels extends Component {
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
     const { machine, machineId, playState, dispatch } = this.props;
     const { channels } = machine;
@@ -27,7 +23,7 @@ class Channels extends Component {
             let onSelectClick = () => actions.changeSelectedChannel(machineId, i);
             let onSoloClick = () => actions.toggleSoloChannel(machineId, i);
             let onMuteClick = () => actions.toggleMuteChannel(machineId, i);
-            return <div className={"channel " + (channel.selected ? "selected" : "")} ref="channel">
+            return <div className={"channel " + (channel.selected ? "selected" : "")} ref="channel" key={i}>
               <div className="channel-head">
                 <div className="channel-item">
                   <div className="channel-title">
