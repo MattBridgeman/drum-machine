@@ -4,7 +4,7 @@ import React from "react";
 import { mount } from "enzyme";
 import td from "testdouble";
 
-import storeState from "./store.fixture.json";
+import storeState from "../../../library/test-helpers/fixtures/store.fixture.json";
 
 describe("InstrumentSelector", () => {
 	it("renders the instruments and an add instrument", () => {
