@@ -74,4 +74,90 @@ describe("Channels", () => {
     Selector.props().onChange(125);
     td.verify(DrumMachineActions.tempo.changeBPMToAmount(125));
   });
+
+  it("opens the instrument selector tray", () => {
+    const wrapper = mount(<PlayBar
+      tempo={{
+        beatsPerMinute: 120
+      }}
+      playState={{
+        isPlaying: false
+      }}
+      instruments={[{
+        id: 0,
+        type: "drumMachine",
+        selected: true
+      }]}
+      dispatch={dispatchSpy}
+    />);
+    const Selector = wrapper.find(".play-bar__instruments__button");
+    Selector.simulate("click");
+    expect(wrapper.exists("InstrumentSelector")).to.be.true;
+  });
+
+  it("calls onChange correctly", () => {
+    const wrapper = mount(<PlayBar
+      tempo={{
+        beatsPerMinute: 120
+      }}
+      playState={{
+        isPlaying: false
+      }}
+      instruments={[{
+        id: 0,
+        type: "drumMachine",
+        selected: true
+      }]}
+      dispatch={dispatchSpy}
+    />);
+    const Selector = wrapper.find(".play-bar__instruments__button");
+    Selector.simulate("click");
+    const InstrumentSelector = wrapper.find("InstrumentSelector");
+    InstrumentSelector.props().onChange(0, "drumMachine", "0", 0);
+    td.verify(DrumMachineActions.instruments.changeInstrument(0, "drumMachine", "0", 0));
+  });
+
+  it("calls onDelete correctly", () => {
+    const wrapper = mount(<PlayBar
+      tempo={{
+        beatsPerMinute: 120
+      }}
+      playState={{
+        isPlaying: false
+      }}
+      instruments={[{
+        id: 0,
+        type: "drumMachine",
+        selected: true
+      }]}
+      dispatch={dispatchSpy}
+    />);
+    const Selector = wrapper.find(".play-bar__instruments__button");
+    Selector.simulate("click");
+    const InstrumentSelector = wrapper.find("InstrumentSelector");
+    InstrumentSelector.props().onDelete(0, "drumMachine", "0", 0);
+    td.verify(DrumMachineActions.instruments.deleteInstrument(0, "drumMachine", "0", 0));
+  });
+
+  it("calls onNewInstrument correctly", () => {
+    const wrapper = mount(<PlayBar
+      tempo={{
+        beatsPerMinute: 120
+      }}
+      playState={{
+        isPlaying: false
+      }}
+      instruments={[{
+        id: 0,
+        type: "drumMachine",
+        selected: true
+      }]}
+      dispatch={dispatchSpy}
+    />);
+    const Selector = wrapper.find(".play-bar__instruments__button");
+    Selector.simulate("click");
+    const InstrumentSelector = wrapper.find("InstrumentSelector");
+    InstrumentSelector.props().onNewInstrument("drumMachine");
+    td.verify(DrumMachineActions.instruments.onNewInstrument("drumMachine"));
+  });
 });
