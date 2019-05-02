@@ -161,8 +161,8 @@ describe("GridContainer", () => {
   });
 	it("calls onValueChange of y axis", () => {
     const wrapper = mount(<GridContainer
-      columns={2}
-      rows={2}>
+      columns={1}
+      rows={1}>
       <div></div>
       <div></div>
       <div></div>
@@ -173,5 +173,56 @@ describe("GridContainer", () => {
     const state = wrapper.state();
     expect(state.max).to.deep.equal({ columns: 1, rows: 1 });
     expect(state.offset).to.deep.equal({ column: 0, row: 1 });
+  });
+ 
+	it("never exceeds the column count set by the outside word", () => {
+
+    td.when(Element.prototype.getBoundingClientRect())
+      .thenReturn({
+        width: 200,
+        height: 200
+      });
+    const wrapper = mount(<GridContainer
+      columns={8}
+      rows={8}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridContainer>);
+    const $fader = wrapper.find("#grid-container-scroll-x").at(0);
+    $fader.props().onValueChange(7);
+    const state = wrapper.state();
+    expect(state.max).to.deep.equal({ columns: 3, rows: 3 });
+    expect(state.offset).to.deep.equal({ column: 7, row: 0 });
+  });
+	it("never exceeds the row count set by the outside word", () => {
+
+    td.when(Element.prototype.getBoundingClientRect())
+      .thenReturn({
+        width: 200,
+        height: 200
+      });
+    const wrapper = mount(<GridContainer
+      columns={8}
+      rows={8}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </GridContainer>);
+    const $fader = wrapper.find("#grid-container-scroll-y").at(0);
+    $fader.props().onValueChange(7);
+    const state = wrapper.state();
+    expect(state.max).to.deep.equal({ columns: 3, rows: 3 });
+    expect(state.offset).to.deep.equal({ column: 0, row: 7 });
   });
 });
