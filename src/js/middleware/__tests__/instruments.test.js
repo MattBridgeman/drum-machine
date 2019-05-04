@@ -7,15 +7,23 @@ import * as _connections from "../../library/audio-api/instruments/connections";
 import configureTestStore from "../../store/test.store";
 
 describe("Instruments", () => {
+  let updateInstrumentAudio;
+  let updateConnections;
+  beforeEach(() => {
+    updateInstrumentAudio = td.function();
+    updateConnections = td.function();
+    td.replace(_instrument, "updateInstrumentAudio", updateInstrumentAudio);
+    td.replace(_connections, "updateConnections", updateConnections);
+  });
+  afterEach(() => {
+    td.reset();
+  });
   it("passes 'next' onwards for all action types", () => {
     let store = configureTestStore();
     let next = td.function();
-    td.replace(_instrument, "updateInstrumentAudio", td.function());
-    td.replace(_connections, "updateConnections", td.function());
     let newAction = instruments(store)(next);
     newAction({type: "A_RANDOM_ACTION"});
     td.verify(next({type: "A_RANDOM_ACTION"}));
-    td.reset();
   });
   it("calls updateInstrumentAudio with the instruments and store state", () => {
     let store = {
@@ -24,9 +32,6 @@ describe("Instruments", () => {
       })
     };
     let next = td.function();
-    let updateInstrumentAudio = td.function();
-    td.replace(_instrument, "updateInstrumentAudio", updateInstrumentAudio);
-    td.replace(_connections, "updateConnections", td.function());
     let newAction = instruments(store)(next);
     newAction({type: "A_RANDOM_ACTION"});
     td.verify(next({type: "A_RANDOM_ACTION"}));
@@ -34,8 +39,6 @@ describe("Instruments", () => {
     td.verify(updateInstrumentAudio(td.matchers.contains({
       instruments: []
     })));
-
-    td.reset();
   });
 
   it("calls updateConnections with the instrumentNodess and store state", () => {
@@ -45,13 +48,9 @@ describe("Instruments", () => {
       })
     };
     let next = td.function();
-    let updateConnections = td.function();
     let nodes = [{outputs: { channels: [] }}];
-    let updateInstrumentAudio = () => {
-      return nodes;
-    };
-    td.replace(_instrument, "updateInstrumentAudio", updateInstrumentAudio);
-    td.replace(_connections, "updateConnections", updateConnections);
+    td.when(updateInstrumentAudio(td.matchers.anything()))
+      .thenReturn(nodes);
     let newAction = instruments(store)(next);
     newAction({type: "A_RANDOM_ACTION"});
     td.verify(next({type: "A_RANDOM_ACTION"}));
@@ -59,7 +58,5 @@ describe("Instruments", () => {
     td.verify(updateConnections(nodes, td.matchers.contains({
       instruments: []
     })));
-
-    td.reset();
   });
 });
