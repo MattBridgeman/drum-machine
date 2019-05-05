@@ -105,6 +105,44 @@ describe("Fader", () => {
     });
     td.verify(onValueChangeSpy(1.09));
   });
+  it("drags the vertical fader", () => {
+    const onValueChangeSpy = td.function();
+    const wrapper = mount(<Fader
+      min={1}
+      max={10}
+      step={1}
+      value={1}
+      onValueChange={onValueChangeSpy}
+      name="Fader Name"
+      id="fader"
+      orientation="vertical"
+      type="test-type"
+      width={10}
+      height={200}
+    />);
+    const FaderInstance = wrapper.instance();
+    FaderInstance.onStart({
+      preventDefault: td.function(),
+      target: "foo",
+      touches: [{
+        pageX: 0,
+        pageY: 0
+      }]
+    });
+    FaderInstance.onMove({
+      preventDefault: td.function(),
+      target: "foo",
+      touches: [{
+        pageX: 0,
+        pageY: 100
+      }]
+    });
+    FaderInstance.onEnd({
+      preventDefault: td.function(),
+      target: "foo"
+    });
+    td.verify(onValueChangeSpy(1.09));
+  });
   it("drags the fader", () => {
     const onValueChangeSpy = td.function();
     const wrapper = mount(<Fader
