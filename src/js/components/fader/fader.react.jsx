@@ -1,26 +1,22 @@
 import React from "react";
 import classnames from "classnames";
 import * as _ from "../../library/natives/array";
-import { normaliseValue, valueAsPercentageOfX, percentageToValueOfRange } from "../../library/natives/numbers";
+import { normaliseValue, percentageToValueOfRange } from "../../library/natives/numbers";
 
 const DEFAULT_FADER_SIZE = 20;
 
 class Fader extends React.Component {
-
-	constructor(props) {
-		super(props);
-    this.state = {
-      touching: false,
-      touches: [],
-      containerWidth: 0,
-      containerHeight: 0,
-      faderWidth: 0,
-      faderHeight: 0,
-      currentX: 0,
-      currentY: 0,
-      previousY: 0
-    }
-	}
+  state = {
+    touching: false,
+    touches: [],
+    containerWidth: 0,
+    containerHeight: 0,
+    faderWidth: 0,
+    faderHeight: 0,
+    currentX: 0,
+    currentY: 0,
+    previousY: 0
+  }
 	
 	render() {
     let { min, max, step, onValueChange, name, id, orientation, type, width, height } = this.props;
