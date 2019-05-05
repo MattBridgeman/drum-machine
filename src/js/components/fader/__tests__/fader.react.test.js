@@ -126,10 +126,11 @@ describe("Fader", () => {
       preventDefault: td.function(),
       target: "foo",
       touches: [{
-        pageX: 50,
+        pageX: 0,
         pageY: 0
       }]
     });
+    raf();
     FaderInstance.onMove({
       preventDefault: td.function(),
       target: "foo",
@@ -138,7 +139,6 @@ describe("Fader", () => {
         pageY: 0
       }]
     });
-    raf();
     FaderInstance.onMove({
       preventDefault: td.function(),
       target: "foo",
@@ -267,6 +267,7 @@ describe("Fader", () => {
         pageY: 100
       }]
     });
+    raf();
     FaderInstance.onEnd({
       preventDefault: td.function(),
       target: "foo"
