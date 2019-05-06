@@ -46,7 +46,7 @@ class InstrumentSelector extends PureComponent {
             </button>
           </li>
         })}
-        <li><AddInstrument onNewInstrument={onNewInstrument} /></li>
+        <li><AddInstrument onNewInstrument={onNewInstrument} totalInstruments={selectableInstruments.length} /></li>
       </ul>
     </div>;
   }
@@ -64,8 +64,8 @@ class AddInstrument extends PureComponent {
   }
 
   render(){
-    const { onNewInstrument } = this.props;
-    return <div className="add-instrument">
+    const { onNewInstrument, totalInstruments } = this.props;
+    return <div className={classnames("add-instrument", `total-instruments-${totalInstruments}`)}>
       <button className="button add-instrument-trigger" onClick={() => this.onToggle()}>
         <span className="icon__plus"></span>
         Add New Instrument

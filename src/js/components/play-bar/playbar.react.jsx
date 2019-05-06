@@ -44,7 +44,6 @@ const InstrumentChanger = ({ instruments, onChange, onDelete, onNewInstrument })
           }}
           onDelete={(id, type, machineId, index) => {
             onDelete(id, type, machineId, index);
-            onClose();
           }}
           onNewInstrument={(type) => {
             onNewInstrument(type);
