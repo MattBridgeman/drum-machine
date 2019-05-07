@@ -41,7 +41,7 @@ class CollapsibleHeader extends Component {
     return (
       <div className="collapsible-header">
         <h3><a onClick={onClick}>
-          <span className="icon__arrow-down-dark"></span>
+          <span className="icon__arrow-down"></span>
           { children }
         </a></h3>
       </div>
