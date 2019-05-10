@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
 import { NavLink } from "react-router-dom";
-import DrumMachineActions from "../../actions/root.actions";
+import classnames from "classnames";
 
 class DropDownMenu extends Component {
   
@@ -34,7 +33,7 @@ class DropDownMenu extends Component {
     let { props, state } = this;
     let { open } = state;
     let { items } = props;
-    return <div className={"dropdown-menu " + (open ? "open" : "")}>
+    return <div className={classnames("dropdown-menu ", { open })}>
       <button onClick={() => this.onToggle()} className="dropdown-menu-trigger">
         <span className="icon__menu"></span>
         <span className="icon__menu-hover"></span>
@@ -48,13 +47,16 @@ class DropDownMenu extends Component {
           {
             items
             .filter(item => !item.condition || item.condition())
-            .map(item => {
+            .map((item, index) => {
               if(item.callback) {
-                return <li>
-                  <button className="dropdown-link" onClick={() => item.callback() && this.onClose()}>{item.name}</button>
+                return <li key={index}>
+                  <button className="dropdown-link" onClick={() => {
+                    item.callback();
+                    this.onClose();
+                  }}>{item.name}</button>
                 </li>;
               } else {
-                return <li>
+                return <li key={index}>
                   <NavLink to={item.link} className="dropdown-link" activeClassName="active">{item.name}</NavLink>
                 </li>;
               }
