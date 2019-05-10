@@ -3,6 +3,7 @@ import { DropDownMenu } from "../dropdown.react";
 import React from "react";
 import { mount } from "enzyme";
 import td from "testdouble";
+import { MemoryRouter } from 'react-router';
 
 describe("DropDownMenu", () => {
 	it("renders the DropDownMenu with header and content", () => {
@@ -63,5 +64,19 @@ describe("DropDownMenu", () => {
     td.verify(callbackSpy());
     expect(Selector.hasClass("open")).to.be.false;
   });
-  
+	it("calls callback of the DropDownMenu item", () => {
+    const callbackSpy = td.function();
+    const wrapper = mount(<MemoryRouter>
+      <DropDownMenu items={[
+        {
+          condition: () => true,
+          name: "item name",
+          link: "/another/route"
+        }
+      ]} />
+    </MemoryRouter>);
+    const Trigger = wrapper.find(".dropdown-menu-trigger");
+    Trigger.simulate("click");
+    expect(wrapper.exists(".dropdown-menu li a")).to.be.true;
+  });
 });

@@ -10,12 +10,6 @@ class DropDownMenu extends Component {
       open: false
     };
   }
-
-  onOpen() {
-    this.setState({
-      open: true
-    });
-  }
   
   onClose() {
     this.setState({
