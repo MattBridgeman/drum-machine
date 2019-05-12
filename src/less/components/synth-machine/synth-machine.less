@@ -4,7 +4,6 @@
   border: 1px solid @grey-transparency;
   display: flex;
   flex-direction: column;
-  max-width: 660px;
   margin: 0 auto;
   .basic-controls {
     .basic-controls-inner {
@@ -51,6 +50,7 @@
     .envelope-controls {
       max-width: 340px;
       margin: 0 auto;
+      padding: 0 10px;
       .rotator {
         width: 20%;
       }
@@ -74,13 +74,26 @@
 
 .break-tablet-landscape({
   .synth-machine {
-    flex-direction: row;
-    flex-wrap: wrap;
-    > * {
-      width: 50%;
-    }
+    display: grid;
+    grid-template-columns: 33.34% 33.34% 33.34%;
     .oscillator-container {
       width: 100%;
+      grid-column: 1;
+      grid-column-end: 3;
+      display: flex;
+      .oscillator {
+        width: 50%;
+      }
+    }
+    .envelope {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+      + .envelope {
+        grid-row: 3;
+      }
+    }
+    .grid-container {
+      grid-column: 1 / span 2;
     }
 	}
 });
