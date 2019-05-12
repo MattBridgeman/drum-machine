@@ -16,10 +16,11 @@ class Collapsible extends Component {
   }
 
   render(){
-    let { children } = this.props;
+    let { children, disabled } = this.props;
     let { open } = this.state;
+    open = open || disabled;
     return (
-      <div className={classnames("collapsible", { open, closed: !open })}>
+      <div className={classnames("collapsible", { open, closed: !open, disabled })}>
         {Children.map(children, child => {
           if(child.type.displayName === "CollapsibleHeader") {
             return React.cloneElement(child, {

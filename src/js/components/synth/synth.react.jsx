@@ -11,6 +11,7 @@ import { keyboardArray } from "../../library/keyboard";
 import { Selector, SelectorOption } from "../selector/selector.react";
 import { Collapsible, CollapsibleHeader, CollapsibleContent } from "../collapsible/collapsible.react";
 import { GridContainer, GridAxis, GridAxisItem, Grid, GridRow, GridItem } from "../grid/grid.react";
+import { isTabletLandscape } from "../../library/utils/breakpoint";
 
 let Synth = props => {
   const { synth, machineId, dispatch, playState } = props;
@@ -18,7 +19,7 @@ let Synth = props => {
   const synthActions = bindActionCreators(DrumMachineActions.synth, dispatch);
   return <div className="synth-machine">
     <div className="basic-controls">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>Basic Controls</CollapsibleHeader>
         <CollapsibleContent>
           <div className="basic-controls-inner">
@@ -42,7 +43,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="filter">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>Filter</CollapsibleHeader>
         <CollapsibleContent>
           <div className="filter-controls">
@@ -76,7 +77,7 @@ let Synth = props => {
     </div>
     <div className="oscillator-container">
       <div className="oscillator">
-        <Collapsible initialState="open">
+        <Collapsible initialState="open" disabled={isTabletLandscape()}>
           <CollapsibleHeader>Oscillator 1</CollapsibleHeader>
           <CollapsibleContent>
             <div className="oscillator-controls">
@@ -108,7 +109,7 @@ let Synth = props => {
         </Collapsible>
       </div>
       <div className="oscillator">
-        <Collapsible initialState="open">
+        <Collapsible initialState="open" disabled={isTabletLandscape()}>
           <CollapsibleHeader>Oscillator 2</CollapsibleHeader>
           <CollapsibleContent>
             <div className="oscillator-controls">
@@ -141,7 +142,7 @@ let Synth = props => {
       </div>
     </div>
     <div className="envelope">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>Amp Envelope</CollapsibleHeader>
         <CollapsibleContent>
           <div className="envelope-controls">
@@ -174,7 +175,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="envelope">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>Filter Envelope</CollapsibleHeader>
         <CollapsibleContent>
           <div className="envelope-controls">
@@ -211,7 +212,7 @@ let Synth = props => {
     </div>
     {/*
     <div className="lfo">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>LFO 1</CollapsibleHeader>
         <CollapsibleContent>
           <div className="lfo-controls">
@@ -245,7 +246,7 @@ let Synth = props => {
       </Collapsible>
     </div>
     <div className="lfo">
-      <Collapsible initialState="closed">
+      <Collapsible initialState="closed" disabled={isTabletLandscape()}>
         <CollapsibleHeader>LFO 2</CollapsibleHeader>
         <CollapsibleContent>
           <div className="lfo-controls">

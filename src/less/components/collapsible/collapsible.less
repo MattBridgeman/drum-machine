@@ -31,7 +31,8 @@
     padding-top: 0;
     padding-bottom: 0;
   }
-  &.open {
+  &.open,
+  &.disabled {
     .collapsible-header {
       a {
         span {
@@ -43,6 +44,15 @@
       max-height: 1000px;
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+  }
+  &.disabled {
+    .collapsible-header {
+      a {
+        span {
+          display: none;
+        }
+      }
     }
   }
 }
