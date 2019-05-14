@@ -50,4 +50,12 @@ describe("Collapsible", () => {
     const CollapsibleSelector = wrapper.find(".collapsible");
     expect(CollapsibleSelector.hasClass("closed")).to.be.true;
   });
+	it("opens the Collapsible if disabled", () => {
+    const e = null;
+    const wrapper = mount(<Collapsible disabled={true}>
+      <CollapsibleHeader>header</CollapsibleHeader>
+      <CollapsibleContent>content</CollapsibleContent>
+    </Collapsible>);
+    expect(wrapper.exists(".collapsible.open")).to.be.true;
+  });
 });
